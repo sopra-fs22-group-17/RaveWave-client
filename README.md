@@ -27,11 +27,11 @@ Feel free to use other IDEs (e.g. [VisualStudio](https://code.visualstudio.com/)
 
 ## Prerequisites and Installation
 
-In the project directory, you can run:
+For your local development environment you'll need Node.js >= 8.10. You can download it [here](https://nodejs.org). All other dependencies including React get installed with:
 
 ### `npm install`
 
-Install all dependencies. This has to be done before starting the application.
+This has to be done before starting the application for the first time (only once).
 
 ### `npm run dev`
 
