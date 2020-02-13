@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
-import User from "../shared/models/User";
-import { withRouter } from "react-router-dom";
-import { Button } from "../../views/design/Button";
+import React from 'react';
+import styled from 'styled-components';
+import { BaseContainer } from '../../helpers/layout';
+import { api, handleError } from '../../helpers/api';
+import User from '../shared/models/User';
+import { withRouter } from 'react-router-dom';
+import { Button } from '../../views/design/Button';
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -81,34 +81,28 @@ class Login extends React.Component {
   }
   /**
    * HTTP POST request is sent to the backend.
-   * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
+   * If the request is successful, a new user is returned to the front-end
+   * and its token is stored in the localStorage.
    */
-  login() {
-    fetch(`${getDomain()}/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+  async login() {
+    try {
+      const requestBody = JSON.stringify({
         username: this.state.username,
         name: this.state.name
-      })
-    })
-      .then(response => response.json())
-      .then(returnedUser => {
-        const user = new User(returnedUser);
-        // store the token into the local storage
-        localStorage.setItem("token", user.token);
-        // user login successfully worked --> navigate to the route /game in the GameRouter
-        this.props.history.push(`/game`);
-      })
-      .catch(err => {
-        if (err.message.match(/Failed to fetch/)) {
-          alert("The server cannot be reached. Did you start it?");
-        } else {
-          alert(`Something went wrong during the login: ${err.message}`);
-        }
       });
+      const response = await api.post('/users', requestBody);
+
+      // Get the returned user and update a new object.
+      const user = new User(response.data);
+
+      // Store the token into the local storage.
+      localStorage.setItem('token', user.token);
+
+      // Login successfully worked --> navigate to the route /game in the GameRouter
+      this.props.history.push(`/game`);
+    } catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
   }
 
   /**
@@ -140,14 +134,14 @@ class Login extends React.Component {
             <InputField
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("username", e.target.value);
+                this.handleInputChange('username', e.target.value);
               }}
             />
             <Label>Name</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("name", e.target.value);
+                this.handleInputChange('name', e.target.value);
               }}
             />
             <ButtonContainer>
