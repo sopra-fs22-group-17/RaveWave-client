@@ -32,7 +32,7 @@ const Form = styled.div`
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 1.0);
   }
   height: 35px;
   padding-left: 15px;
