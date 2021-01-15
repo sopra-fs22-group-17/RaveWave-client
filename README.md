@@ -1,4 +1,4 @@
-# SoPra FS20 - Client Template
+# SoPra FS21 - Client Template
 
 ## Getting started with React
 
