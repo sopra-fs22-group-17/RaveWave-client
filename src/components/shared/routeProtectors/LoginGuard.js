@@ -1,5 +1,5 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
+import PropTypes from "prop-types";
 
 /**
  *
@@ -10,5 +10,9 @@ export const LoginGuard = props => {
     return props.children;
   }
   // if user is already logged in, redirects to the main /app
-  return <Redirect to={"/game"} />;
+  return <Redirect to="/game"/>;
 };
+
+LoginGuard.propTypes = {
+  children: PropTypes.node
+}

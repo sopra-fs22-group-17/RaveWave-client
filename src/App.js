@@ -6,12 +6,12 @@ import AppRouter from "./components/shared/routers/AppRouter";
  * React Template by Lucas Pelloni
  */
 const App = () => {
-    return (
-      <div>
-        <Header height={"100"} />
-        <AppRouter />
-      </div>
-    );
+  return (
+    <div>
+      <Header height="100"/>
+      <AppRouter/>
+    </div>
+  );
 };
 
 export default App;
