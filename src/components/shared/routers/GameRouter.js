@@ -14,17 +14,12 @@ const GameRouter = props => {
    */
   return (
     <Container>
-      <Route
-        exact
-        path={`${props.base}/dashboard`}
-        render={() => <Game/>}
-      />
-
-      <Route
-        exact
-        path={`${props.base}`}
-        render={() => <Redirect to={`${props.base}/dashboard`}/>}
-      />
+      <Route exact path={`${props.base}/dashboard`}>
+        <Game/>
+      </Route>
+      <Route exact path={`${props.base}`}>
+        <Redirect to={`${props.base}/dashboard`}/>
+      </Route>
     </Container>
   );
 };
