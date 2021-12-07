@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   margin: 6px 0;
@@ -35,13 +36,18 @@ const Id = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Player = ({ user }) => {
+const Player = ({user}) => {
   return (
     <Container>
-      <Name>{user.name}</Name> <UserName>{user.username}</UserName>
+      <Name>{user.name}</Name>
+      <UserName>{user.username}</UserName>
       <Id>Id: {user.id}</Id>
     </Container>
   );
+};
+
+Player.propTypes = {
+  user: PropTypes.object
 };
 
 export default Player;
