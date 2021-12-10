@@ -1,0 +1,26 @@
+/*
+  This file contains the most basic variables that control how your application will look.
+ */
+
+/* Theme Colors */
+
+$accent: #1059ff;
+$textColor: white;
+
+/* some constants */
+
+$DESKTOP_WIDTH: 1160px;
+$SMALL_LAPTOPS_WIDTH: 970px;
+$TABLETS_WIDTH: 750px;
+$SMALL_WIDTH: 768px;
+
+/* mixins */
+/*
+  these allow you to create small snippets that you can insert with a one-liner in other stylesheets
+  for an example, see styles/views/Login.scss
+*/
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

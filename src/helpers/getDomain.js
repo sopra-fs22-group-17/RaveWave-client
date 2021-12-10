@@ -1,4 +1,4 @@
-import { isProduction } from './isProduction';
+import { isProduction } from 'helpers/isProduction';
 
 /**
  * This helper function returns the current domain of the API.

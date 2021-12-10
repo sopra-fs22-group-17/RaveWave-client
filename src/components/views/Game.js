@@ -1,31 +1,33 @@
 import {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import {BaseContainer} from '../../helpers/layout';
-import {api, handleError} from '../../helpers/api';
-import Player from '../../views/Player';
-import {Spinner} from '../../views/design/Spinner';
-import {Button} from '../../views/design/Button';
+import {api, handleError} from 'helpers/api';
+import {Spinner} from 'components/ui/Spinner';
+import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
+import BaseContainer from "components/ui/BaseContainer";
+import PropTypes from "prop-types";
+import "styles/views/Game.scss";
 
-const Container = styled(BaseContainer)`
-  color: white;
-  text-align: center;
-`;
+const Player = ({user}) => (
+  <div className="player container">
+    <div className="player username">{user.username}</div>
+    <div className="player name">{user.name}</div>
+    <div className="player id">Id: {user.id}</div>
+  </div>
+);
 
-const Users = styled.ul`
-  list-style: none;
-  padding-left: 0;
-`;
-
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+Player.propTypes = {
+  user: PropTypes.object
+};
 
 const Game = () => {
+  // use react-router-dom's hook to access the history
   const history = useHistory();
+
+  // define a state variable (using the state hook).
+  // if this variable changes, the component will re-render, but the variable will
+  // keep its value throughout render cycles.
+  // a component can have as many state variables as you like.
+  // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
 
   const logout = () => {
@@ -33,6 +35,10 @@ const Game = () => {
     history.push('/login');
   }
 
+  // the effect hook can be used to react to change in your component.
+  // in this case, the effect hook is only run once, the first time the component is mounted
+  // this can be achieved by leaving the second argument an empty array.
+  // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
   useEffect(async () => {
     try {
       const response = await api.get('/users');
@@ -65,14 +71,12 @@ const Game = () => {
 
   if (users) {
     content = (
-      <div>
-        <Users>
+      <div className="game">
+        <ul className="game user-list">
           {users.map(user => (
-            <PlayerContainer key={user.id}>
-              <Player user={user}/>
-            </PlayerContainer>
+            <Player user={user} key={user.id}/>
           ))}
-        </Users>
+        </ul>
         <Button
           width="100%"
           onClick={() => logout()}
@@ -84,11 +88,11 @@ const Game = () => {
   }
 
   return (
-    <Container>
+    <BaseContainer style={{textAlign: 'center'}}>
       <h2>Happy Coding! </h2>
       <p>Get all users from secure end point:</p>
       {content}
-    </Container>
+    </BaseContainer>
   );
 }
 

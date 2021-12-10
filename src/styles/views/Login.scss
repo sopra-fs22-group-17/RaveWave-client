@@ -1,0 +1,49 @@
+@import 'styles/theme';
+
+.login {
+  &.container {
+    margin-top: 2em;
+    min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+    flex-direction: column;
+  }
+  &.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    height: 375px;
+    font-size: 16px;
+    font-weight: 300;
+    padding-left: 37px;
+    padding-right: 37px;
+    border-radius: 5px;
+    background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  &.input {
+    &::placeholder {
+      color: $textColor;
+    }
+
+    height: 35px;
+    padding-left: 15px;
+    margin-left: -4px;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: $textColor;
+  }
+  &.label {
+    color: $textColor;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  &.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}

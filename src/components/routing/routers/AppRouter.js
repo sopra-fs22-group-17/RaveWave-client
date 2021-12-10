@@ -1,8 +1,8 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {GameGuard} from "../routeProtectors/GameGuard";
-import GameRouter from "./GameRouter";
-import {LoginGuard} from "../routeProtectors/LoginGuard";
-import Login from "../../login/Login";
+import {GameGuard} from "components/routing/routeProtectors/GameGuard";
+import GameRouter from "components/routing/routers/GameRouter";
+import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
+import Login from "components/views/Login";
 
 /**
  * Main router of your application.
