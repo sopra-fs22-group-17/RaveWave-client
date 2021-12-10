@@ -1,16 +1,18 @@
+@import 'styles/theme';
+
 .loading-spinner {
     display: inline-block;
     position: relative;
-    width: 35px;
+    width: 60px;
     height: 35px;
 
     & div {
         position: absolute;
-        top: 27px;
+        top: 5px;
         width: 11px;
         height: 11px;
         border-radius: 50%;
-        background: #fff;
+        background: $accent;
         animation-timing-function: cubic-bezier(0, 1, 1, 0);
 
         &:nth-child(1) {

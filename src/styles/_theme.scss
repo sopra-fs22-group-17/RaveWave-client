@@ -4,8 +4,9 @@
 
 /* Theme Colors */
 
-$accent: #1059ff;
+$accent: #97ABFF;
 $textColor: white;
+$background: #262632;
 
 /* some constants */
 
@@ -13,6 +14,13 @@ $DESKTOP_WIDTH: 1160px;
 $SMALL_LAPTOPS_WIDTH: 970px;
 $TABLETS_WIDTH: 750px;
 $SMALL_WIDTH: 768px;
+
+/* some standard elements */
+
+/* a standard drop shadow */
+$dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+
+$borderRadius: 0.75em;
 
 /* mixins */
 /*

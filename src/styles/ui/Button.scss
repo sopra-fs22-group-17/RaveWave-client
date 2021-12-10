@@ -18,10 +18,10 @@
   text-align: center;
   height: 35px;
   border: none;
-  border-radius: 20px;
+  border-radius: $borderRadius;
   cursor: pointer;
   opacity: 1;
-  color: $textColor;
+  color: $background;
   background-color: $accent;
   transition: all 0.3s ease;
 }

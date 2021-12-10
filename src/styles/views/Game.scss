@@ -8,6 +8,15 @@
  */
 
 .game {
+  &.container {
+    background: $background;
+    padding: 1.5em;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: $dropShadow;
+  }
   &.user-list {
     list-style: none;
     padding-left: 0;
@@ -18,29 +27,32 @@
     align-items: center;
     justify-content: center;
   }
+  & p,h2 {
+    margin: 0.5em 0;
+  }
 }
 
 .player {
   &.container {
-    margin: 6px 0;
-    width: 280px;
+    margin: 0.5em 0;
+    width: 20em;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: $borderRadius;
     display: flex;
     align-items: center;
-    border: 1px solid #ffffff26;
+    background: lighten($background, 5);
   }
   &.name {
-    font-weight: lighter;
+    font-weight: 300;
     margin-left: 5px;
   }
   &.username {
-    font-weight: bold;
-    color: #06c4ff;
+    font-weight: 500;
+    color: $accent;
   }
   &.id {
     margin-left: auto;
     margin-right: 10px;
-    font-weight: bold;
+    font-weight: 500;
   }
 }

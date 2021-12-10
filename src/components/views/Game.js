@@ -88,10 +88,12 @@ const Game = () => {
   }
 
   return (
-    <BaseContainer style={{textAlign: 'center'}}>
-      <h2>Happy Coding! </h2>
-      <p>Get all users from secure end point:</p>
-      {content}
+    <BaseContainer className="game container">
+        <h2>Happy Coding!</h2>
+        <p className="game paragraph">
+          Get all users from secure endpoint:
+        </p>
+        {content}
     </BaseContainer>
   );
 }

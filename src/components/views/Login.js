@@ -38,7 +38,7 @@ const Login = props => {
           </label>
           <input
             className="login input"
-            placeholder="Enter here.."
+            placeholder="enter here.."
             onChange={e => setUsername(e.target.value)}
           />
           <label className="login label">
@@ -46,13 +46,13 @@ const Login = props => {
           </label>
           <input
             className="login input"
-            placeholder="Enter here.."
+            placeholder="enter here.."
             onChange={e => setName(e.target.value)}
           />
-          <div className="button-container">
+          <div className="login button-container">
             <Button
               disabled={!username || !name}
-              width="50%"
+              width="100%"
               onClick={() => doLogin()}
             >
               Login
