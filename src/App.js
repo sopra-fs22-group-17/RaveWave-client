@@ -1,9 +1,10 @@
-import Header from "./views/Header";
-import AppRouter from "./components/shared/routers/AppRouter";
+import Header from "components/views/Header";
+import AppRouter from "components/routing/routers/AppRouter";
 
 /**
  * Happy coding!
  * React Template by Lucas Pelloni
+ * Overhauled by Kyrill Hux
  */
 const App = () => {
   return (
