@@ -11,7 +11,7 @@ const Player = ({user}) => (
   <div className="player container">
     <div className="player username">{user.username}</div>
     <div className="player name">{user.name}</div>
-    <div className="player id">Id: {user.id}</div>
+    <div className="player id">id: {user.id}</div>
   </div>
 );
 
@@ -67,8 +67,9 @@ const Game = () => {
         console.error("Details:", error);
         alert("Something went wrong while fetching the users! See the console for details.");
       }
-  }
-  fetchData()
+    }
+
+    fetchData();
   }, []);
 
   let content = <Spinner/>;
@@ -93,11 +94,11 @@ const Game = () => {
 
   return (
     <BaseContainer className="game container">
-        <h2>Happy Coding!</h2>
-        <p className="game paragraph">
-          Get all users from secure endpoint:
-        </p>
-        {content}
+      <h2>Happy Coding!</h2>
+      <p className="game paragraph">
+        Get all users from secure endpoint:
+      </p>
+      {content}
     </BaseContainer>
   );
 }
