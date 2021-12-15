@@ -24,6 +24,11 @@
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
   }
+  &.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   &.input {
     height: 35px;
     padding-left: 15px;
