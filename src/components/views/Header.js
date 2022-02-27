@@ -1,6 +1,7 @@
 import React from "react";
 import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
+import {Container, Navbar, Nav } from "react-bootstrap";
 import "styles/views/Header.scss";
 
 /**
@@ -11,11 +12,31 @@ import "styles/views/Header.scss";
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Header = props => (
-  <div className="header container" style={{height: props.height}}>
-    <h1 className="header title">SoPra FS22 rocks with React!</h1>
+
+/*<div className="header container" style={{height: props.height}}>
+    <h1 className="header title"></h1>
     <ReactLogo width="60px" height="60px"/>
-  </div>
+</div>*/
+
+const Header = props => (
+    <Navbar bg="primary" variant="dark">
+        <Container>
+            <Navbar.Brand href="#home">
+                <ReactLogo fill="white" width="42px" height="42px"/>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse>
+                <Nav>
+                <Nav.Link href="/users">Users</Nav.Link>
+                <Nav.Link href="/profile">Profile</Nav.Link>
+                </Nav>
+                <Nav className="justify-content-end" style={{ width: "100%" }}>
+                    <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav.Link href="/register">Register</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Container>
+    </Navbar>
 );
 
 Header.propTypes = {
