@@ -15,6 +15,9 @@
     "@mantine/spotlight": "^4.0.7",
     "axios": "^0.24.0",
     "dayjs": "^1.11.0",
+    "framer": "^2.1.0",
+    "framer-motion": "^6.2.8",
+    "next": "^12.1.2",
     "node-gyp": "^8.4.1",
     "node-sass": "^7.0.1",
     "react": "^17.0.2",
@@ -38,10 +41,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "autoprefixer": "^10.4.4",
-    "postcss": "^8.4.12",
-    "tailwindcss": "^3.0.23"
-  }
+  ]
 }
