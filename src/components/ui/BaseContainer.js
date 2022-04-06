@@ -1,4 +1,4 @@
-import 'styles/ui/BaseContainer.scss';
+//import 'pages/BaseContainer.scss';
 import PropTypes from "prop-types";
 
 const BaseContainer = props => (

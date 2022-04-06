@@ -1,7 +1,7 @@
 import React from "react";
 import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
-import "styles/views/Header.scss";
+//import "pages/Header.scss";
 import { motion } from "framer-motion"
 
 /**
