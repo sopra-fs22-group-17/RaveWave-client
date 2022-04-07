@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
 import { motion } from "framer-motion"
+import SpotifyPlayer from 'react-spotify-web-playback';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -34,21 +35,6 @@ const Game = () => {
     const logout = () => {
         localStorage.removeItem('token');
         history.push('/login');
-    }
-
-    let player;
-
-    <script src="https://sdk.scdn.co/spotify-player.js"/>
-    window.onSpotifyWebPlaybackSDKReady = () => {
-        const token = 'BQBZ5RfSC2tWF8HUuQzZlcahGvshvYxtfMJPsm8VU6AAHHyDR4zty7kvmMTP-rF-NSH04XS6Ypl-SkF1rsj5Y6Dgf-KE9Hr1NzHvvdRaP0GSHxUj3cdwZjvXxbv2O5dqRc8p-qeO0FR5bN9lHNJIibaT8hQgIHlUSUvsJ4I48dXmNdUx6o2hXPE';
-        player = new Spotify.Player({
-            name: 'Web Playback SDK Quick Start Player',
-            getOAuthToken: cb => {
-                cb(token);
-            },
-            volume: 0.5
-        });
-        player.connect();
     }
 
   // the effect hook can be used to react to change in your component.
@@ -111,9 +97,10 @@ const Game = () => {
   return (
     <BaseContainer className="game container">
       <h2>Happy Coding!</h2>
-        <script src="https://sdk.scdn.co/spotify-player.js"/>
-        <button id="togglePlay"
-            onClick={function() {player.togglePlay()}}>Toggle Play</button>
+        <SpotifyPlayer
+            token="BQC1ylhfUOwFgUytc_EzWfNiUkH9a0Ex75b1WYQVbfFZwJ0BpxZyZY2Ar8dwANTVAeyuffuaVMsV4GxWsyNU6KC_xkd_OeiIi6_Ipol3AbZ2Mr1iMPb0lmx8Ufs0s65DpZ1Mt0MVkdzMc3CWGc6bxhOD6De09XuHVc2mq8Cl68d5iw_YXASV5vU"
+            uris={['spotify:track:6rqhFgbbKwnb9MLmUQDhG6', 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6', 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6']}
+        />;
       <p className="game paragraph">
         Get all users from secure endpoint:
       </p>
