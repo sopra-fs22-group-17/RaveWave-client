@@ -21,20 +21,35 @@ Player.propTypes = {
 };
 
 const Game = () => {
-  // use react-router-dom's hook to access the history
-  const history = useHistory();
+    // use react-router-dom's hook to access the history
+    const history = useHistory();
 
-  // define a state variable (using the state hook).
-  // if this variable changes, the component will re-render, but the variable will
-  // keep its value throughout render cycles.
-  // a component can have as many state variables as you like.
-  // more information can be found under https://reactjs.org/docs/hooks-state.html
-  const [users, setUsers] = useState(null);
+    // define a state variable (using the state hook).
+    // if this variable changes, the component will re-render, but the variable will
+    // keep its value throughout render cycles.
+    // a component can have as many state variables as you like.
+    // more information can be found under https://reactjs.org/docs/hooks-state.html
+    const [users, setUsers] = useState(null);
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    history.push('/login');
-  }
+    const logout = () => {
+        localStorage.removeItem('token');
+        history.push('/login');
+    }
+
+    let player;
+
+    <script src="https://sdk.scdn.co/spotify-player.js"/>
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = 'BQBZ5RfSC2tWF8HUuQzZlcahGvshvYxtfMJPsm8VU6AAHHyDR4zty7kvmMTP-rF-NSH04XS6Ypl-SkF1rsj5Y6Dgf-KE9Hr1NzHvvdRaP0GSHxUj3cdwZjvXxbv2O5dqRc8p-qeO0FR5bN9lHNJIibaT8hQgIHlUSUvsJ4I48dXmNdUx6o2hXPE';
+        player = new Spotify.Player({
+            name: 'Web Playback SDK Quick Start Player',
+            getOAuthToken: cb => {
+                cb(token);
+            },
+            volume: 0.5
+        });
+        player.connect();
+    }
 
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
@@ -44,25 +59,24 @@ const Game = () => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
       try {
-        const response = await api.get('/users');
-
+        //const response = await api.get('/users');
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        //await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Get the returned users and update the state.
-        setUsers(response.data);
+        //setUsers(response.data);
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
-        console.log('request to:', response.request.responseURL);
-        console.log('status code:', response.status);
-        console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
+        //console.log('request to:', response.request.responseURL);
+        //console.log('status code:', response.status);
+        //console.log('status text:', response.statusText);
+        //console.log('requested data:', response.data);
 
         // See here to get more data.
-        console.log(response);
+        //console.log(response);
       } catch (error) {
         console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
         console.error("Details:", error);
@@ -93,9 +107,13 @@ const Game = () => {
     );
   }
 
+
   return (
     <BaseContainer className="game container">
       <h2>Happy Coding!</h2>
+        <script src="https://sdk.scdn.co/spotify-player.js"/>
+        <button id="togglePlay"
+            onClick={function() {player.togglePlay()}}>Toggle Play</button>
       <p className="game paragraph">
         Get all users from secure endpoint:
       </p>
