@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
@@ -8,6 +8,47 @@ import PropTypes from "prop-types";
 import "styles/views/Game.scss";
 import { motion } from "framer-motion"
 import SpotifyPlayer from 'react-spotify-web-playback';
+import { WebPlaybackSDK } from "react-spotify-web-playback-sdk";
+import { usePlaybackState } from "react-spotify-web-playback-sdk";
+import { useSpotifyPlayer } from "react-spotify-web-playback-sdk";
+
+const SongTitle: React.VFC = () => {
+    const playbackState = usePlaybackState();
+
+    if (playbackState === null) return null;
+
+    return <p>Current song: {playbackState.track_window.current_track.name}</p>;
+};
+
+const AUTH_TOKEN = "BQDgWfbrw3LJMr056Fom7lZx19GcB98M6Zp0p38oT-Mdwd-esqpgjF2082KiQXYX2mMDZRqJO5SJK-NO2iJb-FQ0gRigRhA7CfS19ZQsmpVA156Dbpx0T534QyHxzcT4tex9pp41c3Ez3b8vrramxdr-R6ptm_Sm2osM1j3S1ab0UK1pVQEnzIk";
+
+const PauseResumeButton = () => {
+    const player = useSpotifyPlayer();
+
+    if (player === null) return null;
+
+    return (
+        <div>
+            <button onClick={() => player.pause()}>pause</button>
+            <button onClick={() => player.resume()}>resume</button>
+        </div>
+    );
+};
+
+const MySpotifyPlayer: React.VFC = () => {
+    const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
+
+    return (
+        <WebPlaybackSDK
+            deviceName="My awesome Spotify app"
+            getOAuthToken={getOAuthToken}
+            volume={0.5}>
+            {/* `TogglePlay` and `SongTitle` will be defined later. */}
+            <PauseResumeButton />
+            <SongTitle />
+        </WebPlaybackSDK>
+    );
+};
 
 const Player = ({user}) => (
   <div className="player container">
@@ -96,15 +137,10 @@ const Game = () => {
 
   return (
     <BaseContainer className="game container">
-      <h2>Happy Coding!</h2>
-        <SpotifyPlayer
-            token="BQC1ylhfUOwFgUytc_EzWfNiUkH9a0Ex75b1WYQVbfFZwJ0BpxZyZY2Ar8dwANTVAeyuffuaVMsV4GxWsyNU6KC_xkd_OeiIi6_Ipol3AbZ2Mr1iMPb0lmx8Ufs0s65DpZ1Mt0MVkdzMc3CWGc6bxhOD6De09XuHVc2mq8Cl68d5iw_YXASV5vU"
-            uris={['spotify:track:6rqhFgbbKwnb9MLmUQDhG6', 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6', 'spotify:track:6rqhFgbbKwnb9MLmUQDhG6']}
-        />;
+      <h2>SprbaaBuBiBo!</h2>
+        <MySpotifyPlayer/>
       <p className="game paragraph">
-        Get all users from secure endpoint:
       </p>
-      {content}
     </BaseContainer>
   );
 }
