@@ -1,7 +1,10 @@
 @import '../theme';
 
 .landing {
-  &.button {
+  &.registerbutton {
     background-color: $accent1;
+  }
+  &.loginbutton {
+    background-color: $accent2;
   }
 }
