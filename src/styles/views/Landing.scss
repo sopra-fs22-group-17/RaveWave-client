@@ -1,10 +1,15 @@
 @import '../theme';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .landing {
   &.registerbutton {
     background-color: $accent1;
+    box-shadow: $dropShadow;
   }
   &.loginbutton {
     background-color: $accent2;
+    box-shadow: $dropShadow;
   }
 }
