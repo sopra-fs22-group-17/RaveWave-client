@@ -32,9 +32,7 @@ const AppRouter = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/landing">
-                    <LoginGuard>
-                        <Landing />
-                    </LoginGuard>
+                    <Landing />
                 </Route>
 
                 <Route exact path="/joinbyqr">
@@ -42,75 +40,51 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/login">
-                    <GameGuard>
-                        <Login />
-                    </GameGuard>
+                    <Login />
                 </Route>
 
                 <Route exact path="/register">
-                    <GameGuard>
-                        <Register />
-                    </GameGuard>
+                    <Register />
                 </Route>
 
                 <Route exact path="/guest">
-                    <GameGuard>
-                        <Guest />
-                    </GameGuard>
+                    <Guest />
                 </Route>
 
                 <Route exact path="/connectspotify">
-                    <GameGuard>
-                        <ConnectSpotify />
-                    </GameGuard>
+                    <ConnectSpotify />
                 </Route>
 
                 <Route exact path="/waitingroom">
-                    <GameGuard>
-                        <WaitingRoom />
-                    </GameGuard>
+                    <WaitingRoom />
                 </Route>
 
                 <Route exact path="/selectgamemode">
-                    <GameGuard>
-                        <SelectGameMode />
-                    </GameGuard>
+                    <SelectGameMode />
                 </Route>
 
                 <Route exact path="/displayqr">
-                    <GameGuard>
-                        <DisplayQR />
-                    </GameGuard>
+                    <DisplayQR />
                 </Route>
 
                 <Route exact path="/guessartist">
-                    <GameGuard>
-                        <GuessArtist />
-                    </GameGuard>
+                    <GuessArtist />
                 </Route>
 
                 <Route exact path="/guesslyrics">
-                    <GameGuard>
-                        <GuessLyrics />
-                    </GameGuard>
+                    <GuessLyrics />
                 </Route>
 
                 <Route exact path="/guesssong">
-                    <GameGuard>
-                        <GuessSong />
-                    </GameGuard>
+                    <GuessSong />
                 </Route>
 
                 <Route exact path="/postround">
-                    <GameGuard>
-                        <PostRound />
-                    </GameGuard>
+                    <PostRound />
                 </Route>
 
                 <Route exact path="/postgame">
-                    <GameGuard>
-                        <PostGame />
-                    </GameGuard>
+                    <PostGame />
                 </Route>
 
                 <Route exact path="/">

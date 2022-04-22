@@ -10,7 +10,7 @@ export const LoginGuard = props => {
     return props.children;
   }
   // if user is already logged in, redirects to the main /app
-  return <Redirect to="/game"/>;
+  return <Redirect to="/selectgamemode"/>;
 };
 
 LoginGuard.propTypes = {
