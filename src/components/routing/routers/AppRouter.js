@@ -18,19 +18,89 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/game">
-                    <GameGuard>
-                        <GameRouter base="/game" />
-                    </GameGuard>
-                </Route>
-                <Route exact path="/login">
+
+                <Route exact path="/landing">
                     <LoginGuard>
-                        <Login />
+                        <Landing />
                     </LoginGuard>
                 </Route>
-                <Route exact path="/">
-                    <Redirect to="/game" />
+
+                <Route exact path="/joinbyqr">
+                    <Login />
                 </Route>
+
+                <Route exact path="/login">
+                    <GameGuard>
+                        <Login />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/register">
+                    <GameGuard>
+                        <Register />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/guest">
+                    <GameGuard>
+                        <Guest />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/connectspotify">
+                    <GameGuard>
+                        <ConnectSpotify />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/waitingroom">
+                    <GameGuard>
+                        <WaitingRoom />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/selectgamemode">
+                    <GameGuard>
+                        <SelectGameMode />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/displayqrcode">
+                    <GameGuard>
+                        <DisplayQRCode />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/guessartist">
+                    <GameGuard>
+                        <GuessArtist />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/guesslyrics">
+                    <GameGuard>
+                        <GuessLyrics />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/guesssong">
+                    <GameGuard>
+                        <GuessSong />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/postround">
+                    <GameGuard>
+                        <PostRound />
+                    </GameGuard>
+                </Route>
+
+                <Route exact path="/postgame">
+                    <GameGuard>
+                        <PostGame />
+                    </GameGuard>
+                </Route>
+
                 <Route exact path="/websocketdemo">
                     <WebSocket />
                 </Route>
