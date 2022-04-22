@@ -5,8 +5,7 @@ export class API {
 
     // @GetMapping("/users")
     async getUsers() {
-        const token = localStorage.getItem("token");
-        const response = await api.get(`/users?token=${token}`);
+        const response = await api.get(`/users`);
         if (response.status >= 200 && response.status < 300) {
             return response.data;
         } else if (response.status >= 300 && response.status < 400) {
@@ -35,9 +34,52 @@ export class API {
 
     // SPOTINIO
     // @GetMapping(value = "/PlaylistItems")
+    async getPlaylistItems() {
+        const response = await api.get("/PlaylistItems");
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else if (response.status === 409) {
+            throw new Error("Add user failed because username already exists");
+        } else {
+            throw new Error("Something went wrong");
+        }
+    }
+
     // @GetMapping(value = "/Spotify/UsersFavorites")
+    async getUsersFavorites() {
+        const response = await api.get("/UsersFavorites");
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else if (response.status === 409) {
+            throw new Error("Add user failed because username already exists");
+        } else {
+            throw new Error("Something went wrong");
+        }
+    }
+
     // @GetMapping(value = "/Spotify/authorizationCodeUri")
+    async getAuthorizationCodeUri() {
+        const response = await api.get("/authorizationCodeUri");
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else if (response.status === 409) {
+            throw new Error("Add user failed because username already exists");
+        } else {
+            throw new Error("Something went wrong");
+        }
+    }
+
     // @PostMapping(value = "/Spotify/authorizationCode"
+    async postAuthorizationCode() {
+        const response = await api.post("authorizationCode");
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else if (response.status === 409) {
+            throw new Error("Add user failed because username already exists");
+        } else {
+            throw new Error("Something went wrong");
+        }
+    }
 
     // WBESOCKETI
     // @MessageMapping("/lobby/{lobbyId}/start-game")
