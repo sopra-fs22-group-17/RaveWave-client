@@ -1,5 +1,7 @@
 @import '../theme';
 
-.Landing {
-
+.landing {
+  &.button {
+    background-color: $accent1;
+  }
 }
