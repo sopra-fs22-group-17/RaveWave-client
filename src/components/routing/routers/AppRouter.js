@@ -1,8 +1,21 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { GameGuard } from "components/routing/routeProtectors/GameGuard";
-import GameRouter from "components/routing/routers/GameRouter";
 import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
+import Landing from "components/views/Landing";
+import JoinByQR from "components/views/JoinByQR";
 import Login from "components/views/Login";
+import Register from "components/views/Register";
+import Guest from "components/views/Guest";
+import ConnectSpotify from "components/views/ConnectSpotify";
+import WaitingRoom from "components/views/WaitingRoom";
+import SelectGameMode from "components/views/SelectGameMode";
+import DisplayQR from "components/views/DisplayQR";
+import GuessArtist from "components/views/guessartist";
+import GuessLyrics from "components/views/Guesslyrics";
+import GuessSong from "components/views/GuessSong";
+import PostRound from "components/views/Postround";
+import PostGame from "components/views/Postgame";
+
 import { WebSocket } from "API/websocket";
 
 /**
@@ -18,7 +31,6 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-
                 <Route exact path="/landing">
                     <LoginGuard>
                         <Landing />
@@ -26,7 +38,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/joinbyqr">
-                    <Login />
+                    <JoinByQR />
                 </Route>
 
                 <Route exact path="/login">
@@ -65,9 +77,9 @@ const AppRouter = () => {
                     </GameGuard>
                 </Route>
 
-                <Route exact path="/displayqrcode">
+                <Route exact path="/displayqr">
                     <GameGuard>
-                        <DisplayQRCode />
+                        <DisplayQR />
                     </GameGuard>
                 </Route>
 
@@ -99,6 +111,10 @@ const AppRouter = () => {
                     <GameGuard>
                         <PostGame />
                     </GameGuard>
+                </Route>
+
+                <Route exact path="/">
+                    <Redirect to="/landing" />
                 </Route>
 
                 <Route exact path="/websocketdemo">
