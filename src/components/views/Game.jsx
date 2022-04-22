@@ -20,7 +20,7 @@ const SongTitle: React.VFC = () => {
     return <p>Current song: {playbackState.track_window.current_track.name}</p>;
 };
 
-const AUTH_TOKEN = "BQDgWfbrw3LJMr056Fom7lZx19GcB98M6Zp0p38oT-Mdwd-esqpgjF2082KiQXYX2mMDZRqJO5SJK-NO2iJb-FQ0gRigRhA7CfS19ZQsmpVA156Dbpx0T534QyHxzcT4tex9pp41c3Ez3b8vrramxdr-R6ptm_Sm2osM1j3S1ab0UK1pVQEnzIk";
+const AUTH_TOKEN = "BQAiILvBFFO3Q4_fwaF9I6jnMc2Sk8-lV6sOXVxCDCOKWiHJcSqSW8-p1h5-H5uCKyBz68f_a3_05RgV2MZ0VTXG9czH3b8sLI1y6QmTcxfRF-Z87YZ-E5gMKb_gQQQr4dESHnKB5OlFfGG_n3KOEdl5_qmhaV3qzW5E7JqMzu9CRsfzZMYtZnk";
 
 const PauseResumeButton = () => {
     const player = useSpotifyPlayer();
