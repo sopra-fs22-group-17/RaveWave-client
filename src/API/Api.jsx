@@ -47,7 +47,8 @@ export class API {
     }
 
     // @PutMapping("/ravewavers/{raverId}")
-    async updateUser(raverId) { // what to pass ??
+    async updateUser(raverId) {
+        // what to pass ??
         // make new raveWaver here
         const requestBody = raveWaver; // send raveWaver as request body
         const response = await api.put(`/ravewavers/${raverId}`, requestBody);
