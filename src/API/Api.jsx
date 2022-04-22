@@ -3,7 +3,20 @@ import { api } from "helpers/api";
 export class API {
     _user = null;
 
-    // register new user
+    // @GetMapping("/users")
+    async getUsers() {
+        const token = localStorage.getItem("token");
+        const response = await api.get(`/users?token=${token}`);
+        if (response.status >= 200 && response.status < 300) {
+            return response.data;
+        } else if (response.status >= 300 && response.status < 400) {
+            throw new Error("Bad request");
+        } else {
+            throw new Error("Something went wrong");
+        }
+    }
+
+    // @PostMapping("/users")
     async registerUser(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await api.post("/users", requestBody);
@@ -20,6 +33,22 @@ export class API {
         }
     }
 
+    // SPOTINIO
+    // @GetMapping(value = "/PlaylistItems")
+    // @GetMapping(value = "/Spotify/UsersFavorites")
+    // @GetMapping(value = "/Spotify/authorizationCodeUri")
+    // @PostMapping(value = "/Spotify/authorizationCode"
+
+    // WBESOCKETI
+    // @MessageMapping("/lobby/{lobbyId}/start-game")
+    // @MessageMapping("/lobby/{lobbyId}/player/{playerId}/check-answer")
+    // @MessageMapping("/lobby/{lobbyId}/end-game")
+    // @MessageMapping("/lobby/{lobbyId}/setup")
+    // @MessageMapping("/lobby/{lobbyId}/leaderboard")
+    // @MessageMapping("/lobby/{lobbyId}/next-round")
+    // @MessageMapping("/lobby/test")
+
+    // NOT PRESENT from here
     // login a user with credemtials
     async loginUser(username, password) {
         const requestBody = JSON.stringify({ username, password });
@@ -36,8 +65,8 @@ export class API {
             throw new Error("Something went wrong");
         }
     }
-
     // get user based on userId
+
     async getUser(userId) {
         const token = localStorage.getItem("token");
         const response = await api.get(`/users/${userId}?token=${token}`);
@@ -47,18 +76,6 @@ export class API {
             throw new Error("User with userId was not found");
         } else if (response.status === 401) {
             throw new Error("Not authorized");
-        } else {
-            throw new Error("Something went wrong");
-        }
-    }
-
-    async getUsers() {
-        const token = localStorage.getItem("token");
-        const response = await api.get(`/users?token=${token}`);
-        if (response.status >= 200 && response.status < 300) {
-            return response.data;
-        } else if (response.status >= 300 && response.status < 400) {
-            throw new Error("Bad request");
         } else {
             throw new Error("Something went wrong");
         }
