@@ -10,11 +10,11 @@ import ConnectSpotify from "components/views/ConnectSpotify";
 import WaitingRoom from "components/views/WaitingRoom";
 import SelectGameMode from "components/views/SelectGameMode";
 import DisplayQR from "components/views/DisplayQR";
-import GuessArtist from "components/views/guessartist";
-import GuessLyrics from "components/views/Guesslyrics";
+import GuessArtist from "components/views/GuessArtist";
+import GuessLyrics from "components/views/GuessLyrics";
 import GuessSong from "components/views/GuessSong";
-import PostRound from "components/views/Postround";
-import PostGame from "components/views/Postgame";
+import PostRound from "components/views/PostRound";
+import PostGame from "components/views/PostGame";
 
 import { WebSocket } from "API/websocket";
 
