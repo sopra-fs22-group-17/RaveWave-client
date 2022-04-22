@@ -8,6 +8,7 @@ const Landing = (props) => {
 
     return (
         <BaseContainer className="game container">
+            <p className="game paragraph">RaveWave Host</p>
             <Button onClick={() => history.push('/login')} width="100%">login</Button>
             <Button onClick={() => history.push('/register')} width="100%">register</Button>
         </BaseContainer>
