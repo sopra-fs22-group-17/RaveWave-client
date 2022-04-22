@@ -3,22 +3,36 @@ import { api } from "helpers/api";
 export class API {
     _user = null;
 
-    // @GetMapping("/users")
+    // @GetMapping("/ravewavers/{raverId}")
+    async getUser(raverId) {
+        const response = await api.get(`/ravewavers/${raverId}`);
+        if (response.status >= 200 && response.status < 300) {
+            return response.data;
+        } else if (response.status === 404) {
+            throw new Error("raveWaver with raverId was not found");
+        } else if (response.status === 401) {
+            throw new Error("Not authorized");
+        } else {
+            throw new Error("Something went wrong during getUser");
+        }
+    }
+
+    // @GetMapping("/ravewavers")
     async getUsers() {
-        const response = await api.get(`/users`);
+        const response = await api.get(`/ravewavers`);
         if (response.status >= 200 && response.status < 300) {
             return response.data;
         } else if (response.status >= 300 && response.status < 400) {
             throw new Error("Bad request");
         } else {
-            throw new Error("Something went wrong");
+            throw new Error("Something went wrong during getUsers");
         }
     }
 
-    // @PostMapping("/users")
+    // @PostMapping("/ravewavers")
     async registerUser(username, password) {
         const requestBody = JSON.stringify({ username, password });
-        const response = await api.post("/users", requestBody);
+        const response = await api.post("/ravewavers", requestBody);
         if (response.status >= 200 && response.status < 300) {
             const user = response.data;
             this._user = user;
@@ -28,7 +42,72 @@ export class API {
         } else if (response.status === 409) {
             throw new Error("Add user failed because username already exists");
         } else {
-            throw new Error("Something went wrong");
+            throw new Error("Something went wrong during registerUser");
+        }
+    }
+
+    // @PutMapping("/ravewavers/{raverId}")
+    async updateUser(raverId) { // what to pass ??
+        // make new raveWaver here
+        const requestBody = raveWaver; // send raveWaver as request body
+        const response = await api.put(`/ravewavers/${raverId}`, requestBody);
+        if (response.status >= 200 && response.status < 300) {
+            return response.data;
+        } else if (response.status === 404) {
+            throw new Error("user with raverId was not found");
+        } else if (response.status === 401) {
+            throw new Error("Not authorized");
+        } else if (response.status >= 400 && response.status < 500) {
+            throw new Error("Username already exists or birthday format wrong");
+        } else {
+            throw new Error("Something went wrong during updateUser");
+        }
+    }
+
+    // @PostMapping("/lobbies")
+    async addLobby() {
+        // create game mode here
+        const requestBody = gamemode; // pass game mode as request body
+        const response = await api.post("/lobbies", requestBody);
+        if (response.status >= 200 && response.status < 300) {
+            return response.data;
+        } else if (response.status === 409) {
+            throw new Error("Add user failed because username already exists");
+        } else {
+            throw new Error("Something went wrong during addLobby");
+        }
+    }
+
+    // @PutMapping("/lobbies/{lobbyId}")
+    async addPlayertoLobby() {
+        // create new raveWaver here
+        const requestBody = raveWaver; // pass game mode as request body
+        const response = await api.put(`/lobbies/${lobbyId}`, requestBody);
+        if (response.status >= 200 && response.status < 300) {
+            return response.data;
+        } else if (response.status === 409) {
+            throw new Error("failed because username already exists in lobby");
+        } else {
+            throw new Error("Something went wrong during addPlayertoLobby");
+        }
+    }
+
+    // @PostMapping("/login")
+    async loginUser(username, password) {
+        const requestBody = JSON.stringify({ username, password });
+        const response = await api.post("/login", requestBody);
+        if (response.status >= 200 && response.status < 300) {
+            const user = response.data;
+            // Store the token into the local storage.
+            localStorage.setItem("token", user.token);
+            this._user = user;
+            return response.data;
+        } else if (response.status === 404) {
+            throw new Error("user not found");
+        } else if (response.status === 401) {
+            throw new Error("invalid credentials");
+        } else {
+            throw new Error("Something went wrong during login user");
         }
     }
 
@@ -91,56 +170,6 @@ export class API {
     // @MessageMapping("/lobby/test")
 
     // NOT PRESENT from here
-    // login a user with credemtials
-    async loginUser(username, password) {
-        const requestBody = JSON.stringify({ username, password });
-        const response = await api.post("/login", requestBody);
-        if (response.status >= 200 && response.status < 300) {
-            const user = response.data;
-            // Store the token into the local storage.
-            localStorage.setItem("token", user.token);
-            this._user = user;
-            return response.data;
-        } else if (response.status === 409) {
-            throw new Error("Login user failed because nouser under these credentials exists");
-        } else {
-            throw new Error("Something went wrong");
-        }
-    }
-    // get user based on userId
-
-    async getUser(userId) {
-        const token = localStorage.getItem("token");
-        const response = await api.get(`/users/${userId}?token=${token}`);
-        if (response.status >= 200 && response.status < 300) {
-            return response.data;
-        } else if (response.status === 404) {
-            throw new Error("User with userId was not found");
-        } else if (response.status === 401) {
-            throw new Error("Not authorized");
-        } else {
-            throw new Error("Something went wrong");
-        }
-    }
-
-    // update username and password of a user
-    async updateUser(userId, username, birthday) {
-        const token = localStorage.getItem("token");
-        const requestBody = JSON.stringify({ username, birthday });
-        const response = await api.put(`/users/${userId}?token=${token}`, requestBody);
-        if (response.status >= 200 && response.status < 300) {
-            return response.data;
-        } else if (response.status === 404) {
-            throw new Error("User with userId was not found");
-        } else if (response.status === 401) {
-            throw new Error("Not authorized");
-        } else if (response.status >= 400 && response.status < 500) {
-            throw new Error("Username already exists or birthday format wrong");
-        } else {
-            throw new Error("Something went wrong");
-        }
-    }
-
     // remove token and set status to offline
     logoutUser() {
         const userToken = localStorage.getItem("token");
