@@ -19,11 +19,11 @@ const Landing = (props) => {
     };
 
     return (
-        <BaseContainer className="game container">
-            <p>RaveWave Host</p>
-            <Lottie options={defaultOptions} height={200} width={200} speed={0.2}/>
-            <Button onClick={() => history.push('/register')} className="landing registerbutton" width="100%">Register</Button>
-            <Button onClick={() => history.push('/login')} className="landing loginbutton" width="100%">Login</Button>
+        <BaseContainer className="flex-column">
+            <Button onClick={() => history.push('/landing')} class="column-item">RaveWave Host</Button>
+            <Lottie class="column-item" options={defaultOptions} speed={0.2}/>
+            <Button onClick={() => history.push('/register')} class="register">Register</Button>
+            <Button onClick={() => history.push('/login')} class="login">Login</Button>
         </BaseContainer>
     );
 }

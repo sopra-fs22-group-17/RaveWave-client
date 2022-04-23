@@ -3,52 +3,36 @@
 @tailwind components;
 @tailwind utilities;
 
-.landing {
-  &.registerbutton {
-    background-color: $accent1;
-    box-shadow: $dropShadow;
-  }
-  &.loginbutton {
-    background-color: $accent2;
-    box-shadow: $dropShadow;
-  }
-}
-
 .container {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
   gap: 10px 20px; /* row-gap column gap */
-
-  &.title {
-    order: 1;
-  }
-
-  &.animation {
-    order: 2;
-  }
-
 }
 
-.itemcontainer {
+.flex-column {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
+  flex-flow: row wrap;
   align-items: center;
   align-content: center;
+  justify-content: space-evenly;
   gap: 10px 20px; /* row-gap column gap */
+}
 
-  &.register {
-    order: 3;
-    background-color: $accent1;
-    box-shadow: $dropShadow;
-  }
+.flex-column .column-item {
+  flex-basis:100%;
+}
 
-  &.login {
-    order: 4;
-    background-color: $accent2;
-    box-shadow: $dropShadow;
-  }
+.flex-column .register {
+  flex-basis:40%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.flex-column .login {
+  flex-basis:40%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
 }
