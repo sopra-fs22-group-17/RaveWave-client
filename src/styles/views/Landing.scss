@@ -13,3 +13,42 @@
     box-shadow: $dropShadow;
   }
 }
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+
+  &.title {
+    order: 1;
+  }
+
+  &.animation {
+    order: 2;
+  }
+
+}
+
+.itemcontainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+
+  &.register {
+    order: 3;
+    background-color: $accent1;
+    box-shadow: $dropShadow;
+  }
+
+  &.login {
+    order: 4;
+    background-color: $accent2;
+    box-shadow: $dropShadow;
+  }
+}
