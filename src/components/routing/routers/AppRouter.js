@@ -2,7 +2,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { GameGuard } from "components/routing/routeProtectors/GameGuard";
 import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
 import LandingHost from "components/views/LandingHost";
-import JoinByQR from "components/views/LandingPlayer";
+import LandingPlayer from "components/views/LandingPlayer";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
 import Guest from "components/views/Guest";
@@ -15,7 +15,6 @@ import GuessLyrics from "components/views/GuessLyrics";
 import GuessSong from "components/views/GuessSong";
 import PostRound from "components/views/PostRound";
 import PostGame from "components/views/PostGame";
-import LandingPlayer from "components/views/LandingPlayer";
 
 import { WebSocket } from "API/websocket";
 
@@ -41,7 +40,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/login">
-                    <Login />
+                    <Register />
                 </Route>
 
                 <Route exact path="/register">
@@ -89,7 +88,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/">
-                    <Redirect to="/landing" />
+                    <Redirect to="/landinghost" />
                 </Route>
 
                 <Route exact path="/websocketdemo">
