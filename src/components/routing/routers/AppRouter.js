@@ -40,7 +40,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/login">
-                    <Register />
+                    <Login />
                 </Route>
 
                 <Route exact path="/register">

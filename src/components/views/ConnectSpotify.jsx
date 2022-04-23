@@ -1,8 +1,10 @@
-import { useHistory } from "react-router-dom";
-import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/ConnectSpotify.scss";
 import { Button } from "@mantine/core";
 import { Link } from "react-router";
+import { useHistory } from "react-router-dom";
+
+import BaseContainer from "components/ui/BaseContainer";
+
+import "styles/views/ConnectSpotify.scss";
 
 const ConnectSpotify = (props) => {
     const history = useHistory();

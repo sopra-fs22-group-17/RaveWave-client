@@ -1,7 +1,9 @@
-import { useHistory } from "react-router-dom";
-import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/DisplayQR.scss";
 import { Button } from "@mantine/core";
+import { useHistory } from "react-router-dom";
+
+import BaseContainer from "components/ui/BaseContainer";
+
+import "styles/views/DisplayQR.scss";
 
 const DisplayQR = (props) => {
     const history = useHistory();

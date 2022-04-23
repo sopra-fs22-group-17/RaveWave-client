@@ -1,7 +1,9 @@
-import { useHistory } from "react-router-dom";
-import BaseContainer from "components/ui/BaseContainer";
-import "styles/views/LandingPlayer.scss";
 import { Button } from "@mantine/core";
+import { useHistory } from "react-router-dom";
+
+import BaseContainer from "components/ui/BaseContainer";
+
+import "styles/views/LandingPlayer.scss";
 
 const LandingPlayer = (props) => {
     const history = useHistory();
