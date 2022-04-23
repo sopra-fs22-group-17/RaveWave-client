@@ -1,35 +1,22 @@
 import { useHistory } from "react-router-dom";
 import BaseContainer from "components/ui/BaseContainer";
 import { Button } from "@mantine/core";
-import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-
+import "styles/views/SelectGameMode.scss";
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
 
 const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
-
-    let content = (
-        <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Game Mode</FormLabel>
-            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
-                <FormControlLabel value="female" control={<Radio />} label="Guess the Song" />
-                <FormControlLabel value="male" control={<Radio />} label="Guess the Artist" />
-                <FormControlLabel value="other" control={<Radio />} label="Guess the Player" />
-            </RadioGroup>
-        </FormControl>
-    );
 
     const marksRounds = [
         {
@@ -178,6 +165,17 @@ const SelectGameMode = (props) => {
         },
     ];
 
+    let content = (
+        <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">Game Mode</FormLabel>
+            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
+                <FormControlLabel value="female" control={<Radio />} label="Guess the Song" />
+                <FormControlLabel value="male" control={<Radio />} label="Guess the Artist" />
+                <FormControlLabel value="other" control={<Radio />} label="Guess the Player" />
+            </RadioGroup>
+        </FormControl>
+    );
+
     const images = (
         <ImageList sx={{ width: 500, height: 450 }}>
             <ImageListItem key="Subheader" cols={2}></ImageListItem>
@@ -199,8 +197,8 @@ const SelectGameMode = (props) => {
     );
 
     return (
-        <BaseContainer className="game container">
-            <p className="game paragraph">Select Game Parameters</p>
+        <BaseContainer className="container">
+            <p>Select Game Parameters</p>
             {content}
             <p className="Round Parameters">Number of Rounds</p>
             <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="on" />
