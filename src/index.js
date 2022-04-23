@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "../App";
+import App from "App";
+import "styles/index.scss"
 
 /**
  * This is the entry point of your React application where the root element is in the public/index.html.
@@ -8,10 +9,4 @@ import App from "../App";
  * Applications built with just React usually have a single root DOM node.
  * More: https://reactjs.org/docs/rendering-elements.html
  */
-
-function Index() {
-        return ReactDOM.render(<App/>, document.getElementById("root"));
-}
-
-
-export default Index;
+ReactDOM.render(<App/>, document.getElementById("root"));
