@@ -3,9 +3,9 @@ import BaseContainer from "components/ui/BaseContainer";
 import { Button } from '@mantine/core';
 import Lottie from 'react-lottie';
 import animationData from './lotties/RaveWaveAnimation.json';
-import "styles/views/Landing.scss";
+import "styles/views/LandingHost.scss";
 
-const Landing = (props) => {
+const LandingHost = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
 
@@ -28,4 +28,4 @@ const Landing = (props) => {
     );
 }
 
-export default Landing;
+export default LandingHost;

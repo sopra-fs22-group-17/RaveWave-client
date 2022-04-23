@@ -1,8 +1,8 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { GameGuard } from "components/routing/routeProtectors/GameGuard";
 import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
-import Landing from "components/views/Landing";
-import JoinByQR from "components/views/JoinByQR";
+import LandingHost from "components/views/LandingHost";
+import JoinByQR from "components/views/LandingPlayer";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
 import Guest from "components/views/Guest";
@@ -32,7 +32,7 @@ const AppRouter = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/landing">
-                    <Landing />
+                    <LandingHost />
                 </Route>
 
                 <Route exact path="/joinbyqr">
