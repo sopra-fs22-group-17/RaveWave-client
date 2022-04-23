@@ -15,6 +15,7 @@ import GuessLyrics from "components/views/GuessLyrics";
 import GuessSong from "components/views/GuessSong";
 import PostRound from "components/views/PostRound";
 import PostGame from "components/views/PostGame";
+import LandingPlayer from "components/views/LandingPlayer";
 
 import { WebSocket } from "API/websocket";
 
@@ -31,12 +32,12 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/landing">
+                <Route exact path="/landinghost">
                     <LandingHost />
                 </Route>
 
-                <Route exact path="/joinbyqr">
-                    <JoinByQR />
+                <Route exact path="/landingplayer">
+                    <LandingPlayer />
                 </Route>
 
                 <Route exact path="/login">
