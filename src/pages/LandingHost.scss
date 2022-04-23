@@ -1,0 +1,29 @@
+@import '../theme';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flex-column {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
+  gap: 10px 20px; /* row-gap column gap */
+}
+
+.flex-column .column-item {
+  flex-basis:100%;
+}
+
+.flex-column .register {
+  flex-basis:40%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.flex-column .login {
+  flex-basis:40%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
+}

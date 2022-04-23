@@ -1,17 +1,8 @@
-/*
-  This file contains the most basic variables that control how your application will look.
- */
-
-/* Theme Colors
-
-   these values control the colors of your application.
-   feel free to play around with these and see what other look you can come up with! :D
-*/
-
-$accent: #97ABFF;
-$accentDark: #123597;
+$accent1: #644490;
+$accent2: #5A3A86;
+$accent3: #50307C;
 $textColor: white;
-$background: #262632;
+$background: #684894;
 
 /* some constants */
 
@@ -22,8 +13,7 @@ $SMALL_WIDTH: 768px;
 
 /* some standard elements */
 /* fonts */
-$fontDefault: "M PLUS Rounded 1c", sans-serif;
-$fontMono: "Roboto Mono", monospace;
+$fontDefault: "Inter", black, 1.2em;
 
 /* a standard drop shadow */
 $dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
