@@ -1,6 +1,5 @@
-import { useHistory } from "react-router-dom";
-import BaseContainer from "components/ui/BaseContainer";
 import { Button } from "@mantine/core";
+
 import Slider from "@mui/material/Slider";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -14,9 +13,37 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import {useState} from "react";
 
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import IconButton from "@mui/material/IconButton";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Slider from "@mui/material/Slider";
+import { useHistory } from "react-router-dom";
+
+import BaseContainer from "components/ui/BaseContainer";
+
 const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
+
+
+    localStorage.setItem("gameMode", "guess the song");
+
+    let content = (
+        <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">Game Mode</FormLabel>
+            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
+                <FormControlLabel value="song" control={<Radio />} label="Guess the Song" />
+                <FormControlLabel value="artist" control={<Radio />} label="Guess the Artist" />
+                <FormControlLabel value="lyrics" control={<Radio />} label="Guess the Lyrics" />
+            </RadioGroup>
+        </FormControl>
+    );
 
     const marksRounds = [
         {
