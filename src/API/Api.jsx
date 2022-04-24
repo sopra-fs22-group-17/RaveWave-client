@@ -3,6 +3,15 @@ import { api } from "helpers/api";
 export class API {
     _user = null;
 
+    //1. uri spotify
+    // 2. redirect user to url
+    // 3. will be redirected to spotify auth for APP
+    // 4. redirect to where ?? (check with sheeena)
+    // 5. parameter code=
+    // 6. send code to backend for step 7
+    // 7. post request auth code ()
+    // 8. get access token to stream
+
     // @GetMapping("/ravewavers/{raverId}")
     async getUser(raverId) {
         const response = await api.get(`/ravewavers/${raverId}`);
@@ -113,39 +122,13 @@ export class API {
     }
 
     // SPOTINIO
-    // @GetMapping(value = "/PlaylistItems")
-    async getPlaylistItems() {
-        const response = await api.get("/PlaylistItems");
-        if (response.status >= 200 && response.status < 300) {
-            return response;
-        } else if (response.status === 409) {
-            throw new Error("Add user failed because username already exists");
-        } else {
-            throw new Error("Something went wrong");
-        }
-    }
-
-    // @GetMapping(value = "/Spotify/UsersFavorites")
-    async getUsersFavorites() {
-        const response = await api.get("/UsersFavorites");
-        if (response.status >= 200 && response.status < 300) {
-            return response;
-        } else if (response.status === 409) {
-            throw new Error("Add user failed because username already exists");
-        } else {
-            throw new Error("Something went wrong");
-        }
-    }
-
     // @GetMapping(value = "/Spotify/authorizationCodeUri")
     async getAuthorizationCodeUri() {
         const response = await api.get("/authorizationCodeUri");
         if (response.status >= 200 && response.status < 300) {
             return response;
-        } else if (response.status === 409) {
-            throw new Error("Add user failed because username already exists");
         } else {
-            throw new Error("Something went wrong");
+            throw new Error("Something went wrong during authorizationCodeUri");
         }
     }
 
@@ -154,12 +137,12 @@ export class API {
         const response = await api.post("authorizationCode");
         if (response.status >= 200 && response.status < 300) {
             return response;
-        } else if (response.status === 409) {
-            throw new Error("Add user failed because username already exists");
         } else {
-            throw new Error("Something went wrong");
+            throw new Error("Something went wrong during authorizationCode");
         }
     }
+
+    //SPOTIFY REFRESH
 
     // WBESOCKETI
     // @MessageMapping("/lobby/{lobbyId}/start-game")
@@ -167,7 +150,7 @@ export class API {
     // @MessageMapping("/lobby/{lobbyId}/end-game")
     // @MessageMapping("/lobby/{lobbyId}/setup")
     // @MessageMapping("/lobby/{lobbyId}/leaderboard")
-    // @MessageMapping("/lobby/{lobbyId}/next-round")
+    // @MessageMapping("/lobby/{lobbyId}/next-round") //postman showcase
     // @MessageMapping("/lobby/test")
 
     // NOT PRESENT from here

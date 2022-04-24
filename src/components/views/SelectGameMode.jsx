@@ -1,4 +1,18 @@
 import { Button } from "@mantine/core";
+
+import Slider from "@mui/material/Slider";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import "styles/views/SelectGameMode.scss";
+import * as React from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
+import IconButton from "@mui/material/IconButton";
+import {useState} from "react";
+
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -16,6 +30,7 @@ import BaseContainer from "components/ui/BaseContainer";
 const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
+
 
     localStorage.setItem("gameMode", "guess the song");
 
@@ -51,54 +66,51 @@ const SelectGameMode = (props) => {
 
     const marksPlaybackSpeed = [
         {
-            value: 5,
-            label: "5",
+            value: 0.5,
+            label: "0.5",
         },
         {
-            value: 10,
-            label: "10",
+            value: 1.0,
+            label: "1.0",
         },
         {
-            value: 15,
-            label: "15",
+            value: 1.5,
+            label: "1.5",
         },
         {
-            value: 20,
-            label: "20",
+            value: 2.0,
+            label: "2.0",
+        },
+        {
+            value: 2.5,
+            label: "2.5",
+        },
+        {
+            value: 3.0,
+            label: "3.0",
         },
     ];
 
     const marksPlaybackDuration = [
         {
-            value: 5,
-            label: "5",
-        },
-        {
             value: 10,
             label: "10",
         },
         {
-            value: 15,
-            label: "15",
+            value: 12,
+            label: "12",
         },
         {
-            value: 20,
-            label: "20",
-        },
-    ];
-
-    const marksTimeToAnswer = [
-        {
-            value: 5,
-            label: "5",
+            value: 14,
+            label: "14",
         },
         {
-            value: 10,
-            label: "10",
+            value: 16,
+            label: "16",
         },
         {
-            value: 15,
-            label: "15",
+            value: 18,
+            label: "18",
         },
         {
             value: 20,
@@ -177,43 +189,66 @@ const SelectGameMode = (props) => {
         },
     ];
 
-    const images = (
-        <ImageList sx={{ width: 500, height: 450 }}>
-            <ImageListItem key="Subheader" cols={2}></ImageListItem>
-            {itemData.map((item) => (
-                <ImageListItem key={item.img}>
-                    <img
-                        src={`${item.img}?w=248&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={item.title}
-                        loading="lazy"
-                    />
-                    <ImageListItemBar
-                        title={item.title}
-                        actionIcon={<IconButton sx={{ color: "rgba(255, 255, 255, 0.54)" }} aria-label={`info about ${item.title}`}></IconButton>}
-                    />
-                </ImageListItem>
-            ))}
-        </ImageList>
-    );
+    const [gameMode, setGameMode] = useState('guessartist')
+
+    const [numberOfRounds, setRound] = useState(10)
+    const [playbackSpeed, setPlaySpeed] = useState(1.0)
+    const [playbackDuration, setPlaybackDuration] = useState(10)
+
+    const [songPool, setSongPool] = useState()
+
+    function startgameButton() {
+        localStorage.setItem('gameMode', gameMode);
+        localStorage.setItem('numberOfRounds', numberOfRounds.toString());
+        localStorage.setItem('playbackSpeed', playbackSpeed.toString());
+        localStorage.setItem('playbackDuration', playbackDuration.toString());
+        history.push('/displayqr');
+    }
 
     return (
-        <BaseContainer className="game container">
-            <p className="game paragraph">Select Game Parameters</p>
-            {content}
-            <p className="Round Parameters">Number of Rounds</p>
-            <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="on" />
-            <p className="Playback Speed Parameters">Playback Speed</p>
-            <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksPlaybackSpeed} valueLabelDisplay="on" />
-            <p className="Playback Duration Parameters">Playback Duration</p>
-            <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksPlaybackDuration} valueLabelDisplay="on" />
-            <p className="Time to Answer Parameters">Time to Answer</p>
-            <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksTimeToAnswer} valueLabelDisplay="on" />
-            <Button onClick={() => history.push("/guessthesong")} width="100%">
+        <BaseContainer className="container">
+            <Button onClick={() => history.push('/selectgamemode')} class="column-item">Select Game Mode</Button>
+
+            <FormControl className="column-item">
+                <RadioGroup row sx={{ justifyContent: 'center' }} aria-labelledby="demo-radio-buttons-group-label" defaultValue="Song" name="radio-buttons-group" value={gameMode} onChange={(e) => setGameMode(e.target.value)}>
+                    <FormControlLabel value="guesssong" control={<Radio />} label="Guess the Song" />
+                    <FormControlLabel value="guessartist" control={<Radio />} label="Guess the Artist" />
+                    <FormControlLabel value="guesslyrics" control={<Radio />} label="Guess the Lyrics" />
+                </RadioGroup>
+            </FormControl>
+
+            <Button class="column-item">Game parameters:</Button>
+            <div className="label">Number of Rounds</div>
+            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="auto" min={5} max={20} value={numberOfRounds} onChange={(e) => setRound(e.target.value)}/>
+            <div className="label">Playback Speed</div>
+            <Slider className="slider" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="auto" min={0.5} max={3} value={playbackSpeed} onChange={(e) => setPlaySpeed(e.target.value)}/>
+            <div className="label">Playback Duration</div>
+            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={2} marks={marksPlaybackDuration} valueLabelDisplay="auto" min={10} max={20} value={playbackDuration} onChange={(e) => setPlaybackDuration(e.target.value)}/>
+
+            <Button class="column-item">Chose song library:</Button>
+
+            <ImageList sx={{ justifyContent: 'center', width: 500, height: 450 }}>
+                <ImageListItem key="Subheader" cols={2}></ImageListItem>
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img}>
+                        <img
+                            src={`${item.img}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item.title}
+                            loading="lazy"
+                        />
+                        <ImageListItemBar
+                            title={item.title}
+                            actionIcon={<IconButton sx={{ color: "rgba(255, 255, 255, 0.54)" }} aria-label={`info about ${item.title}`}></IconButton>}
+                        />
+                    </ImageListItem>
+                ))}
+            </ImageList>
+
+            <Button class="column-item" onClick={startgameButton}>
                 Start Game
             </Button>
-            <p className="song library">Select Song Library</p>
-            {images}
+
         </BaseContainer>
     );
 };

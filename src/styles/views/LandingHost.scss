@@ -7,9 +7,10 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  align-content: center;
-  justify-content: space-evenly;
+  justify-content: center;
   gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
 }
 
 .flex-column .column-item {

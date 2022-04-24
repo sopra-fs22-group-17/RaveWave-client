@@ -3,6 +3,30 @@
 @tailwind components;
 @tailwind utilities;
 
-.SelectGameMode {
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
+}
 
+.container .column-item {
+  flex-basis:100%;
+}
+
+.container .label {
+  flex-basis:15%;
+}
+
+.container .slider {
+  flex-basis:75%;
+}
+
+.flex-column .login {
+  flex-basis:20%;
+  background-color: $accent3;
+  box-shadow: $dropShadow;
 }
