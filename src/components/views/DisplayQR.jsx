@@ -14,7 +14,7 @@ const DisplayQR = (props) => {
             <Button onClick={() => history.push("/selectgamemode")} className="displayqr backbutton" width="100%">
                 Back
             </Button>
-            <Button onClick={() => history.push("/guessthesong")} className="displayqr startgamebutton" width="100%">
+            <Button onClick={() => history.push("/guesssong")} className="displayqr startgamebutton" width="100%">
                 Start Game
             </Button>
         </BaseContainer>
