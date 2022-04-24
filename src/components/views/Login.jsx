@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { api, handleError } from "helpers/api";
-import User from "models/User";
-import { useHistory } from "react-router-dom";
-import { Button } from "components/ui/Button";
-import "styles/views/Login.scss";
-import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
+import BaseContainer from "components/ui/BaseContainer";
+import { Button } from "components/ui/Button";
+
+import "styles/views/Login.scss";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -30,35 +30,35 @@ FormField.propTypes = {
 
 const Login = (props) => {
     const history = useHistory();
-    const [name, setName] = useState(null);
     const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
 
-    const doLogin = async () => {
-        try {
-            const requestBody = JSON.stringify({ username, name });
-            const response = await api.post("/users", requestBody);
+    // const doLogin = async () => {
+    //     try {
+    //         const requestBody = JSON.stringify({ username, name });
+    //         const response = await api.post("/users", requestBody);
 
-            // Get the returned user and update a new object.
-            const user = new User(response.data);
+    //         // Get the returned user and update a new object.
+    //         const user = new User(response.data);
 
-            // Store the token into the local storage.
-            localStorage.setItem("token", user.token);
+    //         // Store the token into the local storage.
+    //         localStorage.setItem("token", user.token);
 
-            // Login successfully worked --> navigate to the route /game in the GameRouter
-            history.push(`/game`);
-        } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
-    };
+    //         // Login successfully worked --> navigate to the route /game in the GameRouter
+    //         history.push(`/game`);
+    //     } catch (error) {
+    //         alert(`Something went wrong during the login: \n${handleError(error)}`);
+    //     }
+    // };
 
     return (
         <BaseContainer>
             <div className="login container">
                 <div className="login form">
                     <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
-                    <FormField label="Name" value={name} onChange={(n) => setName(n)} />
+                    <FormField label="Password" value={password} onChange={(n) => setPassword(n)} />
                     <div className="login button-container">
-                        <Button disabled={!username || !name} width="100%" onClick={() => doLogin()}>
+                        <Button disabled={!username || !password} width="100%" onClick={() => history.push(`/connectspotify`)}>
                             Login
                         </Button>
                     </div>
