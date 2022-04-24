@@ -3,6 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
-.ConnectSpotify {
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
+}
 
+.container .connectSpotify {
+  flex-basis:15%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
 }

@@ -10,18 +10,8 @@ const ConnectSpotify = (props) => {
     const history = useHistory();
 
     return (
-        <BaseContainer className="game container">
-            <p>Connect with Spotify</p>
-            <Button
-                type="button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = "http://google.com";
-                }}
-            >
-                {" "}
-                Click here
-            </Button>
+        <BaseContainer className="container">
+            <Button onClick={() => history.push('/')} class="connectSpotify">Connect Spotify</Button>
         </BaseContainer>
     );
 };

@@ -27,21 +27,15 @@ const Guest = (props) => {
     const [username, setUsername] = useState(null);
 
     return (
-        <BaseContainer className="game container">
-            <p>Guest</p>
-            <Button onClick={() => history.push("/landingplayer")} className="guest backbutton" width="100%">
+        <BaseContainer className="container">
+            <div className="container column-item">Guest</div>
+            <FormField label="Username" value={username} onChange={(un) => setUsername(un)} className="container column-item" />
+            <Button onClick={() => history.push("/landingplayer")} className="container back">
                 Back
             </Button>
-            <div className="login container">
-                <div className="login form">
-                    <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
-                    <div className="login button-container">
-                        <Button disabled={!username} width="100%" onClick={() => history.push(`/waitingroom`)}>
-                            Continue
-                        </Button>
-                    </div>
-                </div>
-            </div>
+            <Button disabled={!username} onClick={() => history.push(`/waitingroom`)} className=" container continue">
+                Continue
+            </Button>
         </BaseContainer>
     );
 };
