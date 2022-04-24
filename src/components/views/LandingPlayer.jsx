@@ -1,11 +1,9 @@
-import { Button } from "@mantine/core";
-import { useHistory } from "react-router-dom";
+import {Button} from "@mantine/core";
+import {useHistory} from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/LandingPlayer.scss";
-
-import { Button } from "@mantine/core";
 import Lottie from "react-lottie";
 import animationData from "./lotties/RaveWaveAnimation.json";
 
