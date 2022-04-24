@@ -88,7 +88,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/">
-                    <Redirect to="/guest" />
+                    <Redirect to="/login" />
                 </Route>
 
                 <Route exact path="/websocketdemo">

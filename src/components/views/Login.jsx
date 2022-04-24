@@ -52,18 +52,17 @@ const Login = (props) => {
     // };
 
     return (
-        <BaseContainer>
-            <div className="login container">
-                <div className="login form">
-                    <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
-                    <FormField label="Password" value={password} onChange={(n) => setPassword(n)} />
-                    <div className="login button-container">
-                        <Button disabled={!username || !password} width="100%" onClick={() => history.push(`/connectspotify`)}>
-                            Login
-                        </Button>
-                    </div>
-                </div>
+        <BaseContainer className="container">
+            <div>Login</div>
+            <div className="container column-item">
+                <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
             </div>
+            <div className="container column-item">
+                <FormField label="Password" value={password} onChange={(n) => setPassword(n)} />
+            </div>
+            <Button disabled={!username || !password} onClick={() => history.push(`/connectspotify`)} className=" container loginbutton">
+                Login
+            </Button>
         </BaseContainer>
     );
 };

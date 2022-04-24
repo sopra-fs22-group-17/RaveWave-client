@@ -4,13 +4,6 @@
 @tailwind utilities;
 
 .login {
-  &.container {
-    margin-top: 2em;
-    min-height: 300px;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
-    flex-direction: column;
-  }
   &.form {
     display: flex;
     flex-direction: column;
@@ -48,9 +41,24 @@
     text-transform: lowercase;
     font-weight: 300;
   }
-  &.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 2em;
-  }
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
+}
+
+.container .column-item {
+  flex-basis:100%;
+}
+
+.container .loginbutton {
+  flex-basis:10%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
 }

@@ -28,14 +28,14 @@ const Guest = (props) => {
 
     return (
         <BaseContainer className="container">
-            <div className="container column-item">Guest</div>
+            <div>Guest</div>
             <div className="container column-item">
                 <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
             </div>
             <Button onClick={() => history.push("/landingplayer")} className="container back">
                 Back
             </Button>
-            <Button disabled={!username} onClick={() => history.push(`/waitingroom`)} className=" container continue">
+            <Button disabled={!username} onClick={() => history.push(`/waitingroom`)} className="container continue">
                 Continue
             </Button>
         </BaseContainer>
