@@ -6,13 +6,13 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import "styles/views/SelectGameMode.scss";
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
+import {useState} from "react";
 
 const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
@@ -165,33 +165,33 @@ const SelectGameMode = (props) => {
         },
     ];
 
+    const [category, setCategory] = useState('Song')
+
     return (
         <BaseContainer className="container">
-            <p>Select Game Parameters</p>
+            <Button onClick={() => history.push('/selectgamemode')} class="column-item">Select Game Mode</Button>
 
-            <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">Game Mode</FormLabel>
-                <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
-                    <FormControlLabel value="female" control={<Radio />} label="Guess the Song" />
-                    <FormControlLabel value="male" control={<Radio />} label="Guess the Artist" />
-                    <FormControlLabel value="other" control={<Radio />} label="Guess the Player" />
+            <FormControl className="column-item">
+                <RadioGroup row sx={{ justifyContent: 'center' }} aria-labelledby="demo-radio-buttons-group-label" defaultValue="Song" name="radio-buttons-group" value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <FormControlLabel value="guesssong" control={<Radio />} label="Guess the Song" />
+                    <FormControlLabel value="guessartist" control={<Radio />} label="Guess the Artist" />
+                    <FormControlLabel value="guesslyrics" control={<Radio />} label="Guess the Lyrics" />
                 </RadioGroup>
             </FormControl>
 
-            <p className="Round Parameters">Number of Rounds</p>
-            <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="on" min={5} max={20}/>
-            <p className="Playback Speed Parameters">Playback Speed</p>
-            <Slider aria-label="Always visible" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="on" min={0.5} max={3}/>
-            <p className="Playback Duration Parameters">Playback Duration</p>
-            <Slider aria-label="Always visible" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksPlaybackDuration} valueLabelDisplay="on" min={10} max={20}/>
-            <p className="Time to Answer Parameters">Time to Answer</p>
-            <Slider aria-label="Always visible" defaultValue={15} getAriaValueText={valuetext} step={5} marks={marksTimeToAnswer} valueLabelDisplay="on" min={15} max={25}/>
-            <Button onClick={() => history.push("/guessthesong")} width="100%">
-                Start Game
-            </Button>
-            <p className="song library">Select Song Library</p>
+            <Button class="column-item">Game parameters:</Button>
+            <div className="label">Number of Rounds</div>
+            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="auto" min={5} max={20}/>
+            <div className="label">Playback Speed</div>
+            <Slider className="slider" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="auto" min={0.5} max={3}/>
+            <div className="label">Playback Duration</div>
+            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksPlaybackDuration} valueLabelDisplay="auto" min={10} max={20}/>
+            <div className="label">Time to Answer</div>
+            <Slider className="slider" defaultValue={15} getAriaValueText={valuetext} step={5} marks={marksTimeToAnswer} valueLabelDisplay="auto" min={15} max={25}/>
 
-            <ImageList sx={{ width: 500, height: 450 }}>
+            <Button class="column-item">Chose song library:</Button>
+
+            <ImageList sx={{ justifyContent: 'center', width: 500, height: 450 }}>
                 <ImageListItem key="Subheader" cols={2}></ImageListItem>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
@@ -208,6 +208,10 @@ const SelectGameMode = (props) => {
                     </ImageListItem>
                 ))}
             </ImageList>
+
+            <Button class="column-item" onClick={() => history.push(category)}>
+                Start Game
+            </Button>
 
         </BaseContainer>
     );
