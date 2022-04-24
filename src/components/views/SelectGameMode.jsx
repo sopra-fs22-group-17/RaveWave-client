@@ -17,13 +17,15 @@ const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
 
+    localStorage.setItem("gameMode", "guess the song");
+
     let content = (
         <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Game Mode</FormLabel>
             <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
-                <FormControlLabel value="female" control={<Radio />} label="Guess the Song" />
-                <FormControlLabel value="male" control={<Radio />} label="Guess the Artist" />
-                <FormControlLabel value="other" control={<Radio />} label="Guess the Player" />
+                <FormControlLabel value="song" control={<Radio />} label="Guess the Song" />
+                <FormControlLabel value="artist" control={<Radio />} label="Guess the Artist" />
+                <FormControlLabel value="lyrics" control={<Radio />} label="Guess the Lyrics" />
             </RadioGroup>
         </FormControl>
     );
