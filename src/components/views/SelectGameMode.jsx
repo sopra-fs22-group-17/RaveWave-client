@@ -70,27 +70,24 @@ const SelectGameMode = (props) => {
             label: "10",
         },
         {
-            value: 15,
-            label: "15",
+            value: 12,
+            label: "12",
+        },
+        {
+            value: 14,
+            label: "14",
+        },
+        {
+            value: 16,
+            label: "16",
+        },
+        {
+            value: 18,
+            label: "18",
         },
         {
             value: 20,
             label: "20",
-        },
-    ];
-
-    const marksTimeToAnswer = [
-        {
-            value: 15,
-            label: "15",
-        },
-        {
-            value: 20,
-            label: "20",
-        },
-        {
-            value: 25,
-            label: "25",
         },
     ];
 
@@ -165,14 +162,28 @@ const SelectGameMode = (props) => {
         },
     ];
 
-    const [category, setCategory] = useState('Song')
+    const [gameMode, setGameMode] = useState('guessartist')
+
+    const [numberOfRounds, setRound] = useState(10)
+    const [playbackSpeed, setPlaySpeed] = useState(1.0)
+    const [playbackDuration, setPlaybackDuration] = useState(10)
+
+    const [songPool, setSongPool] = useState()
+
+    function startgameButton() {
+        localStorage.setItem('gameMode', gameMode);
+        localStorage.setItem('numberOfRounds', numberOfRounds.toString());
+        localStorage.setItem('playbackSpeed', playbackSpeed.toString());
+        localStorage.setItem('playbackDuration', playbackDuration.toString());
+        history.push('/displayqr');
+    }
 
     return (
         <BaseContainer className="container">
             <Button onClick={() => history.push('/selectgamemode')} class="column-item">Select Game Mode</Button>
 
             <FormControl className="column-item">
-                <RadioGroup row sx={{ justifyContent: 'center' }} aria-labelledby="demo-radio-buttons-group-label" defaultValue="Song" name="radio-buttons-group" value={category} onChange={(e) => setCategory(e.target.value)}>
+                <RadioGroup row sx={{ justifyContent: 'center' }} aria-labelledby="demo-radio-buttons-group-label" defaultValue="Song" name="radio-buttons-group" value={gameMode} onChange={(e) => setGameMode(e.target.value)}>
                     <FormControlLabel value="guesssong" control={<Radio />} label="Guess the Song" />
                     <FormControlLabel value="guessartist" control={<Radio />} label="Guess the Artist" />
                     <FormControlLabel value="guesslyrics" control={<Radio />} label="Guess the Lyrics" />
@@ -181,13 +192,11 @@ const SelectGameMode = (props) => {
 
             <Button class="column-item">Game parameters:</Button>
             <div className="label">Number of Rounds</div>
-            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="auto" min={5} max={20}/>
+            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="auto" min={5} max={20} value={numberOfRounds} onChange={(e) => setRound(e.target.value)}/>
             <div className="label">Playback Speed</div>
-            <Slider className="slider" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="auto" min={0.5} max={3}/>
+            <Slider className="slider" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="auto" min={0.5} max={3} value={playbackSpeed} onChange={(e) => setPlaySpeed(e.target.value)}/>
             <div className="label">Playback Duration</div>
-            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksPlaybackDuration} valueLabelDisplay="auto" min={10} max={20}/>
-            <div className="label">Time to Answer</div>
-            <Slider className="slider" defaultValue={15} getAriaValueText={valuetext} step={5} marks={marksTimeToAnswer} valueLabelDisplay="auto" min={15} max={25}/>
+            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={2} marks={marksPlaybackDuration} valueLabelDisplay="auto" min={10} max={20} value={playbackDuration} onChange={(e) => setPlaybackDuration(e.target.value)}/>
 
             <Button class="column-item">Chose song library:</Button>
 
@@ -209,7 +218,7 @@ const SelectGameMode = (props) => {
                 ))}
             </ImageList>
 
-            <Button class="column-item" onClick={() => history.push(category)}>
+            <Button class="column-item" onClick={startgameButton}>
                 Start Game
             </Button>
 
