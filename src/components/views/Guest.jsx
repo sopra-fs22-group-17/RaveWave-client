@@ -10,7 +10,7 @@ import "styles/views/Guest.scss";
 const FormField = (props) => {
     return (
         <div className="login field">
-            <label className="login label">{props.label}</label>
+            <label>{props.label}</label>
             <input className="login input" placeholder="enter here.." value={props.value} onChange={(e) => props.onChange(e.target.value)} />
         </div>
     );
@@ -29,7 +29,9 @@ const Guest = (props) => {
     return (
         <BaseContainer className="container">
             <div className="container column-item">Guest</div>
-            <FormField label="Username" value={username} onChange={(un) => setUsername(un)} className="container column-item" />
+            <div className="container column-item">
+                <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
+            </div>
             <Button onClick={() => history.push("/landingplayer")} className="container back">
                 Back
             </Button>
