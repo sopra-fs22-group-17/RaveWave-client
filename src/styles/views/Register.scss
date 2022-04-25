@@ -17,6 +17,12 @@
   flex-basis:100%;
 }
 
+.container .backbutton {
+  flex-basis:10%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
 .container .registerbutton {
   flex-basis:10%;
   background-color: $accent2;

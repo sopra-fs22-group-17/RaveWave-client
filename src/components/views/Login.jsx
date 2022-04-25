@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
-import { Button } from "components/ui/Button";
+import { Button } from "@mantine/core";
 
 import "styles/views/Login.scss";
 
@@ -60,6 +60,9 @@ const Login = (props) => {
             <div className="container column-item">
                 <FormField label="Password" value={password} onChange={(n) => setPassword(n)} />
             </div>
+            <Button onClick={() => history.push(`/connectspotify`)} className=" container backbutton">
+                Back
+            </Button>
             <Button disabled={!username || !password} onClick={() => history.push(`/connectspotify`)} className=" container loginbutton">
                 Login
             </Button>
