@@ -9,12 +9,12 @@ const DisplayQR = (props) => {
     const history = useHistory();
 
     return (
-        <BaseContainer className="game container">
-            <p>Let other Players join via QR Code</p>
-            <Button onClick={() => history.push("/selectgamemode")} className="displayqr backbutton" width="100%">
+        <BaseContainer className="container">
+            <div className="container column-item">Let other Players join via QR Code</div>
+            <Button onClick={() => history.push("/selectgamemode")} className="container back">
                 Back
             </Button>
-            <Button onClick={() => history.push("/guesssong")} className="displayqr startgamebutton" width="100%">
+            <Button onClick={() => history.push("/guesssong")} className="container start">
                 Start Game
             </Button>
         </BaseContainer>
