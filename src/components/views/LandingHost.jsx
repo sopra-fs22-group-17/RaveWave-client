@@ -22,12 +22,16 @@ const LandingHost = (props) => {
     };
 
     return (
-        <BaseContainer className="flex-column">
+        <BaseContainer className="container">
 
             <Button onClick={() => history.push('/landinghost')} class="column-item">RaveWave Host</Button>
             <Lottie class="column-item" options={defaultOptions} speed={0.2}/>
-            <Button onClick={() => history.push('/register')} class="register">Register</Button>
-            <Button onClick={() => history.push('/login')} class="login">Login</Button>
+            <Button onClick={() => history.push("/register")} className="container back">
+                Register
+            </Button>
+            <Button onClick={() => history.push("/login")} className="container start">
+                Login
+            </Button>
 
         </BaseContainer>
     );

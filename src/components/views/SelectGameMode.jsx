@@ -217,7 +217,7 @@ const SelectGameMode = (props) => {
 
             <Button class="column-item">Chose song library:</Button>
 
-            <ImageList sx={{ justifyContent: 'center', width: 500, height: 450 }}>
+            <ImageList sx={{ justifyContent: 'center', height: 450, flexGrow: 1, flexWrap: 'wrap' }}>
                 <ImageListItem key="Subheader" cols={2}></ImageListItem>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
@@ -235,8 +235,8 @@ const SelectGameMode = (props) => {
                 ))}
             </ImageList>
 
-            <Button class="column-item" onClick={startgameButton}>
-                Start Game
+            <Button onClick={() => history.push("/connectspotify")} className="container start">
+                Add players
             </Button>
 
         </BaseContainer>
