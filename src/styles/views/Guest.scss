@@ -3,6 +3,28 @@
 @tailwind components;
 @tailwind utilities;
 
-.Guest {
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
+}
 
+.container .column-item {
+  flex-basis:100%;
+}
+
+.container .back {
+  flex-basis:10%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.container .continue {
+  flex-basis:10%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
 }
