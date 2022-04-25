@@ -17,6 +17,7 @@ import PostRound from "components/views/PostRound";
 import Register from "components/views/Register";
 import SelectGameMode from "components/views/SelectGameMode";
 import WaitingRoom from "components/views/WaitingRoom";
+import { GameController } from "../../views/GameController";
 
 /**
  * Main router of your application.
@@ -31,6 +32,10 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
+                <Route exact path="/game">
+                    <GameController />
+                </Route>
+
                 <Route exact path="/landinghost">
                     <LandingHost />
                 </Route>
