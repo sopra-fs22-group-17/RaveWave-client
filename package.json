@@ -33,7 +33,8 @@
     "react-scripts": "^5.0.0",
     "react-spotify-web-playback": "^0.9.1",
     "react-spotify-web-playback-sdk": "^3.0.1",
-    "react-use-websocket": "^3.0.0"
+    "react-use-websocket": "^3.0.0",
+    "stompjs": "^2.3.3"
   },
   "scripts": {
     "dev": "react-scripts start",

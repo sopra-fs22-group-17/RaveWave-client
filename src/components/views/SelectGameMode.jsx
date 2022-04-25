@@ -1,26 +1,25 @@
 import { Button } from "@mantine/core";
-
-import Slider from "@mui/material/Slider";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import "styles/views/SelectGameMode.scss";
-import * as React from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import IconButton from "@mui/material/IconButton";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
-import {useState} from "react";
-import FormLabel from "@mui/material/FormLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Slider from "@mui/material/Slider";
+import * as React from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import "styles/views/SelectGameMode.scss";
+
 const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
-
 
     localStorage.setItem("gameMode", "guess the song");
 
@@ -179,28 +178,38 @@ const SelectGameMode = (props) => {
         },
     ];
 
-    const [gameMode, setGameMode] = useState('guessartist')
+    const [gameMode, setGameMode] = useState("guessartist");
 
-    const [numberOfRounds, setRound] = useState(10)
-    const [playbackSpeed, setPlaySpeed] = useState(1.0)
-    const [playbackDuration, setPlaybackDuration] = useState(10)
+    const [numberOfRounds, setRound] = useState(10);
+    const [playbackSpeed, setPlaySpeed] = useState(1.0);
+    const [playbackDuration, setPlaybackDuration] = useState(10);
 
-    const [songPool, setSongPool] = useState()
+    const [songPool, setSongPool] = useState();
 
     function startgameButton() {
-        localStorage.setItem('gameMode', gameMode);
-        localStorage.setItem('numberOfRounds', numberOfRounds.toString());
-        localStorage.setItem('playbackSpeed', playbackSpeed.toString());
-        localStorage.setItem('playbackDuration', playbackDuration.toString());
-        history.push('/displayqr');
+        localStorage.setItem("gameMode", gameMode);
+        localStorage.setItem("numberOfRounds", numberOfRounds.toString());
+        localStorage.setItem("playbackSpeed", playbackSpeed.toString());
+        localStorage.setItem("playbackDuration", playbackDuration.toString());
+        history.push("/displayqr");
     }
 
     return (
         <BaseContainer className="container">
-            <Button onClick={() => history.push('/selectgamemode')} class="column-item">Select Game Mode</Button>
+            <Button onClick={() => history.push("/selectgamemode")} class="column-item">
+                Select Game Mode
+            </Button>
 
             <FormControl className="column-item">
-                <RadioGroup row sx={{ justifyContent: 'center' }} aria-labelledby="demo-radio-buttons-group-label" defaultValue="Song" name="radio-buttons-group" value={gameMode} onChange={(e) => setGameMode(e.target.value)}>
+                <RadioGroup
+                    row
+                    sx={{ justifyContent: "center" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="Song"
+                    name="radio-buttons-group"
+                    value={gameMode}
+                    onChange={(e) => setGameMode(e.target.value)}
+                >
                     <FormControlLabel value="guesssong" control={<Radio />} label="Guess the Song" />
                     <FormControlLabel value="guessartist" control={<Radio />} label="Guess the Artist" />
                     <FormControlLabel value="guesslyrics" control={<Radio />} label="Guess the Lyrics" />
@@ -209,15 +218,48 @@ const SelectGameMode = (props) => {
 
             <Button class="column-item">Game parameters:</Button>
             <div className="label">Number of Rounds</div>
-            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="auto" min={5} max={20} value={numberOfRounds} onChange={(e) => setRound(e.target.value)}/>
+            <Slider
+                className="slider"
+                defaultValue={10}
+                getAriaValueText={valuetext}
+                step={5}
+                marks={marksRounds}
+                valueLabelDisplay="auto"
+                min={5}
+                max={20}
+                value={numberOfRounds}
+                onChange={(e) => setRound(e.target.value)}
+            />
             <div className="label">Playback Speed</div>
-            <Slider className="slider" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="auto" min={0.5} max={3} value={playbackSpeed} onChange={(e) => setPlaySpeed(e.target.value)}/>
+            <Slider
+                className="slider"
+                defaultValue={1}
+                getAriaValueText={valuetext}
+                step={0.5}
+                marks={marksPlaybackSpeed}
+                valueLabelDisplay="auto"
+                min={0.5}
+                max={3}
+                value={playbackSpeed}
+                onChange={(e) => setPlaySpeed(e.target.value)}
+            />
             <div className="label">Playback Duration</div>
-            <Slider className="slider" defaultValue={10} getAriaValueText={valuetext} step={2} marks={marksPlaybackDuration} valueLabelDisplay="auto" min={10} max={20} value={playbackDuration} onChange={(e) => setPlaybackDuration(e.target.value)}/>
+            <Slider
+                className="slider"
+                defaultValue={10}
+                getAriaValueText={valuetext}
+                step={2}
+                marks={marksPlaybackDuration}
+                valueLabelDisplay="auto"
+                min={10}
+                max={20}
+                value={playbackDuration}
+                onChange={(e) => setPlaybackDuration(e.target.value)}
+            />
 
             <Button class="column-item">Chose song library:</Button>
 
-            <ImageList sx={{ justifyContent: 'center', width: 500, height: 450 }}>
+            <ImageList sx={{ justifyContent: "center", width: 500, height: 450 }}>
                 <ImageListItem key="Subheader" cols={2}></ImageListItem>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
@@ -238,7 +280,6 @@ const SelectGameMode = (props) => {
             <Button class="column-item" onClick={startgameButton}>
                 Start Game
             </Button>
-
         </BaseContainer>
     );
 };
