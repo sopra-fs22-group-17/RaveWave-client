@@ -13,8 +13,12 @@
   font-family: $fontDefault;
 }
 
+.container .column-item {
+  flex-basis:100%;
+}
+
 .container .connectSpotify {
-  flex-basis:15%;
-  background-color: $accent2;
+  flex-basis:10%;
+  background-color: $accent1;
   box-shadow: $dropShadow;
 }
