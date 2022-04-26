@@ -3,6 +3,40 @@
 @tailwind components;
 @tailwind utilities;
 
-.GuessSong {
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
+}
 
+.container .column-item {
+  flex-basis:100%;
+}
+
+.container .opt1 {
+  flex-basis:45%;
+  background-color: #1BD05C;
+  box-shadow: $dropShadow;
+}
+
+.container .opt2 {
+  flex-basis:45%;
+  background-color: #83D89D;
+  box-shadow: $dropShadow;
+}
+
+.container .opt3 {
+  flex-basis:45%;
+  background-color: #7DB9DB;
+  box-shadow: $dropShadow;
+}
+
+.container .opt4 {
+  flex-basis:45%;
+  background-color: #A079F0;
+  box-shadow: $dropShadow;
 }

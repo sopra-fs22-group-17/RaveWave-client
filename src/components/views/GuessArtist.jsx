@@ -1,15 +1,6 @@
-import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
-import FastRewindRounded from "@mui/icons-material/FastRewindRounded";
-import PauseRounded from "@mui/icons-material/PauseRounded";
-import PlayArrowRounded from "@mui/icons-material/PlayArrowRounded";
-import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
-import VolumeUpRounded from "@mui/icons-material/VolumeUpRounded";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import IconButton from "@mui/material/IconButton";
+import {Button} from "@mantine/core";
 import Slider from "@mui/material/Slider";
-import Stack from "@mui/material/Stack";
 import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
@@ -17,8 +8,6 @@ import * as React from "react";
 import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/GuessArtist.scss";
-
-const buttons = [<Button key="one">One</Button>, <Button key="two">Two</Button>, <Button key="three">Three</Button>, <Button key="four">Four</Button>];
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
@@ -62,37 +51,33 @@ const GuessArtist = (props) => {
     const theme = useTheme();
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);
-    const [paused, setPaused] = React.useState(false);
-    const mainIconColor = theme.palette.mode === "dark" ? "#fff" : "#000";
-    const lightIconColor = theme.palette.mode === "dark" ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.4)";
 
     return (
-        <BaseContainer>
-            <div>How is this song called?</div>
-            <Box
-                sx={{
-                    display: "flex",
-                    "& > *": {
-                        m: 1,
-                    },
-                }}
-            >
-                <ButtonGroup orientation="vertical" aria-label="vertical contained button group" variant="contained">
-                    {buttons}
-                </ButtonGroup>
-            </Box>
-            <Box sx={{ width: "100%", overflow: "hidden" }}>
+        <BaseContainer className="container">
+            <div className="container column-item">Who is the artist of this song?</div>
+            <Button className="container opt1">
+                Opt1
+            </Button>
+            <Button className="container opt2">
+                Opt2
+            </Button>
+            <Button className="container opt3">
+                Opt3
+            </Button>
+            <Button className="container opt4">
+                Opt4
+            </Button>
                 <Widget>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <CoverImage>
-                            <img alt="can't win - Chilling Sunday" src="lotties/albumcover.png" />
+                            <img alt="can't win - Chilling Sunday" src="lotties/chilling-sunday.jpg" />
                         </CoverImage>
                         <Box sx={{ ml: 1.5, minWidth: 0 }}>
                             <Typography variant="caption" color="text.secondary" fontWeight={500}>
                                 Jun Pulse
                             </Typography>
                             <Typography noWrap>
-                                <b>คนเก่าเขาทำไว้ดี (Can&apos;t win)</b>
+                                <b>asd (Can&apos;t win)</b>
                             </Typography>
                             <Typography noWrap letterSpacing={-0.25}>
                                 Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี
@@ -142,7 +127,7 @@ const GuessArtist = (props) => {
                         <TinyText>-{formatDuration(duration - position)}</TinyText>
                     </Box>
                 </Widget>
-            </Box>
+
         </BaseContainer>
     );
 };
