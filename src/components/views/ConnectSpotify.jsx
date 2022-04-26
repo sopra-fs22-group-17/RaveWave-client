@@ -9,11 +9,11 @@ const ConnectSpotify = (props) => {
     const history = useHistory();
 
     return (
-        <BaseContainer className="container">
-            <Button onClick={() => history.push("/selectgamemode")} className="container back">
+        <BaseContainer className="connectspotify">
+            <Button onClick={() => history.push("/selectgamemode")} className="connectspotify back">
                 Back
             </Button>
-            <Button onClick={() => history.push("/displayqr")} className="container connectSpotify">
+            <Button onClick={() => history.push("/displayqr")} className="connectspotify connectbutton">
                 Connect Spotify
             </Button>
         </BaseContainer>

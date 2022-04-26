@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.guesssong {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,29 +13,29 @@
   font-family: $fontDefault;
 }
 
-.container .column-item {
+.guesssong .column-item {
   flex-basis:100%;
 }
 
-.container .opt1 {
+.guesssong .opt1 {
   flex-basis:45%;
   background-color: #1BD05C;
   box-shadow: $dropShadow;
 }
 
-.container .opt2 {
+.guesssong .opt2 {
   flex-basis:45%;
   background-color: #83D89D;
   box-shadow: $dropShadow;
 }
 
-.container .opt3 {
+.guesssong .opt3 {
   flex-basis:45%;
   background-color: #7DB9DB;
   box-shadow: $dropShadow;
 }
 
-.container .opt4 {
+.guesssong .opt4 {
   flex-basis:45%;
   background-color: #A079F0;
   box-shadow: $dropShadow;

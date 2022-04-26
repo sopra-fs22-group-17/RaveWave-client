@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.connectspotify {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,11 +13,17 @@
   font-family: $fontDefault;
 }
 
-.container .column-item {
+.connectspotify .column-item {
   flex-basis:100%;
 }
 
-.container .connectSpotify {
+.connectspotify .back {
+  flex-basis:10%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.connectspotify .connectbutton {
   flex-basis:10%;
   background-color: $accent2;
   box-shadow: $dropShadow;

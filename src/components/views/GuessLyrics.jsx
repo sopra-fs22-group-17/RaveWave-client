@@ -7,7 +7,7 @@ import * as React from "react";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import "styles/views/GuessArtist.scss";
+import "styles/views/GuessLyrics.scss";
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
@@ -53,18 +53,18 @@ const GuessArtist = (props) => {
     const [position, setPosition] = React.useState(32);
 
     return (
-        <BaseContainer className="container">
-            <div className="container column-item">What are the lyrics of the song?</div>
-            <Button className="container opt1">
+        <BaseContainer className="guesslyrics">
+            <div className="guesslyrics column-item">What are the lyrics of the song?</div>
+            <Button className="guesslyrics opt1">
                 Opt1
             </Button>
-            <Button className="container opt2">
+            <Button className="guesslyrics opt2">
                 Opt2
             </Button>
-            <Button className="container opt3">
+            <Button className="guesslyrics opt3">
                 Opt3
             </Button>
-            <Button className="container opt4">
+            <Button className="guesslyrics opt4">
                 Opt4
             </Button>
             <Widget>

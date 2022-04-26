@@ -63,15 +63,15 @@ const Register = (props) => {
     // };
 
     return (
-        <BaseContainer className="container">
+        <BaseContainer className="register">
             <div>Register</div>
-            <div className="container column-item">
+            <div className="register column-item">
                 <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
             </div>
-            <div className="container column-item">
+            <div className="register column-item">
                 <PasswordField label="Password" value={password} onChange={(n) => setPassword(n)} />
             </div>
-            <div className="container column-item">
+            <div className="register column-item">
                 <PasswordField label="Repeat password" value={repeatPassword} onChange={(an) => setrepeatPassword(an)} />
             </div>
             <Button onClick={() => history.push(`/connectspotify`)} className="backbutton">

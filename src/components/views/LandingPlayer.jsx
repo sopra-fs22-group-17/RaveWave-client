@@ -20,16 +20,16 @@ const LandingPlayer = (props) => {
     };
 
     return (
-        <BaseContainer className="container">
-            <Button onClick={() => history.push('/landingplayer')} class="column-item">RaveWave Player</Button>
+        <BaseContainer className="landingplayer">
+            <Button onClick={() => history.push('/landingplayer')} class="landingplayer column-item">RaveWave Player</Button>
             <Lottie class="column-item" options={defaultOptions} speed={0.2}/>
-            <Button onClick={() => history.push("/guest")} className="container back">
+            <Button onClick={() => history.push("/guest")} className="landingplayer guest">
                 Guest
             </Button>
-            <Button onClick={() => history.push("/register")} className="container start">
+            <Button onClick={() => history.push("/register")} className="landingplayer register">
                 Register
             </Button>
-            <Button onClick={() => history.push("/login")} className="container continue">
+            <Button onClick={() => history.push("/login")} className="landingplayer login">
                 Login
             </Button>
         </BaseContainer>

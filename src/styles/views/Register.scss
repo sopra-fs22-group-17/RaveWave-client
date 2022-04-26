@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.register {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,17 +13,17 @@
   font-family: $fontDefault;
 }
 
-.container .column-item {
+.register .column-item {
   flex-basis:100%;
 }
 
-.container .backbutton {
+.register .backbutton {
   flex-basis:10%;
   background-color: $accent1;
   box-shadow: $dropShadow;
 }
 
-.container .registerbutton {
+.register .registerbutton {
   flex-basis:10%;
   background-color: $accent2;
   box-shadow: $dropShadow;

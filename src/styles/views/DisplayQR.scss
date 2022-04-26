@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.displayqr {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,24 +13,18 @@
   font-family: $fontDefault;
 }
 
-.container .column-item {
+.displayqr .column-item {
   flex-basis:100%;
 }
 
-.container .back {
+.displayqr .back {
   flex-basis:10%;
   background-color: $accent1;
   box-shadow: $dropShadow;
 }
 
-.container .start {
+.displayqr .start {
   flex-basis:10%;
   background-color: $accent2;
-  box-shadow: $dropShadow;
-}
-
-.container .continue {
-  flex-basis:10%;
-  background-color: $accent3;
   box-shadow: $dropShadow;
 }

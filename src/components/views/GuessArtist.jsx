@@ -53,18 +53,18 @@ const GuessArtist = (props) => {
     const [position, setPosition] = React.useState(32);
 
     return (
-        <BaseContainer className="container">
-            <div className="container column-item">Who is the artist of this song?</div>
-            <Button className="container opt1">
+        <BaseContainer className="guessartist">
+            <div className="guessartist column-item">Who is the artist of this song?</div>
+            <Button className="guessartist opt1">
                 Opt1
             </Button>
-            <Button className="container opt2">
+            <Button className="guessartist opt2">
                 Opt2
             </Button>
-            <Button className="container opt3">
+            <Button className="guessartist opt3">
                 Opt3
             </Button>
-            <Button className="container opt4">
+            <Button className="guessartist opt4">
                 Opt4
             </Button>
                 <Widget>

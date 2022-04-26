@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.selectgamemode {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,25 +13,25 @@
   font-family: $fontDefault;
 }
 
-.container .column-item {
+.selectgamemode .column-item {
   flex-basis:100%;
 }
 
-.container .label {
+.selectgamemode .label {
   flex-basis:15%;
 }
 
-.container .slider {
+.selectgamemode .slider {
   flex-basis:75%;
 }
 
-.container .backinio {
+.selectgamemode .backinio {
   flex-basis:10%;
   background-color: $accent1;
   box-shadow: $dropShadow;
 }
 
-.container .addplayers {
+.selectgamemode .addplayers {
   flex-basis:10%;
   background-color: $accent2;
   box-shadow: $dropShadow;
