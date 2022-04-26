@@ -32,6 +32,9 @@ const Guest = (props) => {
             <div className="container column-item">
                 <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
             </div>
+            {
+                // make sure that back&login button redirects to correct page
+            }
             <Button onClick={() => history.push("/landingplayer")} className="container back">
                 Back
             </Button>

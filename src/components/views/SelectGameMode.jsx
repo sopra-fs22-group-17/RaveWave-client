@@ -235,7 +235,10 @@ const SelectGameMode = (props) => {
                 ))}
             </ImageList>
 
-            <Button onClick={() => history.push("/connectspotify")} className="container start">
+            <Button onClick={() => history.push("/connectspotify")} className="container backinio">
+                Back
+            </Button>
+            <Button onClick={() => history.push("/displayqr")} className="container addplayers">
                 Add players
             </Button>
 

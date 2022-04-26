@@ -25,8 +25,14 @@
   flex-basis:75%;
 }
 
-.flex-column .login {
-  flex-basis:20%;
-  background-color: $accent3;
+.container .backinio {
+  flex-basis:10%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.container .addplayers {
+  flex-basis:10%;
+  background-color: $accent2;
   box-shadow: $dropShadow;
 }

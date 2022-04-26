@@ -7,6 +7,7 @@ import { Button } from "@mantine/core";
 
 import "styles/views/Register.scss";
 
+
 const FormField = (props) => {
     return (
         <div className="login field">
@@ -17,6 +18,21 @@ const FormField = (props) => {
 };
 
 FormField.propTypes = {
+    label: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+};
+
+const PasswordField = (props) => {
+    return (
+        <div className="login field">
+            <label className="login label">{props.label}</label>
+            <input type="password" className="login input" placeholder="enter here.." value={props.value} onChange={(e) => props.onChange(e.target.value)} />
+        </div>
+    );
+};
+
+PasswordField.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
@@ -53,10 +69,10 @@ const Register = (props) => {
                 <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
             </div>
             <div className="container column-item">
-                <FormField label="Password" value={password} onChange={(n) => setPassword(n)} />
+                <PasswordField label="Password" value={password} onChange={(n) => setPassword(n)} />
             </div>
             <div className="container column-item">
-                <FormField label="Repeat password" value={repeatPassword} onChange={(an) => setrepeatPassword(an)} />
+                <PasswordField label="Repeat password" value={repeatPassword} onChange={(an) => setrepeatPassword(an)} />
             </div>
             <Button onClick={() => history.push(`/connectspotify`)} className="backbutton">
                 Back

@@ -14,6 +14,8 @@ const DisplayQR = (props) => {
             <Button onClick={() => history.push("/selectgamemode")} className="container back">
                 Back
             </Button>
+            { // make button redirect to right game mode (via localstorage)
+                }
             <Button onClick={() => history.push("/guesssong")} className="container start">
                 Start Game
             </Button>

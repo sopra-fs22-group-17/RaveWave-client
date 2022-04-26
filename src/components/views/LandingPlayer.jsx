@@ -29,7 +29,7 @@ const LandingPlayer = (props) => {
             <Button onClick={() => history.push("/register")} className="container start">
                 Register
             </Button>
-            <Button onClick={() => history.push("/guesssong")} className="container continue">
+            <Button onClick={() => history.push("/login")} className="container continue">
                 Login
             </Button>
         </BaseContainer>
