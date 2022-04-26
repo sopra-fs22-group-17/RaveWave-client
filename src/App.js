@@ -1,5 +1,5 @@
 import AppRouter from "components/routing/routers/AppRouter";
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider } from "@mantine/core";
 
 /**
  * Happy coding!
@@ -7,11 +7,7 @@ import { MantineProvider } from '@mantine/core';
  * Overhauled by Kyrill Hux
  */
 const App = () => {
-  return (
-      <MantineProvider withCSSVariables>
-          <AppRouter/>
-      </MantineProvider>
-  );
+    return <AppRouter />;
 };
 
 export default App;

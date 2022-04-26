@@ -1,7 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import App from "App";
-import "styles/index.scss"
+import "styles/index.scss";
+import { Theme } from "components/Theme";
 
 /**
  * This is the entry point of your React application where the root element is in the public/index.html.
@@ -9,4 +9,9 @@ import "styles/index.scss"
  * Applications built with just React usually have a single root DOM node.
  * More: https://reactjs.org/docs/rendering-elements.html
  */
-ReactDOM.render(<App/>, document.getElementById("root"));
+ReactDOM.render(
+    <Theme>
+        <App />
+    </Theme>,
+    document.getElementById("root"),
+);

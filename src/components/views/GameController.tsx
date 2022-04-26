@@ -1,48 +1,73 @@
-import { Button, Center, Stack, Title } from "@mantine/core";
+import { Avatar, Button, Group, Stack, Title } from "@mantine/core";
 import { QRCodeCanvas } from "qrcode.react";
-import { FC, useEffect, useState } from "react";
-
-export type TUserRole = "host" | "player";
+import { FC, useEffect, useRef, useState } from "react";
+import { IGameAnswerOption, IGameQuestion, IGameResult, TUserRole } from "../../api/@def";
+import { IMessageEvent } from "../../api/API";
+import { useAPI } from "../../hooks/useAPI";
 export type TGameState =
-    | "login"
-    | "register"
-    | "login-spotify"
-    | "game-configuration" /* configure the game */
-    | "qrcode"
-    | "landing"
+    // host
+    | "configure"
+    | "invite" // QR code
+    // all
     | "waiting"
     | "question"
     | "result"
     | "summary";
 
-export const GameController: FC<{}> = ({}) => {
-    const [role, setRole] = useState<TUserRole>("host");
-    const [state, setState] = useState<TGameState>("game-configuration");
+export interface IGameControllerProps {
+    role: TUserRole;
+}
+
+export interface IGameController {
+    gotoState(state: TGameState): void;
+    startGame: () => void;
+    answer: (questionId: string, answerId: string) => void;
+}
+
+export const GameController: FC<IGameControllerProps> = ({ role }) => {
+    const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "configure");
+    const [question, setQuestion] = useState<IGameQuestion>();
+    const [result, setResult] = useState<IGameResult>();
+
+    const ref = useRef<any>();
+    const api = useAPI();
+
+    useEffect(() => {
+        const listener = (message: IMessageEvent) => {
+            if (message.type === "question") {
+                setState("question");
+                setQuestion(message.data);
+            } else if (message.type === "result") {
+                setState("result");
+                ref.current = message;
+                setResult(message.data);
+            }
+        };
+        api.join(listener);
+    }, []);
 
     const ctrl: IGameController = {
         gotoState: (newState: TGameState) => {
             setState(newState);
         },
+        startGame: () => {
+            api.send("ch1", "command", { method: "start" });
+        },
+        answer: (questionId: string, answerId: string) => {
+            api.send("ch1", "command", { method: "answer", answer: { questionId, answerId } });
+        },
     };
 
-    if (state === "login") {
-        return <LoginView controller={ctrl} />;
-    } else if (state === "register") {
-        return <RegisterView controller={ctrl} />;
-    } else if (state === "login-spotify") {
-        return <SpotifyLoginView controller={ctrl} />;
-    } else if (state === "game-configuration") {
+    if (state === "configure") {
         return <GameConfigureView controller={ctrl} />;
-    } else if (state === "qrcode") {
-        return <QRCodeView controller={ctrl} />;
-    } else if (state === "landing") {
-        return <LandingView controller={ctrl} />;
+    } else if (state === "invite") {
+        return <InviteView controller={ctrl} />;
     } else if (state === "waiting") {
         return <WaitingRoomView controller={ctrl} />;
     } else if (state === "question") {
-        return <QuestionView controller={ctrl} />;
+        return <QuestionView controller={ctrl} question={question} />;
     } else if (state === "result") {
-        return <ResultView controller={ctrl} />;
+        return <ResultView controller={ctrl} result={result} />;
     } else if (state === "summary") {
         return <SummaryView controller={ctrl} />;
     } else {
@@ -50,72 +75,94 @@ export const GameController: FC<{}> = ({}) => {
     }
 };
 
-export interface IGameController {
-    gotoState(state: TGameState): void;
-}
-
 export interface IGameViewProps {
     controller: IGameController;
 }
 
-export const LoginView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>LoginView</Title>;
-};
+const GameConfigureView: FC<IGameViewProps> = ({ controller }) => {
+    const inviteAction = () => controller.gotoState("invite");
 
-export const RegisterView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>RegisterView</Title>;
-};
-
-export const SpotifyLoginView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>SpotifyLoginView</Title>;
-};
-
-export const GameConfigureView: FC<IGameViewProps> = ({ controller }) => {
     return (
-        <Stack>
-            <Center>
-                <Title>GameConfigureView</Title>;<Button onClick={() => controller.gotoState("qrcode")}>Show QR</Button>
-            </Center>
+        <Stack align="center">
+            <Title>GameConfigureView</Title>
+            <Button onClick={inviteAction}>Invite</Button>
         </Stack>
     );
 };
 
-export const QRCodeView: FC<IGameViewProps> = ({ controller }) => {
-    useEffect(() => {
-        setTimeout(() => {
-            controller.gotoState("waiting");
-        }, 5000);
-    }, []);
+const InviteView: FC<IGameViewProps> = ({ controller }) => {
+    const startAction = () => controller.startGame();
 
     return (
-        <Stack>
-            <Center>
-                <QRCodeCanvas value="https://frontwerks.com/" size={250} />,
-            </Center>
+        <Stack align="center">
+            <QRCodeCanvas value="http://192.168.1.116:3000/game/abcd" size={250} />
+            <Button onClick={startAction}>Start</Button>
         </Stack>
     );
 };
 
-export const LandingView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>LandingView</Title>;
-};
-
-export const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
+const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
     return <Title>WaitingRoomView</Title>;
 };
 
-export const QuestionView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>QuestionView</Title>;
+export interface IQuestionViewProps extends IGameViewProps {
+    question: IGameQuestion;
+}
+const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
+    const [answered, setAnswered] = useState(false);
+    // const sendAnswer = (answer: {questionId: question.questionId, answerId: answer) => {
+    //     controller.answer()
+    // };
+    if (!question) return null;
+    const sendAnswer = (selection: IGameAnswerOption) => {
+        setAnswered(true);
+        controller.answer(question.questionId, selection.id);
+    };
+    return (
+        <Stack>
+            <Title>QuestionView</Title>
+            <div>{question.questionId}</div>
+            <div>{question.type}</div>
+            {question.options.map((option, i) => {
+                return (
+                    <Button key={i} disabled={answered} onClick={() => sendAnswer(option)}>
+                        {option.label}
+                    </Button>
+                );
+            })}
+        </Stack>
+    );
 };
 
-export const ResultView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>ResultView</Title>;
+export interface IResultViewProps extends IGameViewProps {
+    result: IGameResult;
+}
+
+const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
+    if (!result) return null;
+
+    return (
+        <Stack align="center">
+            <Title>ResultView</Title>
+            <div>{result.correctAnswer.label}</div>
+            {result.results.map((res, i) => {
+                return (
+                    <Group key={i}>
+                        <Avatar color="cyan" radius="xl">
+                            {res.username.substring(0, 1)}
+                        </Avatar>
+                        {res.correctness ? "OK" : "FAIL"}
+                    </Group>
+                );
+            })}
+        </Stack>
+    );
 };
 
-export const SummaryView: FC<IGameViewProps> = ({ controller }) => {
+const SummaryView: FC<IGameViewProps> = ({ controller }) => {
     return <Title>SummaryView</Title>;
 };
 
-export const ErrorView: FC<IGameViewProps> = ({ controller }) => {
+const ErrorView: FC<IGameViewProps> = ({ controller }) => {
     return <Title>OOOpppps</Title>;
 };

@@ -1,23 +1,23 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
-import { WebSocket } from "API/websocket";
-import { GameGuard } from "components/routing/routeProtectors/GameGuard";
-import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
-import ConnectSpotify from "components/views/ConnectSpotify";
-import DisplayQR from "components/views/DisplayQR";
-import GuessArtist from "components/views/GuessArtist";
-import GuessLyrics from "components/views/GuessLyrics";
-import GuessSong from "components/views/GuessSong";
-import Guest from "components/views/Guest";
-import LandingHost from "components/views/LandingHost";
-import LandingPlayer from "components/views/LandingPlayer";
-import Login from "components/views/Login";
-import PostGame from "components/views/PostGame";
-import PostRound from "components/views/PostRound";
-import Register from "components/views/Register";
-import SelectGameMode from "components/views/SelectGameMode";
-import WaitingRoom from "components/views/WaitingRoom";
-import { GameController } from "../../views/GameController";
+// import { WebSocket } from "API/websocket";
+// import { GameGuard } from "components/routing/routeProtectors/GameGuard";
+// import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
+// import ConnectSpotify from "components/views/ConnectSpotify";
+// import DisplayQR from "components/views/DisplayQR";
+// import GuessArtist from "components/views/GuessArtist";
+// import GuessLyrics from "components/views/GuessLyrics";
+// import GuessSong from "components/views/GuessSong";
+// import Guest from "components/views/Guest";
+// import LandingHost from "components/views/LandingHost";
+// import LandingPlayer from "components/views/LandingPlayer";
+// import Login from "components/views/Login";
+// import PostGame from "components/views/PostGame";
+// import PostRound from "components/views/PostRound";
+// import Register from "components/views/Register";
+// import SelectGameMode from "components/views/SelectGameMode";
+// import WaitingRoom from "components/views/WaitingRoom";
+import { GameView } from "../../views/GameView";
 
 /**
  * Main router of your application.
@@ -32,11 +32,11 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/game">
-                    <GameController />
+                <Route path="/game/:id?">
+                    <GameView />
                 </Route>
 
-                <Route exact path="/landinghost">
+                {/* <Route exact path="/landinghost">
                     <LandingHost />
                 </Route>
 
@@ -98,7 +98,7 @@ const AppRouter = () => {
 
                 <Route exact path="/websocketdemo">
                     <WebSocket />
-                </Route>
+                </Route> */}
             </Switch>
         </BrowserRouter>
     );
