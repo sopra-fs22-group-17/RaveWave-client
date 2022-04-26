@@ -1,5 +1,4 @@
 import { Button } from "@mantine/core";
-import { Link } from "react-router";
 import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
@@ -10,8 +9,13 @@ const ConnectSpotify = (props) => {
     const history = useHistory();
 
     return (
-        <BaseContainer className="container">
-            <Button onClick={() => history.push('/')} class="connectSpotify">Connect Spotify</Button>
+        <BaseContainer className="connectspotify">
+            <Button onClick={() => history.push("/selectgamemode")} className="connectspotify back">
+                Back
+            </Button>
+            <Button onClick={() => history.push("/displayqr")} className="connectspotify connectbutton">
+                Connect Spotify
+            </Button>
         </BaseContainer>
     );
 };

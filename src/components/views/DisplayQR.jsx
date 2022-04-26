@@ -9,12 +9,14 @@ const DisplayQR = (props) => {
     const history = useHistory();
 
     return (
-        <BaseContainer className="game container">
-            <p>Let other Players join via QR Code</p>
-            <Button onClick={() => history.push("/selectgamemode")} className="displayqr backbutton" width="100%">
+        <BaseContainer className="displayqr">
+            <div className="displayqr column-item">Let other Players join via QR Code</div>
+            <Button onClick={() => history.push("/selectgamemode")} className="displayqr back">
                 Back
             </Button>
-            <Button onClick={() => history.push("/guesssong")} className="displayqr startgamebutton" width="100%">
+            { // make button redirect to right game mode (via localstorage)
+                }
+            <Button onClick={() => history.push("/guesssong")} className="displayqr start">
                 Start Game
             </Button>
         </BaseContainer>

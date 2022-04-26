@@ -27,15 +27,18 @@ const Guest = (props) => {
     const [username, setUsername] = useState(null);
 
     return (
-        <BaseContainer className="container">
+        <BaseContainer className="guest">
             <div>Guest</div>
-            <div className="container column-item">
+            <div className="guest column-item">
                 <FormField label="Username" value={username} onChange={(un) => setUsername(un)} />
             </div>
-            <Button onClick={() => history.push("/landingplayer")} className="container back">
+            {
+                // make sure that back&login button redirects to correct page
+            }
+            <Button onClick={() => history.push("/landingplayer")} className="guest back">
                 Back
             </Button>
-            <Button disabled={!username} onClick={() => history.push(`/waitingroom`)} className="container continue">
+            <Button disabled={!username} onClick={() => history.push(`/waitingroom`)} className="guest continue">
                 Continue
             </Button>
         </BaseContainer>

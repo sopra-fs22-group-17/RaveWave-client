@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.guest {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,17 +13,17 @@
   font-family: $fontDefault;
 }
 
-.container .column-item {
+.guest .column-item {
   flex-basis:100%;
 }
 
-.container .back {
+.guest .back {
   flex-basis:10%;
   background-color: $accent1;
   box-shadow: $dropShadow;
 }
 
-.container .continue {
+.guest .continue {
   flex-basis:10%;
   background-color: $accent2;
   box-shadow: $dropShadow;
