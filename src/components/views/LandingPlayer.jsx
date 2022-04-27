@@ -1,11 +1,12 @@
-import {Button} from "@mantine/core";
-import {useHistory} from "react-router-dom";
+import { Button } from "@mantine/core";
+import Lottie from "react-lottie";
+import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import "styles/views/LandingPlayer.scss";
-import Lottie from "react-lottie";
 import animationData from "./lotties/RaveWaveAnimation.json";
+
+import "styles/views/LandingPlayer.scss";
 
 const LandingPlayer = (props) => {
     const history = useHistory();
@@ -15,8 +16,8 @@ const LandingPlayer = (props) => {
         autoplay: true,
         animationData: animationData,
         rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice"
-        }
+            preserveAspectRatio: "xMidYMid slice",
+        },
     };
 
     return (

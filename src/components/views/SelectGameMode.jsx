@@ -1,26 +1,25 @@
 import { Button } from "@mantine/core";
-
-import Slider from "@mui/material/Slider";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import "styles/views/SelectGameMode.scss";
-import * as React from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import IconButton from "@mui/material/IconButton";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
-import {useState} from "react";
-import FormLabel from "@mui/material/FormLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Slider from "@mui/material/Slider";
+import * as React from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import "styles/views/SelectGameMode.scss";
+
 const SelectGameMode = (props) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
-
 
     localStorage.setItem("gameMode", "guess the song");
 
@@ -179,20 +178,20 @@ const SelectGameMode = (props) => {
         },
     ];
 
-    const [gameMode, setGameMode] = useState('guessartist')
+    const [gameMode, setGameMode] = useState("guessartist");
 
-    const [numberOfRounds, setRound] = useState(10)
-    const [playbackSpeed, setPlaySpeed] = useState(1.0)
-    const [playbackDuration, setPlaybackDuration] = useState(10)
+    const [numberOfRounds, setRound] = useState(10);
+    const [playbackSpeed, setPlaySpeed] = useState(1.0);
+    const [playbackDuration, setPlaybackDuration] = useState(10);
 
-    const [songPool, setSongPool] = useState()
+    const [songPool, setSongPool] = useState();
 
     function startgameButton() {
-        localStorage.setItem('gameMode', gameMode);
-        localStorage.setItem('numberOfRounds', numberOfRounds.toString());
-        localStorage.setItem('playbackSpeed', playbackSpeed.toString());
-        localStorage.setItem('playbackDuration', playbackDuration.toString());
-        history.push('/displayqr');
+        localStorage.setItem("gameMode", gameMode);
+        localStorage.setItem("numberOfRounds", numberOfRounds.toString());
+        localStorage.setItem("playbackSpeed", playbackSpeed.toString());
+        localStorage.setItem("playbackDuration", playbackDuration.toString());
+        history.push("/displayqr");
     }
 
     return (
@@ -218,6 +217,9 @@ const SelectGameMode = (props) => {
             <Button class="selectgamemode column-item">Chose song library:</Button>
 
             <ImageList sx={{ justifyContent: 'center', height: 450, flexGrow: 1, flexWrap: 'wrap' }}>
+                
+            <ImageList sx={{ justifyContent: "center", width: 500, height: 450 }}>
+
                 <ImageListItem key="Subheader" cols={2}></ImageListItem>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
@@ -241,7 +243,6 @@ const SelectGameMode = (props) => {
             <Button onClick={() => history.push("/displayqr")} className="selectgamemode addplayers">
                 Add players
             </Button>
-
         </BaseContainer>
     );
 };

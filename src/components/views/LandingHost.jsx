@@ -23,16 +23,16 @@ const LandingHost = (props) => {
 
     return (
         <BaseContainer className="landinghost">
-
-            <Button onClick={() => history.push('/landinghost')} class="landinghost column-item">RaveWave Host</Button>
-            <Lottie class="column-item" options={defaultOptions} speed={0.2}/>
+            <Button onClick={() => history.push("/landinghost")} class="landinghost column-item">
+                RaveWave Host
+            </Button>
+            <Lottie class="column-item" options={defaultOptions} speed={0.2} />
             <Button onClick={() => history.push("/register")} className="landinghost register">
                 Register
             </Button>
             <Button onClick={() => history.push("/login")} className="landinghost login">
                 Login
             </Button>
-
         </BaseContainer>
     );
 };
