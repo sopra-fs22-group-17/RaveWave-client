@@ -217,9 +217,6 @@ const SelectGameMode = (props) => {
             <Button class="selectgamemode column-item">Chose song library:</Button>
 
             <ImageList sx={{ justifyContent: 'center', height: 450, flexGrow: 1, flexWrap: 'wrap' }}>
-                
-            <ImageList sx={{ justifyContent: "center", width: 500, height: 450 }}>
-
                 <ImageListItem key="Subheader" cols={2}></ImageListItem>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>

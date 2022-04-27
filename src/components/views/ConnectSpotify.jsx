@@ -1,8 +1,8 @@
 import { Button } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 
-import { api } from "helpers/api";
-import { remote } from "API/Api";
+import { api, handleError } from "helpers/api";
+import { remote } from "api/Api";
 
 import BaseContainer from "components/ui/BaseContainer";
 

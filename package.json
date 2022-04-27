@@ -37,6 +37,7 @@
         "react-spotify-web-playback-sdk": "^3.0.1",
         "react-use-websocket": "^3.0.0",
         "sockjs-client": "^1.6.0",
+        "spotify-web-api-js": "^1.5.2",
         "stompjs": "^2.3.3"
     },
     "scripts": {

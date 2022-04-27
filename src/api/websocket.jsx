@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
 export const WebSocket = () => {
-    //Public API that will echo messages sent to it back to the client
+    //Public api that will echo messages sent to it back to the client
     const [socketUrl, setSocketUrl] = useState("ws://localhost:5678");
     const [messageHistory, setMessageHistory] = useState([]);
 

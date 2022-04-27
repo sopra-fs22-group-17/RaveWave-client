@@ -50,7 +50,7 @@ export class API {
     async updateUser(raverId) {
         // what to pass ??
         // make new raveWaver here
-        const requestBody = raveWaver; // send raveWaver as request body
+        const requestBody = raverId; // send raveWaver as request body
         const response = await api.put(`/ravewavers/${raverId}`, requestBody);
         if (response.status >= 200 && response.status < 300) {
             return response.data;
@@ -66,7 +66,7 @@ export class API {
     }
 
     // @PostMapping("/lobbies")
-    async addLobby() {
+    async addLobby(gamemode) {
         // create game mode here
         const requestBody = gamemode; // pass game mode as request body
         const response = await api.post("/lobbies", requestBody);
@@ -80,7 +80,7 @@ export class API {
     }
 
     // @PutMapping("/lobbies/{lobbyId}")
-    async addPlayertoLobby() {
+    async addPlayertoLobby(raveWaver, lobbyId) {
         // create new raveWaver here
         const requestBody = raveWaver; // pass game mode as request body
         const response = await api.put(`/lobbies/${lobbyId}`, requestBody);
