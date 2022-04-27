@@ -1,9 +1,11 @@
-import { Avatar, Button, Group, Stack, Title } from "@mantine/core";
+import { Avatar, Button, Group, Slider, Stack, Text, Title } from "@mantine/core";
 import { QRCodeCanvas } from "qrcode.react";
 import { FC, useEffect, useRef, useState } from "react";
-import { IGameAnswerOption, IGameQuestion, IGameResult, TUserRole } from "../../api/@def";
-import { IMessageEvent } from "../../api/API";
+
+import { IGameAnswerOption, IGameConfiguration, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, TUserRole } from "../../api/@def";
 import { useAPI } from "../../hooks/useAPI";
+
+//different states in the game
 export type TGameState =
     // host
     | "configure"
@@ -22,12 +24,16 @@ export interface IGameController {
     gotoState(state: TGameState): void;
     startGame: () => void;
     answer: (questionId: string, answerId: string) => void;
+    configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => void;
+    setConfig: (configuration: IGameConfiguration) => void;
 }
 
 export const GameController: FC<IGameControllerProps> = ({ role }) => {
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "configure");
+    const [config, setConfig] = useState<IGameConfiguration>();
     const [question, setQuestion] = useState<IGameQuestion>();
     const [result, setResult] = useState<IGameResult>();
+    const [summary, setSummary] = useState<IGameSummary>();
 
     const ref = useRef<any>();
     const api = useAPI();
@@ -41,6 +47,10 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
                 setState("result");
                 ref.current = message;
                 setResult(message.data);
+            } else if (message.type === "summary") {
+                setState("summary");
+                ref.current = message;
+                setSummary(message.data);
             }
         };
         api.join(listener);
@@ -50,11 +60,17 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
         gotoState: (newState: TGameState) => {
             setState(newState);
         },
+        configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => {
+            api.send("ch1", "command", { method: "configure", configure: { gameMode, numberOfRounds, playbackSpeed, playbackDuration } });
+        },
         startGame: () => {
-            api.send("ch1", "command", { method: "start" });
+            api.send("ch1", "command", { method: "start", config });
         },
         answer: (questionId: string, answerId: string) => {
             api.send("ch1", "command", { method: "answer", answer: { questionId, answerId } });
+        },
+        setConfig: (configuration: IGameConfiguration) => {
+            setConfig(configuration);
         },
     };
 
@@ -69,7 +85,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
     } else if (state === "result") {
         return <ResultView controller={ctrl} result={result} />;
     } else if (state === "summary") {
-        return <SummaryView controller={ctrl} />;
+        return <SummaryView controller={ctrl} summary={summary} />;
     } else {
         return <ErrorView controller={ctrl} />;
     }
@@ -79,12 +95,36 @@ export interface IGameViewProps {
     controller: IGameController;
 }
 
-const GameConfigureView: FC<IGameViewProps> = ({ controller }) => {
-    const inviteAction = () => controller.gotoState("invite");
+export interface IConfigurationViewProps extends IGameViewProps {
+    // configuration: IGameConfiguration;
+}
+
+const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
+    const [config, setConfig] = useState<IGameConfiguration>({
+        gameMode: "guesstheartist",
+        numberOfRounds: 5,
+        playbackSpeed: 1,
+        playbackDuration: 15,
+    });
+    // const sendGameConfiguration = (configuration: IGameConfiguration) => {
+    //     controller.sendGameConfiguration(configuration.gameMode, configuration.numberOfRounds, configuration.playbackSpeed, configuration.playbackDuration);
+    // };
+
+    const updateConfig = (configuration: Partial<IGameConfiguration>) => {
+        setConfig(Object.assign({}, config, configuration));
+    };
+    const inviteAction = () => {
+        controller.setConfig(config);
+        controller.gotoState("invite");
+    };
 
     return (
         <Stack align="center">
             <Title>GameConfigureView</Title>
+            <Stack>
+                <Text>Number of Roundss</Text>
+                <Slider value={config.numberOfRounds} min={1} max={10} onChange={(value) => updateConfig({ numberOfRounds: value })} />
+            </Stack>
             <Button onClick={inviteAction}>Invite</Button>
         </Stack>
     );
@@ -152,6 +192,8 @@ const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
                             {res.username.substring(0, 1)}
                         </Avatar>
                         {res.correctness ? "OK" : "FAIL"}
+                        {res.currentPoints}
+                        {res.currentRank}
                     </Group>
                 );
             })}
@@ -159,8 +201,31 @@ const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
     );
 };
 
-const SummaryView: FC<IGameViewProps> = ({ controller }) => {
-    return <Title>SummaryView</Title>;
+export interface IFinalResultViewProps extends IGameViewProps {
+    summary: IGameSummary;
+}
+
+const SummaryView: FC<IFinalResultViewProps> = ({ controller, summary }) => {
+    if (!summary) {
+        return null;
+    }
+
+    return (
+        <Stack align="center">
+            <Title>SummaryView</Title>
+            {summary.summary.map((res, i) => {
+                return (
+                    <Group key={i}>
+                        <Avatar color="cyan" radius="xl">
+                            {res.username.substring(0, 1)}
+                        </Avatar>
+                        {res.finalPoints}
+                        {res.finalRank}
+                    </Group>
+                );
+            })}
+        </Stack>
+    );
 };
 
 const ErrorView: FC<IGameViewProps> = ({ controller }) => {

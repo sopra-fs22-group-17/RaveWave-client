@@ -1,20 +1,6 @@
-import { IGameQuestion, IGameResult } from "./@def";
+import { IApi, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, IMessageListener, ISendOptions } from "./@def";
 
-export interface ISendOptions {
-    token: String;
-}
-
-export interface IMessageEvent {
-    channel: string;
-    type: string;
-    data: any;
-}
-
-export interface IMessageListener {
-    (event: IMessageEvent): void;
-}
-
-export class API {
+export class MockupApi implements IApi {
     private listeners: IMessageListener[] = [];
 
     public join(listener: IMessageListener) {
@@ -66,27 +52,61 @@ export class API {
                     image: "A",
                     correctness: true,
                     currentPoints: 900,
+                    currentRank: 1,
                 },
                 {
                     username: "bbb",
                     image: "B",
                     correctness: false,
                     currentPoints: 500,
+                    currentRank: 3,
                 },
                 {
                     username: "ccc",
                     image: "C",
                     correctness: true,
                     currentPoints: 700,
+                    currentRank: 2,
                 },
                 {
                     username: "ddd",
                     image: "D",
                     correctness: true,
-                    currentPoints: 500,
+                    currentPoints: 400,
+                    currentRank: 300,
                 },
             ],
         };
+
+        const dummySummary: IGameSummary = {
+            summary: [
+                {
+                    username: "aaa",
+                    image: "A",
+                    finalPoints: 900,
+                    finalRank: 2,
+                },
+                {
+                    username: "bbb",
+                    image: "A",
+                    finalPoints: 1000,
+                    finalRank: 1,
+                },
+                {
+                    username: "ccc",
+                    image: "A",
+                    finalPoints: 800,
+                    finalRank: 3,
+                },
+                {
+                    username: "ddd",
+                    image: "A",
+                    finalPoints: 700,
+                    finalRank: 4,
+                },
+            ],
+        };
+
         setTimeout(() => {
             if (data.method === "start") {
                 const event: IMessageEvent = {
@@ -101,8 +121,16 @@ export class API {
                     type: "result",
                     data: dummyResults,
                 };
-
                 this.notify(event);
+
+                setTimeout(() => {
+                    const event: IMessageEvent = {
+                        channel: "??",
+                        type: "summary",
+                        data: dummySummary,
+                    };
+                    this.notify(event);
+                }, 5000);
             }
         }, 2000);
     }
@@ -119,5 +147,3 @@ export class API {
 
     private onReceive() {}
 }
-
-export const remote = new API();

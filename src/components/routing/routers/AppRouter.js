@@ -72,18 +72,6 @@ const AppRouter = () => {
                     <DisplayQR />
                 </Route>
 
-                <Route exact path="/guessartist">
-                    <GuessArtist />
-                </Route>
-
-                <Route exact path="/guesslyrics">
-                    <GuessLyrics />
-                </Route>
-
-                <Route exact path="/guesssong">
-                    <GuessSong />
-                </Route>
-
                 <Route exact path="/postround">
                     <PostRound />
                 </Route>
