@@ -29,29 +29,19 @@ const PostGame = (props) => {
                 <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
                 <div>Player 3</div>
             </Stack>
-            <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-                <nav aria-label="main mailbox folders">
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                </ListItemIcon>
-                                <ListItemText primary="Player 4" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                </ListItemIcon>
-                                <ListItemText primary="Player 5" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </nav>
-            </Box>
 
+            <br></br>
+
+            <div className="postgame column-item">
+                <Avatar alt="Cindy Baker" src="/static/images/avatar/4.jpg" />
+                <div>Player 4</div>
+            </div>
+
+            <div className="postgame column-item">
+                <Avatar alt="Cindy Baker" src="/static/images/avatar/5.jpg" />
+                <div>Player 5</div>
+            </div>
+            <br></br>
             <Button onClick={() => history.push("/login")} className="postgame logout">Logout</Button>
             <Button onClick={() => history.push("/selectgamemode")} className="postgame playagain">Play Again</Button>
         </BaseContainer>
