@@ -12,6 +12,7 @@ import {styled, useTheme} from "@mui/material/styles";
 import {Button} from "@mantine/core";
 
 import * as React from "react";
+import {IGameSummary} from "../../api/@def"; // how to import tsx interfaces in jsx?
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
@@ -78,34 +79,27 @@ const PostRound = (props) => {
         </tr>
     ));
 
+    let summary = IGameSummary;
+
+    if (!summary) {
+        return null;
+    }
+
     return (
         <BaseContainer className="postround">
             <div className="postround column-item">Wrong/Right</div>
 
-            <div className="postround column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/1.png"/>
-                <div>Player 1</div>
-            </div>
-
-            <div className="postround column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/2.png"/>
-                <div>Player 2</div>
-            </div>
-
-            <div className="postround column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.png"/>
-                <div>Player 3</div>
-            </div>
-
-            <div className="postround column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/4.png"/>
-                <div>Player 4</div>
-            </div>
-
-            <div className="postround column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/5.png"/>
-                <div>Player 5</div>
-            </div>
+            {summary.summary.map((res, i) => {
+                return (
+                    <Group key={i}>
+                        <Avatar color="cyan" radius="xl">
+                            {res.username.substring(0, 1)}
+                        </Avatar>
+                        {res.finalPoints}
+                        {res.finalRank}
+                    </Group>
+                );
+            })}
             {/*
             <ScrollArea className="postround column-item">
                 <Table sx={{ minWidth: 800 }} verticalSpacing="md">

@@ -11,7 +11,7 @@ export class MockupApi implements IApi {
 
     public send<T = any>(channel: string, type: string, data: any, options?: ISendOptions) {
         const dummyQuestion: IGameQuestion = {
-            questionId: "Q01",
+            question: "Guess the song artist",
             questionNumber: 1,
             type: "guessthesong",
             songLink: "spotify.link.c",

@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import {Button, Group} from "@mantine/core";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -13,34 +13,33 @@ import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import { IGameResult } from "./GameController"; // how to import tsx interfaces in jsx?
+
 import "styles/views/PostGame.scss";
 
 const PostGame = (props) => {
     const history = useHistory();
 
+    let result = IGameResult; // or do we need IGameResult.result here?
+
+    if (!result) return null;
+
     return (
         <BaseContainer className="postgame">
             <div className="postgame column-item">End Results</div>
-            <Stack direction="row" spacing={2} className="postgame column-item">
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                <div>Player 1</div>
-                <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                <div>Player 2</div>
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                <div>Player 3</div>
-            </Stack>
-
-            <br></br>
-
-            <div className="postgame column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/4.jpg" />
-                <div>Player 4</div>
-            </div>
-
-            <div className="postgame column-item">
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/5.jpg" />
-                <div>Player 5</div>
-            </div>
+            <div>{result.correctAnswer.label}</div>
+            {result.results.map((res, i) => {
+                return (
+                    <Group key={i}>
+                        <Avatar color="cyan" radius="xl">
+                            {res.username.substring(0, 1)}
+                        </Avatar>
+                        {res.correctness ? "OK" : "FAIL"}
+                        {res.currentPoints}
+                        {res.currentRank}
+                    </Group>
+                );
+            })}
             <br></br>
             <Button onClick={() => history.push("/login")} className="postgame logout">Logout</Button>
             <Button onClick={() => history.push("/selectgamemode")} className="postgame playagain">Play Again</Button>
