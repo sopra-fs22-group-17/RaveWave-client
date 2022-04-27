@@ -71,8 +71,8 @@ const ConnectSpotify = (props) => {
         }
     }
 
-    fetchSpotifyURI();
-    redirectUser();
+    //fetchSpotifyURI();
+    //redirectUser();
 
     //SPOTIFY sound output is implemented in GuessArtist, GuessLyrics and GuessSong
 

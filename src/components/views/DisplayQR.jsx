@@ -17,9 +17,6 @@ const DisplayQR = (props) => {
         <>
             <BaseContainer className="displayqr">
                 <div className="displayqr column-item">Let other Players join via QR Code</div>
-                <Button onClick={() => history.push("/selectgamemode")} className="displayqr back">
-                    Back
-                </Button>
                 { // make button redirect to right game mode (via localstorage)
                 }
             </BaseContainer>
@@ -27,6 +24,9 @@ const DisplayQR = (props) => {
                 <Center>
                     <QRCodeCanvas value="https://frontwerks.com/" size={250} />,
                 </Center>
+                <Button onClick={() => history.push("/selectgamemode")} className="displayqr back">
+                    Back
+                </Button>
                 <Button onClick={() => history.push("/guesssong")} className="displayqr start">
                     Start Game 2
                 </Button>

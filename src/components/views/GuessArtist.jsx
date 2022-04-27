@@ -127,7 +127,6 @@ const GuessArtist = (props) => {
                         <TinyText>-{formatDuration(duration - position)}</TinyText>
                     </Box>
                 </Widget>
-
         </BaseContainer>
     );
 };
