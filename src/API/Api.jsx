@@ -3,15 +3,6 @@ import { api } from "helpers/api";
 export class API {
     _user = null;
 
-    //1. uri spotify
-    // 2. redirect user to url
-    // 3. will be redirected to spotify auth for APP
-    // 4. redirect to where ?? (check with sheeena)
-    // 5. parameter code=
-    // 6. send code to backend for step 7
-    // 7. post request auth code ()
-    // 8. get access token to stream
-
     // @GetMapping("/ravewavers/{raverId}")
     async getUser(raverId) {
         const response = await api.get(`/ravewavers/${raverId}`);
