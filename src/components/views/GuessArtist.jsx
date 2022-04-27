@@ -5,9 +5,13 @@ import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
+import { IGameController } from "./GameController"; // how to import tsx interfaces in jsx? 
+import { IGameQuestion } from "../../api/@def"; // how to import tsx interfaces in jsx?
+
 import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/GuessArtist.scss";
+import {useState} from "@types/react";
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
@@ -52,9 +56,28 @@ const GuessArtist = (props) => {
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);
 
+    let controller = IGameController
+    let question = IGameQuestion
+
+    const [answered, setAnswered] = useState(false);
+
+    if (!question) return null;
+    const sendAnswer = (IGameAnswerOption) => {
+        setAnswered(true);
+        controller.answer(question.question, IGameAnswerOption.id);
+    };
+
     return (
         <BaseContainer className="guessartist">
-            <div className="guessartist column-item">Who is the artist of this song?</div>
+            <div className="guessartist column-item">{question.question}</div>
+            {question.options.map((option, i) => {
+                return (
+                    <Button key={i} disabled={answered} onClick={() => sendAnswer(option)}>
+                        {option.label}
+                    </Button>
+                );
+            })}
+
             <Button className="guessartist opt1">
                 Opt1
             </Button>
