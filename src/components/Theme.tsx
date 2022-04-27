@@ -37,9 +37,10 @@ export const theme: IRaveWaveThemeOverride = {
 const overrides = {
     Button: (theme: MantineTheme, params: ButtonStylesParams) => ({
         root: {
-            // [`&:not(.${getRef("loading")}):disabled`]: {
+            //[`&:not(.${getRef("loading")}):disabled`]: {
             "&:not(.mantine-Button-loading):disabled": {
                 cursor: "default",
+                backgroundColor: "gray",
             },
         },
     }),

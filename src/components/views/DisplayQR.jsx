@@ -7,6 +7,11 @@ import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/DisplayQR.scss";
 
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+
+import "styles/views/Guest.scss";
+
 const DisplayQR = (props) => {
     const history = useHistory();
 
@@ -28,7 +33,7 @@ const DisplayQR = (props) => {
                     Back
                 </Button>
                 <Button onClick={() => history.push("/guesssong")} className="displayqr start">
-                    Start Game 2
+                    Start Game
                 </Button>
             </Stack>
         </>
