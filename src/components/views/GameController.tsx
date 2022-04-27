@@ -3,6 +3,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import { FC, useEffect, useRef, useState } from "react";
 
 import { IGameAnswerOption, IGameConfiguration, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, TUserRole } from "../../api/@def";
+import { stompClient } from "../../api/StompApi";
 import { useAPI } from "../../hooks/useAPI";
 
 //different states in the game
@@ -106,9 +107,15 @@ const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
         playbackSpeed: 1,
         playbackDuration: 15,
     });
-    // const sendGameConfiguration = (configuration: IGameConfiguration) => {
-    //     controller.sendGameConfiguration(configuration.gameMode, configuration.numberOfRounds, configuration.playbackSpeed, configuration.playbackDuration);
-    // };
+
+    const [isConnected, setIsConnected] = useState(false);
+    useEffect(() => {
+        stompClient.connect(setIsConnected(true));
+    }, []);
+
+    if (!isConnected) {
+        return null;
+    }
 
     const updateConfig = (configuration: Partial<IGameConfiguration>) => {
         setConfig(Object.assign({}, config, configuration));

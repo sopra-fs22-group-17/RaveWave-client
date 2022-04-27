@@ -30,15 +30,15 @@ class SockClient {
             this._connected = true;
 
             //TODO da tuesch subscribe. de einzig channel uf de mer eig subscribe muss
-            this.subscribe("/topic/lobbies/{lobbyId}", function (message) {
-                // called when the client receives a STOMP message from the server
-                this._connected = true;
-                if (message.body) {
-                    alert("got message with body " + message.body);
-                } else {
-                    alert("got empty message");
-                }
-            });
+            // this.subscribe("/topic/lobbies/{lobbyId}", function (message) {
+            //     // called when the client receives a STOMP message from the server
+            //     this._connected = true;
+            //     if (message.body) {
+            //         alert("got message with body " + message.body);
+            //     } else {
+            //         alert("got empty message");
+            //     }
+            // });
             //this.subscribe('/user/queue/disconnect', r => this.disconnect(r.reason));
             //this.subscribe('/user/queue/reconnect', r => this.reconnect(r.token));
 
