@@ -80,6 +80,10 @@ const AppRouter = () => {
                     <PostGame />
                 </Route>
 
+                <Route exact path="/guessartist">
+                    <GuessArtist />
+                </Route>
+
                 <Route exact path="/">
                     <Redirect to="/landinghost" />
                 </Route>

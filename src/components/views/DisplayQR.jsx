@@ -19,15 +19,12 @@ const DisplayQR = (props) => {
     direcor.ping();
 
     return (
-        <>
-            <BaseContainer className="displayqr">
+        <BaseContainer className="displayqr">
                 <div className="displayqr column-item">Let other Players join via QR Code</div>
                 { // make button redirect to right game mode (via localstorage)
                 }
-            </BaseContainer>
-            <Stack>
-                <Center>
-                    <QRCodeCanvas value="https://frontwerks.com/" size={250} />,
+                <Center className="displayqr column-item">
+                    <QRCodeCanvas value="https://frontwerks.com/" size={250} />
                 </Center>
                 <Button onClick={() => history.push("/selectgamemode")} className="displayqr back">
                     Back
@@ -35,8 +32,7 @@ const DisplayQR = (props) => {
                 <Button onClick={() => history.push("/guesssong")} className="displayqr start">
                     Start Game
                 </Button>
-            </Stack>
-        </>
+        </BaseContainer>
     );
 };
 

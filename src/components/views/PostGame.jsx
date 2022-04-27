@@ -19,9 +19,9 @@ const PostGame = (props) => {
     const history = useHistory();
 
     return (
-        <BaseContainer>
-            <div>End Results</div>
-            <Stack direction="row" spacing={2}>
+        <BaseContainer className="postgame">
+            <div className="postgame column-item">End Results</div>
+            <Stack direction="row" spacing={2} className="postgame column-item">
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 <div>Player 1</div>
                 <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
@@ -52,10 +52,8 @@ const PostGame = (props) => {
                 </nav>
             </Box>
 
-            <Button onClick={() => history.push("/selectgamemode")}>Play Again</Button>
-            <Button onClick={() => history.push("/login")} class="logout Button">
-                Logout
-            </Button>
+            <Button onClick={() => history.push("/login")} className="postgame logout">Logout</Button>
+            <Button onClick={() => history.push("/selectgamemode")} className="postgame playagain">Play Again</Button>
         </BaseContainer>
     );
 };
