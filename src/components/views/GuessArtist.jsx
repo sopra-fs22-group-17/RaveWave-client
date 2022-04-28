@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useCallback} from "react";
 import Box from "@mui/material/Box";
 import {Button} from "@mantine/core";
 import Slider from "@mui/material/Slider";
@@ -7,8 +7,64 @@ import Typography from "@mui/material/Typography";
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/GuessArtist.scss";
 
+import {WebPlaybackSDK, usePlaybackState, useSpotifyPlayer} from "react-spotify-web-playback-sdk";
+
 import {GameController} from "./GameController";
 import {IGameQuestion} from "../../api/@def";
+
+import PropTypes from "prop-types";
+
+// SPOTIFY STUFF
+const SongTitle = () => {
+    const playbackState = usePlaybackState();
+
+    if (playbackState === null) return null;
+
+    return <p>Current song: {playbackState.track_window.current_track.name}</p>;
+};
+
+const AUTH_TOKEN = "BQAiILvBFFO3Q4_fwaF9I6jnMc2Sk8-lV6sOXVxCDCOKWiHJcSqSW8-p1h5-H5uCKyBz68f_a3_05RgV2MZ0VTXG9czH3b8sLI1y6QmTcxfRF-Z87YZ-E5gMKb_gQQQr4dESHnKB5OlFfGG_n3KOEdl5_qmhaV3qzW5E7JqMzu9CRsfzZMYtZnk";
+
+const PauseResumeButton = () => {
+    const player = useSpotifyPlayer();
+
+    if (player === null) return null;
+
+    return (
+        <div className="guessartist column-item">
+            <Button onClick={() => player.pause()} className="guessartist pause">pause</Button>
+            <Button onClick={() => player.resume()} className="guessartist resume">resume</Button>
+        </div>
+    );
+};
+
+const MySpotifyPlayer = () => {
+    const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
+
+    return (
+        <WebPlaybackSDK
+            deviceName="RaveWave"
+            getOAuthToken={getOAuthToken}
+            volume={1}>
+            {/* `TogglePlay` and `SongTitle` will be defined later. */}
+            <PauseResumeButton/>
+            <SongTitle/>
+        </WebPlaybackSDK>
+    );
+};
+
+const Player = ({user}) => (
+    <div className="player container">
+        <div className="player username">{user.username}</div>
+        <div className="player name">{user.name}</div>
+        <div className="player id">id: {user.id}</div>
+    </div>
+);
+
+Player.propTypes = {
+    user: PropTypes.object
+};
+// END SPOTIFY STUFF
 
 const Widget = styled("div")(({theme}) => ({
     padding: 16,
@@ -149,6 +205,9 @@ const GuessArtist = (props) => {
                     <TinyText>-{formatDuration(duration - position)}</TinyText>
                 </Box>
             </Widget>
+            <div className="guessartist column-item">
+                <MySpotifyPlayer />
+            </div>
         </BaseContainer>
     );
 };

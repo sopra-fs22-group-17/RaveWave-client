@@ -5,9 +5,8 @@ import PropTypes from "prop-types";
 import "styles/views/Test.scss";
 import { WebPlaybackSDK, usePlaybackState, useSpotifyPlayer } from "react-spotify-web-playback-sdk";
 
-import {api, handleError} from 'helpers/api';
+import {handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
 
 const SongTitle = () => {
     const playbackState = usePlaybackState();
