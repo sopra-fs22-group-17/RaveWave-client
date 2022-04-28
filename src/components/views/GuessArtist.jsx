@@ -1,9 +1,10 @@
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import {Button} from "@mantine/core";
 import Slider from "@mui/material/Slider";
 import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+
 
 import { GameController } from "./GameController"; // how to import tsx interfaces in jsx?
 // import { IGameQuestion } from "../../api/@def"; // how to import tsx interfaces in jsx?
@@ -11,7 +12,6 @@ import { GameController } from "./GameController"; // how to import tsx interfac
 import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/GuessArtist.scss";
-import {useState} from "@types/react";
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
