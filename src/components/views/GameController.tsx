@@ -14,7 +14,7 @@ import WaitingRoom from "./WaitingRoom";
 import PostGame from "./PostGame";
 import PostRound from "./PostRound";
 
-//different states in the game  
+//different states in the game
 export type TGameState =
     // host
     | "configure"
