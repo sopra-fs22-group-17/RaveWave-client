@@ -23,20 +23,7 @@ const SongTitle = () => {
     return <p>Current song: {playbackState.track_window.current_track.name}</p>;
 };
 
-const AUTH_TOKEN = "BQAiILvBFFO3Q4_fwaF9I6jnMc2Sk8-lV6sOXVxCDCOKWiHJcSqSW8-p1h5-H5uCKyBz68f_a3_05RgV2MZ0VTXG9czH3b8sLI1y6QmTcxfRF-Z87YZ-E5gMKb_gQQQr4dESHnKB5OlFfGG_n3KOEdl5_qmhaV3qzW5E7JqMzu9CRsfzZMYtZnk";
-
-const PauseResumeButton = () => {
-    const player = useSpotifyPlayer();
-
-    if (player === null) return null;
-
-    return (
-        <div className="guessartist column-item">
-            <Button onClick={() => player.pause()} className="guessartist pause">pause</Button>
-            <Button onClick={() => player.resume()} className="guessartist resume">resume</Button>
-        </div>
-    );
-};
+const AUTH_TOKEN = "BQDBgL5XsOOGFW3ZWaTxNXEDPFZJTXEihqrCjS5DUnW20Gg8TUiOjMZeeYMohAMc4qGNdoHEnjKGjtwYgFxw8hFQ9zZpEIR8j5etex3EAz1LItFoRe9UMQFGJw9FMF3gVypvODPkpKu_FC4tUFVgSfZS8twy1XVFmnX0JkBJQ-xlt9VCopBagBc";
 
 const MySpotifyPlayer = () => {
     const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
@@ -46,8 +33,7 @@ const MySpotifyPlayer = () => {
             deviceName="RaveWave"
             getOAuthToken={getOAuthToken}
             volume={1}>
-            {/* `TogglePlay` and `SongTitle` will be defined later. */}
-            <PauseResumeButton/>
+            {/* `TogglePlay` and `SongTitle` will be defined later. Use player.resume() for init */}
             <SongTitle/>
         </WebPlaybackSDK>
     );
