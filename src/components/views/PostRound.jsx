@@ -12,7 +12,7 @@ import {styled, useTheme} from "@mui/material/styles";
 import {Button} from "@mantine/core";
 
 import * as React from "react";
-import {IGameSummary} from "../../api/@def"; // how to import tsx interfaces in jsx?
+import { GameController } from "./GameController"; // how to import tsx interfaces in jsx?
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
@@ -79,7 +79,7 @@ const PostRound = (props) => {
         </tr>
     ));
 
-    let summary = IGameSummary;
+    let summary = GameController;
 
     if (!summary) {
         return null;

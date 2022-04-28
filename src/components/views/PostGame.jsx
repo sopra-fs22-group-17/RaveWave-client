@@ -13,14 +13,14 @@ import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import { IGameResult } from "./GameController"; // how to import tsx interfaces in jsx?
+import { GameController } from "./GameController"; // how to import tsx interfaces in jsx?
 
 import "styles/views/PostGame.scss";
 
 const PostGame = (props) => {
     const history = useHistory();
 
-    let result = IGameResult; // or do we need IGameResult.result here?
+    let result = GameController; // or do we need IGameResult.result here?
 
     if (!result) return null;
 

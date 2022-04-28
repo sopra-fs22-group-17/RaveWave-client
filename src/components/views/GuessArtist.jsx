@@ -5,8 +5,8 @@ import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
-import { IGameController } from "./GameController"; // how to import tsx interfaces in jsx?
-import { IGameQuestion } from "../../api/@def"; // how to import tsx interfaces in jsx?
+import { GameController } from "./GameController"; // how to import tsx interfaces in jsx?
+// import { IGameQuestion } from "../../api/@def"; // how to import tsx interfaces in jsx?
 
 import BaseContainer from "components/ui/BaseContainer";
 
@@ -56,8 +56,8 @@ const GuessArtist = (props) => {
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);
 
-    let controller = IGameController;
-    let question = IGameQuestion; // or do we need IGameQuestion.question here?
+    let controller = GameController;
+    let question = controller.question; // or do we need IGameQuestion.question here?
 
     const [answered, setAnswered] = useState(false);
 
