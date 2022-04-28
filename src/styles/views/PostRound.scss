@@ -4,5 +4,27 @@
 @tailwind utilities;
 
 .postround {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 20px; /* row-gap column gap */
+  color: $textColor;
+  font-family: $fontDefault;
+}
 
+.postround .column-item {
+  flex-basis:100%;
+}
+
+.postround .logout {
+  flex-basis:10%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.postround .playagain {
+  flex-basis:10%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
 }

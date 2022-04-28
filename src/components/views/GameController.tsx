@@ -24,12 +24,12 @@ export interface IGameControllerProps {
 export interface IGameController {
     gotoState(state: TGameState): void;
     startGame: () => void;
-    answer: (questionId: string, answerId: string) => void;
+    answer: (question: string, answerId: string) => void;
     configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => void;
     setConfig: (configuration: IGameConfiguration) => void;
 }
 
-export const GameController: FC<IGameControllerProps> = ({ role }) => {
+export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "configure");
     const [config, setConfig] = useState<IGameConfiguration>();
     const [question, setQuestion] = useState<IGameQuestion>();
@@ -67,8 +67,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
         startGame: () => {
             api.send("ch1", "command", { method: "start", config });
         },
-        answer: (questionId: string, answerId: string) => {
-            api.send("ch1", "command", { method: "answer", answer: { questionId, answerId } });
+        answer: (question: string, answerId: string) => {
+            api.send("ch1", "command", { method: "answer", answer: { question, answerId } });
         },
         setConfig: (configuration: IGameConfiguration) => {
             setConfig(configuration);
@@ -90,6 +90,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
     } else {
         return <ErrorView controller={ctrl} />;
     }
+
+    return ctrl;
 };
 
 export interface IGameViewProps {
@@ -155,6 +157,7 @@ const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
 export interface IQuestionViewProps extends IGameViewProps {
     question: IGameQuestion;
 }
+
 const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
     const [answered, setAnswered] = useState(false);
     // const sendAnswer = (answer: {questionId: question.questionId, answerId: answer) => {
@@ -163,20 +166,21 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
     if (!question) return null;
     const sendAnswer = (selection: IGameAnswerOption) => {
         setAnswered(true);
-        controller.answer(question.questionId, selection.id);
+        controller.answer(question.question, selection.id);
     };
+
     return (
         <Stack>
             <Title>QuestionView</Title>
-            <div>{question.questionId}</div>
-            <div>{question.type}</div>
+            <div>{question.question}</div>
             {question.options.map((option, i) => {
                 return (
                     <Button key={i} disabled={answered} onClick={() => sendAnswer(option)}>
                         {option.label}
                     </Button>
                 );
-            })}
+            })} { //<GuessArtist question={question} answer={answer} />
+                }
         </Stack>
     );
 };

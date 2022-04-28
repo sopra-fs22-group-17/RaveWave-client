@@ -18,6 +18,7 @@ import Register from "components/views/Register";
 import SelectGameMode from "components/views/SelectGameMode";
 import WaitingRoom from "components/views/WaitingRoom";
 import { GameView } from "../../views/GameView";
+import Test from "../../views/Test";
 
 /**
  * Main router of your application.
@@ -80,8 +81,20 @@ const AppRouter = () => {
                     <PostGame />
                 </Route>
 
+                <Route exact path="/guessartist">
+                    <GuessArtist />
+                </Route>
+
+                <Route exact path="/postround">
+                    <PostRound />
+                </Route>
+
                 <Route exact path="/">
                     <Redirect to="/landinghost" />
+                </Route>
+
+                <Route exact path="/test">
+                    <Test />
                 </Route>
 
                 <Route exact path="/websocketdemo">

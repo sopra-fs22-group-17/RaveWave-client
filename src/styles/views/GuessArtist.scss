@@ -40,3 +40,15 @@
   background-color: #A079F0;
   box-shadow: $dropShadow;
 }
+
+.guessartist .pause {
+  flex-basis:10%;
+  background-color: $accent1;
+  box-shadow: $dropShadow;
+}
+
+.guessartist .resume {
+  flex-basis:10%;
+  background-color: $accent2;
+  box-shadow: $dropShadow;
+}

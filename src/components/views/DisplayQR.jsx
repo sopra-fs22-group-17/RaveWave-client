@@ -15,22 +15,18 @@ const DisplayQR = ({ controller }) => {
     const startAction = () => controller.startGame();
 
     return (
-        <>
-            <BaseContainer className="displayqr">
+        <BaseContainer className="displayqr">
                 <div className="displayqr column-item">Let other Players join via QR Code</div>
                 {
                     // make button redirect to right game mode (via localstorage)
                 }
-            </BaseContainer>
-            <Stack>
-                <Center>
-                    <QRCodeCanvas value="https://frontwerks.com/" size={250} />,
+                <Center className="displayqr column-item">
+                    <QRCodeCanvas value="https://frontwerks.com/" size={250} />
                 </Center>
                 <Button onClick={startAction} className="displayqr start">
                     Start Game
                 </Button>
-            </Stack>
-        </>
+        </BaseContainer>
     );
 };
 
