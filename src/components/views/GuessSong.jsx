@@ -7,6 +7,8 @@ import * as React from "react";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import {WebPlaybackSDK, usePlaybackState, useSpotifyPlayer} from "react-spotify-web-playback-sdk";
+
 import "styles/views/GuessSong.scss";
 
 const Widget = styled("div")(({ theme }) => ({
@@ -47,7 +49,7 @@ function formatDuration(value) {
     return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
 }
 
-const GuessArtist = (props) => {
+const GuessSong = (controller, question) => {
     const theme = useTheme();
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);
@@ -132,4 +134,4 @@ const GuessArtist = (props) => {
     );
 };
 
-export default GuessArtist;
+export default GuessSong;

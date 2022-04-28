@@ -5,8 +5,16 @@ import { FC, useEffect, useRef, useState } from "react";
 import { IGameAnswerOption, IGameConfiguration, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, TUserRole } from "../../api/@def";
 import { stompClient } from "../../api/StompApi";
 import { useAPI } from "../../hooks/useAPI";
+import GuessArtist from "./GuessArtist";
+import GuessSong from "./GuessSong";
+import GuessLyrics from "./GuessLyrics";
+import SelectGameMode from "./SelectGameMode";
+import DisplayQR from "./DisplayQR";
+import WaitingRoom from "./WaitingRoom";
+import PostGame from "./PostGame";
+import PostRound from "./PostRound";
 
-//different states in the game
+//different states in the game  
 export type TGameState =
     // host
     | "configure"
@@ -76,22 +84,24 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     };
 
     if (state === "configure") {
-        return <GameConfigureView controller={ctrl} />;
+        return <SelectGameMode controller={ctrl} />;
     } else if (state === "invite") {
-        return <InviteView controller={ctrl} />;
+        return <DisplayQR controller={ctrl} />;
     } else if (state === "waiting") {
-        return <WaitingRoomView controller={ctrl} />;
-    } else if (state === "question") {
-        return <QuestionView controller={ctrl} question={question} />;
+        return <WaitingRoom controller={ctrl} />;
+    } else if (state === "question" && question.question === "Guess the song artist") {
+        return <GuessArtist controller={ctrl} question={question} />;
+    } else if (state === "question" && question.question === "Guess the song name") {
+        return <GuessSong controller={ctrl} question={question} />;
+    } else if (state === "question" && question.question === "Guess the song lyrics") {
+        return <GuessLyrics controller={ctrl} question={question} />;
     } else if (state === "result") {
-        return <ResultView controller={ctrl} result={result} />;
+        return <PostRound controller={ctrl} result={result} />;
     } else if (state === "summary") {
-        return <SummaryView controller={ctrl} summary={summary} />;
+        return <PostGame controller={ctrl} summary={summary} />;
     } else {
         return <ErrorView controller={ctrl} />;
     }
-
-    return ctrl;
 };
 
 export interface IGameViewProps {

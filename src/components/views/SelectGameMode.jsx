@@ -19,7 +19,7 @@ import { stompClient } from "../../api/StompApi";
 
 import "styles/views/SelectGameMode.scss";
 
-const SelectGameMode = ({ controller }) => {
+const SelectGameMode = (controller) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
     const [config, setConfig] = useState({

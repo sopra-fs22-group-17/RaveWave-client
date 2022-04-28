@@ -52,7 +52,7 @@ function formatDuration(value) {
     return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
 }
 
-const PostRound = (props) => {
+const PostRound = (controller, result) => {
     const theme = useTheme();
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);

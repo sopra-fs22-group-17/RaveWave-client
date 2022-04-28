@@ -17,7 +17,7 @@ import { GameController } from "./GameController"; // how to import tsx interfac
 
 import "styles/views/PostGame.scss";
 
-const PostGame = (props) => {
+const PostGame = (controller, summary) => {
     const history = useHistory();
 
     let result = GameController; // or do we need IGameResult.result here?

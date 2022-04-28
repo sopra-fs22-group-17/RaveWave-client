@@ -11,7 +11,7 @@ import { Director } from "../../model/Director";
 import "styles/views/DisplayQR.scss";
 import "styles/views/Guest.scss";
 
-const DisplayQR = ({ controller }) => {
+const DisplayQR = (controller) => {
     const startAction = () => controller.startGame();
 
     return (

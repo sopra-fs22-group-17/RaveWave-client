@@ -4,7 +4,7 @@ import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/WaitingRoom.scss";
 
-const WaitingRoom = (props) => {
+const WaitingRoom = (controller) => {
     return (
         <BaseContainer className="waitingroom">
             <div className="waitingroom column-item">Waiting Room</div>

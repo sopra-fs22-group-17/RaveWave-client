@@ -9,9 +9,6 @@ import "styles/views/GuessArtist.scss";
 
 import {WebPlaybackSDK, usePlaybackState, useSpotifyPlayer} from "react-spotify-web-playback-sdk";
 
-import {GameController} from "./GameController";
-import {IGameQuestion} from "../../api/@def";
-
 import PropTypes from "prop-types";
 
 // SPOTIFY STUFF
@@ -23,7 +20,7 @@ const SongTitle = () => {
     return <p>Current song: {playbackState.track_window.current_track.name}</p>;
 };
 
-const AUTH_TOKEN = "BQDBgL5XsOOGFW3ZWaTxNXEDPFZJTXEihqrCjS5DUnW20Gg8TUiOjMZeeYMohAMc4qGNdoHEnjKGjtwYgFxw8hFQ9zZpEIR8j5etex3EAz1LItFoRe9UMQFGJw9FMF3gVypvODPkpKu_FC4tUFVgSfZS8twy1XVFmnX0JkBJQ-xlt9VCopBagBc";
+const AUTH_TOKEN = "BQAajVDWR38cFQFBYLRO_YpH0hoY2s944tZZH-H23GMwUQSLD7JOqQlJrKaf-60-EuDLe0SwfDx74ph3s08n-DXRFQVPevJdyg55j980ZfFM_8dtV-1aKeted4Jj1owFtuAXEDATtbSYEKxUsp6NhKhT_AQAI2ilvg56UIBpDreGZcPTsgKI7UU";
 
 const MySpotifyPlayer = () => {
     const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
@@ -32,7 +29,7 @@ const MySpotifyPlayer = () => {
         <WebPlaybackSDK
             deviceName="RaveWave"
             getOAuthToken={getOAuthToken}
-            volume={1}>
+            volume={1.0}>
             {/* `TogglePlay` and `SongTitle` will be defined later. Use player.resume() for init */}
             <SongTitle/>
         </WebPlaybackSDK>
@@ -90,19 +87,20 @@ function formatDuration(value) {
     return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
 }
 
-const GuessArtist = (props) => {
+const GuessArtist = (controller, question) => {
+
     //props.answer
     const theme = useTheme();
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);
 
-    const [question, setQuestion] = useState();
+    // const [question, setQuestion] = useState();
     const [answered, setAnswered] = useState(false);
 
     //if (!question) return null;
     const sendAnswer = (selection) => {
         setAnswered(true);
-        props.answer(question, selection.id);
+        controller.answer(question, selection.id);
     };
 
     return (
