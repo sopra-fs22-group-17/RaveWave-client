@@ -29,7 +29,7 @@ export interface IGameController {
     setConfig: (configuration: IGameConfiguration) => void;
 }
 
-export const GameController: FC<IGameControllerProps> = ({ role }) => {
+export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "configure");
     const [config, setConfig] = useState<IGameConfiguration>();
     const [question, setQuestion] = useState<IGameQuestion>();
@@ -90,6 +90,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
     } else {
         return <ErrorView controller={ctrl} />;
     }
+
+    return ctrl;
 };
 
 export interface IGameViewProps {
@@ -166,6 +168,7 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
         setAnswered(true);
         controller.answer(question.question, selection.id);
     };
+
     return (
         <Stack>
             <Title>QuestionView</Title>
@@ -176,7 +179,8 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
                         {option.label}
                     </Button>
                 );
-            })}
+            })} { //<GuessArtist question={question} answer={answer} />
+                }
         </Stack>
     );
 };
