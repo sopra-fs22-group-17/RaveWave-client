@@ -6,21 +6,18 @@ import {styled, useTheme} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/GuessArtist.scss";
-
-import {
-    WebPlaybackSDK,
-    usePlaybackState,
-    useSpotifyPlayer,
-    useWebPlaybackSDKReady, usePlayerDevice
-} from "react-spotify-web-playback-sdk";
-
-import PropTypes from "prop-types";
+import {useHistory} from "react-router-dom";
 
 // SPOTIFY STUFF
+import {WebPlaybackSDK, usePlaybackState, useSpotifyPlayer, useWebPlaybackSDKReady, usePlayerDevice} from "react-spotify-web-playback-sdk";
+import SpotifyWebApi from "spotify-web-api-js";
+
+let spotifyApi = new SpotifyWebApi();
+
 const AppConnectionStateCheck = () => {
     const webPlaybackSDKReady = useWebPlaybackSDKReady();
 
-    if (!webPlaybackSDKReady) return <div>Loading...</div>;
+    if (!webPlaybackSDKReady) return null;
 
     return <div>Spotify ready!</div>;
 };
@@ -34,6 +31,10 @@ const PlayerDeviceStateCheck = () => {
 };
 
 const PlaybackStateCheck = () => {
+    const myDevices = spotifyApi.getMyDevices();
+
+    console.log(myDevices)
+
     const playbackState = usePlaybackState();
 
     if (playbackState === null) return null;
@@ -54,8 +55,8 @@ const PauseResumeButton = () => {
     );
 };
 
-
-const AUTH_TOKEN = "BQBO9CH7uUL1HHcrJOoBzUfGyFXUoMW7FkUS-UPKH2cFMw0VFKAMsRHVeQQTm6jydvnCseLeeWB-ftmtzDOyesU3vC_Gl5QvZnj0TcFBdAYWDym7bputCbu2ZbVZbloS6JNiDDtwzMi97mk1XaPYj_IEGi_hHC9z1YR1bbhEK4SDTXys-5vhaCw";
+spotifyApi.setAccessToken("BQAazDKSsLaLTptNbcJPChw2cFXSB784rhPgXyWiIffPblg2kInHBI6m1ViMIjM7gf5FGog2tV9sPBPPxz1tjf_4acLrqHO_-0tm3E7bSuQSyfvba6ilsPLa1HXG8vztJhVgIgysIhPoaaJY7Gl239uX7qdni0eV0OmkcyoQe0SBTxdjnq6klpc");
+const AUTH_TOKEN = spotifyApi.getAccessToken();
 
 const MySpotifyPlayer = () => {
     const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
@@ -115,6 +116,8 @@ function formatDuration(value) {
 }
 
 const GuessArtist = (controller, question) => {
+
+    const history = useHistory();
 
     //props.answer
     const theme = useTheme();

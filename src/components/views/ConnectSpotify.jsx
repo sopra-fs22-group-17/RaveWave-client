@@ -10,10 +10,7 @@ import "styles/views/ConnectSpotify.scss";
 import {useState} from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
-let Spotify = require('spotify-web-api-js');
-let s = new Spotify();
-
-let spotifyApi = new SpotifyWebApi();
+export const spotifyApi = new SpotifyWebApi();
 
 const ConnectSpotify = (props) => {
     const history = useHistory();
@@ -21,8 +18,8 @@ const ConnectSpotify = (props) => {
     // uri spotify
     // redirect user to url
     // will be redirected to spotify auth for APP
-    // 4. parameter code=
-    // 5. redirect to where ?? (check with sheeena)
+    // parameter code=
+    // redirect to where ?? (check with sheeena) //proposal: again to spotifyconnect page, then we dont need to pack api into selectgamemode
     // 6. send code to backend for step 7
     // 7. post request auth code ()
     // 8. get access token to stream
@@ -61,11 +58,11 @@ const ConnectSpotify = (props) => {
 
             const urlParams = new URLSearchParams(queryString);
 
-            const code = urlParams.get('code')
+            const code = urlParams.get('code');
             console.log(code);
 
-            SpotifyWebApi.setAccessToken(code);
-
+            spotifyApi.setAccessToken(code);
+            history.push('/selectgamemode');
         } catch (error) {
             console.error(`Something went wrong while redirecting the user: \n${handleError(error)}`);
             console.error("Details:", error);
@@ -73,8 +70,7 @@ const ConnectSpotify = (props) => {
         }
     }
 
-    //fetchSpotifyURI();
-    //redirectUser();
+    fetchSpotifyURI();
 
     //SPOTIFY sound output is implemented in GuessArtist, GuessLyrics and GuessSong
 
@@ -83,7 +79,7 @@ const ConnectSpotify = (props) => {
             <Button onClick={() => history.push("/selectgamemode")} className="connectspotify back">
                 Back
             </Button>
-            <Button onClick={() => history.push("/displayqr")} className="connectspotify connectbutton">
+            <Button onClick={redirectUser()} className="connectspotify connectbutton">
                 Connect Spotify
             </Button>
         </BaseContainer>
