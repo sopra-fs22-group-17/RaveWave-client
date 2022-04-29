@@ -1,61 +1,52 @@
-export type TUserRole = "host" | "player";
+export type TUserRole = "host" | "player"; //still necessary?
 
-export type TQuestionType = "guessthesong" | "guesstheartist" | "guessthelyrics";
+export type TQuestionType = "Guess the song song" | "Guess the song artist" | "Guess the song lyrics";
 
-//sent
+//game configuration
 export interface IGameConfiguration {
-    gameMode: TQuestionType;
-    numberOfRounds: number;
-    playbackSpeed: number;
-    playbackDuration: number;
+    roundDuration: string;
+    playBackDuration: string;
+    songPool: string;
+    gameRounds: number;
+    gameMode: string;
 }
 
-//received
-export interface IGameAnswerOption {
-    id: string;
-    label: string;
-    image: string;
-}
-
-//received
-export interface IGameQuestion {
-    question: string;
-    questionNumber: number;
-    type: TQuestionType;
-    songLink: string;
-    options: IGameAnswerOption[];
-}
-
-//sent
-export interface IGameAnswer {
-    questionId: string;
+//game question (guess the artist)
+export interface IGuessTheArtistOption {
+    answer: string;
     answerId: string;
+    artistLogo: string;
 }
 
-//received
-export interface IGameUserResult {
-    username: string;
-    image: string;
-    correctness: boolean;
-    currentPoints: number;
-    currentRank: number;
+//game question (guess the artist)
+export interface IGuessTheArtistQuestion {
+    question: string;
+    previewURL: string;
+    options: IGuessTheArtistOption[];
 }
 
+//game answer
+export interface IGameAnswer {
+    playerGuess: string;
+    responseTime: string;
+}
+
+//post game and post round
+export interface IPlayerInfo {
+    playerId: number;
+    playerName: string;
+    playerPosition: number;
+    roundScore: number;
+    totalScore: number;
+    streak: number;
+}
+
+//post post game and post round
 export interface IGameResult {
-    correctAnswer: IGameAnswerOption;
-    results: IGameUserResult[];
-}
-
-//received
-export interface IGameUserSummary {
-    username: string;
-    image: string;
-    finalPoints: number;
-    finalRank: number;
-}
-
-export interface IGameSummary {
-    summary: IGameUserSummary[];
+    artist: string;
+    songTitle: string;
+    players: IPlayerInfo[];
+    gameOver: boolean;
 }
 
 export interface ISendOptions {
@@ -75,4 +66,49 @@ export interface IMessageListener {
 export interface IApi {
     join(listener: IMessageListener): void;
     send(channel: string, type: string, data: any, options?: ISendOptions): void;
+}
+
+export interface IGameConfiguration1 {
+    gameMode: TQuestionType;
+    numberOfRounds: number;
+    playbackSpeed: number;
+    playbackDuration: number;
+}
+
+export interface IGameAnswerOption1 {
+    id: string;
+    label: string;
+    image: string;
+}
+
+export interface IGameAnswer1 {
+    question: string;
+    questionNumber: number;
+    type: TQuestionType;
+    songLink: string;
+    options: IGameAnswerOption1[];
+}
+
+export interface IGameQuestion1 {
+    question: string;
+    questionNumber: number;
+    type: TQuestionType;
+    songLink: string;
+    options: IGuessTheArtistOption[];
+}
+
+export interface IGameResul1 {
+    correctAnswer: IGuessTheArtistOption;
+    results: string[];
+}
+
+export interface IGameUserSummary1 {
+    username: string;
+    image: string;
+    finalPoints: number;
+    finalRank: number;
+}
+
+export interface IGameSummary1 {
+    summary: IGameUserSummary1[];
 }

@@ -2,19 +2,19 @@ import { Avatar, Button, Group, Slider, Stack, Text, Title } from "@mantine/core
 import { QRCodeCanvas } from "qrcode.react";
 import { FC, useEffect, useRef, useState } from "react";
 
-import { IGameAnswerOption, IGameConfiguration, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, TUserRole } from "../../api/@def";
+import { IGameConfiguration, IGameResult, IGuessTheArtistOption, IGuessTheArtistQuestion, IMessageEvent, TUserRole } from "../../api/@def";
 import { stompClient } from "../../api/StompApi";
 import { useAPI } from "../../hooks/useAPI";
-import GuessArtist from "./GuessArtist";
-import GuessSong from "./GuessSong";
-import GuessLyrics from "./GuessLyrics";
-import SelectGameMode from "./SelectGameMode";
 import DisplayQR from "./DisplayQR";
-import WaitingRoom from "./WaitingRoom";
+import GuessArtist from "./GuessArtist";
+import GuessLyrics from "./GuessLyrics";
+import GuessSong from "./GuessSong";
 import PostGame from "./PostGame";
 import PostRound from "./PostRound";
+import SelectGameMode from "./SelectGameMode";
+import WaitingRoom from "./WaitingRoom";
 
-//different states in the game  
+//different states in the game
 export type TGameState =
     // host
     | "configure"
@@ -38,11 +38,11 @@ export interface IGameController {
 }
 
 export const GameController: FC<IGameControllerProps> = ({ role }): any => {
-    const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "configure");
+    const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "waiting");
     const [config, setConfig] = useState<IGameConfiguration>();
-    const [question, setQuestion] = useState<IGameQuestion>();
+    const [question, setQuestion] = useState<IGuessTheArtistQuestion>();
     const [result, setResult] = useState<IGameResult>();
-    const [summary, setSummary] = useState<IGameSummary>();
+    const [summary, setSummary] = useState<IGameResult>();
 
     const ref = useRef<any>();
     const api = useAPI();
@@ -114,10 +114,11 @@ export interface IConfigurationViewProps extends IGameViewProps {
 
 const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
     const [config, setConfig] = useState<IGameConfiguration>({
-        gameMode: "guesstheartist",
-        numberOfRounds: 5,
-        playbackSpeed: 1,
-        playbackDuration: 15,
+        roundDuration: "FOURTEEN",
+        playBackDuration: "FOURTEEN",
+        songPool: "SWITZERLAND",
+        gameRounds: 12,
+        gameMode: "ARTISTGAME",
     });
 
     const [isConnected, setIsConnected] = useState(false);
@@ -142,7 +143,7 @@ const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
             <Title>GameConfigureView</Title>
             <Stack>
                 <Text>Number of Roundss</Text>
-                <Slider value={config.numberOfRounds} min={1} max={10} onChange={(value) => updateConfig({ numberOfRounds: value })} />
+                <Slider value={config.gameRounds} min={1} max={10} onChange={(value) => updateConfig({ gameRounds: value })} />
             </Stack>
             <Button onClick={inviteAction}>Invite</Button>
         </Stack>
@@ -165,7 +166,7 @@ const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
 };
 
 export interface IQuestionViewProps extends IGameViewProps {
-    question: IGameQuestion;
+    question: IGuessTheArtistQuestion;
 }
 
 const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
@@ -174,9 +175,9 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
     //     controller.answer()
     // };
     if (!question) return null;
-    const sendAnswer = (selection: IGameAnswerOption) => {
+    const sendAnswer = (selection: IGuessTheArtistOption) => {
         setAnswered(true);
-        controller.answer(question.question, selection.id);
+        controller.answer(question.question, selection.answerId);
     };
 
     return (
@@ -186,11 +187,13 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
             {question.options.map((option, i) => {
                 return (
                     <Button key={i} disabled={answered} onClick={() => sendAnswer(option)}>
-                        {option.label}
+                        {option.answer}
                     </Button>
                 );
-            })} { //<GuessArtist question={question} answer={answer} />
-                }
+            })}{" "}
+            {
+                //<GuessArtist question={question} answer={answer} />
+            }
         </Stack>
     );
 };
@@ -205,16 +208,16 @@ const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
     return (
         <Stack align="center">
             <Title>ResultView</Title>
-            <div>{result.correctAnswer.label}</div>
-            {result.results.map((res, i) => {
+            {/* <div>{result.artist.answer}</div> */}
+            {result.players.map((res, i) => {
                 return (
                     <Group key={i}>
                         <Avatar color="cyan" radius="xl">
-                            {res.username.substring(0, 1)}
+                            {res.playerName.substring(0, 1)}
                         </Avatar>
-                        {res.correctness ? "OK" : "FAIL"}
-                        {res.currentPoints}
-                        {res.currentRank}
+                        {res.streak ? "OK" : "FAIL"}
+                        {res.roundScore}
+                        {res.playerPosition}
                     </Group>
                 );
             })}
@@ -223,7 +226,7 @@ const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
 };
 
 export interface IFinalResultViewProps extends IGameViewProps {
-    summary: IGameSummary;
+    summary: IGameResult;
 }
 
 const SummaryView: FC<IFinalResultViewProps> = ({ controller, summary }) => {
@@ -234,14 +237,14 @@ const SummaryView: FC<IFinalResultViewProps> = ({ controller, summary }) => {
     return (
         <Stack align="center">
             <Title>SummaryView</Title>
-            {summary.summary.map((res, i) => {
+            {summary.players.map((res, i) => {
                 return (
                     <Group key={i}>
                         <Avatar color="cyan" radius="xl">
-                            {res.username.substring(0, 1)}
+                            {res.playerName.substring(0, 1)}
                         </Avatar>
-                        {res.finalPoints}
-                        {res.finalRank}
+                        {res.totalScore}
+                        {res.playerPosition}
                     </Group>
                 );
             })}

@@ -1,24 +1,17 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
-import { WebSocket } from "api/websocket";
-import { GameGuard } from "components/routing/routeProtectors/GameGuard";
-import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
 import ConnectSpotify from "components/views/ConnectSpotify";
 import DisplayQR from "components/views/DisplayQR";
-import GuessArtist from "components/views/GuessArtist";
-import GuessLyrics from "components/views/GuessLyrics";
-import GuessSong from "components/views/GuessSong";
+import { GameMenu } from "components/views/GameMenu";
 import Guest from "components/views/Guest";
 import LandingHost from "components/views/LandingHost";
 import LandingPlayer from "components/views/LandingPlayer";
 import Login from "components/views/Login";
-import PostGame from "components/views/PostGame";
-import PostRound from "components/views/PostRound";
 import Register from "components/views/Register";
 import SelectGameMode from "components/views/SelectGameMode";
 import WaitingRoom from "components/views/WaitingRoom";
+
 import { GameView } from "../../views/GameView";
-import Test from "../../views/Test";
 
 /**
  * Main router of your application.
@@ -73,32 +66,12 @@ const AppRouter = () => {
                     <DisplayQR />
                 </Route>
 
-                <Route exact path="/postround">
-                    <PostRound />
-                </Route>
-
-                <Route exact path="/postgame">
-                    <PostGame />
-                </Route>
-
-                <Route exact path="/guessartist">
-                    <GuessArtist />
-                </Route>
-
-                <Route exact path="/postround">
-                    <PostRound />
+                <Route exact path="/menu">
+                    <GameMenu />
                 </Route>
 
                 <Route exact path="/">
                     <Redirect to="/landinghost" />
-                </Route>
-
-                <Route exact path="/test">
-                    <Test />
-                </Route>
-
-                <Route exact path="/websocketdemo">
-                    <WebSocket />
                 </Route>
             </Switch>
         </BrowserRouter>

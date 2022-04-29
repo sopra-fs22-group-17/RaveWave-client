@@ -1,4 +1,4 @@
-import { IApi, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, IMessageListener, ISendOptions } from "./@def";
+import { IApi, IGameResult, IGuessTheArtistQuestion, IMessageEvent, IMessageListener, ISendOptions } from "./@def";
 
 export class MockupApi implements IApi {
     private listeners: IMessageListener[] = [];
@@ -10,101 +10,55 @@ export class MockupApi implements IApi {
     private connect() {}
 
     public send<T = any>(channel: string, type: string, data: any, options?: ISendOptions) {
-        const dummyQuestion: IGameQuestion = {
+        const guessTheArtistQuestion: IGuessTheArtistQuestion = {
             question: "Guess the song artist",
-            questionNumber: 1,
-            type: "guessthesong",
-            songLink: "spotify.link.c",
+            previewURL: "https://p.scdn.co/mp3-preview/1ac449e52145d1c44dc4346afdb2d8b70e93969b?cid=d7d44473ad6a47cd86c580fcee015449",
             options: [
                 {
-                    id: "a",
-                    label: "A",
-                    image: "/images/artits/a",
+                    answer: "Olivia Rodrigo",
+                    answerId: "1",
+                    artistLogo: "dasischeLogoURLfallsesfunktioniert",
                 },
                 {
-                    id: "b",
-                    label: "B",
-                    image: "/images/artits/b",
+                    answer: "Harry Styles",
+                    answerId: "2",
+                    artistLogo: "dasischeLogoURLfallsesfunktioniert",
                 },
                 {
-                    id: "c",
-                    label: "C",
-                    image: "/images/artits/c",
+                    answer: "Robin Schulz",
+                    answerId: "3",
+                    artistLogo: "dasischeLogoURLfallsesfunktioniert",
                 },
                 {
-                    id: "d",
-                    label: "D",
-                    image: "/images/artits/d",
+                    answer: "Tom Odell",
+                    answerId: "4",
+                    artistLogo: "dasischeLogoURLfallsesfunktioniert",
                 },
             ],
         };
 
         const dummyResults: IGameResult = {
-            correctAnswer: {
-                id: "d",
-                label: "D",
-                image: "/images/artits/d",
-            },
-
-            results: [
+            artist: "Cardi B",
+            songTitle: "xyz",
+            players: [
                 {
-                    username: "aaa",
-                    image: "A",
-                    correctness: true,
-                    currentPoints: 900,
-                    currentRank: 1,
+                    playerId: 1,
+                    playerName: "Dennys",
+                    playerPosition: 1,
+                    roundScore: 785,
+                    totalScore: 785,
+                    streak: 1,
                 },
                 {
-                    username: "bbb",
-                    image: "B",
-                    correctness: false,
-                    currentPoints: 500,
-                    currentRank: 3,
-                },
-                {
-                    username: "ccc",
-                    image: "C",
-                    correctness: true,
-                    currentPoints: 700,
-                    currentRank: 2,
-                },
-                {
-                    username: "ddd",
-                    image: "D",
-                    correctness: true,
-                    currentPoints: 400,
-                    currentRank: 300,
+                    playerId: 2,
+                    playerName: "Bella",
+                    playerPosition: 2,
+                    roundScore: 0,
+                    totalScore: 0,
+                    streak: 0,
                 },
             ],
-        };
-
-        const dummySummary: IGameSummary = {
-            summary: [
-                {
-                    username: "aaa",
-                    image: "A",
-                    finalPoints: 900,
-                    finalRank: 2,
-                },
-                {
-                    username: "bbb",
-                    image: "A",
-                    finalPoints: 1000,
-                    finalRank: 1,
-                },
-                {
-                    username: "ccc",
-                    image: "A",
-                    finalPoints: 800,
-                    finalRank: 3,
-                },
-                {
-                    username: "ddd",
-                    image: "A",
-                    finalPoints: 700,
-                    finalRank: 4,
-                },
-            ],
+            gameOver: false,
         };
 
         setTimeout(() => {
@@ -112,7 +66,7 @@ export class MockupApi implements IApi {
                 const event: IMessageEvent = {
                     channel: "??",
                     type: "question",
-                    data: dummyQuestion,
+                    data: guessTheArtistQuestion,
                 };
                 this.notify(event);
             } else if (data.method === "answer") {
@@ -127,7 +81,7 @@ export class MockupApi implements IApi {
                     const event: IMessageEvent = {
                         channel: "??",
                         type: "summary",
-                        data: dummySummary,
+                        data: dummyResults,
                     };
                     this.notify(event);
                 }, 5000);
