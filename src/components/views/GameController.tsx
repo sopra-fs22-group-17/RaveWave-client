@@ -5,8 +5,16 @@ import { FC, useEffect, useRef, useState } from "react";
 import { IGameAnswerOption, IGameConfiguration, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, TUserRole } from "../../api/@def";
 import { stompClient } from "../../api/StompApi";
 import { useAPI } from "../../hooks/useAPI";
+import GuessArtist from "./GuessArtist";
+import GuessSong from "./GuessSong";
+import GuessLyrics from "./GuessLyrics";
+import SelectGameMode from "./SelectGameMode";
+import DisplayQR from "./DisplayQR";
+import WaitingRoom from "./WaitingRoom";
+import PostGame from "./PostGame";
+import PostRound from "./PostRound";
 
-//different states in the game
+//different states in the game  
 export type TGameState =
     // host
     | "configure"
@@ -24,12 +32,12 @@ export interface IGameControllerProps {
 export interface IGameController {
     gotoState(state: TGameState): void;
     startGame: () => void;
-    answer: (questionId: string, answerId: string) => void;
+    answer: (question: string, answerId: string) => void;
     configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => void;
     setConfig: (configuration: IGameConfiguration) => void;
 }
 
-export const GameController: FC<IGameControllerProps> = ({ role }) => {
+export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "configure");
     const [config, setConfig] = useState<IGameConfiguration>();
     const [question, setQuestion] = useState<IGameQuestion>();
@@ -67,8 +75,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
         startGame: () => {
             api.send("ch1", "command", { method: "start", config });
         },
-        answer: (questionId: string, answerId: string) => {
-            api.send("ch1", "command", { method: "answer", answer: { questionId, answerId } });
+        answer: (question: string, answerId: string) => {
+            api.send("ch1", "command", { method: "answer", answer: { question, answerId } });
         },
         setConfig: (configuration: IGameConfiguration) => {
             setConfig(configuration);
@@ -76,17 +84,21 @@ export const GameController: FC<IGameControllerProps> = ({ role }) => {
     };
 
     if (state === "configure") {
-        return <GameConfigureView controller={ctrl} />;
+        return <SelectGameMode controller={ctrl} />;
     } else if (state === "invite") {
-        return <InviteView controller={ctrl} />;
+        return <DisplayQR controller={ctrl} />;
     } else if (state === "waiting") {
-        return <WaitingRoomView controller={ctrl} />;
-    } else if (state === "question") {
-        return <QuestionView controller={ctrl} question={question} />;
+        return <WaitingRoom controller={ctrl} />;
+    } else if (state === "question" && question.question === "Guess the song artist") {
+        return <GuessArtist controller={ctrl} question={question} />;
+    } else if (state === "question" && question.question === "Guess the song name") {
+        return <GuessSong controller={ctrl} question={question} />;
+    } else if (state === "question" && question.question === "Guess the song lyrics") {
+        return <GuessLyrics controller={ctrl} question={question} />;
     } else if (state === "result") {
-        return <ResultView controller={ctrl} result={result} />;
+        return <PostRound controller={ctrl} result={result} />;
     } else if (state === "summary") {
-        return <SummaryView controller={ctrl} summary={summary} />;
+        return <PostGame controller={ctrl} summary={summary} />;
     } else {
         return <ErrorView controller={ctrl} />;
     }
@@ -155,6 +167,7 @@ const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
 export interface IQuestionViewProps extends IGameViewProps {
     question: IGameQuestion;
 }
+
 const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
     const [answered, setAnswered] = useState(false);
     // const sendAnswer = (answer: {questionId: question.questionId, answerId: answer) => {
@@ -163,20 +176,21 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
     if (!question) return null;
     const sendAnswer = (selection: IGameAnswerOption) => {
         setAnswered(true);
-        controller.answer(question.questionId, selection.id);
+        controller.answer(question.question, selection.id);
     };
+
     return (
         <Stack>
             <Title>QuestionView</Title>
-            <div>{question.questionId}</div>
-            <div>{question.type}</div>
+            <div>{question.question}</div>
             {question.options.map((option, i) => {
                 return (
                     <Button key={i} disabled={answered} onClick={() => sendAnswer(option)}>
                         {option.label}
                     </Button>
                 );
-            })}
+            })} { //<GuessArtist question={question} answer={answer} />
+                }
         </Stack>
     );
 };

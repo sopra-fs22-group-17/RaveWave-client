@@ -1,10 +1,12 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
-import { WebPlaybackSDK } from "react-spotify-web-playback-sdk";
-import { usePlaybackState, useSpotifyPlayer } from "react-spotify-web-playback-sdk";
+import "styles/views/Test.scss";
+import { WebPlaybackSDK, usePlaybackState, useSpotifyPlayer } from "react-spotify-web-playback-sdk";
+
+import {handleError} from 'helpers/api';
+import {Spinner} from 'components/ui/Spinner';
 
 const SongTitle = () => {
     const playbackState = usePlaybackState();
@@ -67,10 +69,7 @@ const Game = () => {
 //     // more information can be found under https://reactjs.org/docs/hooks-state.html
 //     const [users, setUsers] = useState(null);
 
-    const logout = () => {
-        localStorage.removeItem('token');
-        history.push('/login');
-    }
+
 
    // the effect hook can be used to react to change in your component.
 //   // in this case, the effect hook is only run once, the first time the component is mounted
@@ -125,6 +124,7 @@ const Game = () => {
     }, []);
 
     let content = <Spinner />;
+    { /*
 
     if (users) {
         content = (
@@ -139,6 +139,8 @@ const Game = () => {
                 </Button>
             </div>
         );
+    }
+        */
     }
 
     return (

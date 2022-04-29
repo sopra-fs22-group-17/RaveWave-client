@@ -19,7 +19,7 @@ export interface IGameAnswerOption {
 
 //received
 export interface IGameQuestion {
-    questionId: string;
+    question: string;
     questionNumber: number;
     type: TQuestionType;
     songLink: string;

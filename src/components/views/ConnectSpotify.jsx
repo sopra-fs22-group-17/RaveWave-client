@@ -56,11 +56,13 @@ const ConnectSpotify = (props) => {
         try {
             window.location.href = spotifyURL.toString();
 
-            const params = new Proxy(new URLSearchParams(window.location.search), {
-                get: (searchParams, prop) => searchParams.get(prop),
-            });
-            // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-            let code = params.code; // "some_value"
+            const queryString = window.location.search;
+            console.log(queryString);
+
+            const urlParams = new URLSearchParams(queryString);
+
+            const code = urlParams.get('code')
+            console.log(code);
 
             SpotifyWebApi.setAccessToken(code);
 

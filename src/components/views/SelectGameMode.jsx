@@ -15,11 +15,41 @@ import { useHistory } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import { stompClient } from "../../api/StompApi";
+
 import "styles/views/SelectGameMode.scss";
 
-const SelectGameMode = (props) => {
+const SelectGameMode = (controller) => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
+    const [config, setConfig] = useState({
+        gameMode: "guesstheartist",
+        numberOfRounds: 5,
+        playbackSpeed: 1,
+        playbackDuration: 15,
+    });
+    const [gameMode, setGameMode] = useState("guessartist");
+    const [numberOfRounds, setRound] = useState(10);
+    const [playbackSpeed, setPlaySpeed] = useState(1.0);
+    const [playbackDuration, setPlaybackDuration] = useState(10);
+    const [songPool, setSongPool] = useState();
+
+    const [isConnected, setIsConnected] = useState(false);
+    React.useEffect(() => {
+        stompClient.connect(setIsConnected(true));
+    }, []);
+
+    if (!isConnected) {
+        return null;
+    }
+
+    const updateConfig = (configuration) => {
+        setConfig(Object.assign({}, config, configuration));
+    };
+    const inviteAction = () => {
+        controller.setConfig(config);
+        controller.gotoState("invite");
+    };
 
     localStorage.setItem("gameMode", "guess the song");
 
@@ -178,14 +208,6 @@ const SelectGameMode = (props) => {
         },
     ];
 
-    const [gameMode, setGameMode] = useState("guessartist");
-
-    const [numberOfRounds, setRound] = useState(10);
-    const [playbackSpeed, setPlaySpeed] = useState(1.0);
-    const [playbackDuration, setPlaybackDuration] = useState(10);
-
-    const [songPool, setSongPool] = useState();
-
     function startgameButton() {
         localStorage.setItem("gameMode", gameMode);
         localStorage.setItem("numberOfRounds", numberOfRounds.toString());
@@ -196,10 +218,20 @@ const SelectGameMode = (props) => {
 
     return (
         <BaseContainer className="selectgamemode">
-            <Button onClick={() => history.push('/selectgamemode')} class="column-item">Select Game Mode</Button>
+            <Button onClick={() => history.push("/selectgamemode")} class="column-item">
+                Select Game Mode
+            </Button>
 
             <FormControl className="selectgamemode column-item">
-                <RadioGroup row sx={{ justifyContent: 'center' }} aria-labelledby="demo-radio-buttons-group-label" defaultValue="Song" name="radio-buttons-group" value={gameMode} onChange={(e) => setGameMode(e.target.value)}>
+                <RadioGroup
+                    row
+                    sx={{ justifyContent: "center" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="Song"
+                    name="radio-buttons-group"
+                    value={gameMode}
+                    onChange={(e) => setGameMode(e.target.value)}
+                >
                     <FormControlLabel value="guesssong" control={<Radio />} label="Guess the Song" />
                     <FormControlLabel value="guessartist" control={<Radio />} label="Guess the Artist" />
                     <FormControlLabel value="guesslyrics" control={<Radio />} label="Guess the Lyrics" />
@@ -207,16 +239,52 @@ const SelectGameMode = (props) => {
             </FormControl>
 
             <Button class="selectgamemode column-item">Game parameters:</Button>
+
             <div className="selectgamemode label">Number of Rounds</div>
-            <Slider className="selectgamemode slider" defaultValue={10} getAriaValueText={valuetext} step={5} marks={marksRounds} valueLabelDisplay="auto" min={5} max={20} value={numberOfRounds} onChange={(e) => setRound(e.target.value)}/>
+            <Slider
+                className="selectgamemode slider"
+                value={config.numberOfRounds}
+                defaultValue={10}
+                getAriaValueText={valuetext}
+                step={5}
+                marks={marksRounds}
+                valueLabelDisplay="auto"
+                min={5}
+                max={20}
+                onChange={(value) => updateConfig({ numberOfRounds: value })}
+            />
+
             <div className="selectgamemode label">Playback Speed</div>
-            <Slider className="selectgamemode slider" defaultValue={1} getAriaValueText={valuetext} step={0.5} marks={marksPlaybackSpeed} valueLabelDisplay="auto" min={0.5} max={3} value={playbackSpeed} onChange={(e) => setPlaySpeed(e.target.value)}/>
+            <Slider
+                className="selectgamemode slider"
+                value={config.playbackSpeed}
+                defaultValue={1}
+                getAriaValueText={valuetext}
+                step={0.5}
+                marks={marksPlaybackSpeed}
+                valueLabelDisplay="auto"
+                min={0.5}
+                max={3}
+                onChange={(value) => updateConfig({ playbackSpeed: value })}
+            />
+
             <div className="selectgamemode label">Playback Duration</div>
-            <Slider className="selectgamemode slider" defaultValue={10} getAriaValueText={valuetext} step={2} marks={marksPlaybackDuration} valueLabelDisplay="auto" min={10} max={20} value={playbackDuration} onChange={(e) => setPlaybackDuration(e.target.value)}/>
+            <Slider
+                className="selectgamemode slider"
+                value={config.playbackDuration}
+                defaultValue={10}
+                getAriaValueText={valuetext}
+                step={2}
+                marks={marksPlaybackDuration}
+                valueLabelDisplay="auto"
+                min={10}
+                max={20}
+                onChange={(value) => updateConfig({ playbackDuration: value })}
+            />
 
-            <Button class="selectgamemode column-item">Chose song library:</Button>
+            <Button class="selectgamemode column-item">Choose song library:</Button>
 
-            <ImageList sx={{ justifyContent: 'center', height: 450, flexGrow: 1, flexWrap: 'wrap' }}>
+            <ImageList sx={{ justifyContent: "center", height: 450, flexGrow: 1, flexWrap: "wrap" }}>
                 <ImageListItem key="Subheader" cols={2}></ImageListItem>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
@@ -237,7 +305,7 @@ const SelectGameMode = (props) => {
             <Button onClick={() => history.push("/connectspotify")} className="selectgamemode backinio">
                 Back
             </Button>
-            <Button onClick={() => history.push("/displayqr")} className="selectgamemode addplayers">
+            <Button onClick={inviteAction} className="selectgamemode addplayers">
                 Add players
             </Button>
         </BaseContainer>
