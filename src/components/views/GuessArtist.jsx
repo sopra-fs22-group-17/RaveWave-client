@@ -135,6 +135,12 @@ const GuessArtist = (controller, question) => {
         console.log(myDevices.data)
     }
 
+    async function playsample() {
+        const myDevices = spotifyApi.play();
+
+        console.log(myDevices.data)
+    }
+
     return (
         <BaseContainer className="guessartist">
             { /*
