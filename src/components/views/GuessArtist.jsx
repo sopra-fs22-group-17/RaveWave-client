@@ -14,6 +14,9 @@ import SpotifyWebApi from "spotify-web-api-js";
 
 let spotifyApi = new SpotifyWebApi();
 
+spotifyApi.setAccessToken('BQCvV0hdjtrZVI8c8Ezzw4SSoVNAE0wVeVDkoPmnBucsuZ7OsfCOag4hkVOHS1n5WhJhVJAqqMkYBT7kt4IhTQwixirloxtyjxyifW4ifuUsUqQQnLdgBljkmOJd52MkEqbBYjytrYvxm246ZXVGztUbt-DxtgD8W2phDoPQABie8-8wSIJavSg');
+const AUTH_TOKEN = spotifyApi.getAccessToken();
+
 const AppConnectionStateCheck = () => {
     const webPlaybackSDKReady = useWebPlaybackSDKReady();
 
@@ -31,10 +34,6 @@ const PlayerDeviceStateCheck = () => {
 };
 
 const PlaybackStateCheck = () => {
-    const myDevices = spotifyApi.getMyDevices();
-
-    console.log(myDevices)
-
     const playbackState = usePlaybackState();
 
     if (playbackState === null) return null;
@@ -55,15 +54,12 @@ const PauseResumeButton = () => {
     );
 };
 
-spotifyApi.setAccessToken("BQAazDKSsLaLTptNbcJPChw2cFXSB784rhPgXyWiIffPblg2kInHBI6m1ViMIjM7gf5FGog2tV9sPBPPxz1tjf_4acLrqHO_-0tm3E7bSuQSyfvba6ilsPLa1HXG8vztJhVgIgysIhPoaaJY7Gl239uX7qdni0eV0OmkcyoQe0SBTxdjnq6klpc");
-const AUTH_TOKEN = spotifyApi.getAccessToken();
-
 const MySpotifyPlayer = () => {
     const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
 
     return (
         <WebPlaybackSDK
-            initialDeviceName="RaveWave"
+            initialDeviceName="RaveWaveinio"
             getOAuthToken={getOAuthToken}
             volume={1.0}
             connectOnInitialized={true}>
@@ -132,6 +128,12 @@ const GuessArtist = (controller, question) => {
         setAnswered(true);
         controller.answer(question, selection.id);
     };
+
+    async function request() {
+        const myDevices = spotifyApi.getMyDevices();
+
+        console.log(myDevices.data)
+    }
 
     return (
         <BaseContainer className="guessartist">
@@ -222,6 +224,9 @@ const GuessArtist = (controller, question) => {
             <div className="guessartist column-item">
                 <MySpotifyPlayer />
             </div>
+            <Button className="guessartist column-item" onClick={request}>
+                RequestStuff
+            </Button>
         </BaseContainer>
     );
 };

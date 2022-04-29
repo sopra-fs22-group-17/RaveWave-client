@@ -117,7 +117,7 @@ export class API {
     async getAuthorizationCodeUri() {
         const response = await api.get("/authorizationCodeUri");
         if (response.status >= 200 && response.status < 300) {
-            return response;
+            return response.data;
         } else {
             throw new Error("Something went wrong during authorizationCodeUri");
         }
