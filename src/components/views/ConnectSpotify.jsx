@@ -55,7 +55,7 @@ const ConnectSpotify = (props) => {
     async function redirectUser() {
         try {
             window.location.href = spotifyURL.toString();
-
+            // user authenticated
             const queryString = window.location.search;
             console.log(queryString);
 

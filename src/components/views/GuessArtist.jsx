@@ -7,45 +7,72 @@ import Typography from "@mui/material/Typography";
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/GuessArtist.scss";
 
-import {WebPlaybackSDK, usePlaybackState, useSpotifyPlayer} from "react-spotify-web-playback-sdk";
+import {
+    WebPlaybackSDK,
+    usePlaybackState,
+    useSpotifyPlayer,
+    useWebPlaybackSDKReady, usePlayerDevice
+} from "react-spotify-web-playback-sdk";
 
 import PropTypes from "prop-types";
 
 // SPOTIFY STUFF
-const SongTitle = () => {
+const AppConnectionStateCheck = () => {
+    const webPlaybackSDKReady = useWebPlaybackSDKReady();
+
+    if (!webPlaybackSDKReady) return <div>Loading...</div>;
+
+    return <div>Spotify ready!</div>;
+};
+
+const PlayerDeviceStateCheck = () => {
+    const device = usePlayerDevice();
+
+    if (device === null) return null;
+
+    return <div>Device ready!</div>;
+};
+
+const PlaybackStateCheck = () => {
     const playbackState = usePlaybackState();
 
     if (playbackState === null) return null;
 
-    return <p>Current song: {playbackState.track_window.current_track.name}</p>;
+    return <p>Connected!</p>;
 };
 
-const AUTH_TOKEN = "BQAajVDWR38cFQFBYLRO_YpH0hoY2s944tZZH-H23GMwUQSLD7JOqQlJrKaf-60-EuDLe0SwfDx74ph3s08n-DXRFQVPevJdyg55j980ZfFM_8dtV-1aKeted4Jj1owFtuAXEDATtbSYEKxUsp6NhKhT_AQAI2ilvg56UIBpDreGZcPTsgKI7UU";
+const PauseResumeButton = () => {
+    const player = useSpotifyPlayer();
+
+    if (player === null) return null;
+
+    return (
+        <div className="guessartist column-item">
+            <button onClick={() => player.pause()}>pause</button>
+            <button onClick={() => player.resume()}>resume</button>
+        </div>
+    );
+};
+
+
+const AUTH_TOKEN = "BQBO9CH7uUL1HHcrJOoBzUfGyFXUoMW7FkUS-UPKH2cFMw0VFKAMsRHVeQQTm6jydvnCseLeeWB-ftmtzDOyesU3vC_Gl5QvZnj0TcFBdAYWDym7bputCbu2ZbVZbloS6JNiDDtwzMi97mk1XaPYj_IEGi_hHC9z1YR1bbhEK4SDTXys-5vhaCw";
 
 const MySpotifyPlayer = () => {
     const getOAuthToken = useCallback(callback => callback(AUTH_TOKEN), []);
 
     return (
         <WebPlaybackSDK
-            deviceName="RaveWave"
+            initialDeviceName="RaveWave"
             getOAuthToken={getOAuthToken}
-            volume={1.0}>
+            volume={1.0}
+            connectOnInitialized={true}>
             {/* `TogglePlay` and `SongTitle` will be defined later. Use player.resume() for init */}
-            <SongTitle/>
+            <AppConnectionStateCheck/>
+            <PlayerDeviceStateCheck/>
+            <PlaybackStateCheck/>
+            <PauseResumeButton className="guessartist column-item"/>
         </WebPlaybackSDK>
     );
-};
-
-const Player = ({user}) => (
-    <div className="player container">
-        <div className="player username">{user.username}</div>
-        <div className="player name">{user.name}</div>
-        <div className="player id">id: {user.id}</div>
-    </div>
-);
-
-Player.propTypes = {
-    user: PropTypes.object
 };
 // END SPOTIFY STUFF
 
