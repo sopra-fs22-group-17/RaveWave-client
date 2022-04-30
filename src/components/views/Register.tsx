@@ -24,7 +24,7 @@ export const Register: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button component={Link} to="/selectGameMode">
+                        <Button component={Link} to="/connectspotify">
                             Register
                         </Button>
                     </Stack>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 
 import BaseContainer from "components/ui/BaseContainer";
+
 import { remote } from "../../api/Api";
 import { handleError } from "../../helpers/api";
 import spotifyURL from "../../model/SpotifyURL";
@@ -11,7 +12,6 @@ import spotifyURL from "../../model/SpotifyURL";
 let spotifyApi = new SpotifyWebApi();
 
 export const ConnectSpotify: FC<{}> = ({}) => {
-
     async function fetchSpotifyURI() {
         try {
             const response = await remote.getAuthorizationCodeUri();
@@ -62,6 +62,9 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                     <Stack align="stretch">
                         <Button color="green" onClick={fetchSpotifyURI}>
                             Authorize Spotify
+                        </Button>
+                        <Button component={Link} to="/selectgamemode">
+                            Login
                         </Button>
                     </Stack>
                 </Stack>
