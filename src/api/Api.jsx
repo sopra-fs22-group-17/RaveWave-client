@@ -117,9 +117,7 @@ export class API {
     async getAuthorizationCodeUri() {
         const response = await api.get("/Spotify/authorizationCodeUri");
         const URL = JSON.parse(response)
-        alert(URL)
         if (response.status >= 200 && response.status < 300) {
-            alert(URL)
             return URL;
         } else {
             throw new Error("Something went wrong during authorizationCodeUri");
@@ -127,8 +125,8 @@ export class API {
     }
 
     // @PostMapping(value = "/Spotify/authorizationCode"
-    async postAuthorizationCode() {
-        const response = await api.post("authorizationCode");
+    async postAuthorizationCode(code) {
+        const response = await api.post("/Spotify/authorizationCode", code);
         if (response.status >= 200 && response.status < 300) {
             return response;
         } else {

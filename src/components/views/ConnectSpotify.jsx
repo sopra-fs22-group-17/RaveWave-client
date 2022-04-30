@@ -1,16 +1,20 @@
-import { Button } from "@mantine/core";
-import { useHistory } from "react-router-dom";
+import {Button} from "@mantine/core";
+import {useHistory} from "react-router-dom";
+import spotifyURL from 'model/SpotifyURL';
 
-import { api, handleError } from "helpers/api";
-import { remote } from "api/Api";
+import {handleError} from "helpers/api";
+import {remote} from "api/Api";
 
 import BaseContainer from "components/ui/BaseContainer";
 
 import "styles/views/ConnectSpotify.scss";
-import {useState} from "react";
 import SpotifyWebApi from "spotify-web-api-js";
+import SpotifyURLAuthorizationCode from "../../model/SpotifyURLAuthorizationCode";
 
-export const spotifyApi = new SpotifyWebApi();
+let Spotify = require('spotify-web-api-js');
+let s = new Spotify();
+
+let spotifyApi = new SpotifyWebApi();
 
 const ConnectSpotify = (props) => {
     const history = useHistory();
@@ -18,30 +22,16 @@ const ConnectSpotify = (props) => {
     // uri spotify
     // redirect user to url
     // will be redirected to spotify auth for APP
-    // parameter code=
-    // redirect to where ?? (check with sheeena) //proposal: again to spotifyconnect page, then we dont need to pack api into selectgamemode
+    // 4. parameter code=
+    // 5. redirect to where ?? (check with sheeena)
     // 6. send code to backend for step 7
     // 7. post request auth code ()
     // 8. get access token to stream
 
-    const [spotifyURL, setSpotifyURL] = useState(null);
-
     async function fetchSpotifyURI() {
         try {
             const response = await remote.getAuthorizationCodeUri();
-
-            // Get the returned users and update the state.
-            setSpotifyURL(response.data);
-
-            // This is just some data for you to see what is available.
-            // Feel free to remove it.
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-            // See here to get more data.
-            console.log(response);
+            redirectUser(response);
         } catch (error) {
             console.error(`Something went wrong while fetching the URL: \n${handleError(error)}`);
             console.error("Details:", error);
@@ -49,20 +39,29 @@ const ConnectSpotify = (props) => {
         }
     }
 
-    async function redirectUser() {
+        function redirectUser(response) {
         try {
-            window.location.href = spotifyURL.toString();
-            // user authenticated
+            // until here fine
+            let URL = JSON.stringify(response.data);
+
+            const redirectURL = new spotifyURL(response.data);
+
+            window.location.href = redirectURL.redirectionURL;
+
+            new Promise(resolve => setTimeout(resolve, 1000));
             const queryString = window.location.search;
-            console.log(queryString);
+
+            //window.location.refresh();
 
             const urlParams = new URLSearchParams(queryString);
 
-            const code = urlParams.get('code');
+            const code = urlParams.get('code')
             console.log(code);
 
-            spotifyApi.setAccessToken(code);
-            history.push('/selectgamemode');
+            let authCodeRequest = JSON.stringify({code});
+            console.log(authCodeRequest);
+            spotifyApi.setAccessToken(remote.postAuthorizationCode(authCodeRequest));
+
         } catch (error) {
             console.error(`Something went wrong while redirecting the user: \n${handleError(error)}`);
             console.error("Details:", error);
@@ -70,7 +69,9 @@ const ConnectSpotify = (props) => {
         }
     }
 
-    fetchSpotifyURI();
+
+    //fetchSpotifyURI();
+    //redirectUser()
 
     //SPOTIFY sound output is implemented in GuessArtist, GuessLyrics and GuessSong
 
@@ -79,7 +80,7 @@ const ConnectSpotify = (props) => {
             <Button onClick={() => history.push("/selectgamemode")} className="connectspotify back">
                 Back
             </Button>
-            <Button onClick={redirectUser()} className="connectspotify connectbutton">
+            <Button onClick={fetchSpotifyURI} className="connectspotify connectbutton">
                 Connect Spotify
             </Button>
         </BaseContainer>
