@@ -1,36 +1,36 @@
-@import '../theme';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @import '../theme';
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-.landingplayer {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px 20px; /* row-gap column gap */
-  color: $textColor;
-  font-family: $fontDefault;
-}
+// .landingplayer {
+//   display: flex;
+//   flex-flow: row wrap;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 10px 20px; /* row-gap column gap */
+//   color: $textColor;
+//   font-family: $fontDefault;
+// }
 
-.landingplayer .column-item {
-  flex-basis:100%;
-}
+// .landingplayer .column-item {
+//   flex-basis:100%;
+// }
 
-.landingplayer .guest {
-  flex-basis:10%;
-  background-color: $accent1;
-  box-shadow: $dropShadow;
-}
+// .landingplayer .guest {
+//   flex-basis:10%;
+//   background-color: $accent1;
+//   box-shadow: $dropShadow;
+// }
 
-.landingplayer .register {
-  flex-basis:10%;
-  background-color: $accent2;
-  box-shadow: $dropShadow;
-}
+// .landingplayer .register {
+//   flex-basis:10%;
+//   background-color: $accent2;
+//   box-shadow: $dropShadow;
+// }
 
-.landingplayer .login {
-  flex-basis:10%;
-  background-color: $accent3;
-  box-shadow: $dropShadow;
-}
+// .landingplayer .login {
+//   flex-basis:10%;
+//   background-color: $accent3;
+//   box-shadow: $dropShadow;
+// }

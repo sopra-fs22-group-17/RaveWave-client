@@ -1,70 +1,70 @@
-@import '../theme';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @import '../theme';
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-.login {
-  &.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 60%;
-    max-width: 30em;
-    height: 20em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-radius: 0.75em;
-    background-color: $background;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    box-shadow: $dropShadow;
-  }
-  &.field {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  &.input {
-    height: 35px;
-    padding-left: 15px;
-    margin-left: -4px;
-    border: none;
-    border-radius: 0.75em;
-    margin-bottom: 20px;
-    background: transparentize(white, 0.85);
-    color: $textColor;
-  }
-  &.label {
-    color: $textColor;
-    margin-bottom: 10px;
-    text-transform: lowercase;
-    font-weight: 300;
-  }
-}
+// .login {
+//   &.form {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     width: 60%;
+//     max-width: 30em;
+//     height: 20em;
+//     font-size: 16px;
+//     font-weight: 300;
+//     padding-left: 37px;
+//     padding-right: 37px;
+//     border-radius: 0.75em;
+//     background-color: $background;
+//     transition: opacity 0.5s ease, transform 0.5s ease;
+//     box-shadow: $dropShadow;
+//   }
+//   &.field {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//   }
+//   &.input {
+//     height: 35px;
+//     padding-left: 15px;
+//     margin-left: -4px;
+//     border: none;
+//     border-radius: 0.75em;
+//     margin-bottom: 20px;
+//     background: transparentize(white, 0.85);
+//     color: $textColor;
+//   }
+//   &.label {
+//     color: $textColor;
+//     margin-bottom: 10px;
+//     text-transform: lowercase;
+//     font-weight: 300;
+//   }
+// }
 
-.container {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px 20px; /* row-gap column gap */
-  color: $textColor;
-  font-family: $fontDefault;
-}
+// .container {
+//   display: flex;
+//   flex-flow: row wrap;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 10px 20px; /* row-gap column gap */
+//   color: $textColor;
+//   font-family: $fontDefault;
+// }
 
-.container .column-item {
-  flex-basis:100%;
-}
+// .container .column-item {
+//   flex-basis:100%;
+// }
 
-.container .backbutton {
-  flex-basis:10%;
-  background-color: $accent1;
-  box-shadow: $dropShadow;
-}
+// .container .backbutton {
+//   flex-basis:10%;
+//   background-color: $accent1;
+//   box-shadow: $dropShadow;
+// }
 
-.container .loginbutton {
-  flex-basis:10%;
-  background-color: $accent2;
-  box-shadow: $dropShadow;
-}
+// .container .loginbutton {
+//   flex-basis:10%;
+//   background-color: $accent2;
+//   box-shadow: $dropShadow;
+// }

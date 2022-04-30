@@ -1,18 +1,18 @@
-import { Avatar, Button, Group, Slider, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Box, Button, Group, Slider, Stack, Text, Title } from "@mantine/core";
 import { QRCodeCanvas } from "qrcode.react";
 import { FC, useEffect, useRef, useState } from "react";
 
-import { IGameConfiguration, IGameResult, IGuessTheArtistOption, IGuessTheArtistQuestion, IMessageEvent, TUserRole } from "../../api/@def";
+import { IGameConfiguration, IGameResult, IGuessOption, IGuessQuestion, IMessageEvent, TUserRole } from "../../api/@def";
 import { stompClient } from "../../api/StompApi";
 import { useAPI } from "../../hooks/useAPI";
-import DisplayQR from "./DisplayQR";
-import GuessArtist from "./GuessArtist";
-import GuessLyrics from "./GuessLyrics";
-import GuessSong from "./GuessSong";
-import PostGame from "./PostGame";
-import PostRound from "./PostRound";
+import { DisplayQR } from "./DisplayQR";
+import { GuessArtist } from "./GuessArtist";
+import { GuessLyrics } from "./GuessLyrics";
+import { GuessSong } from "./GuessSong";
+import { PostGame } from "./PostGame";
+import { PostRound } from "./PostRound";
 import SelectGameMode from "./SelectGameMode";
-import WaitingRoom from "./WaitingRoom";
+import { WaitingRoom } from "./WaitingRoom";
 
 //different states in the game
 export type TGameState =
@@ -38,9 +38,10 @@ export interface IGameController {
 }
 
 export const GameController: FC<IGameControllerProps> = ({ role }): any => {
+    const [userId, setUserId] = useState("3");
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "waiting");
     const [config, setConfig] = useState<IGameConfiguration>();
-    const [question, setQuestion] = useState<IGuessTheArtistQuestion>();
+    const [question, setQuestion] = useState<IGuessQuestion>();
     const [result, setResult] = useState<IGameResult>();
     const [summary, setSummary] = useState<IGameResult>();
 
@@ -49,7 +50,16 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
 
     useEffect(() => {
         const listener = (message: IMessageEvent) => {
-            if (message.type === "question") {
+            if (message.data) {
+                if (
+                    message.data.question === "Guess the song" ||
+                    message.data.question === "Guess the artist" ||
+                    message.data.question === "Guess the lyrics"
+                ) {
+                    setQuestion(message.data);
+                    setState("question");
+                }
+            } else if (message.type === "question") {
                 setState("question");
                 setQuestion(message.data);
             } else if (message.type === "result") {
@@ -89,16 +99,19 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         return <DisplayQR controller={ctrl} />;
     } else if (state === "waiting") {
         return <WaitingRoom controller={ctrl} />;
-    } else if (state === "question" && question.question === "Guess the song artist") {
-        return <GuessArtist controller={ctrl} question={question} />;
-    } else if (state === "question" && question.question === "Guess the song name") {
-        return <GuessSong controller={ctrl} question={question} />;
-    } else if (state === "question" && question.question === "Guess the song lyrics") {
-        return <GuessLyrics controller={ctrl} question={question} />;
+    } else if (state === "question") {
+        if (question.question === "Guess the song") {
+            return <GuessSong controller={ctrl} question={question} />;
+        } else if (question.question === "Guess the artist") {
+            return <GuessArtist controller={ctrl} question={question} />;
+        } else if (question.question === "Guess the lyrics") {
+            return <GuessLyrics controller={ctrl} question={question} />;
+        }
+        return <Box>{"Unknown question type: " + question.question}</Box>;
     } else if (state === "result") {
         return <PostRound controller={ctrl} result={result} />;
     } else if (state === "summary") {
-        return <PostGame controller={ctrl} summary={summary} />;
+        return <PostGame controller={ctrl} result={summary} />;
     } else {
         return <ErrorView controller={ctrl} />;
     }
@@ -166,7 +179,7 @@ const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
 };
 
 export interface IQuestionViewProps extends IGameViewProps {
-    question: IGuessTheArtistQuestion;
+    question: IGuessQuestion;
 }
 
 const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
@@ -175,7 +188,7 @@ const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
     //     controller.answer()
     // };
     if (!question) return null;
-    const sendAnswer = (selection: IGuessTheArtistOption) => {
+    const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
         controller.answer(question.question, selection.answerId);
     };
@@ -208,7 +221,7 @@ const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
     return (
         <Stack align="center">
             <Title>ResultView</Title>
-            {/* <div>{result.artist.answer}</div> */}
+            <div>{result.artist}</div>
             {result.players.map((res, i) => {
                 return (
                     <Group key={i}>

@@ -25,10 +25,9 @@ export const theme: IRaveWaveThemeOverride = {
         },
     },
     colors: {
-        dark: ["#644490", "#5A3A86", "#50307C"],
+        // dark: ["#644490", "#5A3A86", "#50307C"],
         background: ["#684894"],
-        //brightPink: ["#F0BBDD", "#ED9BCF", "#EC7CC3", "#ED5DB8", "#F13EAF", "#F71FA7", "#FF00A1", "#E00890", "#C50E82", "#AD1374"],
-        brightPink: ["#644490", "#5A3A86", "#50307C"],
+        brightPink: ["#F0BBDD", "#ED9BCF", "#EC7CC3", "#ED5DB8", "#F13EAF", "#F71FA7", "#FF00A1", "#E00890", "#C50E82", "#AD1374"],
     },
     primaryColor: "brightPink",
     accentColor: "orange",

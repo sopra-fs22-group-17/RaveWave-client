@@ -1,6 +1,6 @@
 export type TUserRole = "host" | "player"; //still necessary?
 
-export type TQuestionType = "Guess the song song" | "Guess the song artist" | "Guess the song lyrics";
+export type TQuestionType = "Guess the song" | "Guess the artist" | "Guess the lyrics";
 
 //game configuration
 export interface IGameConfiguration {
@@ -12,17 +12,18 @@ export interface IGameConfiguration {
 }
 
 //game question (guess the artist)
-export interface IGuessTheArtistOption {
+export interface IGuessOption {
     answer: string;
     answerId: string;
     artistLogo: string;
 }
 
 //game question (guess the artist)
-export interface IGuessTheArtistQuestion {
-    question: string;
+export interface IGuessQuestion {
+    question: TQuestionType;
     previewURL: string;
-    options: IGuessTheArtistOption[];
+    playDuration?: number; //in seconds
+    options: IGuessOption[];
 }
 
 //game answer
@@ -33,7 +34,7 @@ export interface IGameAnswer {
 
 //post game and post round
 export interface IPlayerInfo {
-    playerId: number;
+    playerId: string;
     playerName: string;
     playerPosition: number;
     roundScore: number;
@@ -41,7 +42,7 @@ export interface IPlayerInfo {
     streak: number;
 }
 
-//post post game and post round
+//post game and post round
 export interface IGameResult {
     artist: string;
     songTitle: string;
@@ -50,7 +51,7 @@ export interface IGameResult {
 }
 
 export interface ISendOptions {
-    token: String;
+    token: string;
 }
 
 export interface IMessageEvent {
@@ -66,49 +67,4 @@ export interface IMessageListener {
 export interface IApi {
     join(listener: IMessageListener): void;
     send(channel: string, type: string, data: any, options?: ISendOptions): void;
-}
-
-export interface IGameConfiguration1 {
-    gameMode: TQuestionType;
-    numberOfRounds: number;
-    playbackSpeed: number;
-    playbackDuration: number;
-}
-
-export interface IGameAnswerOption1 {
-    id: string;
-    label: string;
-    image: string;
-}
-
-export interface IGameAnswer1 {
-    question: string;
-    questionNumber: number;
-    type: TQuestionType;
-    songLink: string;
-    options: IGameAnswerOption1[];
-}
-
-export interface IGameQuestion1 {
-    question: string;
-    questionNumber: number;
-    type: TQuestionType;
-    songLink: string;
-    options: IGuessTheArtistOption[];
-}
-
-export interface IGameResul1 {
-    correctAnswer: IGuessTheArtistOption;
-    results: string[];
-}
-
-export interface IGameUserSummary1 {
-    username: string;
-    image: string;
-    finalPoints: number;
-    finalRank: number;
-}
-
-export interface IGameSummary1 {
-    summary: IGameUserSummary1[];
 }

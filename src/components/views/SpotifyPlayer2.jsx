@@ -1,15 +1,40 @@
+import React, { FC, useCallback } from "react";
 import Box from "@mui/material/Box";
-import {Button} from "@mantine/core";
+import { Button } from "@mantine/core";
 import Slider from "@mui/material/Slider";
 import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-
 import BaseContainer from "components/ui/BaseContainer";
+import "styles/views/GuessArtist.scss";
 
-import {WebPlaybackSDK, usePlaybackState, useSpotifyPlayer} from "react-spotify-web-playback-sdk";
+import { WebPlaybackSDK, usePlaybackState, useSpotifyPlayer } from "react-spotify-web-playback-sdk";
 
-import "styles/views/GuessLyrics.scss";
+import PropTypes from "prop-types";
+
+// SPOTIFY STUFF
+const SongTitle = () => {
+    const playbackState = usePlaybackState();
+
+    if (playbackState === null) return null;
+
+    return <p>Current song: {playbackState.track_window.current_track.name}</p>;
+};
+
+const AUTH_TOKEN =
+    "BQAajVDWR38cFQFBYLRO_YpH0hoY2s944tZZH-H23GMwUQSLD7JOqQlJrKaf-60-EuDLe0SwfDx74ph3s08n-DXRFQVPevJdyg55j980ZfFM_8dtV-1aKeted4Jj1owFtuAXEDATtbSYEKxUsp6NhKhT_AQAI2ilvg56UIBpDreGZcPTsgKI7UU";
+
+const MySpotifyPlayer = () => {
+    const getOAuthToken = useCallback((callback) => callback(AUTH_TOKEN), []);
+
+    return (
+        <WebPlaybackSDK deviceName="RaveWave" getOAuthToken={getOAuthToken} volume={1.0}>
+            {/* `TogglePlay` and `SongTitle` will be defined later. Use player.resume() for init */}
+            <SongTitle />
+        </WebPlaybackSDK>
+    );
+};
+
+// END SPOTIFY STUFF
 
 const Widget = styled("div")(({ theme }) => ({
     padding: 16,
@@ -49,26 +74,14 @@ function formatDuration(value) {
     return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
 }
 
-const GuessLyrics = (controller, question) => {
+export const SpotifyPlayer: FC<{}> = ({}) => {
+    //props.answer
     const theme = useTheme();
     const duration = 200; // seconds
     const [position, setPosition] = React.useState(32);
 
     return (
-        <BaseContainer className="guesslyrics">
-            <div className="guesslyrics column-item">What are the lyrics of the song?</div>
-            <Button className="guesslyrics opt1">
-                Opt1
-            </Button>
-            <Button className="guesslyrics opt2">
-                Opt2
-            </Button>
-            <Button className="guesslyrics opt3">
-                Opt3
-            </Button>
-            <Button className="guesslyrics opt4">
-                Opt4
-            </Button>
+        <Box>
             <Widget>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                     <CoverImage>
@@ -129,9 +142,9 @@ const GuessLyrics = (controller, question) => {
                     <TinyText>-{formatDuration(duration - position)}</TinyText>
                 </Box>
             </Widget>
-
-        </BaseContainer>
+            <div className="guessartist column-item">
+                <MySpotifyPlayer />
+            </div>
+        </Box>
     );
 };
-
-export default GuessLyrics;

@@ -1,38 +1,38 @@
-@import '../theme';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @import '../theme';
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-.selectgamemode {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px 20px; /* row-gap column gap */
-  color: $textColor;
-  font-family: $fontDefault;
-}
+// .selectgamemode {
+//   display: flex;
+//   flex-flow: row wrap;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 10px 20px; /* row-gap column gap */
+//   color: $textColor;
+//   font-family: $fontDefault;
+// }
 
-.selectgamemode .column-item {
-  flex-basis:100%;
-}
+// .selectgamemode .column-item {
+//   flex-basis:100%;
+// }
 
-.selectgamemode .label {
-  flex-basis:15%;
-}
+// .selectgamemode .label {
+//   flex-basis:15%;
+// }
 
-.selectgamemode .slider {
-  flex-basis:75%;
-}
+// .selectgamemode .slider {
+//   flex-basis:75%;
+// }
 
-.selectgamemode .backinio {
-  flex-basis:10%;
-  background-color: $accent1;
-  box-shadow: $dropShadow;
-}
+// .selectgamemode .backinio {
+//   flex-basis:10%;
+//   background-color: $accent1;
+//   box-shadow: $dropShadow;
+// }
 
-.selectgamemode .addplayers {
-  flex-basis:10%;
-  background-color: $accent2;
-  box-shadow: $dropShadow;
-}
+// .selectgamemode .addplayers {
+//   flex-basis:10%;
+//   background-color: $accent2;
+//   box-shadow: $dropShadow;
+// }
