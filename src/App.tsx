@@ -1,4 +1,5 @@
 import AppRouter from "components/routing/routers/AppRouter";
+
 import { GameProvider } from "./contexts/GameContext";
 
 /**
@@ -42,8 +43,8 @@ const App = () => {
     // }
 
     return (
-        <GameProvider gameId={"1"}>
-            <AppRouter />;
+        <GameProvider>
+            <AppRouter />
         </GameProvider>
     );
 };

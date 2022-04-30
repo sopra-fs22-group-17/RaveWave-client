@@ -12,7 +12,7 @@ import { GuessLyrics } from "./GuessLyrics";
 import { GuessSong } from "./GuessSong";
 import { PostGame } from "./PostGame";
 import { PostRound } from "./PostRound";
-import SelectGameMode from "./SelectGameMode";
+import { SelectGameMode } from "./SelectGameMode";
 import { WaitingRoom } from "./WaitingRoom";
 
 //different states in the game

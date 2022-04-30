@@ -8,6 +8,7 @@ export class MockupApi implements IApi {
     public join(listener: IMessageListener) {
         this.listeners.push(listener);
     }
+    //im stompapi zum funktionieren brigen
 
     private connect() {}
 

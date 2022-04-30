@@ -6,7 +6,7 @@ export const GameMenu: FC<{}> = ({}): any => {
     const routes = [
         {
             label: "GameView",
-            route: "/game/1",
+            route: "/game",
         },
         {
             label: "LandingHost",
@@ -14,7 +14,7 @@ export const GameMenu: FC<{}> = ({}): any => {
         },
         {
             label: "LandingPlayer",
-            route: "/landingplayer",
+            route: "/landingplayer/1234",
         },
         {
             label: "Login",

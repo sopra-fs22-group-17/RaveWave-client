@@ -8,7 +8,6 @@ import { LandingHost } from "components/views/LandingHost";
 import { LandingPlayer } from "components/views/LandingPlayer";
 import { Login } from "components/views/Login";
 import { Register } from "components/views/Register";
-import SelectGameMode from "components/views/SelectGameMode";
 import { WaitingRoom } from "components/views/WaitingRoom";
 
 import { DUMMY_RESULT, GUESS_THE_ARTIST_QUESTION } from "../../../api/MockupApi";
@@ -16,6 +15,7 @@ import { GameView } from "../../views/GameView";
 import { GuessArtist } from "../../views/GuessArtist";
 import { PostGame } from "../../views/PostGame";
 import { PostRound } from "../../views/PostRound";
+import { SelectGameMode } from "../../views/SelectGameMode";
 
 /**
  * Main router of your application.
@@ -38,7 +38,7 @@ const AppRouter = () => {
                     <LandingHost />
                 </Route>
 
-                <Route exact path="/landingplayer">
+                <Route exact path="/landingplayer/:id?">
                     <LandingPlayer />
                 </Route>
 

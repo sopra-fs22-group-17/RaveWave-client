@@ -1,15 +1,16 @@
 import { Button, Container, Stack, Title } from "@mantine/core";
+import { useContext, useEffect } from "react";
 import Lottie from "react-lottie";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { BaseContainer } from "components/ui/BaseContainer";
+import { GameContext } from "contexts/GameContext";
 
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingPlayer = (props) => {
-    // use react-router-dom's hook to access the history
-    const history = useHistory();
-
+    const context = useContext(GameContext);
+    const { id } = useParams<any>();
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -18,6 +19,13 @@ export const LandingPlayer = (props) => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
+
+    useEffect(() => {
+        context.setUserRole("player");
+        if (id) {
+            context.setGameId(id);
+        }
+    }, [id]);
 
     return (
         <BaseContainer>

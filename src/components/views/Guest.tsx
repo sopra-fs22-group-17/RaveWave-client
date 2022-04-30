@@ -21,7 +21,7 @@ export const Guest: FC<{}> = ({}) => {
                         <Button component={Link} to="/landingplayer">
                             Back
                         </Button>
-                        <Button component={Link} to="/waitingroom">
+                        <Button component={Link} to="/game">
                             Continue
                         </Button>
                     </Stack>

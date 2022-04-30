@@ -1,8 +1,9 @@
 import { Button, Center, Container, Stack, Title } from "@mantine/core";
+import { QRCodeCanvas } from "qrcode.react";
 import { FC } from "react";
 
 import BaseContainer from "components/ui/BaseContainer";
-import { QRCodeCanvas } from "qrcode.react";
+
 import { IGameController } from "./GameController";
 
 export interface IDisplayQRProps {
@@ -13,7 +14,7 @@ export interface IDisplayQRProps {
 export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
     const startAction = () => controller.startGame();
 
-    const url = `${window.location.origin}/game/${gameId || "1"}`;
+    const url = `${window.location.origin}/landingplayer/${gameId || "1"}`;
     console.log("Game URL: " + url);
 
     return (

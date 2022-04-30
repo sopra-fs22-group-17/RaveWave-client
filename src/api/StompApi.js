@@ -94,6 +94,7 @@ class SockClient {
     subscribe(channel, callback) {
         this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
     }
+    //callback im stompapi definieren PRO ENDPOINT
 
     send(destination, body) {
         this.stomp.send();
