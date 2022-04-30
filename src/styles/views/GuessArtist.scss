@@ -41,14 +41,6 @@
   box-shadow: $dropShadow;
 }
 
-.guessartist .pause {
-  flex-basis:10%;
-  background-color: $accent1;
-  box-shadow: $dropShadow;
-}
-
-.guessartist .resume {
-  flex-basis:10%;
-  background-color: $accent2;
-  box-shadow: $dropShadow;
+.guessartist .audioplayer {
+  background-color: #684894;
 }
