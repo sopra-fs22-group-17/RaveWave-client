@@ -11,7 +11,7 @@ export const GameView: FC<{}> = ({}) => {
     console.log("==> " + id);
 
     return (
-        <GameProvider gameIdentifier={id}>
+        <GameProvider gameId={id}>
             <GameController role={role} />
         </GameProvider>
     );

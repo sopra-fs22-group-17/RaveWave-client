@@ -61,9 +61,6 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
                     setQuestion(message.data);
                     setState("question");
                 }
-            } else if (message.type === "question") {
-                setState("question");
-                setQuestion(message.data);
             } else if (message.type === "result") {
                 setState("result");
                 ref.current = message;

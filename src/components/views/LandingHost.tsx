@@ -1,15 +1,12 @@
 import { Button, Container, Stack, Title } from "@mantine/core";
 import Lottie from "react-lottie";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { BaseContainer } from "components/ui/BaseContainer";
 
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingHost = (props) => {
-    // use react-router-dom's hook to access the history
-    const history = useHistory();
-
     const defaultOptions = {
         loop: true,
         autoplay: true,

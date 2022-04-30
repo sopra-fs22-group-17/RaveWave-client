@@ -9,14 +9,13 @@ interface IGameContext {
 }
 
 export interface IGameProviderProps {
-    gameIdentifier: string;
+    gameId: string;
 }
 
 export const GameContext = createContext<IGameContext>({});
 
-export const GameProvider: FCC<IGameProviderProps> = ({ gameIdentifier, children }) => {
+export const GameProvider: FCC<IGameProviderProps> = ({ gameId, children }) => {
     const [role, setRole] = useState<TUserRole>();
-    const [gameId, setGameId] = useState<string>(gameIdentifier);
 
     const content: IGameContext = {
         role,
