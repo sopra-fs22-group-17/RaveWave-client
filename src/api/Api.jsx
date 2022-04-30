@@ -115,17 +115,18 @@ export class API {
     // SPOTINIO
     // @GetMapping(value = "/Spotify/authorizationCodeUri")
     async getAuthorizationCodeUri() {
-        const response = await api.get("/authorizationCodeUri");
+        const response = await api.get("/Spotify/authorizationCodeUri");
+        const URL = JSON.parse(response);
         if (response.status >= 200 && response.status < 300) {
-            return response;
+            return URL;
         } else {
             throw new Error("Something went wrong during authorizationCodeUri");
         }
     }
 
     // @PostMapping(value = "/Spotify/authorizationCode"
-    async postAuthorizationCode() {
-        const response = await api.post("authorizationCode");
+    async postAuthorizationCode(code) {
+        const response = await api.post("/Spotify/authorizationCode", code);
         if (response.status >= 200 && response.status < 300) {
             return response;
         } else {
