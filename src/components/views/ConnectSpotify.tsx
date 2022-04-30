@@ -11,6 +11,7 @@ import spotifyURL from "../../model/SpotifyURL";
 let spotifyApi = new SpotifyWebApi();
 
 export const ConnectSpotify: FC<{}> = ({}) => {
+
     async function fetchSpotifyURI() {
         try {
             const response = await remote.getAuthorizationCodeUri();
@@ -59,7 +60,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                         Connect Spotify
                     </Title>{" "}
                     <Stack align="stretch">
-                        <Button color="green" component={Link} to="/selectGameMode">
+                        <Button color="green" onClick={fetchSpotifyURI}>
                             Authorize Spotify
                         </Button>
                     </Stack>
