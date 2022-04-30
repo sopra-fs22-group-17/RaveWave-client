@@ -1,6 +1,7 @@
-import { Avatar, Box, Container, Grid, Group, Stack } from "@mantine/core";
+import { Container, Stack } from "@mantine/core";
 import { FC } from "react";
 import { IGameResult } from "../../api/@def";
+import { GameResult } from "../ui/GameResult";
 import { IGameController } from "./GameController";
 
 export interface IPostRoundProps {
@@ -22,22 +23,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
         <Container size={500}>
             <Stack align="center">
                 <h1>{correctness}</h1>
-                <Grid gutter={40} justify="center">
-                    {list.map((player, i) => {
-                        return (
-                            <Grid.Col key={i} span={12}>
-                                <Box>
-                                    <Group key={i}>
-                                        <Avatar color="cyan" radius="xl">
-                                            {player.playerName.substring(0, 1)}
-                                        </Avatar>
-                                        <Box>{player.totalScore}</Box>
-                                    </Group>
-                                </Box>
-                            </Grid.Col>
-                        );
-                    })}
-                </Grid>
+                <GameResult result={result} />
             </Stack>
         </Container>
     );

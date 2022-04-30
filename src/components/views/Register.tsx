@@ -1,11 +1,10 @@
 import { Button, Container, Input, InputWrapper, PasswordInput, Stack, Title } from "@mantine/core";
 import { FC, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
 export const Register: FC<{}> = ({}) => {
-    const history = useHistory();
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
 

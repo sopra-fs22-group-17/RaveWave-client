@@ -1,22 +1,31 @@
-import { Button, Stack } from "@mantine/core";
-import { IGameController } from "./GameController";
+import { Box, Button, Container, Stack, Title } from "@mantine/core";
+import { FC } from "react";
 
-import "styles/views/WaitingRoom.scss";
+import BaseContainer from "components/ui/BaseContainer";
+import GridLoader from "react-spinners/GridLoader";
+import { IGameController } from "./GameController";
 
 export interface IWaitingRoomProps {
     controller: IGameController;
 }
 
-export const WaitingRoom = ({ controller }) => {
+export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
+    const startAction = () => controller.startGame();
+
     return (
-        <Stack align="center">
-            <div className="waitingroom column-item">Waiting Room</div>
-            <div className="waitingroom column-item">Game Mode: {localStorage.getItem("gameMode")}</div>
-            <div className="waitingroom column-item">Number of Rounds: {localStorage.getItem("numberOfRounds")}</div>
-            <div className="waitingroom column-item">Playback Speed: {localStorage.getItem("playbackSpeed")}</div>
-            <div className="waitingroom column-item">Playback Duartion: {localStorage.getItem("playbackDuration")}</div>
-            <div className="waitingroom column-item">Song Pool: {localStorage.getItem("songPool")}</div>
-            <Button onClick={() => controller.startGame()}>Start Game (FIXME REMOVE)</Button>
-        </Stack>
+        <BaseContainer>
+            <Container size="sm">
+                <Stack align="center">
+                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                        Waiting Room
+                    </Title>
+                    <GridLoader color="white" size={30} margin={4} />
+                    <Stack align="stretch" sx={{ paddingTop: 40 }}>
+                        <Box>Waiting for the host to start the game.</Box>
+                        <Button onClick={() => startAction()}>Start (FIXME)</Button>
+                    </Stack>
+                </Stack>
+            </Container>
+        </BaseContainer>
     );
 };

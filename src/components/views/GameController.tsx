@@ -1,9 +1,10 @@
 import { Avatar, Box, Button, Group, Slider, Stack, Text, Title } from "@mantine/core";
 import { QRCodeCanvas } from "qrcode.react";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 
 import { IGameConfiguration, IGameResult, IGuessOption, IGuessQuestion, IMessageEvent, TUserRole } from "../../api/@def";
 import { stompClient } from "../../api/StompApi";
+import { GameContext } from "../../contexts/GameContext";
 import { useAPI } from "../../hooks/useAPI";
 import { DisplayQR } from "./DisplayQR";
 import { GuessArtist } from "./GuessArtist";
@@ -38,6 +39,7 @@ export interface IGameController {
 }
 
 export const GameController: FC<IGameControllerProps> = ({ role }): any => {
+    const context = useContext(GameContext);
     const [userId, setUserId] = useState("3");
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "waiting");
     const [config, setConfig] = useState<IGameConfiguration>();
@@ -96,7 +98,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     if (state === "configure") {
         return <SelectGameMode controller={ctrl} />;
     } else if (state === "invite") {
-        return <DisplayQR controller={ctrl} />;
+        return <DisplayQR controller={ctrl} gameId={context.gameId} />;
     } else if (state === "waiting") {
         return <WaitingRoom controller={ctrl} />;
     } else if (state === "question") {

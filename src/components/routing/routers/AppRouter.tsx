@@ -67,7 +67,7 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/displayqr">
-                    <DisplayQR controller={null} />
+                    <DisplayQR controller={null} gameId="1" />
                 </Route>
 
                 <Route exact path="/menu">
