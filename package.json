@@ -23,6 +23,7 @@
         "framer": "^2.1.0",
         "framer-motion": "^6.2.8",
         "lottie-react": "^2.2.1",
+        "model": "^6.0.1",
         "net": "^1.0.2",
         "node-gyp": "^8.4.1",
         "node-sass": "^7.0.1",
