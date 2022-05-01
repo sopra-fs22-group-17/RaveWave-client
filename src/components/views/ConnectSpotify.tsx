@@ -1,9 +1,8 @@
-import { Button, Container, Image, Stack, Title } from "@mantine/core";
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import {Button, Container, Stack, Title} from "@mantine/core";
+import {FC} from "react";
 import BaseContainer from "components/ui/BaseContainer";
-import { remote } from "../../api/Api";
-import { handleError } from "../../helpers/api";
+import {remote} from "../../api/Api";
+import {handleError} from "../../helpers/api";
 import spotifyURL from "../../model/SpotifyURL";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
@@ -27,7 +26,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             const urlParams = new URLSearchParams(queryString);
             const code = urlParams.get("code");
             console.log(code);
-            let authCodeRequest = JSON.stringify({ code });
+            let authCodeRequest = JSON.stringify({code});
             console.log(authCodeRequest);
             remote.postAuthorizationCode(authCodeRequest);
         } catch (error) {
@@ -41,7 +40,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         Connect Spotify
                     </Title>{" "}
                     <Stack align="stretch">

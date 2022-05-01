@@ -1,4 +1,4 @@
-import { api } from "helpers/api";
+import {api} from "helpers/api";
 
 export class API {
     _user = null;
@@ -31,7 +31,7 @@ export class API {
 
     // @PostMapping("/ravewavers")
     async registerUser(username, password) {
-        const requestBody = JSON.stringify({ username, password });
+        const requestBody = JSON.stringify({username, password});
         const response = await api.post("/ravewavers", requestBody);
         if (response.status >= 200 && response.status < 300) {
             const user = response.data;
@@ -95,7 +95,7 @@ export class API {
 
     // @PostMapping("/login")
     async loginUser(username, password) {
-        const requestBody = JSON.stringify({ username, password });
+        const requestBody = JSON.stringify({username, password});
         const response = await api.post("/login", requestBody);
         if (response.status >= 200 && response.status < 300) {
             const user = response.data;
@@ -121,6 +121,7 @@ export class API {
         if (response.status >= 200 && response.status < 300) {
             return URL;
         } else {
+
             throw new Error("Something went wrong during authorizationCodeUri");
         }
     }

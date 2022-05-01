@@ -1,6 +1,6 @@
-import { Button, Container, Input, InputWrapper, Stack, Title } from "@mantine/core";
-import { FC, useState } from "react";
-import { Link } from "react-router-dom";
+import {Button, Container, Input, InputWrapper, Stack, Title} from "@mantine/core";
+import {FC, useState} from "react";
+import {Link} from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
@@ -11,11 +11,12 @@ export const Guest: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         Guest
                     </Title>{" "}
                     <InputWrapper id="guestname" required label="Guest name" description="" error="">
-                        <Input placeholder="Username" onChange={(un) => setUsername(un)} sx={{ backgroundColor: "#2f036b", color: "white" }} />
+                        <Input placeholder="Username" onChange={(un) => setUsername(un)}
+                               sx={{backgroundColor: "#2f036b", color: "white"}}/>
                     </InputWrapper>
                     <Stack align="stretch">
                         <Button component={Link} to="/landingplayer">

@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import {useRef} from "react";
 
-import { IApi } from "../api/@def";
-import { MockupApi } from "../api/MockupApi";
+import {IApi} from "../api/@def";
+import {MockupApi} from "../api/MockupApi";
 
 const _api = new MockupApi();
 

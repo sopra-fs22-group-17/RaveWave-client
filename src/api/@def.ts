@@ -66,6 +66,8 @@ export interface IMessageListener {
 
 export interface IApi {
     join(listener: IMessageListener): void;
+
     send(channel: string, type: string, data: any, options?: ISendOptions): void;
+
     leave(listener: IMessageListener): void;
 }

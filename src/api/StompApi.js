@@ -1,7 +1,7 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-import { api } from "helpers/api";
+import {api} from "helpers/api";
 
 class SockClient {
     constructor() {
@@ -31,7 +31,7 @@ class SockClient {
     }
 
     async addPlayer(playerName) {
-        const response = await api.post(`/lobbies`, { playerName: playerName });
+        const response = await api.post(`/lobbies`, {playerName: playerName});
         if (response.status >= 200 && response.status < 300) {
             console.log("rest response: " + JSON.stringify(response.data));
             return response.data;
@@ -76,7 +76,8 @@ class SockClient {
         console.log("StompApi: CONNECT IS CALLED");
         try {
             this.sock.close();
-        } catch {}
+        } catch {
+        }
 
         const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
 
@@ -124,7 +125,8 @@ class SockClient {
     disconnect(reason) {
         try {
             this.stomp.disconnect(() => this._handleDisconnect(reason), {});
-        } catch {}
+        } catch {
+        }
     }
 
     connectAndRegister(token) {
@@ -141,7 +143,7 @@ class SockClient {
     }
 
     register(token) {
-        this.send("/app/register", { token: token });
+        this.send("/app/register", {token: token});
     }
 
     reconnect(token) {
@@ -249,4 +251,4 @@ class SockClient {
 
 const stompClient = new SockClient();
 
-export { stompClient };
+export {stompClient};

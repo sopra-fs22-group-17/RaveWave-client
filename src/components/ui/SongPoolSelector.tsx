@@ -1,5 +1,5 @@
-import { Box, createStyles, Text, UnstyledButton } from "@mantine/core";
-import { FC } from "react";
+import {Box, createStyles, Text, UnstyledButton} from "@mantine/core";
+import {FC} from "react";
 
 export interface ISongPool {
     id: string;
@@ -13,9 +13,9 @@ export interface ISongPoolSelectorProps {
     onSelect?: (selection: string) => void;
 }
 
-export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({ items, selection, onSelect }) => {
+export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, onSelect}) => {
     const buttonSize = 100;
-    const { classes, cx } = useStyles({ buttonSize });
+    const {classes, cx} = useStyles({buttonSize});
 
     return (
         <Box className={cx(classes.root)}>
@@ -25,7 +25,7 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({ items, selection,
                     <UnstyledButton
                         key={i}
                         className={cx(classes.button, selected && classes.buttonSelected)}
-                        sx={{ backgroundColor: item.color }}
+                        sx={{backgroundColor: item.color}}
                         onClick={() => onSelect(item.id)}
                     >
                         <Text className={cx(classes.label)}>{item.label}</Text>
@@ -40,7 +40,7 @@ interface IStylesParams {
     buttonSize?: number;
 }
 
-export const useStyles = createStyles((theme, { buttonSize }: IStylesParams) => ({
+export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
     root: {
         ...theme.fn.fontStyles(),
         display: "flex",

@@ -1,21 +1,21 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 
-import { ConnectSpotify } from "components/views/ConnectSpotify";
-import { DisplayQR } from "components/views/DisplayQR";
-import { GameMenu } from "components/views/GameMenu";
-import { Guest } from "components/views/Guest";
-import { LandingHost } from "components/views/LandingHost";
-import { LandingPlayer } from "components/views/LandingPlayer";
-import { Login } from "components/views/Login";
-import { Register } from "components/views/Register";
-import { WaitingRoom } from "components/views/WaitingRoom";
+import {ConnectSpotify} from "components/views/ConnectSpotify";
+import {DisplayQR} from "components/views/DisplayQR";
+import {GameMenu} from "components/views/GameMenu";
+import {Guest} from "components/views/Guest";
+import {LandingHost} from "components/views/LandingHost";
+import {LandingPlayer} from "components/views/LandingPlayer";
+import {Login} from "components/views/Login";
+import {Register} from "components/views/Register";
+import {WaitingRoom} from "components/views/WaitingRoom";
 
-import { DUMMY_RESULT, GUESS_THE_ARTIST_QUESTION } from "../../../api/MockupApi";
-import { GameView } from "../../views/GameView";
-import { GuessArtist } from "../../views/GuessArtist";
-import { PostGame } from "../../views/PostGame";
-import { PostRound } from "../../views/PostRound";
-import { SelectGameMode } from "../../views/SelectGameMode";
+import {DUMMY_RESULT, GUESS_THE_ARTIST_QUESTION} from "../../../api/MockupApi";
+import {GameView} from "../../views/GameView";
+import {GuessArtist} from "../../views/GuessArtist";
+import {PostGame} from "../../views/PostGame";
+import {PostRound} from "../../views/PostRound";
+import {SelectGameMode} from "../../views/SelectGameMode";
 
 /**
  * Main router of your application.
@@ -31,63 +31,63 @@ const AppRouter = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/game/:id?">
-                    <GameView />
+                    <GameView/>
                 </Route>
 
                 <Route exact path="/landinghost">
-                    <LandingHost />
+                    <LandingHost/>
                 </Route>
 
                 <Route exact path="/landingplayer/:id?">
-                    <LandingPlayer />
+                    <LandingPlayer/>
                 </Route>
 
                 <Route exact path="/login">
-                    <Login />
+                    <Login/>
                 </Route>
 
                 <Route exact path="/register">
-                    <Register />
+                    <Register/>
                 </Route>
 
                 <Route exact path="/guest">
-                    <Guest />
+                    <Guest/>
                 </Route>
 
                 <Route exact path="/connectspotify">
-                    <ConnectSpotify />
+                    <ConnectSpotify/>
                 </Route>
 
                 <Route exact path="/waitingroom">
-                    <WaitingRoom controller={null} />
+                    <WaitingRoom controller={null}/>
                 </Route>
 
                 <Route exact path="/selectgamemode">
-                    <SelectGameMode />
+                    <SelectGameMode/>
                 </Route>
 
                 <Route exact path="/displayqr">
-                    <DisplayQR controller={null} gameId="1" />
+                    <DisplayQR controller={null} gameId="1"/>
                 </Route>
 
                 <Route exact path="/menu">
-                    <GameMenu />
+                    <GameMenu/>
                 </Route>
 
                 <Route exact path="/guesstheartist">
-                    <GuessArtist controller={null} question={GUESS_THE_ARTIST_QUESTION} />
+                    <GuessArtist controller={null} question={GUESS_THE_ARTIST_QUESTION}/>
                 </Route>
 
                 <Route exact path="/postround">
-                    <PostRound controller={null} result={DUMMY_RESULT} />
+                    <PostRound controller={null} result={DUMMY_RESULT}/>
                 </Route>
 
                 <Route exact path="/postgame">
-                    <PostGame controller={null} result={DUMMY_RESULT} />
+                    <PostGame controller={null} result={DUMMY_RESULT}/>
                 </Route>
 
                 <Route exact path="/">
-                    <Redirect to="/landinghost" />
+                    <Redirect to="/landinghost"/>
                 </Route>
             </Switch>
         </BrowserRouter>

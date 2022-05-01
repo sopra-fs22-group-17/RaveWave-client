@@ -1,10 +1,10 @@
-import { Button, Center, Container, Stack, Title } from "@mantine/core";
-import { QRCodeCanvas } from "qrcode.react";
-import { FC } from "react";
+import {Button, Center, Container, Stack, Title} from "@mantine/core";
+import {QRCodeCanvas} from "qrcode.react";
+import {FC} from "react";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import { IGameController } from "./GameController";
+import {IGameController} from "./GameController";
 import {Link} from "react-router-dom";
 
 export interface IDisplayQRProps {
@@ -12,9 +12,8 @@ export interface IDisplayQRProps {
     gameId: string;
 }
 
-export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
+export const DisplayQR: FC<IDisplayQRProps> = ({controller, gameId}) => {
     const startAction = () => controller.startGame();
-
 
 
     const url = `${window.location.origin}/landingplayer/${gameId || "1"}`;
@@ -24,12 +23,12 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         Join RaveWave
                     </Title>{" "}
                     <Stack align="stretch">
                         <Center className="displayqr column-item">
-                            <QRCodeCanvas value={url} size={250} />
+                            <QRCodeCanvas value={url} size={250}/>
                         </Center>
                         <Button component={Link} to="/guesstheartist" className="displayqr start">
                             Start Game

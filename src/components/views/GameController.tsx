@@ -1,23 +1,23 @@
-import { Avatar, Box, Button, Group, Slider, Stack, Text, Title } from "@mantine/core";
-import { QRCodeCanvas } from "qrcode.react";
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import {Avatar, Box, Button, Group, Slider, Stack, Text, Title} from "@mantine/core";
+import {QRCodeCanvas} from "qrcode.react";
+import {FC, useContext, useEffect, useRef, useState} from "react";
 
-import { IGameConfiguration, IGameResult, IGuessOption, IGuessQuestion, IMessageEvent, TUserRole } from "../../api/@def";
-import { stompClient } from "../../api/StompApi";
-import { GameContext } from "../../contexts/GameContext";
-import { useAPI } from "../../hooks/useAPI";
-import { DisplayQR } from "./DisplayQR";
-import { GuessArtist } from "./GuessArtist";
-import { GuessLyrics } from "./GuessLyrics";
-import { GuessSong } from "./GuessSong";
-import { PostGame } from "./PostGame";
-import { PostRound } from "./PostRound";
-import { SelectGameMode } from "./SelectGameMode";
-import { WaitingRoom } from "./WaitingRoom";
+import {IGameConfiguration, IGameResult, IGuessOption, IGuessQuestion, IMessageEvent, TUserRole} from "../../api/@def";
+import {stompClient} from "../../api/StompApi";
+import {GameContext} from "../../contexts/GameContext";
+import {useAPI} from "../../hooks/useAPI";
+import {DisplayQR} from "./DisplayQR";
+import {GuessArtist} from "./GuessArtist";
+import {GuessLyrics} from "./GuessLyrics";
+import {GuessSong} from "./GuessSong";
+import {PostGame} from "./PostGame";
+import {PostRound} from "./PostRound";
+import {SelectGameMode} from "./SelectGameMode";
+import {WaitingRoom} from "./WaitingRoom";
 
 //different states in the game
 export type TGameState =
-    // host
+// host
     | "configure"
     | "invite" // QR code
     // all
@@ -31,14 +31,15 @@ export interface IGameControllerProps {
 }
 
 export interface IGameController {
-    gotoState(state: TGameState): void;
     startGame: () => void;
     answer: (question: string, answerId: string) => void;
     configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => void;
     setConfig: (configuration: IGameConfiguration) => void;
+
+    gotoState(state: TGameState): void;
 }
 
-export const GameController: FC<IGameControllerProps> = ({ role }): any => {
+export const GameController: FC<IGameControllerProps> = ({role}): any => {
     const context = useContext(GameContext);
     const [userId, setUserId] = useState("3");
     const [state, setState] = useState<TGameState>(role === "player" ? "waiting" : "waiting");
@@ -79,13 +80,16 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             setState(newState);
         },
         configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => {
-            api.send("ch1", "command", { method: "configure", configure: { gameMode, numberOfRounds, playbackSpeed, playbackDuration } });
+            api.send("ch1", "command", {
+                method: "configure",
+                configure: {gameMode, numberOfRounds, playbackSpeed, playbackDuration}
+            });
         },
         startGame: () => {
-            api.send("ch1", "command", { method: "start", config });
+            api.send("ch1", "command", {method: "start", config});
         },
         answer: (question: string, answerId: string) => {
-            api.send("ch1", "command", { method: "answer", answer: { question, answerId } });
+            api.send("ch1", "command", {method: "answer", answer: {question, answerId}});
         },
         setConfig: (configuration: IGameConfiguration) => {
             setConfig(configuration);
@@ -93,26 +97,26 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     };
 
     if (state === "configure") {
-        return <SelectGameMode controller={ctrl} />;
+        return <SelectGameMode controller={ctrl}/>;
     } else if (state === "invite") {
-        return <DisplayQR controller={ctrl} gameId={context.gameId} />;
+        return <DisplayQR controller={ctrl} gameId={context.gameId}/>;
     } else if (state === "waiting") {
-        return <WaitingRoom controller={ctrl} />;
+        return <WaitingRoom controller={ctrl}/>;
     } else if (state === "question") {
         if (question.question === "Guess the song") {
-            return <GuessSong controller={ctrl} question={question} />;
+            return <GuessSong controller={ctrl} question={question}/>;
         } else if (question.question === "Guess the artist") {
-            return <GuessArtist controller={ctrl} question={question} />;
+            return <GuessArtist controller={ctrl} question={question}/>;
         } else if (question.question === "Guess the lyrics") {
-            return <GuessLyrics controller={ctrl} question={question} />;
+            return <GuessLyrics controller={ctrl} question={question}/>;
         }
         return <Box>{"Unknown question type: " + question.question}</Box>;
     } else if (state === "result") {
-        return <PostRound controller={ctrl} result={result} />;
+        return <PostRound controller={ctrl} result={result}/>;
     } else if (state === "summary") {
-        return <PostGame controller={ctrl} result={summary} />;
+        return <PostGame controller={ctrl} result={summary}/>;
     } else {
-        return <ErrorView controller={ctrl} />;
+        return <ErrorView controller={ctrl}/>;
     }
 };
 
@@ -124,7 +128,7 @@ export interface IConfigurationViewProps extends IGameViewProps {
     // configuration: IGameConfiguration;
 }
 
-const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
+const GameConfigureView: FC<IConfigurationViewProps> = ({controller}) => {
     const [config, setConfig] = useState<IGameConfiguration>({
         roundDuration: "FOURTEEN",
         playBackDuration: "FOURTEEN",
@@ -156,25 +160,26 @@ const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
             <Title>GameConfigureView</Title>
             <Stack>
                 <Text>Number of Roundss</Text>
-                <Slider value={config.gameRounds} min={1} max={10} onChange={(value) => updateConfig({ gameRounds: value })} />
+                <Slider value={config.gameRounds} min={1} max={10}
+                        onChange={(value) => updateConfig({gameRounds: value})}/>
             </Stack>
             <Button onClick={inviteAction}>Invite</Button>
         </Stack>
     );
 };
 
-const InviteView: FC<IGameViewProps> = ({ controller }) => {
+const InviteView: FC<IGameViewProps> = ({controller}) => {
     const startAction = () => controller.startGame();
 
     return (
         <Stack align="center">
-            <QRCodeCanvas value="http://192.168.1.116:3000/game/abcd" size={250} />
+            <QRCodeCanvas value="http://192.168.1.116:3000/game/abcd" size={250}/>
             <Button onClick={startAction}>Start</Button>
         </Stack>
     );
 };
 
-const WaitingRoomView: FC<IGameViewProps> = ({ controller }) => {
+const WaitingRoomView: FC<IGameViewProps> = ({controller}) => {
     return <Title>WaitingRoomView</Title>;
 };
 
@@ -182,7 +187,7 @@ export interface IQuestionViewProps extends IGameViewProps {
     question: IGuessQuestion;
 }
 
-const QuestionView: FC<IQuestionViewProps> = ({ controller, question }) => {
+const QuestionView: FC<IQuestionViewProps> = ({controller, question}) => {
     const [answered, setAnswered] = useState(false);
     // const sendAnswer = (answer: {questionId: question.questionId, answerId: answer) => {
     //     controller.answer()
@@ -215,7 +220,7 @@ export interface IResultViewProps extends IGameViewProps {
     result: IGameResult;
 }
 
-const ResultView: FC<IResultViewProps> = ({ controller, result }) => {
+const ResultView: FC<IResultViewProps> = ({controller, result}) => {
     if (!result) return null;
 
     return (
@@ -242,7 +247,7 @@ export interface IFinalResultViewProps extends IGameViewProps {
     summary: IGameResult;
 }
 
-const SummaryView: FC<IFinalResultViewProps> = ({ controller, summary }) => {
+const SummaryView: FC<IFinalResultViewProps> = ({controller, summary}) => {
     if (!summary) {
         return null;
     }
@@ -265,6 +270,6 @@ const SummaryView: FC<IFinalResultViewProps> = ({ controller, summary }) => {
     );
 };
 
-const ErrorView: FC<IGameViewProps> = ({ controller }) => {
+const ErrorView: FC<IGameViewProps> = ({controller}) => {
     return <Title>OOOpppps</Title>;
 };

@@ -1,6 +1,6 @@
 import AppRouter from "components/routing/routers/AppRouter";
 
-import { GameProvider } from "./contexts/GameContext";
+import {GameProvider} from "./contexts/GameContext";
 
 /**
  * Happy coding!
@@ -44,7 +44,7 @@ const App = () => {
 
     return (
         <GameProvider>
-            <AppRouter />
+            <AppRouter/>
         </GameProvider>
     );
 };

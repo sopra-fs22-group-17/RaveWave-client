@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
-import { useAPI } from "hooks/useAPI";
+import {useAPI} from "hooks/useAPI";
 
-import { IApi, TUserRole } from "../api/@def";
-import { FCC } from "../components/@def";
+import {IApi, TUserRole} from "../api/@def";
+import {FCC} from "../components/@def";
 
 interface IGameContext {
     api: IApi;
@@ -16,11 +16,12 @@ interface IGameContext {
     setUserRole: (role: TUserRole) => void;
 }
 
-export interface IGameProviderProps {}
+export interface IGameProviderProps {
+}
 
 export const GameContext = createContext<IGameContext>(null);
 
-export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
+export const GameProvider: FCC<IGameProviderProps> = ({children}) => {
     const [gameId, setGameId] = useState<string>();
     const [userId, setUserId] = useState<string>();
     const [userRole, setUserRole] = useState<TUserRole>();
@@ -42,12 +43,12 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
 
     return (
         <GameContext.Provider value={content}>
-            <ContextGuard children={children} />
+            <ContextGuard children={children}/>
         </GameContext.Provider>
     );
 };
 
-const ContextGuard: FCC<{}> = ({ children }) => {
+const ContextGuard: FCC<{}> = ({children}) => {
     const context = useContext(GameContext);
 
     if (!context) return null;

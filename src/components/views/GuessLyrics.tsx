@@ -1,15 +1,15 @@
-import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
-import { FC, useState } from "react";
-import { IGuessOption, IGuessQuestion } from "../../api/@def";
-import { IGameController } from "./GameController";
-import { SpotifyPlayer } from "./SpotifyPlayer";
+import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
+import {FC, useState} from "react";
+import {IGuessOption, IGuessQuestion} from "../../api/@def";
+import {IGameController} from "./GameController";
+import {SpotifyPlayer} from "./SpotifyPlayer";
 
 export interface IGuessLyricsProps {
     controller: IGameController;
     question: IGuessQuestion;
 }
 
-export const GuessLyrics: FC<IGuessLyricsProps> = ({ controller, question }) => {
+export const GuessLyrics: FC<IGuessLyricsProps> = ({controller, question}) => {
     // const [question, setQuestion] = useState();
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
@@ -45,8 +45,12 @@ export const GuessLyrics: FC<IGuessLyricsProps> = ({ controller, question }) => 
                                                 backgroundPosition: "center",
                                             }}
                                         >
-                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
-                                                <Text sx={{ fontSize: 30, fontWeight: 700, textShadow: "1px 2px #00000063" }}>{option.answer}</Text>
+                                            <Stack align="center" justify="center" sx={{height: "100%"}}>
+                                                <Text sx={{
+                                                    fontSize: 30,
+                                                    fontWeight: 700,
+                                                    textShadow: "1px 2px #00000063"
+                                                }}>{option.answer}</Text>
                                             </Stack>
                                         </Box>
                                     </UnstyledButton>
@@ -56,7 +60,7 @@ export const GuessLyrics: FC<IGuessLyricsProps> = ({ controller, question }) => 
                     })}
                 </Grid>
 
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
             </Stack>
         </Container>
     );

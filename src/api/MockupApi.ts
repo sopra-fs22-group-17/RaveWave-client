@@ -1,18 +1,22 @@
-import { IApi, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, ISendOptions } from "./@def";
+import {IApi, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, ISendOptions} from "./@def";
 
 export class MockupApi implements IApi {
     private listeners: IMessageListener[] = [];
 
-    constructor() {}
+    constructor() {
+    }
 
     public join(listener: IMessageListener) {
         this.listeners.push(listener);
     }
+
     //im stompapi zum funktionieren brigen
 
-    public connect() {}
+    public connect() {
+    }
 
-    public leave() {}
+    public leave() {
+    }
 
     public send<T = any>(channel: string, type: string, data: any, options?: ISendOptions) {
         setTimeout(() => {
@@ -53,7 +57,8 @@ export class MockupApi implements IApi {
         }
     }
 
-    private onReceive() {}
+    private onReceive() {
+    }
 }
 
 export const GUESS_THE_ARTIST_QUESTION: IGuessQuestion = {

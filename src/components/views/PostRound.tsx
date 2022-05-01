@@ -1,16 +1,16 @@
 import {Button, Container, Stack} from "@mantine/core";
-import { FC } from "react";
-import { IGameResult } from "../../api/@def";
-import { GameResult } from "../ui/GameResult";
-import { IGameController } from "./GameController";
-import {Link, useHistory} from "react-router-dom";
+import {FC} from "react";
+import {IGameResult} from "../../api/@def";
+import {GameResult} from "../ui/GameResult";
+import {IGameController} from "./GameController";
+import {Link} from "react-router-dom";
 
 export interface IPostRoundProps {
     controller: IGameController;
     result: IGameResult;
 }
 
-export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
+export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
     if (!result) return null;
 
     const ME = "3";
@@ -21,12 +21,12 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     const correctness = correct ? "Correct!" : "Wrong!";
 
     return (
-        <Container size={500} >
+        <Container size={500}>
             <Stack align="center">
                 <h1>{correctness}</h1>
-                <GameResult result={result} />
+                <GameResult result={result}/>
             </Stack>
-            <Stack align="center" sx={{ paddingTop: 60}}>
+            <Stack align="center" sx={{paddingTop: 60}}>
                 <Button component={Link} to="/guesstheartist">
                     Next round
                 </Button>

@@ -1,4 +1,4 @@
-import {Box, Button, Container, Stack, Text, Title} from "@mantine/core";
+import {Box, Container, Stack, Text, Title} from "@mantine/core";
 import {FC, useContext} from "react";
 import GridLoader from "react-spinners/GridLoader";
 

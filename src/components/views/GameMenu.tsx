@@ -1,6 +1,6 @@
-import { Button, Container, Stack } from "@mantine/core";
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import {Button, Container, Stack} from "@mantine/core";
+import {FC} from "react";
+import {Link} from "react-router-dom";
 
 export const GameMenu: FC<{}> = ({}): any => {
     const routes = [
@@ -59,7 +59,7 @@ export const GameMenu: FC<{}> = ({}): any => {
     ];
 
     return (
-        <Container size={300} sx={{ padding: 20 }}>
+        <Container size={300} sx={{padding: 20}}>
             <Stack>
                 {routes.map((item, i) => {
                     return (
