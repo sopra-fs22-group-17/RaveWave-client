@@ -1,6 +1,6 @@
 # SoPra FS22 - Client Template
 
-# RAVEWAVE
+# RAVEWAVE RAVE
 
 ## Getting started
 
