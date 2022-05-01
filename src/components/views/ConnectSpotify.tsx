@@ -1,15 +1,10 @@
 import { Button, Container, Image, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import SpotifyWebApi from "spotify-web-api-js";
-
 import BaseContainer from "components/ui/BaseContainer";
-
 import { remote } from "../../api/Api";
 import { handleError } from "../../helpers/api";
 import spotifyURL from "../../model/SpotifyURL";
-
-let spotifyApi = new SpotifyWebApi();
 
 export const ConnectSpotify: FC<{}> = ({}) => {
     async function fetchSpotifyURI() {
@@ -25,24 +20,13 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
     function redirectUser(response) {
         try {
-            // until here fine
-
-            let URL = JSON.stringify(response.data);
-
             const redirectURL = new spotifyURL(response.data);
-
             window.location.href = redirectURL.redirectionURL;
-
             new Promise((resolve) => setTimeout(resolve, 1000));
             const queryString = window.location.search;
-
-            //window.location.refresh();
-
             const urlParams = new URLSearchParams(queryString);
-
             const code = urlParams.get("code");
             console.log(code);
-
             let authCodeRequest = JSON.stringify({ code });
             console.log(authCodeRequest);
             remote.postAuthorizationCode(authCodeRequest);
@@ -60,15 +44,9 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                     <Title order={1} sx={{ color: "white", padding: 20 }}>
                         Connect Spotify
                     </Title>{" "}
-                    <Container size={500}>
-                        <Image src="png-transparent-spotify-logo-logo-spotify-issuu-soundcloud-spotify-logo-white-text-logo.png" sx={{ padding: 40 }} />
-                    </Container>
                     <Stack align="stretch">
                         <Button color="green" onClick={fetchSpotifyURI}>
                             Authorize Spotify
-                        </Button>
-                        <Button component={Link} to="/selectgamemode">
-                            Login
                         </Button>
                     </Stack>
                 </Stack>

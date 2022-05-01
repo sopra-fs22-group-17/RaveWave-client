@@ -35,10 +35,10 @@ export const SelectGameMode = (props) => {
                 <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={numberOfRounds} step={2} onChange={setNumberOfRounds}></Slider>
 
                 <Text>{`Playback duration: ${playbackDuration} seconds`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(2)} value={playbackDuration} step={2} onChange={setPlaybackDuration}></Slider>
+                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={playbackDuration} step={2} onChange={setPlaybackDuration}></Slider>
             </Stack>
             <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
-            <Stack align="center" sx={{ paddingTop: 60 }}>
+            <Stack align="center" sx={{ paddingTop: 60}}>
                 <Button component={Link} to="/displayqr">
                     Invite players
                 </Button>
