@@ -2,7 +2,6 @@ import {api} from "helpers/api";
 
 export class API {
     _user = null;
-
     // @GetMapping("/ravewavers/{raverId}")
     async getUser(raverId) {
         const response = await api.get(`/ravewavers/${raverId}`);
