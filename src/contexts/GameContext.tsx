@@ -1,12 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
-import { useAPI } from "hooks/useAPI";
+import {useAPI} from "hooks/useAPI";
 
-import { IApi, TUserRole } from "../api/@def";
-import { FCC } from "../components/@def";
+import {TUserRole} from "../api/@def";
+import {StompApi} from "../api/StompApi";
+import {FCC} from "../components/@def";
 
 interface IGameContext {
-    api: IApi;
+    api: StompApi;
     gameId?: string;
     userId?: string;
     userRole?: TUserRole;

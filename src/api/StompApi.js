@@ -3,7 +3,9 @@ import Stomp from "stompjs";
 
 import { api } from "helpers/api";
 
-class SockClient {
+export class StompApi {
+    listeners = [];
+
     constructor() {
         this._connected = false;
         this._registered = false;
@@ -12,6 +14,13 @@ class SockClient {
         this._messageCallbacks = {};
     }
 
+    join(listener) {
+        this.listeners.push(listener);
+    }
+
+    leave(listener) {
+        this.listeners = this.listeners.filter((l) => l !== listener);
+    }
     /*
      * New functions (might need to be moved to a better location)
      * v v v v v v v v v v v v v v v v v v v v v v v v v v v
@@ -87,24 +96,7 @@ class SockClient {
         this.stomp.connect({}, () => {
             this._connected = true;
 
-            this.subscribe(`/topic/lobbies/${lobbyId}`, (r) => {
-                switch (r.type) {
-                    case "settings":
-                        this._handleSettingsResponse(r);
-                        break;
-
-                    case "question":
-                        //this._handleQuestion(r);
-                        break;
-
-                        //case "more":
-                        //this._handleQuestion(r);
-                        break;
-
-                    default:
-                    // throw exception
-                }
-            });
+            this.subscribe(`/topic/lobbies/${lobbyId}`, (r) => this._handleMessage(r));
 
             //this.sendSettings(lobbyId);
             //this.startGame(lobbyId);
@@ -136,7 +128,7 @@ class SockClient {
 
     testSocket() {
         //TODO da tuesch zb sache schike und /app musch immer am afang tue wen sache schicke
-        //TODO d destination isch schlussendlich /app + d endpoints womer im backend bi WebsocketController isch
+        //TODO d destination isch schlussendlich /app + d endpoints womer im backed bi WebsocketController isch
         this.send("/app/lobbies/1/next-round");
     }
 
@@ -223,6 +215,7 @@ class SockClient {
         }
     }
 
+    /* change this */
     _handleMessage(response) {
         let msg = JSON.parse(response.body);
         let channel = response.headers.destination;
@@ -246,7 +239,3 @@ class SockClient {
         console.log(message);
     }
 }
-
-const stompClient = new SockClient();
-
-export { stompClient };

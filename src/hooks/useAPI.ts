@@ -1,12 +1,11 @@
 import { useRef } from "react";
 
-import { IApi } from "../api/@def";
-import { MockupApi } from "../api/MockupApi";
+import { StompApi } from "../api/StompApi";
 
-const _api = new MockupApi();
+const _api = new StompApi();
 
 export const useAPI = () => {
-    const api = useRef<IApi>(_api);
+    const api = useRef<StompApi>(_api);
     // const api = useRef<IApi>(new StompApi());
     return api.current;
 };

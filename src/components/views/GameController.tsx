@@ -3,9 +3,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import { FC, useContext, useEffect, useRef, useState } from "react";
 
 import { IGameConfiguration, IGameResult, IGuessOption, IGuessQuestion, IMessageEvent, TUserRole } from "../../api/@def";
-import { stompClient } from "../../api/StompApi";
 import { GameContext } from "../../contexts/GameContext";
-import { useAPI } from "../../hooks/useAPI";
 import { DisplayQR } from "./DisplayQR";
 import { GuessArtist } from "./GuessArtist";
 import { GuessLyrics } from "./GuessLyrics";
@@ -32,10 +30,7 @@ export interface IGameControllerProps {
 
 export interface IGameController {
     gotoState(state: TGameState): void;
-    startGame: () => void;
     answer: (question: string, answerId: string) => void;
-    configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => void;
-    setConfig: (configuration: IGameConfiguration) => void;
 }
 
 export const GameController: FC<IGameControllerProps> = ({ role }): any => {
@@ -48,8 +43,9 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const [summary, setSummary] = useState<IGameResult>();
 
     const ref = useRef<any>();
-    const api = useAPI();
+    const api = context.api;
 
+    //wird einmal aufgerufen im lifecycle vom gamecontroller
     useEffect(() => {
         const listener = (message: IMessageEvent) => {
             if (message.data) {
@@ -72,23 +68,16 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             }
         };
         api.join(listener);
+        return () => api.leave(listener); //wer de funktion aufruft veranlasst unds zu leave
     }, []);
 
     const ctrl: IGameController = {
         gotoState: (newState: TGameState) => {
             setState(newState);
         },
-        configure: (gameMode: string, numberOfRounds: number, playbackSpeed: number, playbackDuration: number) => {
-            api.send("ch1", "command", { method: "configure", configure: { gameMode, numberOfRounds, playbackSpeed, playbackDuration } });
-        },
-        startGame: () => {
-            api.send("ch1", "command", { method: "start", config });
-        },
+
         answer: (question: string, answerId: string) => {
             api.send("ch1", "command", { method: "answer", answer: { question, answerId } });
-        },
-        setConfig: (configuration: IGameConfiguration) => {
-            setConfig(configuration);
         },
     };
 
