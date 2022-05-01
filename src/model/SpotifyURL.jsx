@@ -3,7 +3,6 @@ class spotifyURL {
         this.redirectionURL = null;
         Object.assign(this, data);
     }
-
 }
 
 export default spotifyURL;

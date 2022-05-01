@@ -1,65 +1,57 @@
-export type TUserRole = "host" | "player";
+export type TUserRole = "host" | "player"; //still necessary?
 
-export type TQuestionType = "guessthesong" | "guesstheartist" | "guessthelyrics";
+export type TQuestionType = "Guess the song" | "Guess the artist" | "Guess the lyrics";
 
-//sent
+//game configuration
 export interface IGameConfiguration {
-    gameMode: TQuestionType;
-    numberOfRounds: number;
-    playbackSpeed: number;
-    playbackDuration: number;
+    roundDuration: string;
+    playBackDuration: string;
+    songPool: string;
+    gameRounds: number;
+    gameMode: string;
 }
 
-//received
-export interface IGameAnswerOption {
-    id: string;
-    label: string;
-    image: string;
-}
-
-//received
-export interface IGameQuestion {
-    question: string;
-    questionNumber: number;
-    type: TQuestionType;
-    songLink: string;
-    options: IGameAnswerOption[];
-}
-
-//sent
-export interface IGameAnswer {
-    questionId: string;
+//game question (guess the artist)
+export interface IGuessOption {
+    answer: string;
     answerId: string;
+    artistLogo: string;
 }
 
-//received
-export interface IGameUserResult {
-    username: string;
-    image: string;
-    correctness: boolean;
-    currentPoints: number;
-    currentRank: number;
+//game question (guess the artist)
+export interface IGuessQuestion {
+    question: TQuestionType;
+    previewURL: string;
+    playDuration?: number; //in seconds
+    options: IGuessOption[];
 }
 
+//game answer
+export interface IGameAnswer {
+    playerGuess: string;
+    responseTime: string;
+}
+
+//post game and post round
+export interface IPlayerInfo {
+    playerId: string;
+    playerName: string;
+    playerPosition: number;
+    roundScore: number;
+    totalScore: number;
+    streak: number;
+}
+
+//post game and post round
 export interface IGameResult {
-    correctAnswer: IGameAnswerOption;
-    results: IGameUserResult[];
-}
-
-//received
-export interface IGameUserSummary {
-    username: string;
-    image: string;
-    finalPoints: number;
-    finalRank: number;
-}
-
-export interface IGameSummary {
-    summary: IGameUserSummary[];
+    artist: string;
+    songTitle: string;
+    players: IPlayerInfo[];
+    gameOver: boolean;
 }
 
 export interface ISendOptions {
-    token: String;
+    token: string;
 }
 
 export interface IMessageEvent {
@@ -75,4 +67,5 @@ export interface IMessageListener {
 export interface IApi {
     join(listener: IMessageListener): void;
     send(channel: string, type: string, data: any, options?: ISendOptions): void;
+    leave(listener: IMessageListener): void;
 }

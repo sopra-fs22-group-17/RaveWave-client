@@ -3,7 +3,6 @@ class spotifyAuthorizationCode {
         this.accessToken = null;
         Object.assign(this, data);
     }
-
 }
 
 export default spotifyAuthorizationCode;

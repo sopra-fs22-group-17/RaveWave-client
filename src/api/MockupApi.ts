@@ -1,125 +1,33 @@
-import { IApi, IGameQuestion, IGameResult, IGameSummary, IMessageEvent, IMessageListener, ISendOptions } from "./@def";
+import { IApi, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, ISendOptions } from "./@def";
 
 export class MockupApi implements IApi {
     private listeners: IMessageListener[] = [];
 
+    constructor() {}
+
     public join(listener: IMessageListener) {
         this.listeners.push(listener);
     }
+    //im stompapi zum funktionieren brigen
 
-    private connect() {}
+    public connect() {}
+
+    public leave() {}
 
     public send<T = any>(channel: string, type: string, data: any, options?: ISendOptions) {
-        const dummyQuestion: IGameQuestion = {
-            question: "Guess the song artist",
-            questionNumber: 1,
-            type: "guessthesong",
-            songLink: "spotify.link.c",
-            options: [
-                {
-                    id: "a",
-                    label: "A",
-                    image: "/images/artits/a",
-                },
-                {
-                    id: "b",
-                    label: "B",
-                    image: "/images/artits/b",
-                },
-                {
-                    id: "c",
-                    label: "C",
-                    image: "/images/artits/c",
-                },
-                {
-                    id: "d",
-                    label: "D",
-                    image: "/images/artits/d",
-                },
-            ],
-        };
-
-        const dummyResults: IGameResult = {
-            correctAnswer: {
-                id: "d",
-                label: "D",
-                image: "/images/artits/d",
-            },
-
-            results: [
-                {
-                    username: "aaa",
-                    image: "A",
-                    correctness: true,
-                    currentPoints: 900,
-                    currentRank: 1,
-                },
-                {
-                    username: "bbb",
-                    image: "B",
-                    correctness: false,
-                    currentPoints: 500,
-                    currentRank: 3,
-                },
-                {
-                    username: "ccc",
-                    image: "C",
-                    correctness: true,
-                    currentPoints: 700,
-                    currentRank: 2,
-                },
-                {
-                    username: "ddd",
-                    image: "D",
-                    correctness: true,
-                    currentPoints: 400,
-                    currentRank: 300,
-                },
-            ],
-        };
-
-        const dummySummary: IGameSummary = {
-            summary: [
-                {
-                    username: "aaa",
-                    image: "A",
-                    finalPoints: 900,
-                    finalRank: 2,
-                },
-                {
-                    username: "bbb",
-                    image: "A",
-                    finalPoints: 1000,
-                    finalRank: 1,
-                },
-                {
-                    username: "ccc",
-                    image: "A",
-                    finalPoints: 800,
-                    finalRank: 3,
-                },
-                {
-                    username: "ddd",
-                    image: "A",
-                    finalPoints: 700,
-                    finalRank: 4,
-                },
-            ],
-        };
-
         setTimeout(() => {
             if (data.method === "start") {
                 const event: IMessageEvent = {
                     channel: "??",
                     type: "question",
-                    data: dummyQuestion,
+                    data: GUESS_THE_ARTIST_QUESTION,
                 };
                 this.notify(event);
             } else if (data.method === "answer") {
                 const event: IMessageEvent = {
                     channel: "??",
                     type: "result",
-                    data: dummyResults,
+                    data: DUMMY_RESULT,
                 };
                 this.notify(event);
 
@@ -127,7 +35,7 @@ export class MockupApi implements IApi {
                     const event: IMessageEvent = {
                         channel: "??",
                         type: "summary",
-                        data: dummySummary,
+                        data: DUMMY_RESULT,
                     };
                     this.notify(event);
                 }, 5000);
@@ -147,3 +55,70 @@ export class MockupApi implements IApi {
 
     private onReceive() {}
 }
+
+export const GUESS_THE_ARTIST_QUESTION: IGuessQuestion = {
+    question: "Guess the artist",
+    previewURL: "https://p.scdn.co/mp3-preview/1ac449e52145d1c44dc4346afdb2d8b70e93969b?cid=d7d44473ad6a47cd86c580fcee015449",
+    options: [
+        {
+            answer: "Dave Bayley",
+            answerId: "1",
+            artistLogo: "/images/dave-bayley.jpg",
+        },
+        {
+            answer: "Harry Styles",
+            answerId: "2",
+            artistLogo: "/images/harry-styles.webp",
+        },
+        {
+            answer: "Robin Schulz",
+            answerId: "3",
+            artistLogo: "/images/robin-schulz.jpg",
+        },
+        {
+            answer: "Tom Odell",
+            answerId: "4",
+            artistLogo: "/images/tom-odell.jpeg",
+        },
+    ],
+};
+
+export const DUMMY_RESULT: IGameResult = {
+    artist: "Cardi B",
+    songTitle: "xyz",
+    players: [
+        {
+            playerId: "1",
+            playerName: "Dennys",
+            playerPosition: 1,
+            roundScore: 785,
+            totalScore: 785,
+            streak: 1,
+        },
+        {
+            playerId: "2",
+            playerName: "Bella",
+            playerPosition: 2,
+            roundScore: 235,
+            totalScore: 235,
+            streak: 0,
+        },
+        {
+            playerId: "3",
+            playerName: "Sheena",
+            playerPosition: 1,
+            roundScore: 125,
+            totalScore: 125,
+            streak: 1,
+        },
+        {
+            playerId: "5",
+            playerName: "Vale",
+            playerPosition: 1,
+            roundScore: 80,
+            totalScore: 80,
+            streak: 1,
+        },
+    ],
+    gameOver: false,
+};

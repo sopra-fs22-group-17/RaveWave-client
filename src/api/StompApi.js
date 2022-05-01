@@ -1,6 +1,8 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
+import { api } from "helpers/api";
+
 class SockClient {
     constructor() {
         this._connected = false;
@@ -10,6 +12,58 @@ class SockClient {
         this._messageCallbacks = {};
     }
 
+    /*
+     * New functions (might need to be moved to a better location)
+     * v v v v v v v v v v v v v v v v v v v v v v v v v v v
+     */
+    async createLobbyAndGetId() {
+        const response = await api.post(`/lobbies`);
+        if (response.status >= 200 && response.status < 300) {
+            console.log("rest response: " + JSON.stringify(response.data));
+            return response.data["lobbyId"];
+        } else if (response.status === 404) {
+            throw new Error("raveWaver with raverId was not found");
+        } else if (response.status === 401) {
+            throw new Error("Not authorized");
+        } else {
+            throw new Error("Something went wrong during getUser");
+        }
+    }
+
+    async addPlayer(playerName) {
+        const response = await api.post(`/lobbies`, { playerName: playerName });
+        if (response.status >= 200 && response.status < 300) {
+            console.log("rest response: " + JSON.stringify(response.data));
+            return response.data;
+        } else {
+            throw new Error("Error happend when trying to add player");
+        }
+    }
+
+    sendSettings(lobbyId) {
+        const mockupSettings = {
+            gameMode: "ARTISTGAME",
+            roundDuration: "FOURTEEN",
+            playBackDuration: "FOURTEEN",
+            songPool: "SWITZERLAND",
+            gameRounds: "12",
+        };
+        this.stomp.send(`/app/lobbies/${lobbyId}/setup`, {}, JSON.stringify(mockupSettings));
+    }
+
+    startGame(lobbyId) {
+        this.stomp.send(`/app/lobbies/${lobbyId}/start-game`);
+    }
+
+    _handleSettingsResponse(r) {
+        console.log("StompApi: Settings received from server: " + JSON.stringify(r));
+    }
+
+    /*
+     * ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+     * New functions (might need to be moved to a better location)
+     */
+
     isConnected() {
         return this._connected;
     }
@@ -18,34 +72,48 @@ class SockClient {
         return this._registered;
     }
 
-    connect(callback) {
+    async connect(callback) {
+        console.log("StompApi: CONNECT IS CALLED");
         try {
             this.sock.close();
         } catch {}
-        //TODO das isch de websocket mit dem mer ois vebindet
-        this.sock = new SockJS(`http://localhost:8080/ws`);
+
+        const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
+
+        this.sock = new SockJS(`http://localhost:8080/ws`); // local
+        // this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
         this.stomp = Stomp.over(this.sock);
         this.stomp.debug = this._debug;
         this.stomp.connect({}, () => {
             this._connected = true;
 
-            //TODO da tuesch subscribe. de einzig channel uf de mer eig subscribe muss
-            // this.subscribe("/topic/lobbies/{lobbyId}", function (message) {
-            //     // called when the client receives a STOMP message from the server
-            //     this._connected = true;
-            //     if (message.body) {
-            //         alert("got message with body " + message.body);
-            //     } else {
-            //         alert("got empty message");
-            //     }
-            // });
-            //this.subscribe('/user/queue/disconnect', r => this.disconnect(r.reason));
-            //this.subscribe('/user/queue/reconnect', r => this.reconnect(r.token));
+            this.subscribe(`/topic/lobbies/${lobbyId}`, (r) => {
+                switch (r.type) {
+                    case "settings":
+                        this._handleSettingsResponse(r);
+                        break;
+
+                    case "question":
+                        //this._handleQuestion(r);
+                        break;
+
+                        //case "more":
+                        //this._handleQuestion(r);
+                        break;
+
+                    default:
+                    // throw exception
+                }
+            });
+
+            //this.sendSettings(lobbyId);
+            //this.startGame(lobbyId);
 
             if (callback) {
                 callback();
             }
         });
+
         this.sock.onclose = (r) => {
             console.log("Socket closed!", r);
             this._handleDisconnect("Socket closed.");

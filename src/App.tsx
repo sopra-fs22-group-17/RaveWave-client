@@ -1,7 +1,6 @@
 import AppRouter from "components/routing/routers/AppRouter";
-import { MantineProvider } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import { stompClient } from "./api/StompApi";
+
+import { GameProvider } from "./contexts/GameContext";
 
 /**
  * Happy coding!
@@ -43,7 +42,11 @@ const App = () => {
     //     stompClient.send(destination, {}, objectToSend);
     // }
 
-    return <AppRouter />;
+    return (
+        <GameProvider>
+            <AppRouter />
+        </GameProvider>
+    );
 };
 
 export default App;

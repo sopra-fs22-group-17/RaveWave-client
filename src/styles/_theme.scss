@@ -1,32 +1,32 @@
-$accent1: #644490;
-$accent2: #5A3A86;
-$accent3: #50307C;
-$textColor: white;
-$background: #684894;
+// $accent1: #644490;
+// $accent2: #5A3A86;
+// $accent3: #50307C;
+// $textColor: white;
+// $background: #684894;
 
-/* some constants */
+// /* some constants */
 
-$DESKTOP_WIDTH: 1160px;
-$SMALL_LAPTOPS_WIDTH: 970px;
-$TABLETS_WIDTH: 750px;
-$SMALL_WIDTH: 768px;
+// $DESKTOP_WIDTH: 1160px;
+// $SMALL_LAPTOPS_WIDTH: 970px;
+// $TABLETS_WIDTH: 750px;
+// $SMALL_WIDTH: 768px;
 
-/* some standard elements */
-/* fonts */
-$fontDefault: "Inter", black, 1.2em;
+// /* some standard elements */
+// /* fonts */
+// $fontDefault: "Inter", black, 1.2em;
 
-/* a standard drop shadow */
-$dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+// /* a standard drop shadow */
+// $dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
 
-$borderRadius: 0.75em;
+// $borderRadius: 0.75em;
 
-/* mixins
+// /* mixins
 
-  these allow you to create small snippets that you can insert with a one-liner in other stylesheets
-  for an example, see styles/views/Login.scss
-*/
-@mixin center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+//   these allow you to create small snippets that you can insert with a one-liner in other stylesheets
+//   for an example, see styles/views/Login.scss
+// */
+// @mixin center {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
