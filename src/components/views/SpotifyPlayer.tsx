@@ -30,7 +30,7 @@ export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({url, duration}) => {
                          }
                          customControlsSection={
                              [
-                                 <div>Song Name: </div>,
+                                 <div>Song Name: Heat Waves</div>,
                                  RHAP_UI.MAIN_CONTROLS,
                              ]
                          }

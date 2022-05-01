@@ -61,9 +61,9 @@ export const GUESS_THE_ARTIST_QUESTION: IGuessQuestion = {
     previewURL: "https://p.scdn.co/mp3-preview/1ac449e52145d1c44dc4346afdb2d8b70e93969b?cid=d7d44473ad6a47cd86c580fcee015449",
     options: [
         {
-            answer: "Olivia Rodrigo",
+            answer: "Dave Bayley",
             answerId: "1",
-            artistLogo: "/images/olivia-rodrigo.jpeg",
+            artistLogo: "/images/dave-bayley.jpg",
         },
         {
             answer: "Harry Styles",

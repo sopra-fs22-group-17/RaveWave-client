@@ -3,6 +3,7 @@ import {FC, useState} from "react";
 import {IGuessOption, IGuessQuestion} from "../../api/@def";
 import {IGameController} from "./GameController";
 import {SpotifyPlayer} from "./SpotifyPlayer";
+import {Link} from "react-router-dom";
 
 export interface IGuessArtistProps {
     controller: IGameController;
@@ -29,7 +30,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                         return (
                             <Grid.Col key={i} span={6}>
                                 <Center>
-                                    <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
+                                    <UnstyledButton component={Link} to="/postround">
                                         <Box
                                             style={{
                                                 backgroundImage: `url(${option.artistLogo})`,
@@ -50,6 +51,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                                 <Text sx={{
                                                     fontSize: 30,
                                                     fontWeight: 700,
+                                                    color: "orange",
                                                     textShadow: "1px 2px #00000063"
                                                 }}>{option.answer}</Text>
                                             </Stack>

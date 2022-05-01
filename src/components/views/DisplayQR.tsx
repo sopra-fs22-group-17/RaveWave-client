@@ -5,6 +5,7 @@ import { FC } from "react";
 import BaseContainer from "components/ui/BaseContainer";
 
 import { IGameController } from "./GameController";
+import {Link} from "react-router-dom";
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -13,6 +14,8 @@ export interface IDisplayQRProps {
 
 export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
     const startAction = () => controller.startGame();
+
+
 
     const url = `${window.location.origin}/landingplayer/${gameId || "1"}`;
     console.log("Game URL: " + url);
@@ -28,7 +31,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
                         <Center className="displayqr column-item">
                             <QRCodeCanvas value={url} size={250} />
                         </Center>
-                        <Button onClick={startAction} className="displayqr start">
+                        <Button component={Link} to="/guesstheartist" className="displayqr start">
                             Start Game
                         </Button>
                     </Stack>

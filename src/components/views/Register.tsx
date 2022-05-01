@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 export const Register: FC<{}> = ({}) => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
+    const [repeatPassword, setRepeatPassword] = useState(null);
 
     return (
         <BaseContainer>
@@ -21,6 +22,7 @@ export const Register: FC<{}> = ({}) => {
                                 <Input placeholder="Username" onChange={(un) => setUsername(un)} sx={{ backgroundColor: "#2f036b", color: "white" }} />
                             </InputWrapper>
                             <PasswordInput placeholder="Password" label="Password" description="" required onChange={(pw) => setPassword(pw)} />
+                            <PasswordInput placeholder="Password" label="Repeat Password" description="" required onChange={(pwr) => setRepeatPassword(pwr)} />
                         </Stack>
                     </Container>
                     <Stack align="stretch">
