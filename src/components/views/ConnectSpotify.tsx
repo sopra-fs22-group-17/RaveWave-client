@@ -26,6 +26,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     function redirectUser(response) {
         try {
             // until here fine
+
             let URL = JSON.stringify(response.data);
 
             const redirectURL = new spotifyURL(response.data);
@@ -44,7 +45,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
             let authCodeRequest = JSON.stringify({ code });
             console.log(authCodeRequest);
-            //spotifyApi.setAccessToken(remote.postAuthorizationCode(authCodeRequest));
+            remote.postAuthorizationCode(authCodeRequest);
         } catch (error) {
             console.error(`Something went wrong while redirecting the user: \n${handleError(error)}`);
             console.error("Details:", error);

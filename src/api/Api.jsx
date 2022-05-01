@@ -116,7 +116,7 @@ export class API {
     // @GetMapping(value = "/Spotify/authorizationCodeUri")
     async getAuthorizationCodeUri() {
         const response = await api.get("/Spotify/authorizationCodeUri");
-        const URL = JSON.parse(response);
+        const URL = response;
         if (response.status >= 200 && response.status < 300) {
             return URL;
         } else {
