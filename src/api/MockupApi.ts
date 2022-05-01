@@ -10,7 +10,9 @@ export class MockupApi implements IApi {
     }
     //im stompapi zum funktionieren brigen
 
-    private connect() {}
+    public connect() {}
+
+    public leave() {}
 
     public send<T = any>(channel: string, type: string, data: any, options?: ISendOptions) {
         setTimeout(() => {

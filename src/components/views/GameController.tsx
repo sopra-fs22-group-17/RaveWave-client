@@ -50,8 +50,6 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const ref = useRef<any>();
     const api = useAPI();
 
-    stompClient.connect();
-
     useEffect(() => {
         const listener = (message: IMessageEvent) => {
             if (message.data) {

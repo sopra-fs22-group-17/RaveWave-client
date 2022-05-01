@@ -1,5 +1,6 @@
 import { ButtonStylesParams, Global, MantineColor, MantineProvider, MantineTheme, MantineThemeColors, MantineThemeOverride } from "@mantine/core";
 import { CSSProperties } from "react";
+
 import { FCC } from "./@def";
 
 export interface IRaveWaveTheme extends MantineTheme {
@@ -25,8 +26,8 @@ export const theme: IRaveWaveThemeOverride = {
         },
     },
     colors: {
-        // dark: ["#644490", "#5A3A86", "#50307C"],
-        background: ["#684894"],
+        dark: ["#D2C8DF", "#C3B6D4", "#B4A4CA", "#A491BF", "#957FB4", "#866DA9", "#775A9F", "#684894", "#5E4185", "#533A76"],
+        background: ["#533A76"],
         brightPink: ["#F0BBDD", "#ED9BCF", "#EC7CC3", "#ED5DB8", "#F13EAF", "#F71FA7", "#FF00A1", "#E00890", "#C50E82", "#AD1374"],
     },
     primaryColor: "green",
