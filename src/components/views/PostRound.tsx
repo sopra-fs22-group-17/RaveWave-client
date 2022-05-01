@@ -1,8 +1,9 @@
-import { Container, Stack } from "@mantine/core";
+import {Button, Container, Stack} from "@mantine/core";
 import { FC } from "react";
 import { IGameResult } from "../../api/@def";
 import { GameResult } from "../ui/GameResult";
 import { IGameController } from "./GameController";
+import {Link, useHistory} from "react-router-dom";
 
 export interface IPostRoundProps {
     controller: IGameController;
@@ -20,7 +21,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     const correctness = correct ? "Correct!" : "Wrong!";
 
     return (
-        <Container size={500}>
+        <Container size={500} >
             <Stack align="center">
                 <h1>{correctness}</h1>
                 <GameResult result={result} />
