@@ -3,8 +3,18 @@ import Stomp from "stompjs";
 
 import { api } from "helpers/api";
 
+import { IGameConfiguration, IMessageListener } from "./@def";
+
 export class StompApi {
-    listeners = [];
+    private listeners: IMessageListener[] = [];
+    private _connected = false;
+    private _registered = false;
+    private _disconnectCallbacks = [];
+    private _registerCallbacks = [];
+    private _messageCallbacks = {};
+
+    private sock: any;
+    private stomp: any;
 
     constructor() {
         this._connected = false;
@@ -14,18 +24,18 @@ export class StompApi {
         this._messageCallbacks = {};
     }
 
-    join(listener) {
+    public join(listener: IMessageListener) {
         this.listeners.push(listener);
     }
 
-    leave(listener) {
+    public leave(listener: IMessageListener) {
         this.listeners = this.listeners.filter((l) => l !== listener);
     }
     /*
      * New functions (might need to be moved to a better location)
      * v v v v v v v v v v v v v v v v v v v v v v v v v v v
      */
-    async createLobbyAndGetId() {
+    public async createLobbyAndGetId(): Promise<string> {
         const response = await api.post(`/lobbies`);
         if (response.status >= 200 && response.status < 300) {
             console.log("rest response: " + JSON.stringify(response.data));
@@ -39,7 +49,7 @@ export class StompApi {
         }
     }
 
-    async addPlayer(playerName) {
+    public async addPlayer(playerName: string) {
         const response = await api.post(`/lobbies`, { playerName: playerName });
         if (response.status >= 200 && response.status < 300) {
             console.log("rest response: " + JSON.stringify(response.data));
@@ -49,22 +59,23 @@ export class StompApi {
         }
     }
 
-    sendSettings(lobbyId) {
+    public sendSettings(lobbyId: string, settings?: IGameConfiguration) {
         const mockupSettings = {
             gameMode: "ARTISTGAME",
             roundDuration: "FOURTEEN",
             playBackDuration: "FOURTEEN",
             songPool: "SWITZERLAND",
-            gameRounds: "12",
+            gameRounds: 12,
         };
-        this.stomp.send(`/app/lobbies/${lobbyId}/setup`, {}, JSON.stringify(mockupSettings));
+        const config = settings || mockupSettings;
+        this.stomp.send(`/app/lobbies/${lobbyId}/setup`, {}, JSON.stringify(config));
     }
 
-    startGame(lobbyId) {
+    public startGame(lobbyId: string): void {
         this.stomp.send(`/app/lobbies/${lobbyId}/start-game`);
     }
 
-    _handleSettingsResponse(r) {
+    private _handleSettingsResponse(r): void {
         console.log("StompApi: Settings received from server: " + JSON.stringify(r));
     }
 
@@ -73,21 +84,21 @@ export class StompApi {
      * New functions (might need to be moved to a better location)
      */
 
-    isConnected() {
+    public isConnected(): boolean {
         return this._connected;
     }
 
-    isRegistered() {
+    public isRegistered(): boolean {
         return this._registered;
     }
 
-    async connect(callback) {
+    public async connect(lobbyId: string, callback?: () => void): Promise<void> {
         console.log("StompApi: CONNECT IS CALLED");
         try {
             this.sock.close();
         } catch {}
 
-        const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
+        // const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
 
         this.sock = new SockJS(`http://localhost:8080/ws`); // local
         // this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
@@ -113,34 +124,34 @@ export class StompApi {
         this.sock.onerror = (e) => this._handleError(e);
     }
 
-    disconnect(reason) {
+    public disconnect(reason: any): void {
         try {
             this.stomp.disconnect(() => this._handleDisconnect(reason), {});
         } catch {}
     }
-
-    connectAndRegister(token) {
-        this.connect(() => {
+    public async connectAndRegister(token: string): Promise<void> {
+        const lobbyId = await this.createLobbyAndGetId();
+        this.connect(lobbyId, () => {
             this.testSocket();
             //this.register(token);
         });
     }
 
-    testSocket() {
-        //TODO da tuesch zb sache schike und /app musch immer am afang tue wen sache schicke
-        //TODO d destination isch schlussendlich /app + d endpoints womer im backed bi WebsocketController isch
+    public testSocket(): void {
+        // TODO da tuesch zb sache schike und /app musch immer am afang tue wen sache schicke
+        // TODO d destination isch schlussendlich /app + d endpoints womer im backed bi WebsocketController isch
         this.send("/app/lobbies/1/next-round");
     }
 
-    register(token) {
+    public register(token: string) {
         this.send("/app/register", { token: token });
     }
 
-    reconnect(token) {
+    public reconnect(token: string) {
         // remove disconnect callbacks so we don't
         // trigger anything while reconnecting
 
-        let callbacks = this._disconnectCallbacks.slice();
+        const callbacks = this._disconnectCallbacks.slice();
         this._disconnectCallbacks = [];
 
         this.disconnect("Reconnecting");
@@ -151,11 +162,11 @@ export class StompApi {
         }, 500);
     }
 
-    subscribe(channel, callback) {
+    public subscribe(channel: string, callback: (data: any) => void): void {
         this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
     }
 
-    send(destination, body) {
+    public send(destination: string, body?: any): void {
         this.stomp.send();
     }
 
@@ -166,42 +177,42 @@ export class StompApi {
 
      */
 
-    onRegister(callback) {
+    public onRegister(callback: () => void) {
         this._registerCallbacks.push(callback);
     }
 
-    clearMessageSubscriptions() {
+    public clearMessageSubscriptions() {
         this._messageCallbacks = {};
     }
 
-    onDisconnect(callback) {
+    public onDisconnect(callback: () => void) {
         this._disconnectCallbacks.push(callback);
     }
 
-    clearDisconnectSubscriptions() {
+    public clearDisconnectSubscriptions() {
         this._disconnectCallbacks = [];
     }
 
-    onLobbyMessage(channel, callback) {
+    public onLobbyMessage(channel: string, callback: () => void) {
         if (!this._messageCallbacks.hasOwnProperty(channel)) {
             this._messageCallbacks[channel] = [];
         }
         this._messageCallbacks[channel].push(callback);
     }
 
-    _handleError(error) {
+    private _handleError(error: any) {
         console.error(error);
         this._handleDisconnect("Socket error.");
     }
 
-    _handleDisconnect(reason) {
+    private _handleDisconnect(reason: any) {
         this._connected = false;
-        for (let callback of this._disconnectCallbacks) {
+        for (const callback of this._disconnectCallbacks) {
             callback(reason);
         }
     }
 
-    _handleRegister(response) {
+    private _handleRegister(response: any) {
         this._registered = true;
         //sessionManager.lobbyId = response.lobbyId;
 
@@ -216,26 +227,29 @@ export class StompApi {
     }
 
     /* change this */
-    _handleMessage(response) {
-        let msg = JSON.parse(response.body);
-        let channel = response.headers.destination;
-        let lobbyChannel = channel.replace(/.+\/lobby\/.+\//i, "/");
+    //listeners aufrufen (use notify)make message call notify
+    private _handleMessage(response: any) {
+        const msg = JSON.parse(response.body);
+        const channel = response.headers.destination;
+        const lobbyChannel = channel.replace(/.+\/lobby\/.+\//i, "/");
+        const info = { msg, channel, lobbyChannel };
+        console.log(JSON.stringify(info, null, 4));
 
         if (!this._messageCallbacks.hasOwnProperty(lobbyChannel)) {
             return;
         }
 
-        for (let callback of this._messageCallbacks[lobbyChannel]) {
+        for (const callback of this._messageCallbacks[lobbyChannel]) {
             callback(msg);
         }
     }
 
-    _stripResponse(response) {
+    private _stripResponse(response: any) {
         return JSON.parse(response.body);
     }
 
-    _debug(message) {
+    private _debug(message: string) {
         // only output debug messages if we're not in the production environment
-        console.log(message);
+        console.log("Debug: " + message);
     }
 }

@@ -1,6 +1,5 @@
 import { Button, Container, Image, Stack, Title } from "@mantine/core";
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 
 import BaseContainer from "components/ui/BaseContainer";
@@ -61,14 +60,11 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                         Connect Spotify
                     </Title>{" "}
                     <Container size={500}>
-                        <Image src="png-transparent-spotify-logo-logo-spotify-issuu-soundcloud-spotify-logo-white-text-logo.png" sx={{ padding: 40 }} />
+                        <Image src="/images/spotify-logo-white.svg" sx={{ padding: 40 }} />
                     </Container>
                     <Stack align="stretch">
                         <Button color="green" onClick={fetchSpotifyURI}>
                             Authorize Spotify
-                        </Button>
-                        <Button component={Link} to="/selectgamemode">
-                            Login
                         </Button>
                     </Stack>
                 </Stack>

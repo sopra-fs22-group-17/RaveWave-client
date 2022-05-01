@@ -1,11 +1,26 @@
 import { Button, Container, Input, InputWrapper, Stack, Title } from "@mantine/core";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import { GameContext } from "../../contexts/GameContext";
+
 export const Guest: FC<{}> = ({}) => {
+    const context = useContext(GameContext);
+    const [stompConnected, setStompConnected] = useState(false);
     const [username, setUsername] = useState(null);
+    const stompMessage = stompConnected ? "StompConnected" : "Stomp not connected";
+
+    const connectServer = () => {
+        context.api.connect(context.lobbyId, () => {
+            setStompConnected(true);
+        });
+    };
+
+    const startGame = () => {
+        context.api.startGame(context.lobbyId);
+    };
 
     return (
         <BaseContainer>
@@ -21,6 +36,8 @@ export const Guest: FC<{}> = ({}) => {
                         <Button component={Link} to="/landingplayer">
                             Back
                         </Button>
+                        <Button onClick={() => connectServer()}>Connect server</Button>
+                        <Button onClick={() => startGame()}>Start game</Button>
                         <Button component={Link} to="/game">
                             Continue
                         </Button>

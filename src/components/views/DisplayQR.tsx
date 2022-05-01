@@ -1,20 +1,22 @@
-import { Button, Center, Container, Stack, Title } from "@mantine/core";
+import { Button, Center, Container, Stack, Text, Title } from "@mantine/core";
 import { QRCodeCanvas } from "qrcode.react";
-import { FC } from "react";
+import { FC, useContext } from "react";
 
 import BaseContainer from "components/ui/BaseContainer";
 
+import { GameContext } from "../../contexts/GameContext";
 import { IGameController } from "./GameController";
 
 export interface IDisplayQRProps {
     controller: IGameController;
-    gameId: string;
 }
 
-export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
-    const startAction = () => controller.startGame();
+export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
+    const context = useContext(GameContext);
+    const { lobbyId } = context;
+    const startAction = () => {};
 
-    const url = `${window.location.origin}/landingplayer/${gameId || "1"}`;
+    const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
     console.log("Game URL: " + url);
 
     return (
@@ -28,6 +30,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller, gameId }) => {
                         <Center className="displayqr column-item">
                             <QRCodeCanvas value={url} size={250} />
                         </Center>
+                        <Text>{url}</Text>
                         <Button onClick={startAction} className="displayqr start">
                             Start Game
                         </Button>

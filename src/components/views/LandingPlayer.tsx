@@ -23,7 +23,7 @@ export const LandingPlayer = (props) => {
     useEffect(() => {
         context.setUserRole("player");
         if (id) {
-            context.setGameId(id);
+            context.setLobbyId(id);
         }
     }, [id]);
 

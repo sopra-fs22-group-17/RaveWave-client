@@ -7,7 +7,7 @@ export interface IGameConfiguration {
     roundDuration: string;
     playBackDuration: string;
     songPool: string;
-    gameRounds: number;
+    gameRounds: string;
     gameMode: string;
 }
 

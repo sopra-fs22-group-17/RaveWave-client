@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack, Text, Title } from "@mantine/core";
+import { Box, Container, Stack, Text, Title } from "@mantine/core";
 import { FC, useContext } from "react";
 import GridLoader from "react-spinners/GridLoader";
 
@@ -12,7 +12,6 @@ export interface IWaitingRoomProps {
 }
 
 export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
-    const startAction = () => controller.startGame();
     const context = useContext(GameContext);
 
     return (
@@ -23,11 +22,10 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
                         Waiting Room
                     </Title>
                     <Text>{context.userRole}</Text>
-                    <Text>{context.gameId}</Text>
+                    <Text>{context.lobbyId}</Text>
                     <GridLoader color="white" size={30} margin={4} />
                     <Stack align="stretch" sx={{ paddingTop: 40 }}>
                         <Box>Waiting for the host to start the game.</Box>
-                        <Button onClick={() => startAction()}>Start (FIXME)</Button>
                     </Stack>
                 </Stack>
             </Container>
