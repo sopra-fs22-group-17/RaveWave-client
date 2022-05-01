@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { TQuestionType } from "../../api/@def";
 import { GameModeButton } from "../ui/GameModeButton";
 import { SongPoolSelector, SONG_POOLS } from "../ui/SongPoolSelector";
+import {theme} from "../Theme";
 
 export const SelectGameMode = (props) => {
     const [gameMode, setGameMode] = useState<TQuestionType>("Guess the song");

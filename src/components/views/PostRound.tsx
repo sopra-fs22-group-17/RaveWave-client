@@ -26,6 +26,11 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                 <h1>{correctness}</h1>
                 <GameResult result={result} />
             </Stack>
+            <Stack align="center" sx={{ paddingTop: 60}}>
+                <Button component={Link} to="/guesstheartist">
+                    Next round
+                </Button>
+            </Stack>
         </Container>
     );
 };

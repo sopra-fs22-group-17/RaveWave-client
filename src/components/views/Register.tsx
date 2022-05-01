@@ -19,7 +19,7 @@ export const Register: FC<{}> = ({}) => {
                     <Container size={200}>
                         <Stack spacing="lg">
                             <InputWrapper id="username" required label="Username" description="" error="">
-                                <Input placeholder="Username" onChange={(un) => setUsername(un)} sx={{ backgroundColor: "#2f036b", color: "white" }} />
+                                <Input placeholder="Username" onChange={(un) => setUsername(un)} sx={{ color: "white" }} />
                             </InputWrapper>
                             <PasswordInput placeholder="Password" label="Password" description="" required onChange={(pw) => setPassword(pw)} />
                             <PasswordInput placeholder="Password" label="Repeat Password" description="" required onChange={(pwr) => setRepeatPassword(pwr)} />

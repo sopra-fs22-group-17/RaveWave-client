@@ -145,6 +145,7 @@ const GameConfigureView: FC<IConfigurationViewProps> = ({ controller }) => {
     const updateConfig = (configuration: Partial<IGameConfiguration>) => {
         setConfig(Object.assign({}, config, configuration));
     };
+
     const inviteAction = () => {
         controller.setConfig(config);
         controller.gotoState("invite");

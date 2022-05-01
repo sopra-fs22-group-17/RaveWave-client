@@ -31,14 +31,12 @@ export const LandingHost = (props) => {
                         RaveWave Host
                     </Title>
                     <Lottie options={defaultOptions} speed={1} />
-                    <Stack align="stretch">
                         <Button component={Link} to="/register">
                             Register
                         </Button>
                         <Button component={Link} to="/login">
                             Login
                         </Button>
-                    </Stack>
                 </Stack>
             </Container>
         </BaseContainer>
