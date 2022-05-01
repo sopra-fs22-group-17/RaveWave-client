@@ -8,7 +8,7 @@ import { SongPoolSelector, SONG_POOLS } from "../ui/SongPoolSelector";
 
 export const SelectGameMode = (props) => {
     const [gameMode, setGameMode] = useState<TQuestionType>("Guess the song");
-    const [numberOfRounds, setNumberOfRounds] = useState(5);
+    const [numberOfRounds, setNumberOfRounds] = useState(10);
     const [playbackDuration, setPlaybackDuration] = useState(10);
     const [songPool, setSongPool] = useState<string>(SONG_POOLS[0].id);
 
