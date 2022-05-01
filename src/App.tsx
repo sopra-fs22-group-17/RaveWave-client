@@ -7,6 +7,7 @@ import {GameProvider} from "./contexts/GameContext";
  * React Template by Lucas Pelloni
  * Overhauled by Kyrill Hux
  */
+
 const App = () => {
     //     const [isConnected, setIsConnected] = useState(false);
     // const [messageHistory, setMessageHistory] = useState([]);
