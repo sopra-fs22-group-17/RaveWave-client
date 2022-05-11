@@ -1,5 +1,5 @@
 import { showNotification } from "@mantine/notifications";
-import { useApi } from "hooks/useApi";
+import { useApi } from "hooks/useAPI";
 import { createContext, useContext, useEffect, useState } from "react";
 import { IGameConfiguration, TUserRole } from "../api/@def";
 import { RestApi } from "../api/RestApi";
