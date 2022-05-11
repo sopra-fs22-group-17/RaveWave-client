@@ -1,6 +1,7 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, IStompGameConfiguration } from "./@def";
+import { IGameConfiguration, IGuessQuestion, IMessageEvent, IMessageListener, IStompGameConfiguration } from "./@def";
+import { api } from "./Api";
 import { defer } from "./Deferred";
 
 export interface ISongPool {
@@ -52,8 +53,37 @@ export class StompApi {
     public leave(listener: IMessageListener) {
         this.listeners = this.listeners.filter((l) => l !== listener);
     }
+    /*
+     * New functions (might need to be moved to a better location)
+     * v v v v v v v v v v v v v v v v v v v v v v v v v v v
+     */
+    public async createLobbyAndGetId(): Promise<string> {
+        const response = await api.post(`/lobbies`);
+        if (response.status >= 200 && response.status < 300) {
+            console.log("rest response: " + JSON.stringify(response.data));
+            return response.data["lobbyId"];
+        } else if (response.status === 404) {
+            throw new Error("raveWaver with raverId was not found");
+        } else if (response.status === 401) {
+            throw new Error("Not authorized");
+        } else {
+            throw new Error("Something went wrong during getUser");
+        }
+    }
 
-    public sendSettings(lobbyId: string, gameConfiguration?: IGameConfiguration): void {
+    public async addPlayer(lobbyId: string, playerName: string): Promise<IPlayerConfirmation> {
+        const response = await api.post(`/lobbies/${lobbyId}`, { playerName: playerName });
+        if (response.status >= 200 && response.status < 300) {
+            const data = response.data;
+            data.id = String(data.id);
+            console.log("rest response: " + JSON.stringify(data, null, 4));
+            return data;
+        } else {
+            throw new Error("Error happend when trying to add player");
+        }
+    }
+
+    public async sendSettings(lobbyId: string, gameConfiguration?: IGameConfiguration): Promise<void> {
         const mockupSettings = {
             gameMode: "ARTISTGAME",
             roundDuration: "FOURTEEN",
@@ -75,29 +105,20 @@ export class StompApi {
         console.log("SEND SETTINGS 2");
     }
 
-    private send(message: string, payload?: any) {
-        console.log("Stomp: " + message);
-        if (payload) {
-            this.stomp.send(message, {}, payload);
-        } else {
-            this.stomp.send(message);
-        }
-    }
-
     public startGame(lobbyId: string): void {
-        this.send(`/app/lobbies/${lobbyId}/start-game`);
+        this.stomp.send(`/app/lobbies/${lobbyId}/start-game`);
     }
 
     public nextRound(lobbyId: string): void {
-        this.send(`/app/lobbies/${lobbyId}/next-round`);
+        this.stomp.send(`/app/lobbies/${lobbyId}/next-round`);
     }
 
     public endRound(lobbyId: string): void {
-        this.send(`/app/lobbies/${lobbyId}/end-round`);
+        this.stomp.send(`/app/lobbies/${lobbyId}/end-round`);
     }
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
-        this.send(`/app/lobbies/${lobbyId}/end-round`, JSON.stringify(answer));
+        this.stomp.send(`/app/lobbies/${lobbyId}/end-round`, {}, JSON.stringify(answer));
     }
 
     /*
@@ -162,9 +183,22 @@ export class StompApi {
         } catch {}
     }
 
-    // public register(token: string) {
-    //     this.send("/app/register", { token: token });
-    // }
+    public async connectAndRegister(token: string): Promise<void> {
+        const lobbyId = await this.createLobbyAndGetId();
+        await this.connect(lobbyId);
+        this.testSocket();
+        //this.register(token);
+    }
+
+    public testSocket(): void {
+        // TODO da tuesch zb sache schike und /app musch immer am afang tue wen sache schicke
+        // TODO d destination isch schlussendlich /app + d endpoints womer im backed bi WebsocketController isch
+        this.send("/app/lobbies/1/next-round");
+    }
+
+    public register(token: string) {
+        this.send("/app/register", { token: token });
+    }
 
     // public reconnect(token: string) {
     //     // remove disconnect callbacks so we don't
@@ -183,6 +217,10 @@ export class StompApi {
 
     public subscribe(channel: string, callback: (data: any) => void): void {
         this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
+    }
+
+    public send(destination: string, body?: any): void {
+        this.stomp.send();
     }
 
     /*
@@ -245,6 +283,7 @@ export class StompApi {
     //listeners aufrufen (use notify)make message call notify
     private _handleMessage(info: any) {
         console.log("CALLBACK _handleMessage");
+
         const msg = info.msg;
         if (msg.type === "setup") {
             this._handleSetupMessage(info);
@@ -260,8 +299,37 @@ export class StompApi {
         // call notify
     }
 
-    private _handleQuestionMessage(payload: any) {
-        const info = payload.msg;
+    private _handleQuestionMessage(info: any) {
+        info = {
+            type: "question",
+            question: "Guess the song artist",
+            previewURL: "https://p.scdn.co/mp3-preview/a225651eb324272ab25dbf3b757db8d6420b0f4a?cid=d7d44473ad6a47cd86c580fcee015449",
+            songTitle: "WAIT FOR U (feat. Drake & Tems)",
+            playBackDuration: "FOURTEEN",
+            answers: [
+                {
+                    answer: "Elley Duhé",
+                    answerId: 1,
+                    albumPicture: "https://i.scdn.co/image/ab67616d00001e0253a2e11c1bde700722fecd2e",
+                },
+                {
+                    answer: "Future, Tems, Drake",
+                    answerId: 2,
+                    albumPicture: "https://i.scdn.co/image/ab67616d00001e0286badd635b69aea887862214",
+                },
+                {
+                    answer: "ACRAZE, Cherish",
+                    answerId: 3,
+                    albumPicture: "https://i.scdn.co/image/ab67616d00001e0284d413b195aac8a69cc6e5c6",
+                },
+                {
+                    answer: "Farruko",
+                    answerId: 4,
+                    albumPicture: "https://i.scdn.co/image/ab67616d00001e02f1bd89fe6542ac73b8555f73",
+                },
+            ],
+        };
+
         const data: IGuessQuestion = {
             question: "Guess the artist",
             previewURL: info.previewURL,
@@ -276,22 +344,7 @@ export class StompApi {
         this.notify(messageEvent);
     }
 
-    private _handleResultMessage(payload: any) {
-        const info = payload.msg;
-
-        const data: IGameResult = {
-            artist: info.artist,
-            songTitle: info.songTitle,
-            players: info.players,
-            gameOver: info.gameOver,
-        };
-        const messageEvent: IMessageEvent = {
-            channel: info.channel,
-            type: data.gameOver ? "summary" : "result",
-            data,
-        };
-        this.notify(messageEvent);
-    }
+    private _handleResultMessage(info: any) {}
 
     private notify(event: IMessageEvent) {
         for (const listener of this.listeners) {

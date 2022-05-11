@@ -1,48 +1,62 @@
 import { Button, Container, Group, Slider, Stack, Text } from "@mantine/core";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import { IGameConfiguration, TQuestionType } from "../../api/@def";
+import { SONG_POOLS } from "../../api/StompApi";
 import { GameContext } from "../../contexts/GameContext";
 import { GameModeButton } from "../ui/GameModeButton";
-import { SONG_POOLS, SongPoolSelector } from "../ui/SongPoolSelector";
+import { SongPoolSelector } from "../ui/SongPoolSelector";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
+    const { gameConfiguration, setGameConfiguration } = context;
+    const history = useHistory();
+    const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
-    const [stompConnected, setStompConnected] = useState(false);
-    const [gameMode, setGameMode] = useState<TQuestionType>("Guess the song");
-    const [gameRounds, setGameRounds] = useState(15);
-    const [playBackDuration, setPlayBackDuration] = useState(15);
-    const [songPool, setSongPool] = useState<string>(SONG_POOLS[0].id);
-    const [roundDuration, setRoundDuration] = useState();
+    const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
+    const [gameRounds, setGameRounds] = useState(gameConfiguration.gameRounds);
+    const [playBackDuration, setPlayBackDuration] = useState(gameConfiguration.playBackDuration);
+    const [songPool, setSongPool] = useState(gameConfiguration.songPool);
+    const [roundDuration, setRoundDuration] = useState(gameConfiguration.roundDuration);
 
     useEffect(() => {
         async function connect() {
             const lobbyId = await context.api.createLobbyAndGetId();
             context.setLobbyId(lobbyId);
             setConnected(true);
+            context.info(`Lobby '${lobbyId}' created`);
         }
         connect();
     }, []);
 
-    const config: IGameConfiguration = {
-        gameMode: String(gameMode),
-        gameRounds: String(gameRounds),
-        playBackDuration: String(playBackDuration),
-        songPool: "SWITZERLAND", //FIXME
-        roundDuration: String(roundDuration),
-    };
+    // const config: IStompGameConfiguration = {
+    //     gameMode: gameMode,
+    //     gameRounds: String(gameRounds),
+    //     playBackDuration: String(playBackDuration),
+    //     songPool: "SWITZERLAND", //FIXME
+    //     roundDuration: String(roundDuration),
+    // };
     const gameModes: TQuestionType[] = ["Guess the song", "Guess the artist", "Guess the lyrics"];
     const message = connected ? "Connected " + context.lobbyId : "Connecting...";
-    const stompMessage = stompConnected ? "StompConnected" : "Stomp not connected";
-    const connectServer = () => {
-        context.api.connect(context.lobbyId, () => {
-            setStompConnected(true);
-        });
-    };
     const saveConfiguration = () => {
-        context.api.sendSettings(context.lobbyId, config);
+        // context.api.sendSettings(context.lobbyId, config);
+        const config: IGameConfiguration = {
+            gameMode,
+            gameRounds,
+            playBackDuration,
+            songPool,
+            roundDuration,
+        };
+        const gameConfiguration: any = {
+            gameMode: "ARTISTGAME",
+            roundDuration: "SIXTEEN",
+            playBackDuration: "SIXTEEN",
+            songPool: "SWITZERLAND",
+            gameRounds: "2",
+        };
+        context.setGameConfiguration(gameConfiguration);
+        setGameConfigurationSaved(true);
+        context.info("Game configuration successfully saved.");
     };
 
     return (
@@ -50,7 +64,6 @@ export const SelectGameMode = (props) => {
             <Stack align="center">
                 <h1>Game Configuration</h1>
                 <Text>{message}</Text>
-                <Text>{stompMessage}</Text>
                 <Group spacing={0} sx={{ paddingBottom: 50 }}>
                     {gameModes.map((mode, i) => {
                         return <GameModeButton key={i} type={mode} selected={gameMode === mode} onSelect={() => setGameMode(mode)} />;
@@ -66,9 +79,8 @@ export const SelectGameMode = (props) => {
             </Stack>
             <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
             <Stack align="center" sx={{ paddingTop: 60 }}>
-                <Button onClick={() => connectServer()}>Connect server</Button>
                 <Button onClick={() => saveConfiguration()}>Save configuration</Button>
-                <Button component={Link} to="/displayqr">
+                <Button disabled={!gameConfigurationSaved} onClick={() => history.push("/displayqr")}>
                     Invite players
                 </Button>
             </Stack>

@@ -1,11 +1,9 @@
 import { Button, Container, Stack, Title } from "@mantine/core";
-import { useContext, useEffect } from "react";
-import Lottie from "react-lottie";
-import { Link } from "react-router-dom";
-
 import { BaseContainer } from "components/ui/BaseContainer";
 import { GameContext } from "contexts/GameContext";
-
+import { useContext } from "react";
+import Lottie from "react-lottie";
+import { Link } from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingHost = (props) => {
@@ -19,10 +17,6 @@ export const LandingHost = (props) => {
         },
     };
 
-    useEffect(() => {
-        context.setUserRole("host");
-    }, []);
-
     return (
         <BaseContainer>
             <Container size="sm">
@@ -31,12 +25,9 @@ export const LandingHost = (props) => {
                         RaveWave Host
                     </Title>
                     <Lottie options={defaultOptions} speed={1} />
-                    <Stack align="stretch">
-                        <Button component={Link} to="/register">
-                            Register
-                        </Button>
-                        <Button component={Link} to="/login">
-                            Login
+                    <Stack sx={{ paddingTop: 40 }}>
+                        <Button component={Link} to="/connectspotify">
+                            Connect Spotify
                         </Button>
                     </Stack>
                 </Stack>

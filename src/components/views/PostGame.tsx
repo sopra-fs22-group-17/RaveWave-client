@@ -1,6 +1,7 @@
 import { Container, Stack } from "@mantine/core";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { IGameResult } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
 import { GameResult } from "../ui/GameResult";
 import { IGameController } from "./GameController";
 
@@ -10,7 +11,13 @@ export interface IPostGameProps {
 }
 
 export const PostGame: FC<IPostGameProps> = ({ controller, result }) => {
+    const context = useContext(GameContext);
+
     if (!result) return null;
+
+    const me = result.players.find((d) => d.playerName === context.playerName);
+    const list = result.players.filter((d) => d !== me);
+    list.unshift(me);
 
     return (
         <Container size={500}>

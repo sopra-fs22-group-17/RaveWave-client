@@ -1,72 +1,90 @@
-import { Button, Container, Image, Stack, Title } from "@mantine/core";
-import { FC } from "react";
-import SpotifyWebApi from "spotify-web-api-js";
-
+import { Button, Container, Group, Image, Stack, Text } from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
-
-import { remote } from "../../api/Api";
-import { handleError } from "../../helpers/api";
-import spotifyURL from "../../model/SpotifyURL";
-
-let spotifyApi = new SpotifyWebApi();
+import { FC, useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { SpotifyURL } from "../../api/SpotifyModel";
+import { GameContext } from "../../contexts/GameContext";
+import { useQueryParam } from "../../hooks/useQuery";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
-    async function fetchSpotifyURI() {
+    const context = useContext(GameContext);
+    const { api } = context;
+    const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
+    const spotifyCodeParam = useQueryParam("code");
+
+    console.log("RENDER " + spotifyCodeParam);
+
+    useEffect(() => {
+        context.setUserRole("host");
+        context.setPlayerName("Host");
+    }, []);
+
+    useEffect(() => {
+        const handler = async () => {
+            if (!spotifyCodeParam) {
+                await connectSpotify();
+            } else {
+                await sendSpotifyCode();
+            }
+        };
+        handler();
+    }, []);
+
+    // useEffect(() => {
+    //     const handler = async () => {
+    //         if (!spotifyAuthorized) {
+    //             if (!spotifyCodeParam) {
+    //                 connectSpotify();
+    //             } else {
+    //                 sendSpotifyCode();
+    //             }
+    //         } else {
+    //         }
+    //     };
+    //     handler();
+    // }, [spotifyAuthorized, spotifyCodeParam]);
+
+    const connectSpotify = async () => {
         try {
-            const response = await remote.getAuthorizationCodeUri();
-            redirectUser(response);
+            const response = await api.getAuthorizationCodeUri();
+            const spotifyLink = new SpotifyURL(response.data);
+            context.info("Redirecting " + (spotifyLink.redirectionURL.substring(0, 30) + "..."));
+            window.location.href = spotifyLink.redirectionURL;
         } catch (error) {
-            console.error(`Something went wrong while fetching the URL: \n${handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong while fetching the URL! See the console for details.");
+            context.error(error.toString());
         }
-    }
+    };
 
-    function redirectUser(response) {
+    const sendSpotifyCode = async () => {
+        const authCodeRequest = JSON.stringify({ code: spotifyCodeParam });
+        console.log(authCodeRequest);
         try {
-            // until here fine
-
-            let URL = JSON.stringify(response.data);
-
-            const redirectURL = new spotifyURL(response.data);
-
-            window.location.href = redirectURL.redirectionURL;
-
-            new Promise((resolve) => setTimeout(resolve, 1000));
-            const queryString = window.location.search;
-
-            //window.location.refresh();
-
-            const urlParams = new URLSearchParams(queryString);
-
-            const code = urlParams.get("code");
-            console.log(code);
-
-            let authCodeRequest = JSON.stringify({ code });
-            console.log(authCodeRequest);
-            remote.postAuthorizationCode(authCodeRequest);
-        } catch (error) {
-            console.error(`Something went wrong while redirecting the user: \n${handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong while fetching the URL! See the console for details.");
+            await api.setAuthorizationCode(authCodeRequest);
+            context.info("Spotify code sent");
+        } catch {
+            context.info("Spotify code send failed");
+        } finally {
+            setSpotifyAuthorized(true);
         }
-    }
+    };
 
+    const connectionMessage = spotifyAuthorized ? "Connected to Spotify" : "Connecting...";
     return (
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
-                        Connect Spotify
-                    </Title>{" "}
                     <Container size={500}>
                         <Image src="/images/spotify-logo-white.svg" sx={{ padding: 40 }} />
                     </Container>
-                    <Stack align="stretch">
-                        <Button color="green" onClick={fetchSpotifyURI}>
-                            Authorize Spotify
+                    <Text>{connectionMessage}</Text>
+                    <Group sx={{ paddingTop: 50, visibility: !spotifyAuthorized ? "hidden" : "visible" }}>
+                        <Button component={Link} to="/login">
+                            Login
                         </Button>
-                    </Stack>
+                        <Button component={Link} to="/register">
+                            Register
+                        </Button>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

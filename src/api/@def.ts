@@ -4,18 +4,26 @@ export type TQuestionType = "Guess the song" | "Guess the artist" | "Guess the l
 
 //game configuration
 export interface IGameConfiguration {
+    roundDuration: number;
+    playBackDuration: number;
+    gameRounds: number;
+    gameMode: TQuestionType;
+    songPool: string;
+}
+
+export interface IStompGameConfiguration {
     roundDuration: string;
     playBackDuration: string;
-    songPool: string;
     gameRounds: string;
-    gameMode: string;
+    gameMode: TQuestionType;
+    songPool: string;
 }
 
 //game question (guess the artist)
 export interface IGuessOption {
     answer: string;
     answerId: string;
-    artistLogo: string;
+    albumPicture: string;
 }
 
 //game question (guess the artist)

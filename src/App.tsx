@@ -1,3 +1,5 @@
+import { NotificationsProvider } from "@mantine/notifications";
+
 import AppRouter from "components/routing/routers/AppRouter";
 import { Wallpaper } from "components/ui/Wallpaper";
 
@@ -44,10 +46,12 @@ const App = () => {
     // }
 
     return (
-        <GameProvider>
-            <Wallpaper />
-            <AppRouter />
-        </GameProvider>
+        <NotificationsProvider>
+            <GameProvider>
+                <Wallpaper />
+                <AppRouter />
+            </GameProvider>
+        </NotificationsProvider>
     );
 };
 

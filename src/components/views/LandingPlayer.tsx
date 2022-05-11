@@ -1,11 +1,9 @@
-import { Button, Container, Stack, Title } from "@mantine/core";
+import { Button, Container, Group, Stack, Title } from "@mantine/core";
+import { BaseContainer } from "components/ui/BaseContainer";
+import { GameContext } from "contexts/GameContext";
 import { useContext, useEffect } from "react";
 import Lottie from "react-lottie";
 import { Link, useParams } from "react-router-dom";
-
-import { BaseContainer } from "components/ui/BaseContainer";
-import { GameContext } from "contexts/GameContext";
-
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingPlayer = (props) => {
@@ -35,17 +33,17 @@ export const LandingPlayer = (props) => {
                         RaveWave Player
                     </Title>
                     <Lottie options={defaultOptions} speed={1} />
-                    <Stack align="stretch">
+                    <Group sx={{ paddingTop: 50 }}>
                         <Button component={Link} to="/guest">
                             Guest
-                        </Button>
-                        <Button component={Link} to="/register">
-                            Register
                         </Button>
                         <Button component={Link} to="/login">
                             Login
                         </Button>
-                    </Stack>
+                        <Button component={Link} to="/register">
+                            Register
+                        </Button>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

@@ -1,11 +1,7 @@
 import { Box, createStyles, Text, UnstyledButton } from "@mantine/core";
 import { FC } from "react";
 
-export interface ISongPool {
-    id: string;
-    label: string;
-    color: string;
-}
+import { ISongPool } from "../../api/StompApi";
 
 export interface ISongPoolSelectorProps {
     items: ISongPool[];
@@ -66,46 +62,3 @@ export const useStyles = createStyles((theme, { buttonSize }: IStylesParams) => 
         fontWeight: "bold",
     },
 }));
-
-export const SONG_POOLS: ISongPool[] = [
-    {
-        id: "charts",
-        label: "Charts",
-        color: "#8C67AB",
-    },
-    {
-        id: "hiphop",
-        label: "Hip-Hop",
-        color: "#487D95",
-    },
-    {
-        id: "mood",
-        label: "Mood",
-        color: "#1F3264",
-    },
-    {
-        id: "workout",
-        label: "Workout",
-        color: "#E8125C",
-    },
-    {
-        id: "part",
-        label: "Party",
-        color: "#BB5D19",
-    },
-    {
-        id: "metal",
-        label: "Metal",
-        color: "#777777",
-    },
-    {
-        id: "soul",
-        label: "Soul",
-        color: "#8C67AB",
-    },
-    {
-        id: "jazz",
-        label: "Jazz",
-        color: "#26856A",
-    },
-];

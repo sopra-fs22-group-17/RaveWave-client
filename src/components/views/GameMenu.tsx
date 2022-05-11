@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 export const GameMenu: FC<{}> = ({}): any => {
     const routes = [
         {
+            label: "Communication Debugger",
+            route: "/debug",
+        },
+        {
             label: "GameView",
             route: "/game",
         },

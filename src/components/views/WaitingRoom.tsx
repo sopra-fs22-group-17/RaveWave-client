@@ -1,10 +1,8 @@
 import { Box, Container, Stack, Text, Title } from "@mantine/core";
-import { FC, useContext } from "react";
-import GridLoader from "react-spinners/GridLoader";
-
 import BaseContainer from "components/ui/BaseContainer";
 import { GameContext } from "contexts/GameContext";
-
+import { FC, useContext, useEffect } from "react";
+import GridLoader from "react-spinners/GridLoader";
 import { IGameController } from "./GameController";
 
 export interface IWaitingRoomProps {
@@ -13,6 +11,20 @@ export interface IWaitingRoomProps {
 
 export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
     const context = useContext(GameContext);
+    const { userRole, lobbyId, stomp } = context;
+
+    const startGame = () => {
+        context.stomp.startGame(context.lobbyId);
+    };
+    useEffect(() => {
+        if (userRole === "host") {
+            context.info("Starting game...");
+            //            setTimeout(() => {
+            stomp.startGame(lobbyId);
+            context.info("Game started");
+            //          }, 1000);
+        }
+    }, []);
 
     return (
         <BaseContainer>

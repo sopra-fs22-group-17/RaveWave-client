@@ -32,7 +32,7 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
                                     <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                         <Box
                                             style={{
-                                                backgroundImage: `url(${option.artistLogo})`,
+                                                backgroundImage: `url(${option.albumPicture})`,
                                                 opacity: answered ? 0.5 : 1,
                                                 cursor: answered ? "default" : "pointer",
                                             }}

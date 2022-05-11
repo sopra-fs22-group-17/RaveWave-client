@@ -1,10 +1,10 @@
-import { api } from "helpers/api";
+import { api } from "./Api";
 
-export class API {
-    _user = null;
+export class SomeApi {
+    private _user = null;
 
     // @GetMapping("/ravewavers/{raverId}")
-    async getUser(raverId) {
+    public async getUser(raverId) {
         const response = await api.get(`/ravewavers/${raverId}`);
         if (response.status >= 200 && response.status < 300) {
             return response.data;
@@ -18,7 +18,7 @@ export class API {
     }
 
     // @GetMapping("/ravewavers")
-    async getUsers() {
+    public async getUsers() {
         const response = await api.get(`/ravewavers`);
         if (response.status >= 200 && response.status < 300) {
             return response.data;
@@ -30,7 +30,7 @@ export class API {
     }
 
     // @PostMapping("/ravewavers")
-    async registerUser(username, password) {
+    public async registerUser(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await api.post("/ravewavers", requestBody);
         if (response.status >= 200 && response.status < 300) {
@@ -47,7 +47,7 @@ export class API {
     }
 
     // @PutMapping("/ravewavers/{raverId}")
-    async updateUser(raverId) {
+    public async updateUser(raverId) {
         // what to pass ??
         // make new raveWaver here
         const requestBody = raverId; // send raveWaver as request body
@@ -66,7 +66,7 @@ export class API {
     }
 
     // @PostMapping("/lobbies")
-    async addLobby(gamemode) {
+    public async addLobby(gamemode) {
         // create game mode here
         const requestBody = gamemode; // pass game mode as request body
         const response = await api.post("/lobbies", requestBody);
@@ -80,7 +80,7 @@ export class API {
     }
 
     // @PutMapping("/lobbies/{lobbyId}")
-    async addPlayertoLobby(raveWaver, lobbyId) {
+    public async addPlayertoLobby(raveWaver, lobbyId) {
         // create new raveWaver here
         const requestBody = raveWaver; // pass game mode as request body
         const response = await api.put(`/lobbies/${lobbyId}`, requestBody);
@@ -94,7 +94,7 @@ export class API {
     }
 
     // @PostMapping("/login")
-    async loginUser(username, password) {
+    public async loginUser(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await api.post("/login", requestBody);
         if (response.status >= 200 && response.status < 300) {
@@ -114,7 +114,7 @@ export class API {
 
     // SPOTINIO
     // @GetMapping(value = "/Spotify/authorizationCodeUri")
-    async getAuthorizationCodeUri() {
+    public async getAuthorizationCodeUri() {
         const response = await api.get("/Spotify/authorizationCodeUri");
         const URL = response;
         if (response.status >= 200 && response.status < 300) {
@@ -125,7 +125,7 @@ export class API {
     }
 
     // @PostMapping(value = "/Spotify/authorizationCode"
-    async postAuthorizationCode(code) {
+    public async postAuthorizationCode(code) {
         const response = await api.post("/Spotify/authorizationCode", code);
         if (response.status >= 200 && response.status < 300) {
             return response;
@@ -147,22 +147,22 @@ export class API {
 
     // NOT PRESENT from here
     // remove token and set status to offline
-    logoutUser() {
+    public async logoutUser() {
         const userToken = localStorage.getItem("token");
-        api.put(`/users/logout?token=${userToken}`);
+        await api.put(`/users/logout?token=${userToken}`);
         localStorage.removeItem("token");
         this._user = null;
     }
 
     // check if there is a token in local storage
-    isLoggedIn() {
+    public isLoggedIn() {
         return !!localStorage.getItem("token");
     }
 
     // check if logged in user corresponds to user (important for edit profile)
-    isUserLoggedIn(user) {
+    public isUserLoggedIn(user) {
         return user && user.token === localStorage.getItem("token");
     }
 }
 
-export const remote = new API();
+export const remote = new SomeApi();

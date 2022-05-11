@@ -1,13 +1,18 @@
 import { Button, Container, Input, InputWrapper, PasswordInput, Stack, Title } from "@mantine/core";
-import { FC, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-
 import BaseContainer from "components/ui/BaseContainer";
+import { FC, useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { GameContext } from "../../contexts/GameContext";
 
 export const Login: FC<{}> = ({}) => {
-    const history = useHistory();
-    const [username, setUsername] = useState(null);
+    const context = useContext(GameContext);
     const [password, setPassword] = useState(null);
+
+    const setUserName = (name: string) => {
+        context.setPlayerName(name);
+    };
+
+    const redirectPath = context.userRole === "host" ? "/selectgamemode" : "/game";
 
     return (
         <BaseContainer>
@@ -19,13 +24,17 @@ export const Login: FC<{}> = ({}) => {
                     <Container size={200}>
                         <Stack spacing="lg">
                             <InputWrapper id="username" required label="Username" description="" error="">
-                                <Input placeholder="Username" onChange={(un) => setUsername(un)} sx={{ backgroundColor: "#2f036b", color: "white" }} />
+                                <Input
+                                    placeholder="Username"
+                                    onChange={(evt) => setUserName(evt.target.value)}
+                                    sx={{ backgroundColor: "#2f036b", color: "white" }}
+                                />
                             </InputWrapper>
                             <PasswordInput placeholder="Password" label="Password" description="" required onChange={(pw) => setPassword(pw)} />
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button component={Link} to="/connectspotify">
+                        <Button component={Link} to={redirectPath}>
                             Login
                         </Button>
                     </Stack>

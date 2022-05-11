@@ -1,15 +1,15 @@
-import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
-import {FC, useState} from "react";
-import {IGuessOption, IGuessQuestion} from "../../api/@def";
-import {IGameController} from "./GameController";
-import {SpotifyPlayer} from "./SpotifyPlayer";
+import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
+import { FC, useState } from "react";
+import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { IGameController } from "./GameController";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 
 export interface IGuessArtistProps {
     controller: IGameController;
     question: IGuessQuestion;
 }
 
-export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
+export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => {
     // const [question, setQuestion] = useState();
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
@@ -17,7 +17,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     if (!question) return null;
     const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
-        controller.answer(question as any, selection.answerId);
+        controller.answer(question as any, String(selection.answerId));
     };
 
     return (
@@ -32,7 +32,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                     <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                         <Box
                                             style={{
-                                                backgroundImage: `url(${option.artistLogo})`,
+                                                backgroundImage: `url(${option.albumPicture})`,
                                                 opacity: answered ? 0.5 : 1,
                                                 cursor: answered ? "default" : "pointer",
                                                 border: "1px solid white",
@@ -46,12 +46,16 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                                 backgroundPosition: "center",
                                             }}
                                         >
-                                            <Stack align="center" justify="center" sx={{height: "100%"}}>
-                                                <Text sx={{
-                                                    fontSize: 30,
-                                                    fontWeight: 700,
-                                                    textShadow: "1px 2px #00000063"
-                                                }}>{option.answer}</Text>
+                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
+                                                <Text
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        fontWeight: 700,
+                                                        textShadow: "1px 2px #00000063",
+                                                    }}
+                                                >
+                                                    {option.answer}
+                                                </Text>
                                             </Stack>
                                         </Box>
                                     </UnstyledButton>
@@ -60,9 +64,10 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                         );
                     })}
                 </Grid>
-
             </Stack>
-            <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+            <Box sx={{ paddingTop: 20 }}>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
+            </Box>
         </Container>
     );
 };

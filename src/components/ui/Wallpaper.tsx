@@ -13,7 +13,7 @@ interface IStylesParams {}
 
 export const useStyles = createStyles((theme, {}: IStylesParams) => ({
     root: {
-        position: "absolute",
+        position: "fixed",
         width: "100%",
         height: "100%",
         top: 0,

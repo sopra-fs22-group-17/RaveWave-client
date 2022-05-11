@@ -63,22 +63,22 @@ export const GUESS_THE_ARTIST_QUESTION: IGuessQuestion = {
         {
             answer: "Olivia Rodrigo",
             answerId: "1",
-            artistLogo: "/images/olivia-rodrigo.jpeg",
+            albumPicture: "/images/olivia-rodrigo.jpeg",
         },
         {
             answer: "Harry Styles",
             answerId: "2",
-            artistLogo: "/images/harry-styles.webp",
+            albumPicture: "/images/harry-styles.webp",
         },
         {
             answer: "Robin Schulz",
             answerId: "3",
-            artistLogo: "/images/robin-schulz.jpg",
+            albumPicture: "/images/robin-schulz.jpg",
         },
         {
             answer: "Tom Odell",
             answerId: "4",
-            artistLogo: "/images/tom-odell.jpeg",
+            albumPicture: "/images/tom-odell.jpeg",
         },
     ],
 };
