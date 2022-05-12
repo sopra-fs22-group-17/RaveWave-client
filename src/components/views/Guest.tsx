@@ -13,12 +13,13 @@ export const Guest: FC<{}> = ({}) => {
     const [username, setUsername] = useState('');
     const stompMessage = stompConnected ? "StompConnected" : "Stomp not connected";
 
+    /*
     const connectServer = () => {
         context.stomp.connect(context.lobbyId, () => {
             setStompConnected(true);
         });
     };
-
+*/
     const startGame = () => {
         context.stomp.startGame(context.lobbyId);
     };
@@ -51,7 +52,11 @@ export const Guest: FC<{}> = ({}) => {
                         <Button component={Link} to="/landingplayer">
                             Back
                         </Button>
+                        {
+                            /*
                         <Button onClick={() => connectServer()}>Connect server</Button>
+                             */
+                        }
                         <Button onClick={() => startGame()}>Start game</Button>
                         <Button onClick={doGuest} disabled={!username}>
                             Continue
