@@ -1,5 +1,6 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+
 import { IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, IStompGameConfiguration } from "./@def";
 import { defer } from "./Deferred";
 
@@ -97,7 +98,12 @@ export class StompApi {
     }
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
-        this.send(`/app/lobbies/${lobbyId}/end-round`, JSON.stringify(answer));
+        this.send(
+            `/app/lobbies/${lobbyId}/player/
+${localStorage.getItem("playerId")}/save-answer
+`,
+            JSON.stringify(answer),
+        );
     }
 
     /*
@@ -322,7 +328,7 @@ export class StompApi {
 export const SONG_POOLS: ISongPool[] = [
     {
         id: "SWITZERLAND",
-        label: "Switzerland",
+        label: "Swiss",
         color: "#8C67AB",
     },
     {
