@@ -3,7 +3,8 @@ import BaseContainer from "components/ui/BaseContainer";
 import { FC, useContext, useState } from "react";
 import {Link, useHistory} from "react-router-dom";
 import { GameContext } from "../../contexts/GameContext";
-import {handleError, remote, RestApi} from "../../api/RestApi";
+import { remote } from "../../api/RestApi";
+import {handleError} from "../../helpers/api";
 
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -44,7 +45,7 @@ export const Login: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button component={Link} to={redirectPath}>
+                        <Button onClick={doLogin} disabled={!username || !password}>
                             Login
                         </Button>
                     </Stack>

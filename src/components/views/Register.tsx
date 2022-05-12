@@ -3,7 +3,8 @@ import BaseContainer from "components/ui/BaseContainer";
 import { FC, useContext, useState } from "react";
 import {Link, useHistory} from "react-router-dom";
 import { GameContext } from "../../contexts/GameContext";
-import {handleError, remote, RestApi} from "../../api/RestApi";
+import { remote } from "../../api/RestApi";
+import {handleError} from "../../helpers/api";
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -21,7 +22,7 @@ export const Register: FC<{}> = ({}) => {
     async function doRegister() {
         try {
             if (password == repassword) {
-                await RestApi.registerUser(username, password);
+                await remote.registerUser(username, password);
                 history.push("/connectspotify");
             } else {
                 alert("your passwords don't match'");
@@ -52,7 +53,7 @@ export const Register: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button component={Link} to={redirectPath}>
+                        <Button onClick={doRegister} disabled={!username || !password || !repassword}>
                             Register
                         </Button>
                     </Stack>

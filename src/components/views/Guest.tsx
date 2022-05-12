@@ -3,7 +3,8 @@ import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import { GameContext } from "../../contexts/GameContext";
-import {handleError} from "../../api/RestApi";
+import { remote } from "../../api/RestApi";
+import {handleError} from "../../helpers/api";
 
 export const Guest: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -13,13 +14,13 @@ export const Guest: FC<{}> = ({}) => {
     const stompMessage = stompConnected ? "StompConnected" : "Stomp not connected";
 
     const connectServer = () => {
-        context.api.connect(context.lobbyId, () => {
+        context.stomp.connect(context.lobbyId, () => {
             setStompConnected(true);
         });
     };
 
     const startGame = () => {
-        context.api.startGame(context.lobbyId);
+        context.stomp.startGame(context.lobbyId);
     };
 
     const setUserName = (name: string) => {
@@ -28,7 +29,7 @@ export const Guest: FC<{}> = ({}) => {
 
     async function doGuest() {
         try {
-            await remote.addGuesttoLobby(username, context.lobbyId);
+            await remote.addPlayer(context.lobbyId, username);
             history.push("/game");
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${handleError(error)}`);
