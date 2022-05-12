@@ -1,5 +1,7 @@
 import axios from "axios";
 import { getDomain } from "./getDomain";
+import {useContext} from "react";
+import {GameContext} from "../contexts/GameContext";
 
 export const remote = axios.create({
     baseURL: getDomain(),
@@ -109,6 +111,7 @@ export class RestApi {
             const user = response.data;
             // Store the playerId into the local storage.
             localStorage.setItem("playerId", user.id);
+            //context.setUserId(user.id);
             user.id = String(user.id);
             console.log("rest response: " + JSON.stringify(user, null, 4));
             return user;

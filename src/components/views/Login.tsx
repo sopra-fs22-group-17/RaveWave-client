@@ -7,7 +7,7 @@ import { GameContext } from "../../contexts/GameContext";
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
     const history = useHistory();
-    const { api } = context;
+    const { api, userRole } = context;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -16,12 +16,13 @@ export const Login: FC<{}> = ({}) => {
         context.setPlayerName(name);
     };
 
-    const redirectPath = context.userRole === "host" ? "/selectgamemode" : "/game";
+    const redirectPath = userRole === "host" ? "/selectgamemode" : "/game";
 
     async function doLogin() {
         try {
             await api.loginUser(username, password);
-            history.push("/connectspotify");
+            setUserName(username);
+            history.push(redirectPath);
         } catch (error) {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);

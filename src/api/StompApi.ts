@@ -122,8 +122,8 @@ export class StompApi {
 
         // const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
 
-        this.sock = new SockJS(`http://localhost:8080/ws`); // local
-        // this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
+        //this.sock = new SockJS(`http://localhost:8080/ws`); // local
+        this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
         // const endpoint = getEndpoint();
         // this.sock = new SockJS(endpoint);
 

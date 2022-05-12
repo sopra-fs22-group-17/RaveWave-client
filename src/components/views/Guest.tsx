@@ -8,7 +8,7 @@ import {remote} from "../../api/RestApi";
 export const Guest: FC<{}> = ({}) => {
     const context = useContext(GameContext);
     const history = useHistory();
-    const { api } = context;
+    const { api, playerName } = context;
 
     const [username, setUsername] = useState('');
 
@@ -18,7 +18,10 @@ export const Guest: FC<{}> = ({}) => {
 
     async function doGuest() {
         try {
-            await api.addPlayer(context.lobbyId, username);
+            const confirmation = await api.addPlayer(context.lobbyId, username);
+            context.setUserId(confirmation.id);
+            context.info(`Player '${playerName}' registered.`);
+            setUserName(username);
             history.push("/game");
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
