@@ -16,9 +16,9 @@ export const SelectGameMode = (props) => {
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
     const [gameRounds, setGameRounds] = useState(gameConfiguration.gameRounds);
-    const [playBackDuration, setPlayBackDuration] = useState(gameConfiguration.playBackDuration);
     const [songPool, setSongPool] = useState(gameConfiguration.songPool);
-    const [roundDuration, setRoundDuration] = useState(gameConfiguration.roundDuration);
+    const [playBackDuration, setPlayBackDuration] = useState(gameConfiguration.playBackDuration);
+    const roundDuration = playBackDuration;
 
     useEffect(() => {
         async function connect() {
@@ -30,13 +30,6 @@ export const SelectGameMode = (props) => {
         connect();
     }, []);
 
-    // const config: IStompGameConfiguration = {
-    //     gameMode: gameMode,
-    //     gameRounds: String(gameRounds),
-    //     playBackDuration: String(playBackDuration),
-    //     songPool: "SWITZERLAND", //FIXME
-    //     roundDuration: String(roundDuration),
-    // };
     const gameModes: TQuestionType[] = ["Guess the song", "Guess the artist", "Guess the lyrics"];
     const message = connected ? "Connected " + context.lobbyId : "Connecting...";
     const saveConfiguration = () => {
@@ -55,9 +48,13 @@ export const SelectGameMode = (props) => {
             songPool: "SWITZERLAND",
             gameRounds: "2",
         };
-        context.setGameConfiguration(gameConfiguration);
+
+        context.setGameConfiguration(config);
         setGameConfigurationSaved(true);
         context.info("Game configuration successfully saved.");
+        console.log(gameConfiguration);
+        console.log("FROM CONTEXT" + JSON.stringify(context.gameConfiguration, null, 4));
+        console.log("FROM CONFIG" + JSON.stringify(config));
     };
 
     return (
@@ -73,10 +70,18 @@ export const SelectGameMode = (props) => {
             </Stack>
             <Stack>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} step={2} onChange={setGameRounds}></Slider>
+                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14} step={2} onChange={setGameRounds}></Slider>
 
                 <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(2)} value={playBackDuration} step={2} onChange={setPlayBackDuration}></Slider>
+                <Slider
+                    min={10}
+                    max={20}
+                    label={(value) => value.toFixed(0)}
+                    value={playBackDuration}
+                    defaultValue={14}
+                    step={2}
+                    onChange={setPlayBackDuration}
+                ></Slider>
             </Stack>
             <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
             <Stack align="center" sx={{ paddingTop: 60 }}>

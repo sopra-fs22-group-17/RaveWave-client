@@ -15,7 +15,7 @@ export interface IStompGameConfiguration {
     roundDuration: string;
     playBackDuration: string;
     gameRounds: string;
-    gameMode: TQuestionType;
+    gameMode: string;
     songPool: string;
 }
 

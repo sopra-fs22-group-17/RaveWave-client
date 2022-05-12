@@ -55,22 +55,23 @@ export class StompApi {
     }
 
     public sendSettings(lobbyId: string, gameConfiguration?: IGameConfiguration): void {
-        const mockupSettings = {
-            gameMode: "ARTISTGAME",
-            roundDuration: "FOURTEEN",
-            playBackDuration: "FOURTEEN",
-            songPool: "SWITZERLAND",
-            gameRounds: 12,
-        };
+        // const mockupSettings = {
+        //     gameMode: "ARTISTGAME",
+        //     roundDuration: "FOURTEEN",
+        //     playBackDuration: "FOURTEEN",
+        //     songPool: "SWITZERLAND",
+        //     gameRounds: "12",
+        // };
 
         console.log("SEND SETTINGS 1");
         const stompGameConfiguration: IStompGameConfiguration = {
-            roundDuration: String(gameConfiguration.roundDuration),
-            playBackDuration: String(gameConfiguration.playBackDuration),
+            roundDuration: NUMBER_STRING_ARRAY[gameConfiguration.roundDuration],
+            playBackDuration: NUMBER_STRING_ARRAY[gameConfiguration.playBackDuration],
             gameRounds: String(gameConfiguration.gameRounds),
-            gameMode: gameConfiguration.gameMode,
-            songPool: String(gameConfiguration.songPool),
+            gameMode: GAME_MODES[gameConfiguration.gameMode],
+            songPool: gameConfiguration.songPool,
         };
+
         console.log(JSON.stringify(stompGameConfiguration, null, 4));
         this.stomp.send(`/app/lobbies/${lobbyId}/setup`, {}, JSON.stringify(stompGameConfiguration));
         console.log("SEND SETTINGS 2");
@@ -332,38 +333,68 @@ export const SONG_POOLS: ISongPool[] = [
         color: "#8C67AB",
     },
     {
-        id: "hiphop",
+        id: "HIPHOP",
         label: "Hip-Hop",
         color: "#487D95",
     },
     {
-        id: "mood",
+        id: "MOOD",
         label: "Mood",
         color: "#1F3264",
     },
     {
-        id: "workout",
+        id: "WORKOUT",
         label: "Workout",
         color: "#E8125C",
     },
     {
-        id: "part",
+        id: "PARTY",
         label: "Party",
         color: "#BB5D19",
     },
     {
-        id: "metal",
+        id: "METAL",
         label: "Metal",
         color: "#777777",
     },
     {
-        id: "soul",
+        id: "SOUL",
         label: "Soul",
         color: "#8C67AB",
     },
     {
-        id: "jazz",
+        id: "JAZZ",
         label: "Jazz",
         color: "#26856A",
     },
+];
+
+const GAME_MODES = {
+    "Guess the song": "SONGGAME",
+    "Guess the artist": "ARTISTGAME",
+    "Guess the lyrics": "LYRICSGAME",
+};
+
+const NUMBER_STRING_ARRAY = [
+    "ZERO",
+    "ONE",
+    "TWO",
+    "THREE",
+    "FOUR",
+    "FIVE",
+    "SIX",
+    "SEVEN",
+    "EIGHT",
+    "NINE",
+    "TEN",
+    "ELEVEN",
+    "TWELVE",
+    "THIRTEEN",
+    "FOURTEEN",
+    "FIFTEEN",
+    "SIXTEEN",
+    "SEVENTEEN",
+    "EIGHTEEN",
+    "NINETEEN",
+    "TWENTY",
 ];
