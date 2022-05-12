@@ -58,6 +58,7 @@ export class RestApi {
             const user = response.data;
             // Store the token into the local storage.
             localStorage.setItem("token", user.token);
+            localStorage.setItem("playerId", user.id);
             this._user = user;
             return response.data;
         } else if (response.status === 404) {
@@ -105,10 +106,12 @@ export class RestApi {
     public async addPlayer(lobbyId: string, playerName: string): Promise<IPlayerConfirmation> {
         const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName });
         if (response.status >= 200 && response.status < 300) {
-            const data = response.data;
-            data.id = String(data.id);
-            console.log("rest response: " + JSON.stringify(data, null, 4));
-            return data;
+            const user = response.data;
+            // Store the playerId into the local storage.
+            localStorage.setItem("playerId", user.id);
+            user.id = String(user.id);
+            console.log("rest response: " + JSON.stringify(user, null, 4));
+            return user;
         } else {
             throw new Error("Error happend when trying to add player");
         }
