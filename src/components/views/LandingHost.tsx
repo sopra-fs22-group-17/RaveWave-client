@@ -8,6 +8,7 @@ import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingHost = (props) => {
     const context = useContext(GameContext);
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -26,8 +27,11 @@ export const LandingHost = (props) => {
                     </Title>
                     <Lottie options={defaultOptions} speed={1} />
                     <Stack sx={{ paddingTop: 40 }}>
-                        <Button component={Link} to="/connectspotify">
-                            Connect Spotify
+                        <Button component={Link} to="/register">
+                            Register
+                        </Button>
+                        <Button component={Link} to="/login">
+                            Login
                         </Button>
                     </Stack>
                 </Stack>
