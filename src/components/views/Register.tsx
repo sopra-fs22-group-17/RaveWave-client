@@ -7,7 +7,7 @@ import { GameContext } from "../../contexts/GameContext";
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
     const history = useHistory();
-    const { api, userRole } = context;
+    const { api, userRole, playerName } = context;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -17,14 +17,17 @@ export const Register: FC<{}> = ({}) => {
         context.setPlayerName(name);
     };
 
-    const redirectPath = userRole === "host" ? "/selectgamemode" : "/game";
+    const redirectPath = userRole === "host" ? "/connectspotify" : "/game";
 
     async function doRegister() {
         try {
-            if (password == repassword) {
-                await api.registerUser(username, password);
+            if (password === repassword) {
+                const confirmation = await api.registerUser(username, password);
                 setUserName(username);
-                history.push(redirectPath);
+                context.setUserId(confirmation.id);
+                context.info(`Player '${playerName}' registered.`);
+                context.setUserRole("host");
+                history.push("/connectspotify");
             } else {
                 alert("your passwords don't match'");
             }

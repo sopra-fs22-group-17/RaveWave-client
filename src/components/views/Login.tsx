@@ -7,7 +7,7 @@ import { GameContext } from "../../contexts/GameContext";
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
     const history = useHistory();
-    const { api, userRole } = context;
+    const { api, userRole, playerName } = context;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -20,9 +20,12 @@ export const Login: FC<{}> = ({}) => {
 
     async function doLogin() {
         try {
-            await api.loginUser(username, password);
+            const confirmation = await api.loginUser(username, password);
             setUserName(username);
-            history.push(redirectPath);
+            context.setUserId(confirmation.id);
+            context.info(`Player '${playerName}' registered.`);
+            context.setUserRole("player");
+            history.push("/game");
         } catch (error) {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);

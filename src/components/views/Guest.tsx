@@ -19,9 +19,10 @@ export const Guest: FC<{}> = ({}) => {
     async function doGuest() {
         try {
             const confirmation = await api.addPlayer(context.lobbyId, username);
+            setUserName(username);
             context.setUserId(confirmation.id);
             context.info(`Player '${playerName}' registered.`);
-            setUserName(username);
+            context.setUserRole("player");
             history.push("/game");
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
