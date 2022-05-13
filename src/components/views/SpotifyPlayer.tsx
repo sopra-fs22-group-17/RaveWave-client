@@ -24,7 +24,7 @@ export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url, duration }) => {
                 showFilledVolume={true}
                 showDownloadProgress={false}
                 hasDefaultKeyBindings={false}
-                customProgressBarSection={[]}
+                customProgressBarSection={[ ]}
                 customControlsSection={[<div>Song Name: </div>, RHAP_UI.MAIN_CONTROLS]}
             />
         </Box>
