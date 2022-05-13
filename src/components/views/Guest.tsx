@@ -25,7 +25,7 @@ export const Guest: FC<{}> = ({}) => {
             context.setUserRole("player");
             history.push("/game");
         } catch (error) {
-            console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
+            console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
             alert("Something went wrong while registering the user! See the console for details.");
         }

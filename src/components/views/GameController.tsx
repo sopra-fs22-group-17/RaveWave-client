@@ -45,7 +45,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         const setup = async () => {
             //const confirmation = await context.api.addPlayer(lobbyId, playerName);
             //context.setUserId(confirmation.playerId);
-            context.info(`Player '${playerName}' registered.`);
+            //context.info(`Player '${playerName}' registered.`);
 
             const connected = await context.stomp.connect(lobbyId);
             context.info(`Player '${playerName}' connected.`);
