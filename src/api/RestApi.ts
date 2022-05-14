@@ -1,11 +1,11 @@
 import axios from "axios";
-import { getDomain } from "./getDomain";
+import {getDomain} from "./getDomain";
 import {useContext} from "react";
 import {GameContext} from "../contexts/GameContext";
 
 export const remote = axios.create({
     baseURL: getDomain(),
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type": "application/json"},
 });
 
 export interface ISongPool {
@@ -32,7 +32,9 @@ export interface IQuestionAnswer {
 }
 
 export class RestApi {
-    constructor() {}
+    constructor() {
+    }
+
     _user = null;
 
     // @PostMapping("/ravewavers")
@@ -43,6 +45,7 @@ export class RestApi {
             const user = response.data;
             this._user = user;
             // Store the token into the local storage.
+            user.token = response.headers['Authorization']
             localStorage.setItem("token", user.token);
             return user;
         } else if (response.status === 409) {
@@ -59,6 +62,7 @@ export class RestApi {
         if (response.status >= 200 && response.status < 300) {
             const user = response.data;
             // Store the token into the local storage.
+            user.token = response.headers['Authorization']
             localStorage.setItem("token", user.token);
             localStorage.setItem("playerId", user.id);
             this._user = user;
@@ -106,7 +110,7 @@ export class RestApi {
     }
 
     public async addPlayer(lobbyId: string, playerName: string): Promise<IPlayerConfirmation> {
-        const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName });
+        const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName});
         if (response.status >= 200 && response.status < 300) {
             const user = response.data;
             // Store the playerId into the local storage.
@@ -132,7 +136,12 @@ export class RestApi {
     }
 
     public async setAuthorizationCode(code: string) {
-        const response = await remote.post("/Spotify/authorizationCode", code);
+        let config = {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        }
+        const response = await remote.post("/Spotify/authorizationCode", code, config);
         if (response.status >= 200 && response.status < 300) {
             return response;
         } else {
