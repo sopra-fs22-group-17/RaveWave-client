@@ -1,7 +1,7 @@
 import { Button, Container, Group, Image, Stack, Text } from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import { FC, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SpotifyURL } from "../../api/SpotifyModel";
 import { GameContext } from "../../contexts/GameContext";
 import { useQueryParam } from "../../hooks/useQuery";
@@ -11,6 +11,8 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     const { api } = context;
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
     const spotifyCodeParam = useQueryParam("code");
+
+    let search = useLocation().search;
 
     console.log("RENDER " + spotifyCodeParam);
 
@@ -23,6 +25,10 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         const handler = async () => {
             if (!spotifyCodeParam) {
                 await connectSpotify();
+                new Promise(resolve => setTimeout(resolve, 1000));
+                console.log("Here We are");
+
+                await sendSpotifyCode();
             } else {
                 await sendSpotifyCode();
             }
@@ -49,7 +55,9 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             const response = await api.getAuthorizationCodeUri();
             const spotifyLink = new SpotifyURL(response.data);
             context.info("Redirecting " + (spotifyLink.redirectionURL.substring(0, 30) + "..."));
-            window.location.href = spotifyLink.redirectionURL;
+            //window.location.href = spotifyLink.redirectionURL;
+            window.location.assign(spotifyLink.redirectionURL);
+            console.log(document.location)
         } catch (error) {
             context.error(error.toString());
         }

@@ -45,8 +45,9 @@ export class RestApi {
             const user = response.data;
             this._user = user;
             // Store the token into the local storage.
-            user.token = response.headers['Authorization']
-            localStorage.setItem("token", user.token);
+            user.token = response.headers["authorization"]
+            localStorage.setItem('token', user.token);
+            localStorage.setItem("playerId", user.id);
             return user;
         } else if (response.status === 409) {
             throw new Error("Add user failed because username already exists");
