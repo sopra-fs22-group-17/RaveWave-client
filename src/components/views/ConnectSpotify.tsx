@@ -8,7 +8,7 @@ import { useQueryParam } from "../../hooks/useQuery";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const { api } = context;
+    const { api, currentURL } = context;
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
     const spotifyCodeParam = useQueryParam("code");
 
@@ -64,6 +64,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     };
 
     const sendSpotifyCode = async () => {
+        console.log(currentURL);
         const authCodeRequest = JSON.stringify({ code: spotifyCodeParam });
         console.log(authCodeRequest);
         try {

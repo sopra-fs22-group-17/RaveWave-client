@@ -16,12 +16,14 @@ interface IGameContext {
     stomp: StompApi;
     lobbyId?: string;
     userId?: string;
+    currentURL?: string;
     userRole?: TUserRole;
     playerName?: string;
     gameConfiguration?: IGameConfiguration;
 
     setLobbyId: (lobbyId: string) => void;
     setUserId: (userId: string) => void;
+    setCurrentURL: (currentURL: string) => void;
     setUserRole: (role: TUserRole) => void;
     setPlayerName: (playerName: string) => void;
     setGameConfiguration: (config: IGameConfiguration) => void;
@@ -48,6 +50,7 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
     const [gameConfiguration, setGameConfiguration] = useState<IGameConfiguration>(GAME_CONFIGURATION);
     const api = useApi();
     const stomp = useStomp();
+    const [currentURL, setCurrentURL] = useState<string>();
 
     const info = (message: string) => {
         console.log(message);
@@ -72,11 +75,13 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
         stomp,
         lobbyId,
         userId,
+        currentURL,
         userRole,
         playerName,
         gameConfiguration,
         setLobbyId,
         setUserId,
+        setCurrentURL,
         setUserRole,
         setPlayerName,
         setGameConfiguration,
@@ -84,6 +89,7 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
 
     useEffect(() => {
         console.log("   " + window.location);
+        setCurrentURL(window.location.toString());
     }, []);
 
     return (
