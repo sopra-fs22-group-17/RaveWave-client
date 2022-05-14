@@ -1,18 +1,37 @@
-import { Button, Container, Input, InputWrapper, PasswordInput, Stack, Title } from "@mantine/core";
+import { Button, Container, TextInput, PasswordInput, Stack, Title } from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import { FC, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { GameContext } from "../../contexts/GameContext";
 
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const [password, setPassword] = useState(null);
+    const history = useHistory();
+    const { api, userRole, playerName } = context;
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const setUserName = (name: string) => {
         context.setPlayerName(name);
     };
 
-    const redirectPath = context.userRole === "host" ? "/selectgamemode" : "/game";
+    const redirectPath = userRole === "host" ? "/selectgamemode" : "/game";
+
+    async function doLogin() {
+        try {
+            const confirmation = await api.loginUser(username, password);
+            setUserName(username);
+            context.setUserId(confirmation.id);
+            context.info(`Player '${playerName}' registered.`);
+            context.setUserRole("player");
+            history.push("/game");
+        } catch (error) {
+            console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while loggin in the user! See the console for details.");
+        }
+    }
 
     return (
         <BaseContainer>
@@ -23,18 +42,14 @@ export const Login: FC<{}> = ({}) => {
                     </Title>{" "}
                     <Container size={200}>
                         <Stack spacing="lg">
-                            <InputWrapper id="username" required label="Username" description="" error="">
-                                <Input
-                                    placeholder="Username"
-                                    onChange={(evt) => setUserName(evt.target.value)}
-                                    sx={{ backgroundColor: "#2f036b", color: "white" }}
-                                />
-                            </InputWrapper>
-                            <PasswordInput placeholder="Password" label="Password" description="" required onChange={(pw) => setPassword(pw)} />
+                            <TextInput value={username} placeholder="Username" label="Username"
+                                       onChange={(un) => setUsername(un.currentTarget.value)}/>
+                            <PasswordInput value={password} placeholder="Password" label="Password"
+                                           onChange={(pw) => setPassword(pw.currentTarget.value)}/>
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button component={Link} to={redirectPath}>
+                        <Button onClick={doLogin} disabled={!username || !password}>
                             Login
                         </Button>
                     </Stack>

@@ -43,9 +43,9 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     //wird einmal aufgerufen im lifecycle vom gamecontroller
     useEffect(() => {
         const setup = async () => {
-            const confirmation = await context.api.addPlayer(lobbyId, playerName);
-            context.setUserId(confirmation.playerId);
-            context.info(`Player '${playerName}' registered.`);
+            //const confirmation = await context.api.addPlayer(lobbyId, playerName);
+            //context.setUserId(confirmation.playerId);
+            //context.info(`Player '${playerName}' registered.`);
 
             const connected = await context.stomp.connect(lobbyId);
             context.info(`Player '${playerName}' connected.`);
