@@ -31,11 +31,12 @@ export interface IGameProviderProps {}
 
 export const GameContext = createContext<IGameContext>(null);
 
-export const GAME_CONFUGURATION: IGameConfiguration = {
-    roundDuration: 15,
+//?
+export const GAME_CONFIGURATION: IGameConfiguration = {
+    roundDuration: 14,
     gameMode: "Guess the song",
-    gameRounds: 15,
-    playBackDuration: 15,
+    gameRounds: 14,
+    playBackDuration: 16,
     songPool: SONG_POOLS[0].id,
 };
 
@@ -44,7 +45,7 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
     const [userId, setUserId] = useState<string>();
     const [userRole, setUserRole] = useState<TUserRole>();
     const [playerName, setPlayerName] = useState<string>("Anonymous");
-    const [gameConfiguration, setGameConfiguration] = useState<IGameConfiguration>(GAME_CONFUGURATION);
+    const [gameConfiguration, setGameConfiguration] = useState<IGameConfiguration>(GAME_CONFIGURATION);
     const api = useApi();
     const stomp = useStomp();
 
