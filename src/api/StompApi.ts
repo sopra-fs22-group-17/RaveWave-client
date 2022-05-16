@@ -99,10 +99,9 @@ export class StompApi {
     }
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
+        const playerIdLocal = localStorage.getItem("playerId");
         this.send(
-            `/app/lobbies/${lobbyId}/players/
-${localStorage.getItem("playerId")}/save-answer
-`,
+            `/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`,
             JSON.stringify(answer),
         );
     }

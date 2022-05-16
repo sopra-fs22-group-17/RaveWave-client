@@ -1,8 +1,9 @@
 import { Button, Container, TextInput, PasswordInput, Stack, Title } from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
-import { FC, useContext, useState } from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import { GameContext } from "../../contexts/GameContext";
+import User from 'model/User';
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -13,21 +14,18 @@ export const Register: FC<{}> = ({}) => {
     const [password, setPassword] = useState('');
     const [repassword, setrePassword] = useState('');
 
-    const setUserName = (name: string) => {
-        context.setPlayerName(name);
-    };
-
     const redirectPath = userRole === "host" ? "/connectspotify" : "/game";
 
     async function doRegister() {
         try {
             if (password === repassword) {
                 const confirmation = await api.registerUser(username, password);
-                setUserName(username);
+                console.log(confirmation);
+                context.setPlayerName(username);
                 context.setUserId(confirmation.id);
                 context.info(`Player '${playerName}' registered.`);
                 context.setUserRole("host");
-                history.push("/connectspotify");
+                //history.push("/connectspotify");
             } else {
                 alert("your passwords don't match'");
             }

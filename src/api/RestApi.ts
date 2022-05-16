@@ -2,6 +2,7 @@ import axios from "axios";
 import {getDomain} from "./getDomain";
 import {useContext} from "react";
 import {GameContext} from "../contexts/GameContext";
+import User from "../model/User";
 
 export const remote = axios.create({
     baseURL: getDomain(),
@@ -41,13 +42,13 @@ export class RestApi {
     async registerUser(username, password) {
         const requestBody = JSON.stringify({username, password});
         const response = await remote.post("/ravewavers", requestBody);
+        console.log(response);
         if (response.status >= 200 && response.status < 300) {
-            const user = response.data;
-            this._user = user;
-            // Store the token into the local storage.
+            const user = new User(response.data);
             user.token = response.headers["authorization"]
+            // Store the token into the local storage.
             localStorage.setItem('token', user.token);
-            localStorage.setItem("playerId", user.id);
+            localStorage.setItem('playerId', user.id);
             return user;
         } else if (response.status === 409) {
             throw new Error("Add user failed because username already exists");
