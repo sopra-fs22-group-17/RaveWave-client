@@ -1,4 +1,4 @@
-import { Button, Container, Stack, Title } from "@mantine/core";
+import { Button, Container, Stack, Group, Title } from "@mantine/core";
 import { BaseContainer } from "components/ui/BaseContainer";
 import { GameContext } from "contexts/GameContext";
 import { useContext } from "react";
@@ -26,14 +26,14 @@ export const LandingHost = (props) => {
                         RaveWave Host
                     </Title>
                     <Lottie options={defaultOptions} speed={1} />
-                    <Stack sx={{ paddingTop: 40 }}>
+                    <Group sx={{ paddingTop: 40 }}>
                         <Button component={Link} to="/register">
                             Register
                         </Button>
                         <Button component={Link} to="/login">
                             Login
                         </Button>
-                    </Stack>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

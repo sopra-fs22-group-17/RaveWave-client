@@ -59,7 +59,7 @@ export class RestApi {
     // @PostMapping("/login")
     async loginUser(username, password) {
         const requestBody = JSON.stringify({username, password});
-        const response = await remote.post("/login", requestBody);
+        const response = await remote.post("/ravewavers/login", requestBody);
         if (response.status >= 200 && response.status < 300) {
             const user = response.data;
             // Store the token into the local storage.

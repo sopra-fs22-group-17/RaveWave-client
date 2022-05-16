@@ -33,15 +33,15 @@ export const LandingPlayer = (props) => {
                         RaveWave Player
                     </Title>
                     <Lottie options={defaultOptions} speed={1} />
-                    <Group sx={{ paddingTop: 50 }}>
+                    <Group sx={{ paddingTop: 40 }}>
                         <Button component={Link} to="/guest">
                             Guest
                         </Button>
-                        <Button component={Link} to="/login">
-                            Login
-                        </Button>
                         <Button component={Link} to="/register">
                             Register
+                        </Button>
+                        <Button component={Link} to="/login">
+                            Login
                         </Button>
                     </Group>
                 </Stack>
