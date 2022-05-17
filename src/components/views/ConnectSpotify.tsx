@@ -1,14 +1,13 @@
 import { Button, Container, Group, Image, Stack, Text } from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import { FC, useContext, useEffect, useState } from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { SpotifyURL } from "../../api/SpotifyModel";
 import { GameContext } from "../../contexts/GameContext";
 import { useQueryParam } from "../../hooks/useQuery";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const history = useHistory();
     const { api } = context;
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
     const spotifyCodeParam = useQueryParam("code");

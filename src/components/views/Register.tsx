@@ -1,6 +1,6 @@
 import {Button, Container, TextInput, PasswordInput, Stack, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
-import {FC, useContext, useEffect, useState} from "react";
+import {FC, useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
 

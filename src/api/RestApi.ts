@@ -1,7 +1,5 @@
 import axios from "axios";
 import {getDomain} from "./getDomain";
-import {useContext} from "react";
-import {GameContext} from "../contexts/GameContext";
 import User from "../model/User";
 
 export const remote = axios.create({
