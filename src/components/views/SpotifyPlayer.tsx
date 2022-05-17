@@ -1,13 +1,18 @@
 import { Box } from "@mantine/core";
 import { FC } from "react";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
-import "styles/views/SpotifyPlayer.scss";
 
 export interface ISpotifyPlayerProps {
     url: string;
     duration: number;
 }
+
+const styles = {
+    container: {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+    },
+} as const;
 
 export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url, duration }) => {
     console.log(url);
@@ -16,7 +21,7 @@ export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url, duration }) => {
     return (
         <Box>
             <AudioPlayer
-                className="audiopl"
+                style={styles.container}
                 src={url}
                 autoPlay={true}
                 volume={0.5}

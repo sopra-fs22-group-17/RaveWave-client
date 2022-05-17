@@ -1,5 +1,4 @@
 import React from "react";
-//import "pages/ReactLogo.scss";
 
 export const ReactLogo = props => {
   return (

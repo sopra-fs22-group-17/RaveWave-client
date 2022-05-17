@@ -1,14 +1,12 @@
-import { Button, Container, TextInput, Stack, Title } from "@mantine/core";
+import {Button, Container, TextInput, Stack, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
-import { FC, useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { GameContext } from "../../contexts/GameContext";
-import {remote} from "../../api/RestApi";
+import {FC, useContext, useState} from "react";
+import {Link} from "react-router-dom";
+import {GameContext} from "../../contexts/GameContext";
 
 export const Guest: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const history = useHistory();
-    const { api, playerName } = context;
+    const {api, playerName} = context;
 
     const [username, setUsername] = useState('');
 
@@ -23,7 +21,6 @@ export const Guest: FC<{}> = ({}) => {
             context.setUserId(confirmation.id);
             context.info(`Player '${playerName}' registered.`);
             context.setUserRole("player");
-            history.push("/game");
         } catch (error) {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -44,9 +41,11 @@ export const Guest: FC<{}> = ({}) => {
                         <Button component={Link} to="/landingplayer">
                             Back
                         </Button>
-                        <Button onClick={doGuest} disabled={!username}>
-                            Continue
-                        </Button>
+                        <Link to="/game">
+                            <Button onClick={doGuest} disabled={!username}>
+                                Continue
+                            </Button>
+                        </Link>
                     </Stack>
                 </Stack>
             </Container>

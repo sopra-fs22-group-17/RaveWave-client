@@ -1,13 +1,12 @@
-import { Button, Container, TextInput, PasswordInput, Stack, Title } from "@mantine/core";
+import {Button, Container, TextInput, PasswordInput, Stack, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
-import { FC, useContext, useState } from "react";
-import {Link, useHistory} from "react-router-dom";
-import { GameContext } from "../../contexts/GameContext";
+import {FC, useContext, useState} from "react";
+import {Link} from "react-router-dom";
+import {GameContext} from "../../contexts/GameContext";
 
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const history = useHistory();
-    const { api, userRole, playerName } = context;
+    const {api, userRole, playerName} = context;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +24,6 @@ export const Login: FC<{}> = ({}) => {
             context.setUserId(confirmation.id);
             context.info(`Player '${playerName}' registered.`);
             context.setUserRole("player");
-            history.push("/game");
         } catch (error) {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -37,7 +35,7 @@ export const Login: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         Login
                     </Title>{" "}
                     <Container size={200}>
@@ -49,9 +47,11 @@ export const Login: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button onClick={doLogin} disabled={!username || !password}>
-                            Login
-                        </Button>
+                        <Link to="/game">
+                            <Button onClick={doLogin} disabled={!username || !password}>
+                                Login
+                            </Button>
+                        </Link>
                     </Stack>
                 </Stack>
             </Container>

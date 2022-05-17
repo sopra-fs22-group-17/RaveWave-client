@@ -1,5 +1,3 @@
-//import "pages/Button.scss";
-
 export const Button = props => (
   <button
     {...props}

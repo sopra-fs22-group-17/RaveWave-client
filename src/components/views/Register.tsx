@@ -1,31 +1,34 @@
-import { Button, Container, TextInput, PasswordInput, Stack, Title } from "@mantine/core";
+import {Button, Container, TextInput, PasswordInput, Stack, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-import { GameContext } from "../../contexts/GameContext";
-import User from 'model/User';
+import {Link} from "react-router-dom";
+import {GameContext} from "../../contexts/GameContext";
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const history = useHistory();
-    const { api, userRole, playerName } = context;
+    const {api, userRole, currentURL} = context;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setrePassword] = useState('');
 
-    const redirectPath = userRole === "host" ? "/connectspotify" : "/game";
+    let redirectPath = "";
+
+    if (currentURL.includes("landinghost")) {
+        // host
+        context.setUserRole("host");
+        redirectPath = "/connectspotify";
+    } else {
+        // player
+        context.setUserRole("player");
+        redirectPath = "/game";
+    }
 
     async function doRegister() {
         try {
             if (password === repassword) {
-                const confirmation = await api.registerUser(username, password);
-                console.log(confirmation);
+                await api.registerUser(username, password);
                 context.setPlayerName(username);
-                context.setUserId(confirmation.id);
-                context.info(`Player '${playerName}' registered.`);
-                context.setUserRole("host");
-                //history.push("/connectspotify");
             } else {
                 alert("your passwords don't match'");
             }
@@ -40,7 +43,7 @@ export const Register: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         Register
                     </Title>{" "}
                     <Container size={200}>
@@ -54,9 +57,11 @@ export const Register: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Button onClick={doRegister} disabled={!username || !password || !repassword}>
-                            Register
-                        </Button>
+                        <Link to={redirectPath}>
+                            <Button onClick={doRegister} disabled={!username || !password || !repassword}>
+                                Register
+                            </Button>
+                        </Link>
                     </Stack>
                 </Stack>
             </Container>
