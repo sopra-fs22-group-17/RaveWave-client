@@ -10,16 +10,10 @@ export const Guest: FC<{}> = ({}) => {
 
     const [username, setUsername] = useState('');
 
-    const setUserName = (name: string) => {
-        context.setPlayerName(name);
-    };
-
     async function doGuest() {
         try {
-            const confirmation = await api.addPlayer(context.lobbyId, username);
-            setUserName(username);
-            context.setUserId(confirmation.id);
-            context.info(`Player '${playerName}' registered.`);
+            await api.addPlayer(context.lobbyId, username);
+            context.setPlayerName(username);
             context.setUserRole("player");
         } catch (error) {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);

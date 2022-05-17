@@ -6,24 +6,27 @@ import {GameContext} from "../../contexts/GameContext";
 
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const {api, userRole, playerName} = context;
+    const {api, userRole, playerName, currentURL} = context;
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const setUserName = (name: string) => {
-        context.setPlayerName(name);
-    };
+    let redirectPath = "";
 
-    const redirectPath = userRole === "host" ? "/selectgamemode" : "/game";
+    if (currentURL.includes("landinghost")) {
+        // host
+        context.setUserRole("host");
+        redirectPath = "/connectspotify";
+    } else {
+        // player
+        context.setUserRole("player");
+        redirectPath = "/game";
+    }
 
     async function doLogin() {
         try {
-            const confirmation = await api.loginUser(username, password);
-            setUserName(username);
-            context.setUserId(confirmation.id);
-            context.info(`Player '${playerName}' registered.`);
-            context.setUserRole("player");
+            await api.loginUser(username, password);
+            context.setPlayerName(username);
         } catch (error) {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -47,7 +50,7 @@ export const Login: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Link to="/game">
+                        <Link to={redirectPath}>
                             <Button onClick={doLogin} disabled={!username || !password}>
                                 Login
                             </Button>

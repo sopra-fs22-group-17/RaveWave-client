@@ -26,12 +26,8 @@ export const Register: FC<{}> = ({}) => {
 
     async function doRegister() {
         try {
-            if (password === repassword) {
-                await api.registerUser(username, password);
-                context.setPlayerName(username);
-            } else {
-                alert("your passwords don't match'");
-            }
+            await api.registerUser(username, password);
+            context.setPlayerName(username);
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -58,7 +54,8 @@ export const Register: FC<{}> = ({}) => {
                     </Container>
                     <Stack align="stretch">
                         <Link to={redirectPath}>
-                            <Button onClick={doRegister} disabled={!username || !password || !repassword}>
+                            <Button onClick={doRegister}
+                                    disabled={!username || !password || !repassword || !(password === repassword)}>
                                 Register
                             </Button>
                         </Link>
