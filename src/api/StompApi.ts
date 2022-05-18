@@ -25,6 +25,7 @@ export interface IPlayerConfirmation {
 export interface IQuestionAnswer {
     playerGuess: string;
     answerTime: string;
+    token: string;
 }
 
 export class StompApi {
@@ -99,11 +100,8 @@ export class StompApi {
     }
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
-        const playerIdLocal = localStorage.getItem('playerId');
-        this.send(
-            `/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`,
-            JSON.stringify(answer),
-        );
+        const playerIdLocal = localStorage.getItem("token");
+        this.send(`/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`, JSON.stringify(answer));
     }
 
     /*

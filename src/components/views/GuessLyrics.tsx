@@ -1,5 +1,6 @@
 import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
 import { FC, useState } from "react";
+
 import { IGuessOption, IGuessQuestion } from "../../api/@def";
 import { IGameController } from "./GameController";
 import { SpotifyPlayer } from "./SpotifyPlayer";
@@ -32,7 +33,7 @@ export const GuessLyrics: FC<IGuessLyricsProps> = ({ controller, question }) => 
                                     <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                         <Box
                                             style={{
-                                                backgroundImage: `url(${option.albumPicture})`,
+                                                backgroundImage: `url(${option.picture})`,
                                                 opacity: answered ? 0.5 : 1,
                                                 cursor: answered ? "default" : "pointer",
                                             }}
