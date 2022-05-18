@@ -1,5 +1,6 @@
 import { Box, Button, Container, Stack } from "@mantine/core";
 import { FC, useContext, useEffect, useState } from "react";
+
 import { SpotifyURL } from "../../api/SpotifyModel";
 import { GameContext } from "../../contexts/GameContext";
 import { useQueryParam } from "../../hooks/useQuery";
@@ -51,7 +52,7 @@ export const DebugView: FC<{}> = ({}): any => {
 
     const addPlayer = async () => {
         console.log(">>> addPlayer");
-        const response = await api.addPlayer(lobbyId, playerName);
+        const response = await api.addPlayer(lobbyId, playerName, context.userRole);
         setPlayer(response);
         context.info(`Player '${playerName}' registered.`);
         console.log("Response:\n" + JSON.stringify(response, null, 4));

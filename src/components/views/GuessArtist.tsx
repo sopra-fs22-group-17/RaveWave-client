@@ -46,7 +46,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                                     <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                         <Box
                                             style={{
-                                                backgroundImage: `url(${option.albumPicture})`,
+                                                backgroundImage: `url(${option.picture})`,
                                                 opacity: answered ? 0.5 : 1,
                                                 cursor: answered ? "default" : "pointer",
                                                 border: "1px solid white",

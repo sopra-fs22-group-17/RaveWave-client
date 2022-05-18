@@ -1,18 +1,20 @@
-import {Button, Container, TextInput, Stack, Title} from "@mantine/core";
+import { Button, Container, Stack, TextInput, Title } from "@mantine/core";
+import { FC, useContext, useState } from "react";
+import { Link } from "react-router-dom";
+
 import BaseContainer from "components/ui/BaseContainer";
-import {FC, useContext, useState} from "react";
-import {Link} from "react-router-dom";
-import {GameContext} from "../../contexts/GameContext";
+
+import { GameContext } from "../../contexts/GameContext";
 
 export const Guest: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const {api, playerName} = context;
+    const { api, playerName } = context;
 
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState("");
 
     async function doGuest() {
         try {
-            await api.addPlayer(context.lobbyId, username);
+            await api.addPlayer(context.lobbyId, username, context.userRole);
             context.setPlayerName(username);
             context.setUserRole("player");
         } catch (error) {
@@ -26,11 +28,10 @@ export const Guest: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
+                    <Title order={1} sx={{ color: "white", padding: 20 }}>
                         Guest
                     </Title>{" "}
-                    <TextInput value={username} placeholder="Username" label="Username"
-                               onChange={(un) => setUsername(un.currentTarget.value)}/>
+                    <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
                     <Stack align="stretch">
                         <Button component={Link} to="/landingplayer">
                             Back

@@ -1,5 +1,6 @@
 import { Box, Title } from "@mantine/core";
 import { FC, useContext, useEffect, useState } from "react";
+
 import { IGameResult, IGuessQuestion, IMessageEvent, TUserRole } from "../../api/@def";
 import { GameContext } from "../../contexts/GameContext";
 import { GuessArtist } from "./GuessArtist";
@@ -82,7 +83,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         },
 
         answer: (question: string, answerId: string) => {
-            stomp.saveAnswer(lobbyId, { playerGuess: answerId, answerTime: "30" });
+            const token = localStorage.getItem("playerId");
+            stomp.saveAnswer(lobbyId, { playerGuess: answerId, answerTime: "30", token });
         },
     };
 
