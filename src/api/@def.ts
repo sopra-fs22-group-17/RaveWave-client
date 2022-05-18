@@ -23,7 +23,7 @@ export interface IStompGameConfiguration {
 export interface IGuessOption {
     answer: string;
     answerId: string;
-    albumPicture: string;
+    picture: string;
 }
 
 //game question (guess the artist)
@@ -38,6 +38,7 @@ export interface IGuessQuestion {
 export interface IGameAnswer {
     playerGuess: string;
     responseTime: string;
+    token: string;
 }
 
 //post game and post round
@@ -48,6 +49,7 @@ export interface IPlayerInfo {
     roundScore: number;
     totalScore: number;
     streak: number;
+    profilePicture: string;
 }
 
 //post game and post round
