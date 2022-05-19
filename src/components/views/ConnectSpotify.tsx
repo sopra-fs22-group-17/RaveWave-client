@@ -14,7 +14,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
     useEffect(() => {
         context.setUserRole("host");
-        context.setPlayerName("Host");
+        console.log("LOOOOOOOOK at this " + context.playerName);
     }, []);
 
     useEffect(() => {
@@ -25,20 +25,6 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         };
         handler();
     }, []);
-
-    // useEffect(() => {
-    //     const handler = async () => {
-    //         if (!spotifyAuthorized) {
-    //             if (!spotifyCodeParam) {
-    //                 connectSpotify();
-    //             } else {
-    //                 sendSpotifyCode();
-    //             }
-    //         } else {
-    //         }
-    //     };
-    //     handler();
-    // }, [spotifyAuthorized, spotifyCodeParam]);
 
     const connectSpotify = async () => {
         try {
@@ -56,6 +42,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         try {
             await api.setAuthorizationCode(authCodeRequest);
             context.info("Spotify code sent");
+            console.log("LOOOOOOOOK at this " + context.playerName);
         } catch {
             context.info("Spotify code send failed");
         } finally {

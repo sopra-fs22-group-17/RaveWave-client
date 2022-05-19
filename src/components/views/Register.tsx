@@ -14,18 +14,25 @@ export const Register: FC<{}> = ({}) => {
 
     let redirectPath = "/connectspotify";
 
-    if (currentURL.includes("landinghost")) {
-        // host
-        context.setUserRole("host");
-    } else {
-        // player
-        context.setUserRole("player");
-    }
-
     async function doRegister() {
         try {
+            if (currentURL.includes("landinghost")) {
+                // host
+                const roleofPlayer = "host";
+                context.setUserRole(roleofPlayer);
+                localStorage.setItem('role', roleofPlayer);
+                redirectPath = "/connectspotify";
+            } else {
+                // player
+                const roleofPlayer = "player";
+                context.setUserRole(roleofPlayer);
+                localStorage.setItem('role', roleofPlayer);
+                redirectPath = "/game";
+            }
+            const nameofPlayer = username;
+            context.setPlayerName(nameofPlayer);
+            localStorage.setItem('name', nameofPlayer);
             await api.registerUser(username, password);
-            context.setPlayerName(username);
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
             console.error("Details:", error);

@@ -14,9 +14,13 @@ export const Guest: FC<{}> = ({}) => {
 
     async function doGuest() {
         try {
+            const nameofPlayer = username;
+            const roleofPlayer = "player";
+            context.setPlayerName(nameofPlayer);
+            context.setUserRole(roleofPlayer);
+            localStorage.setItem('name', nameofPlayer);
+            localStorage.setItem('role', roleofPlayer);
             await api.addPlayer(context.lobbyId, username);
-            context.setPlayerName(username);
-            context.setUserRole("player");
         } catch (error) {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);
             console.error("Details:", error);

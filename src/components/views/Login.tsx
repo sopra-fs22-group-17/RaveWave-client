@@ -13,20 +13,25 @@ export const Login: FC<{}> = ({}) => {
 
     let redirectPath = "";
 
-    if (currentURL.includes("landinghost")) {
-        // host
-        context.setUserRole("host");
-        redirectPath = "/connectspotify";
-    } else {
-        // player
-        context.setUserRole("player");
-        redirectPath = "/game";
-    }
-
     async function doLogin() {
         try {
+            if (currentURL.includes("landinghost")) {
+                // host
+                const roleofPlayer = "host";
+                context.setUserRole(roleofPlayer);
+                localStorage.setItem('role', roleofPlayer);
+                redirectPath = "/connectspotify";
+            } else {
+                // player
+                const roleofPlayer = "player";
+                context.setUserRole(roleofPlayer);
+                localStorage.setItem('role', roleofPlayer);
+                redirectPath = "/game";
+            }
+            const nameofPlayer = username;
+            context.setPlayerName(nameofPlayer);
+            localStorage.setItem('name', nameofPlayer);
             await api.loginUser(username, password);
-            context.setPlayerName(username);
         } catch (error) {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
