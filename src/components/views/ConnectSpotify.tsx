@@ -13,11 +13,6 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     const spotifyCodeParam = useQueryParam("code");
 
     useEffect(() => {
-        context.setUserRole("host");
-        console.log("LOOOOOOOOK at this " + context.playerName);
-    }, []);
-
-    useEffect(() => {
         const handler = async () => {
             if (spotifyCodeParam) {
                 await sendSpotifyCode();
@@ -42,13 +37,23 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         try {
             await api.setAuthorizationCode(authCodeRequest);
             context.info("Spotify code sent");
-            console.log("LOOOOOOOOK at this " + context.playerName);
         } catch {
             context.info("Spotify code send failed");
         } finally {
             setSpotifyAuthorized(true);
         }
     };
+
+    const setPlayerPar = async () => {
+        const nameofPlayer = localStorage.getItem('name');
+        const roleofPlayer = localStorage.getItem('role');
+        if (roleofPlayer === "host") {
+            context.setUserRole("host");
+        } else {
+            context.setUserRole("player");
+        }
+        context.setPlayerName(nameofPlayer);
+    }
 
     const connectionMessage = spotifyAuthorized ? "Connected to Spotify" : "You will need Spotify premium";
 
@@ -65,7 +70,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                             Authorize Spotify
                         </Button>
                         <Link to="/selectgamemode">
-                            <Button disabled={!spotifyAuthorized}>
+                            <Button onClick={setPlayerPar} disabled={!spotifyAuthorized}>
                                 Continue
                             </Button>
                         </Link>

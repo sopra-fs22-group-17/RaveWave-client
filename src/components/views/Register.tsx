@@ -12,23 +12,24 @@ export const Register: FC<{}> = ({}) => {
     const [password, setPassword] = useState('');
     const [repassword, setrePassword] = useState('');
 
-    let redirectPath = "/connectspotify";
+    let redirectPath = "";
+
+    if (currentURL.includes("landinghost")) {
+        // host
+        const roleofPlayer = "host";
+        context.setUserRole(roleofPlayer);
+        localStorage.setItem('role', roleofPlayer);
+        redirectPath = "/connectspotify";
+    } else {
+        // player
+        const roleofPlayer = "player";
+        context.setUserRole(roleofPlayer);
+        localStorage.setItem('role', roleofPlayer);
+        redirectPath = "/game";
+    }
 
     async function doRegister() {
         try {
-            if (currentURL.includes("landinghost")) {
-                // host
-                const roleofPlayer = "host";
-                context.setUserRole(roleofPlayer);
-                localStorage.setItem('role', roleofPlayer);
-                redirectPath = "/connectspotify";
-            } else {
-                // player
-                const roleofPlayer = "player";
-                context.setUserRole(roleofPlayer);
-                localStorage.setItem('role', roleofPlayer);
-                redirectPath = "/game";
-            }
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
             localStorage.setItem('name', nameofPlayer);
