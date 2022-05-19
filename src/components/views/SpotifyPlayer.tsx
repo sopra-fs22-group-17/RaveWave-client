@@ -15,8 +15,6 @@ const styles = {
 } as const;
 
 export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url, duration }) => {
-    console.log(url);
-    console.log(duration);
 
     return (
         <Box>

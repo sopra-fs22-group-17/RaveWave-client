@@ -51,6 +51,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             const connected = await context.stomp.connect(lobbyId);
             context.info(`Player '${playerName}' connected.`);
 
+            console.log(userRole);
+
             if (userRole === "host") {
                 stomp.sendSettings(lobbyId, gameConfiguration);
             }
@@ -83,7 +85,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         },
 
         answer: (question: string, answerId: string) => {
-            const token = localStorage.getItem("playerId");
+            const token = localStorage.getItem('token');
             stomp.saveAnswer(lobbyId, { playerGuess: answerId, answerTime: "30", token });
         },
     };

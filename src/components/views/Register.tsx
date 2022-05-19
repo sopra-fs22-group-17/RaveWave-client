@@ -12,16 +12,14 @@ export const Register: FC<{}> = ({}) => {
     const [password, setPassword] = useState('');
     const [repassword, setrePassword] = useState('');
 
-    let redirectPath = "";
+    let redirectPath = "/connectspotify";
 
     if (currentURL.includes("landinghost")) {
         // host
         context.setUserRole("host");
-        redirectPath = "/connectspotify";
     } else {
         // player
         context.setUserRole("player");
-        redirectPath = "/game";
     }
 
     async function doRegister() {

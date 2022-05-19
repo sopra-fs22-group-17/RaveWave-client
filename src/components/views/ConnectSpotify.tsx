@@ -12,11 +12,9 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
     const spotifyCodeParam = useQueryParam("code");
 
-    console.log("RENDER " + spotifyCodeParam);
-
     useEffect(() => {
-        context.setUserRole("host");
-        context.setPlayerName("Host");
+        //context.setUserRole("host");
+        //context.setPlayerName("Host");
     }, []);
 
     useEffect(() => {
@@ -55,7 +53,6 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
     const sendSpotifyCode = async () => {
         const authCodeRequest = JSON.stringify({ code: spotifyCodeParam });
-        console.log(authCodeRequest);
         try {
             await api.setAuthorizationCode(authCodeRequest);
             context.info("Spotify code sent");

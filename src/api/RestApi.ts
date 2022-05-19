@@ -46,8 +46,8 @@ export class RestApi {
             const user = new User(response.data);
             user.token = response.headers["authorization"];
             // Store the token into the local storage.
-            localStorage.setItem("token", user.token);
-            localStorage.setItem("playerId", user.id);
+            localStorage.setItem("raveWaverToken", user.token);
+            localStorage.setItem("raveWaverId", user.id);
             return user;
         } else if (response.status === 409) {
             throw new Error("Add user failed because username already exists");
@@ -111,35 +111,38 @@ export class RestApi {
     }
 
     public async addPlayer(lobbyId: string, playerName: string, identifier: string): Promise<IPlayerConfirmation> {
-        if (identifier === "player") {
-            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName });
+        try {
+            let config = {
+                headers: {
+                    Authorization: localStorage.getItem("raveWaverToken"),
+                },
+            };
+            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName, config});
             console.log("addPlayer" + JSON.stringify(response.data));
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
+                console.log("log before, RW" + user.token);
                 user.token = response.headers["authorization"];
+                console.log("log after, RW" + user.token);
                 // Store the token into the local storage.
                 localStorage.setItem("token", user.token);
                 localStorage.setItem("playerId", user.id);
-                //console.log("rest response: " + JSON.stringify(user, null, 4));
                 return user;
             } else {
                 throw new Error("Error happend when trying to add player");
             }
-        } else {
-            let config = {
-                headers: {
-                    Authorization: localStorage.getItem("token"),
-                },
-            };
-            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName, config });
+        }
+        catch (e) {
+            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName });
             console.log("addPlayer" + JSON.stringify(response.data));
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
+                console.log("log before, player" + user.token);
                 user.token = response.headers["authorization"];
+                console.log("log after, player" + user.token);
                 // Store the token into the local storage.
                 localStorage.setItem("token", user.token);
                 localStorage.setItem("playerId", user.id);
-                //console.log("rest response: " + JSON.stringify(user, null, 4));
                 return user;
             } else {
                 throw new Error("Error happend when trying to add player");
@@ -162,7 +165,7 @@ export class RestApi {
     public async setAuthorizationCode(code: string) {
         let config = {
             headers: {
-                Authorization: localStorage.getItem("token"),
+                Authorization: localStorage.getItem("raveWaverToken"),
             },
         };
         const response = await remote.post("/Spotify/authorizationCode", code, config);

@@ -1,13 +1,17 @@
 import { Button, Container, Stack, Group, Title } from "@mantine/core";
 import { BaseContainer } from "components/ui/BaseContainer";
 import { GameContext } from "contexts/GameContext";
-import { useContext } from "react";
+import {useContext, useEffect} from "react";
 import Lottie from "react-lottie";
 import { Link } from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingHost = (props) => {
     const context = useContext(GameContext);
+
+    useEffect(() => {
+        context.setUserRole("host");
+    },);
 
     const defaultOptions = {
         loop: true,

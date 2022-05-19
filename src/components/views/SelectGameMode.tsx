@@ -7,10 +7,11 @@ import {SONG_POOLS} from "../../api/StompApi";
 import {GameContext} from "../../contexts/GameContext";
 import {GameModeButton} from "../ui/GameModeButton";
 import {SongPoolSelector} from "../ui/SongPoolSelector";
+import {getDomain} from "../../api/getDomain";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, setGameConfiguration} = context;
+    const {gameConfiguration, setGameConfiguration, userRole} = context;
     const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
@@ -20,11 +21,17 @@ export const SelectGameMode = (props) => {
     let roundDuration = playBackDuration;
 
     useEffect(() => {
+
         async function connect() {
-            const lobbyId = await context.api.createLobbyAndGetId();
-            context.setLobbyId(lobbyId);
-            setConnected(true);
-            context.info(`Lobby '${lobbyId}' created`);
+            console.log("your role is:" + userRole)
+            if (userRole === "player") {
+                window.location.href = getDomain + "/waitingroom";
+            } else {
+                const lobbyId = await context.api.createLobbyAndGetId();
+                context.setLobbyId(lobbyId);
+                setConnected(true);
+                context.info(`Lobby '${lobbyId}' created`);
+            }
         }
 
         connect();
