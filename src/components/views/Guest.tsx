@@ -14,7 +14,7 @@ export const Guest: FC<{}> = ({}) => {
 
     async function doGuest() {
         try {
-            await api.addPlayer(context.lobbyId, username, context.userRole);
+            await api.addPlayer(context.lobbyId, username);
             context.setPlayerName(username);
             context.setUserRole("player");
         } catch (error) {

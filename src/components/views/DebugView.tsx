@@ -52,7 +52,7 @@ export const DebugView: FC<{}> = ({}): any => {
 
     const addPlayer = async () => {
         console.log(">>> addPlayer");
-        const response = await api.addPlayer(lobbyId, playerName, context.userRole);
+        const response = await api.addPlayer(lobbyId, playerName);
         setPlayer(response);
         context.info(`Player '${playerName}' registered.`);
         console.log("Response:\n" + JSON.stringify(response, null, 4));
