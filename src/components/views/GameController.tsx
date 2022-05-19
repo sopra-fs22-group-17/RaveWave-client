@@ -24,7 +24,7 @@ export interface IGameControllerProps {
 
 export interface IGameController {
     gotoState(state: IGameState): void;
-    answer: (question: string, answerId: string) => void;
+    answer: (question: string, answerId: string, answerT: string) => void;
 }
 
 interface IGameState {
@@ -84,9 +84,9 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             // setState(newState);
         },
 
-        answer: (question: string, answerId: string) => {
+        answer: (question: string, answerId: string, answerT: string) => {
             const token = localStorage.getItem('token');
-            stomp.saveAnswer(lobbyId, { playerGuess: answerId, answerTime: "30", token });
+            stomp.saveAnswer(lobbyId, { playerGuess: answerId, answerTime: answerT, token });
         },
     };
 

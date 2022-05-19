@@ -23,15 +23,10 @@ export const SelectGameMode = (props) => {
     useEffect(() => {
 
         async function connect() {
-            console.log("your role is:" + userRole)
-            if (userRole === "player") {
-                window.location.href = getDomain + "/waitingroom";
-            } else {
-                const lobbyId = await context.api.createLobbyAndGetId();
-                context.setLobbyId(lobbyId);
-                setConnected(true);
-                context.info(`Lobby '${lobbyId}' created`);
-            }
+            const lobbyId = await context.api.createLobbyAndGetId();
+            context.setLobbyId(lobbyId);
+            setConnected(true);
+            context.info(`Lobby '${lobbyId}' created`);
         }
 
         connect();

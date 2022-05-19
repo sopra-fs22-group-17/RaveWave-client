@@ -4,6 +4,7 @@ import { IGuessOption, IGuessQuestion } from "../../api/@def";
 import { IGameController } from "./GameController";
 import { SpotifyPlayer } from "./SpotifyPlayer";
 import {GameContext} from "../../contexts/GameContext";
+import {getDomain} from "../../api/getDomain";
 
 export interface IGuessArtistProps {
     controller: IGameController;
@@ -12,7 +13,7 @@ export interface IGuessArtistProps {
 
 export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
-    const { gameConfiguration } = context;
+    const { gameConfiguration, lobbyId, stomp } = context;
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
@@ -21,9 +22,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds(seconds => seconds - 1);
-            if (seconds === 0) {
-
-            }
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -31,8 +29,15 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
     if (!question) return null;
     const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
-        controller.answer(question as any, String(selection.answerId));
+        controller.answer(question as any, String(selection.answerId), String(seconds));
     };
+
+    if (seconds <= 0) {
+        //lost
+        debugger;
+        stomp.endRound(lobbyId);
+        console.log("endround was called");
+    }
 
     return (
         <Container size={500}>
@@ -80,6 +85,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                 </Grid>
             </Stack>
             <Box sx={{ paddingTop: 20 }}>
+                <div>{seconds}</div>
                 <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
             </Box>
         </Container>

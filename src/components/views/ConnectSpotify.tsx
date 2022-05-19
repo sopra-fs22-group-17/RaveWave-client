@@ -13,8 +13,8 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     const spotifyCodeParam = useQueryParam("code");
 
     useEffect(() => {
-        //context.setUserRole("host");
-        //context.setPlayerName("Host");
+        context.setUserRole("host");
+        context.setPlayerName("Host");
     }, []);
 
     useEffect(() => {

@@ -1,9 +1,10 @@
 import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
-import { FC, useState } from "react";
+import {FC, useContext, useEffect, useState} from "react";
 
 import { IGuessOption, IGuessQuestion } from "../../api/@def";
 import { IGameController } from "./GameController";
 import { SpotifyPlayer } from "./SpotifyPlayer";
+import {GameContext} from "../../contexts/GameContext";
 
 export interface IGuessLyricsProps {
     controller: IGameController;
@@ -11,14 +12,28 @@ export interface IGuessLyricsProps {
 }
 
 export const GuessLyrics: FC<IGuessLyricsProps> = ({ controller, question }) => {
+    const context = useContext(GameContext);
+    const { gameConfiguration, lobbyId, stomp } = context;
     // const [question, setQuestion] = useState();
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
+    const [seconds, setSeconds] = useState(gameConfiguration.playBackDuration);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSeconds(seconds => seconds - 1);
+            if (seconds === 0) {
+                stomp.endRound(lobbyId);
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     if (!question) return null;
     const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
-        controller.answer(question as any, selection.answerId);
+        controller.answer(question as any, String(selection.answerId), String(seconds));
     };
 
     return (
