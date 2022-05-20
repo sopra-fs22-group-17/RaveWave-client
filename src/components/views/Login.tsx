@@ -44,7 +44,7 @@ export const Login: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
+                    <Title order={1} sx={{color: "white", padding: 5}}>
                         Login
                     </Title>{" "}
                     <Container size={200}>
@@ -55,7 +55,7 @@ export const Login: FC<{}> = ({}) => {
                                            onChange={(pw) => setPassword(pw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 20 }}>
+                    <Group sx={{ paddingTop: 10 }}>
                         <Link to={redirectPath}>
                             <Button onClick={doLogin} disabled={!username || !password} size="md">
                                 Login

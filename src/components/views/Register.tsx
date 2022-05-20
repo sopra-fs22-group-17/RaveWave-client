@@ -45,7 +45,7 @@ export const Register: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 0}}>
+                    <Title order={1} sx={{color: "white", padding: 5}}>
                         Register
                     </Title>{" "}
                     <Container size={200}>
@@ -58,7 +58,7 @@ export const Register: FC<{}> = ({}) => {
                                            onChange={(rpw) => setrePassword(rpw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 20 }}>
+                    <Group sx={{ paddingTop: 10 }}>
                         <Link to={redirectPath}>
                             <Button onClick={doRegister}
                                     disabled={!username || !password || !repassword || (password !== repassword)} size="md">
