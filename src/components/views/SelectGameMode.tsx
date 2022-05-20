@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { IGameConfiguration, TQuestionType } from "../../api/@def";
-import { SONG_POOLS } from "../../api/StompApi";
+import { LIKED_SONG_POOLS, SONG_POOLS } from "../../api/StompApi";
 import { GameContext } from "../../contexts/GameContext";
 import { GameModeButton } from "../ui/GameModeButton";
 import { SongPoolSelector } from "../ui/SongPoolSelector";
@@ -64,7 +64,7 @@ export const SelectGameMode = (props) => {
             <Stack align="center">
                 <h1>Game Configuration</h1>
                 <Text>{message}</Text>
-                <Group spacing={0} sx={{ paddingBottom: 50 }}>
+                <Group spacing={0} sx={{ paddingBottom: 50, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {gameModes.map((mode, i) => {
                         return <GameModeButton key={i} type={mode} selected={gameMode === mode} onSelect={() => setGameMode(mode)} />;
                     })}
@@ -85,7 +85,12 @@ export const SelectGameMode = (props) => {
                     onChange={setPlayBackDuration}
                 ></Slider>
             </Stack>
-            <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+            {gameMode === "Guess the liked song" ? (
+                <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+            ) : (
+                <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+            )}
+
             <Stack align="center" sx={{ paddingTop: 60 }}>
                 <Button onClick={() => saveConfiguration()}>Save configuration</Button>
                 <Link to="/displayqr">

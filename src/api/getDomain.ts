@@ -1,4 +1,4 @@
-import {isProduction} from "./isProduction";
+import { isProduction } from "./isProduction";
 
 export function getDomain(): string {
     const prodUrl = "https://sopra-fs22-group17-server.herokuapp.com/";

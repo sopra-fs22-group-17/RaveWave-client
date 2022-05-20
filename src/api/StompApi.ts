@@ -329,7 +329,7 @@ export class StompApi {
 export const SONG_POOLS: ISongPool[] = [
     {
         id: "RAVEWAVESPECIAL",
-        label: "RaveWave Special",
+        label: "Creator Special",
         color: "#E8125C",
     },
     {
@@ -361,7 +361,7 @@ export const SONG_POOLS: ISongPool[] = [
 
     {
         id: "SWITZERLAND",
-        label: "Top 50 SWITZERLAND",
+        label: "Charts",
         color: "#8C67AB",
     },
     {
@@ -378,6 +378,19 @@ export const SONG_POOLS: ISongPool[] = [
         id: "00S",
         label: "2000s Hits",
         color: "#1F3264",
+    },
+];
+
+export const LIKED_SONG_POOLS: ISongPool[] = [
+    {
+        id: "USERSTOPTRACKS",
+        label: "User's Top Tracks",
+        color: "#E8125C",
+    },
+    {
+        id: "USERSSAVEDTRACKS",
+        label: "User's Saved Tracks",
+        color: "#BB5D19",
     },
 ];
 

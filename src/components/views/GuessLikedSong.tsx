@@ -61,6 +61,9 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
                                                 backgroundRepeat: "no-repeat",
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center",
+                                                wordWrap: "break-word",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
                                             }}
                                         >
                                             <Stack align="center" justify="center" sx={{ height: "100%" }}>
