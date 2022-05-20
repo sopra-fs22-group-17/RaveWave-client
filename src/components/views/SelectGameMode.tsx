@@ -57,7 +57,6 @@ export const SelectGameMode = (props) => {
         setGameConfigurationSaved(true);
         context.info("Game configuration successfully saved.");
         console.log(gameConfiguration);
-        console.log("FROM CONTEXT" + JSON.stringify(context.gameConfiguration, null, 4));
         console.log("FROM CONFIG" + JSON.stringify(config));
     };
 
