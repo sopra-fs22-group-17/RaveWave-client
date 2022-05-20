@@ -41,6 +41,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
         <Container size={500}>
             <Stack align="center">
                 <h1>Guess the Artist</h1>
+                <h2>{passedSeconds} seconds left!</h2><SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
                 <Grid gutter={40} justify="center">
                     {question.options.map((option, i) => {
                         return (
@@ -82,10 +83,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                     })}
                 </Grid>
             </Stack>
-            <Box sx={{ paddingTop: 20 }}>
-                <div>{passedSeconds}</div>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
-            </Box>
         </Container>
     );
 };
