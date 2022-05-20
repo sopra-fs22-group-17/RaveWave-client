@@ -12,6 +12,7 @@ import { DebugView } from "../../views/DebugView";
 import { GameView } from "../../views/GameView";
 import { SelectGameMode } from "../../views/SelectGameMode";
 import {PlayerGuard} from "../routeProtectors/PlayerGuard";
+import {RaveWaverGuard} from "../routeProtectors/RaveWaverGuard";
 
 /**
  * Main router of your application.
@@ -53,19 +54,23 @@ const AppRouter = () => {
                     <Guest />
                 </Route>
 
+                <RaveWaverGuard>
                 <Route exact path="/connectspotify">
                     <ConnectSpotify />
                 </Route>
+                </RaveWaverGuard>
 
                 <PlayerGuard>
                 <Route exact path="/waitingroom">
                     <WaitingRoom controller={null} />
                 </Route>
-                    </PlayerGuard>
+                </PlayerGuard>
 
+                <RaveWaverGuard>
                 <Route exact path="/selectgamemode">
                     <SelectGameMode />
                 </Route>
+                </RaveWaverGuard>
 
                 <Route exact path="/displayqr">
                     <DisplayQR controller={null} />
