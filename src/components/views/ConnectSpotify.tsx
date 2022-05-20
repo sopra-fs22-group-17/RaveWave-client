@@ -13,11 +13,6 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     const spotifyCodeParam = useQueryParam("code");
 
     useEffect(() => {
-        context.setUserRole("host");
-        context.setPlayerName("Host");
-    }, []);
-
-    useEffect(() => {
         const handler = async () => {
             if (spotifyCodeParam) {
                 await sendSpotifyCode();
@@ -25,20 +20,6 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         };
         handler();
     }, []);
-
-    // useEffect(() => {
-    //     const handler = async () => {
-    //         if (!spotifyAuthorized) {
-    //             if (!spotifyCodeParam) {
-    //                 connectSpotify();
-    //             } else {
-    //                 sendSpotifyCode();
-    //             }
-    //         } else {
-    //         }
-    //     };
-    //     handler();
-    // }, [spotifyAuthorized, spotifyCodeParam]);
 
     const connectSpotify = async () => {
         try {
@@ -63,6 +44,17 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         }
     };
 
+    const setPlayerPar = async () => {
+        const nameofPlayer = localStorage.getItem('name');
+        const roleofPlayer = localStorage.getItem('role');
+        if (roleofPlayer === "host") {
+            context.setUserRole("host");
+        } else {
+            context.setUserRole("player");
+        }
+        context.setPlayerName(nameofPlayer);
+    }
+
     const connectionMessage = spotifyAuthorized ? "Connected to Spotify" : "You will need Spotify premium";
 
     return (
@@ -78,7 +70,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                             Authorize Spotify
                         </Button>
                         <Link to="/selectgamemode">
-                            <Button disabled={!spotifyAuthorized}>
+                            <Button onClick={setPlayerPar} disabled={!spotifyAuthorized}>
                                 Continue
                             </Button>
                         </Link>
