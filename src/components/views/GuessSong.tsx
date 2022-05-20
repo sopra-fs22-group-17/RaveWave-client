@@ -1,10 +1,10 @@
 import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
 import { IGameController } from "./GameController";
 import { SpotifyPlayer } from "./SpotifyPlayer";
-import {GameContext} from "../../contexts/GameContext";
 
 export interface IGuessSongProps {
     controller: IGameController;
@@ -14,18 +14,15 @@ export interface IGuessSongProps {
 export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
     const { gameConfiguration, lobbyId, stomp } = context;
-    // const [question, setQuestion] = useState();
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
-    const [seconds, setSeconds] = useState(gameConfiguration.playBackDuration);
+    const timeToAnswer = gameConfiguration.playBackDuration;
+    const [passedSeconds, setSeconds] = useState(timeToAnswer);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setSeconds(seconds => seconds - 1);
-            if (seconds === 0) {
-                stomp.endRound(lobbyId);
-            }
+            setSeconds((seconds) => seconds - 1);
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -33,13 +30,18 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
     if (!question) return null;
     const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
-        controller.answer(question as any, String(selection.answerId), String(seconds));
+        controller.answer(question as any, String(selection.answerId), String(timeToAnswer - passedSeconds));
     };
+
+    if (passedSeconds <= 0) {
+        stomp.endRound(lobbyId);
+        console.log("endround was called");
+    }
 
     return (
         <Container size={500}>
             <Stack align="center">
-                <h1>Guess the Song</h1>
+                <h1>Guess the Song Title</h1>
                 <Grid gutter={40} justify="center">
                     {question.options.map((option, i) => {
                         return (
@@ -71,9 +73,11 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
                         );
                     })}
                 </Grid>
-
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
             </Stack>
+            <Box sx={{ paddingTop: 20 }}>
+                <div>{passedSeconds}</div>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
+            </Box>
         </Container>
     );
 };

@@ -13,9 +13,9 @@ export interface IGameModeButtonProps {
 export const GameModeButton: FC<IGameModeButtonProps> = ({ type, selected, iconSize = 60, onSelect }) => {
     const { classes, cx } = useStyles({ iconSize });
     const icons: Record<TQuestionType, string> = {
-        "Guess the song": "/images/song.svg",
-        "Guess the artist": "/images/artist.svg",
-        "Guess the lyrics": "/images/lyrics.svg",
+        "Guess the song title": "/images/song.svg",
+        "Guess the song artist": "/images/artist.svg",
+        "Guess the liked song": "/images/likedsong.svg",
     };
 
     return (

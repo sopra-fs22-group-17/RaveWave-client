@@ -1,17 +1,16 @@
-import {Button, Container, Group, Slider, Stack, Text} from "@mantine/core";
-import {useContext, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import { Button, Container, Group, Slider, Stack, Text } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import {IGameConfiguration, TQuestionType} from "../../api/@def";
-import {SONG_POOLS} from "../../api/StompApi";
-import {GameContext} from "../../contexts/GameContext";
-import {GameModeButton} from "../ui/GameModeButton";
-import {SongPoolSelector} from "../ui/SongPoolSelector";
-import {getDomain} from "../../api/getDomain";
+import { IGameConfiguration, TQuestionType } from "../../api/@def";
+import { SONG_POOLS } from "../../api/StompApi";
+import { GameContext } from "../../contexts/GameContext";
+import { GameModeButton } from "../ui/GameModeButton";
+import { SongPoolSelector } from "../ui/SongPoolSelector";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, setGameConfiguration, userRole} = context;
+    const { gameConfiguration, setGameConfiguration, userRole } = context;
     const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
@@ -21,10 +20,9 @@ export const SelectGameMode = (props) => {
     let roundDuration = playBackDuration;
 
     useEffect(() => {
-
         async function connect() {
             const lobbyId = await context.api.createLobbyAndGetId();
-            const addHosttoLobby = await context.api.addPlayer(lobbyId, localStorage.getItem('name'));
+            const addHosttoLobby = await context.api.addPlayer(lobbyId, localStorage.getItem("name"));
             context.setLobbyId(lobbyId);
             setConnected(true);
             context.info(`Lobby '${lobbyId}' created`);
@@ -33,7 +31,7 @@ export const SelectGameMode = (props) => {
         connect();
     }, []);
 
-    const gameModes: TQuestionType[] = ["Guess the song", "Guess the artist", "Guess the lyrics"];
+    const gameModes: TQuestionType[] = ["Guess the song title", "Guess the song artist", "Guess the liked song"];
     const message = connected ? "Connected " + context.lobbyId : "Connecting...";
     const saveConfiguration = () => {
         roundDuration = playBackDuration;
@@ -66,17 +64,15 @@ export const SelectGameMode = (props) => {
             <Stack align="center">
                 <h1>Game Configuration</h1>
                 <Text>{message}</Text>
-                <Group spacing={0} sx={{paddingBottom: 50}}>
+                <Group spacing={0} sx={{ paddingBottom: 50 }}>
                     {gameModes.map((mode, i) => {
-                        return <GameModeButton key={i} type={mode} selected={gameMode === mode}
-                                               onSelect={() => setGameMode(mode)}/>;
+                        return <GameModeButton key={i} type={mode} selected={gameMode === mode} onSelect={() => setGameMode(mode)} />;
                     })}
                 </Group>
             </Stack>
             <Stack>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
-                        step={2} onChange={setGameRounds}></Slider>
+                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14} step={2} onChange={setGameRounds}></Slider>
 
                 <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
                 <Slider
@@ -89,13 +85,11 @@ export const SelectGameMode = (props) => {
                     onChange={setPlayBackDuration}
                 ></Slider>
             </Stack>
-            <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
-            <Stack align="center" sx={{paddingTop: 60}}>
+            <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+            <Stack align="center" sx={{ paddingTop: 60 }}>
                 <Button onClick={() => saveConfiguration()}>Save configuration</Button>
                 <Link to="/displayqr">
-                    <Button disabled={!gameConfigurationSaved}>
-                        Invite players
-                    </Button>
+                    <Button disabled={!gameConfigurationSaved}>Invite players</Button>
                 </Link>
             </Stack>
         </Container>

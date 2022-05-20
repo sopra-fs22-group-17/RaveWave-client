@@ -1,9 +1,10 @@
 import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
+import { FC, useContext, useEffect, useState } from "react";
+
 import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
 import { IGameController } from "./GameController";
 import { SpotifyPlayer } from "./SpotifyPlayer";
-import {GameContext} from "../../contexts/GameContext";
 
 export interface IGuessArtistProps {
     controller: IGameController;
@@ -21,7 +22,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setSeconds(seconds => seconds - 1);
+            setSeconds((seconds) => seconds - 1);
         }, 1000);
         return () => clearInterval(interval);
     }, []);

@@ -36,7 +36,7 @@ export const GameContext = createContext<IGameContext>(null);
 //?
 export const GAME_CONFIGURATION: IGameConfiguration = {
     roundDuration: 14,
-    gameMode: "Guess the song",
+    gameMode: "Guess the song title",
     gameRounds: 14,
     playBackDuration: 16,
     songPool: SONG_POOLS[0].id,

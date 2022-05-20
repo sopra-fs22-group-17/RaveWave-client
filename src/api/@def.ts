@@ -1,6 +1,6 @@
 export type TUserRole = "host" | "player"; //still necessary?
 
-export type TQuestionType = "Guess the song" | "Guess the artist" | "Guess the lyrics";
+export type TQuestionType = "Guess the song title" | "Guess the song artist" | "Guess the liked song";
 
 //game configuration
 export interface IGameConfiguration {
@@ -19,14 +19,12 @@ export interface IStompGameConfiguration {
     songPool: string;
 }
 
-//game question (guess the artist)
 export interface IGuessOption {
     answer: string;
     answerId: string;
     picture: string;
 }
 
-//game question (guess the artist)
 export interface IGuessQuestion {
     question: TQuestionType;
     previewURL: string;
