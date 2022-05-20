@@ -54,23 +54,18 @@ const AppRouter = () => {
                     <Guest />
                 </Route>
 
-                <RaveWaverGuard>
                 <Route exact path="/connectspotify">
                     <ConnectSpotify />
                 </Route>
-                </RaveWaverGuard>
 
-                <PlayerGuard>
+
                 <Route exact path="/waitingroom">
                     <WaitingRoom controller={null} />
                 </Route>
-                </PlayerGuard>
 
-                <RaveWaverGuard>
                 <Route exact path="/selectgamemode">
                     <SelectGameMode />
                 </Route>
-                </RaveWaverGuard>
 
                 <Route exact path="/displayqr">
                     <DisplayQR controller={null} />
