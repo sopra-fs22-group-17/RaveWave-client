@@ -18,13 +18,13 @@ export const Register: FC<{}> = ({}) => {
         // host
         const roleofPlayer = "host";
         context.setUserRole(roleofPlayer);
-        localStorage.setItem('role', roleofPlayer);
+        sessionStorage.setItem('role', roleofPlayer);
         redirectPath = "/connectspotify";
     } else {
         // player
         const roleofPlayer = "player";
         context.setUserRole(roleofPlayer);
-        localStorage.setItem('role', roleofPlayer);
+        sessionStorage.setItem('role', roleofPlayer);
         redirectPath = "/game";
     }
 
@@ -32,7 +32,7 @@ export const Register: FC<{}> = ({}) => {
         try {
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
-            localStorage.setItem('name', nameofPlayer);
+            sessionStorage.setItem('name', nameofPlayer);
             await api.registerUser(username, password);
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);

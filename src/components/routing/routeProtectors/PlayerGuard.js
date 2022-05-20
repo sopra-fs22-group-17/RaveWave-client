@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
  * @param props
  */
 export const PlayerGuard = (props) => {
-    if (localStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
         return props.children;
     }
     return <Redirect to="/landingplayer" />;

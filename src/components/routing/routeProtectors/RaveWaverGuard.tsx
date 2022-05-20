@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
  * @param props
  */
 export const RaveWaverGuard = (props) => {
-    if (localStorage.getItem("raveWaverToken")) {
+    if (sessionStorage.getItem("raveWaverToken")) {
         return props.children;
     }
     return <Redirect to="/landinghost" />;

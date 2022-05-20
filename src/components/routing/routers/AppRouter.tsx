@@ -55,7 +55,9 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/connectspotify">
+                    <RaveWaverGuard>
                     <ConnectSpotify />
+                    </RaveWaverGuard>
                 </Route>
 
 
@@ -64,7 +66,9 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/selectgamemode">
+                    <RaveWaverGuard>
                     <SelectGameMode />
+                    </RaveWaverGuard>
                 </Route>
 
                 <Route exact path="/displayqr">
