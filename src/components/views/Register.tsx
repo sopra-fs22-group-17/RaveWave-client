@@ -1,8 +1,9 @@
 import {Button, Container, TextInput, PasswordInput, Stack, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
+import { useHistory } from "react-router-dom";
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -34,6 +35,7 @@ export const Register: FC<{}> = ({}) => {
             context.setPlayerName(nameofPlayer);
             sessionStorage.setItem('name', nameofPlayer);
             await api.registerUser(username, password);
+            window.location.href = '/connectspotify'
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -59,12 +61,10 @@ export const Register: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Link to={redirectPath}>
                             <Button onClick={doRegister}
                                     disabled={!username || !password || !repassword || !(password === repassword)}>
                                 Register
                             </Button>
-                        </Link>
                     </Stack>
                 </Stack>
             </Container>

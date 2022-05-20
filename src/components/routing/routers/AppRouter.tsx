@@ -28,7 +28,9 @@ const AppRouter = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/game/:id?">
-                    <GameView />
+                    <PlayerGuard>
+                        <GameView />
+                    </PlayerGuard>
                 </Route>
                 <Route path="/debug">
                     <DebugView />
@@ -56,23 +58,26 @@ const AppRouter = () => {
 
                 <Route exact path="/connectspotify">
                     <RaveWaverGuard>
-                    <ConnectSpotify />
+                        <ConnectSpotify/>
                     </RaveWaverGuard>
                 </Route>
 
-
                 <Route exact path="/waitingroom">
-                    <WaitingRoom controller={null} />
+                    <PlayerGuard>
+                        <WaitingRoom controller={null} />
+                    </PlayerGuard>
                 </Route>
 
                 <Route exact path="/selectgamemode">
                     <RaveWaverGuard>
-                    <SelectGameMode />
+                        <SelectGameMode/>
                     </RaveWaverGuard>
                 </Route>
 
                 <Route exact path="/displayqr">
-                    <DisplayQR controller={null} />
+                    <RaveWaverGuard>
+                        <DisplayQR controller={null} />
+                    </RaveWaverGuard>
                 </Route>
 
                 <Route exact path="/menu">

@@ -21,6 +21,7 @@ export const Guest: FC<{}> = ({}) => {
             sessionStorage.setItem('name', nameofPlayer);
             sessionStorage.setItem('role', roleofPlayer);
             await api.addPlayer(context.lobbyId, username);
+            window.location.href = '/game'
         } catch (error) {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -40,11 +41,9 @@ export const Guest: FC<{}> = ({}) => {
                         <Button component={Link} to="/landingplayer">
                             Back
                         </Button>
-                        <Link to="/game">
                             <Button onClick={doGuest} disabled={!username}>
                                 Continue
                             </Button>
-                        </Link>
                     </Stack>
                 </Stack>
             </Container>

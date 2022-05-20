@@ -49,6 +49,7 @@ export class RestApi {
             // Store the token into the local storage.
             sessionStorage.setItem("raveWaverToken", user.token);
             sessionStorage.setItem("raveWaverId", user.id);
+            console.log("This is the token: " + sessionStorage.getItem('raveWaverToken'))
             return user;
         } else if (response.status === 409) {
             throw new Error("Add user failed because username already exists");
