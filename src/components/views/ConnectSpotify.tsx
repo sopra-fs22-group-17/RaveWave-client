@@ -45,8 +45,8 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     };
 
     const setPlayerPar = async () => {
-        const nameofPlayer = localStorage.getItem('name');
-        const roleofPlayer = localStorage.getItem('role');
+        const nameofPlayer = sessionStorage.getItem('name');
+        const roleofPlayer = sessionStorage.getItem('role');
         if (roleofPlayer === "host") {
             context.setUserRole("host");
         } else {

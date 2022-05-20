@@ -85,7 +85,7 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
         },
 
         answer: (question: string, answerId: string, answerT: string) => {
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             stomp.saveAnswer(lobbyId, {playerGuess: answerId, answerTime: answerT, token});
         },
     };

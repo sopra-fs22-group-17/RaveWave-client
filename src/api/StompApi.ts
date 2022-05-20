@@ -3,6 +3,7 @@ import Stomp from "stompjs";
 
 import { IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, IStompGameConfiguration } from "./@def";
 import { defer } from "./Deferred";
+import {getDomain} from "./getDomain";
 
 export interface ISongPool {
     id: string;
@@ -100,7 +101,7 @@ export class StompApi {
     }
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
-        const playerIdLocal = localStorage.getItem('playerId');
+        const playerIdLocal = sessionStorage.getItem('playerId');
         this.send(`/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`, JSON.stringify(answer));
     }
 
@@ -127,7 +128,8 @@ export class StompApi {
         // const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
 
         //this.sock = new SockJS(`http://localhost:8080/ws`); // local
-        this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
+        this.sock = new SockJS(getDomain() + `/ws`); // remote
+        // this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
         // const endpoint = getEndpoint();
         // this.sock = new SockJS(endpoint);
 

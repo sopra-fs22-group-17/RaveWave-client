@@ -18,8 +18,8 @@ export const Guest: FC<{}> = ({}) => {
             const roleofPlayer = "player";
             context.setPlayerName(nameofPlayer);
             context.setUserRole(roleofPlayer);
-            localStorage.setItem('name', nameofPlayer);
-            localStorage.setItem('role', roleofPlayer);
+            sessionStorage.setItem('name', nameofPlayer);
+            sessionStorage.setItem('role', roleofPlayer);
             await api.addPlayer(context.lobbyId, username);
         } catch (error) {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);

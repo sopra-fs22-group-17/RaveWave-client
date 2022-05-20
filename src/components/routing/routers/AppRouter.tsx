@@ -11,6 +11,8 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { DebugView } from "../../views/DebugView";
 import { GameView } from "../../views/GameView";
 import { SelectGameMode } from "../../views/SelectGameMode";
+import {PlayerGuard} from "../routeProtectors/PlayerGuard";
+import {RaveWaverGuard} from "../routeProtectors/RaveWaverGuard";
 
 /**
  * Main router of your application.
@@ -53,15 +55,20 @@ const AppRouter = () => {
                 </Route>
 
                 <Route exact path="/connectspotify">
+                    <RaveWaverGuard>
                     <ConnectSpotify />
+                    </RaveWaverGuard>
                 </Route>
+
 
                 <Route exact path="/waitingroom">
                     <WaitingRoom controller={null} />
                 </Route>
 
                 <Route exact path="/selectgamemode">
+                    <RaveWaverGuard>
                     <SelectGameMode />
+                    </RaveWaverGuard>
                 </Route>
 
                 <Route exact path="/displayqr">
