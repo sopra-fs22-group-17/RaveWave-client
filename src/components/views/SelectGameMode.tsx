@@ -24,7 +24,7 @@ export const SelectGameMode = (props) => {
 
         async function connect() {
             const lobbyId = await context.api.createLobbyAndGetId();
-            const addHosttoLobby = await context.api.addPlayer(lobbyId, "");
+            const addHosttoLobby = await context.api.addPlayer(lobbyId, localStorage.getItem('name'));
             context.setLobbyId(lobbyId);
             setConnected(true);
             context.info(`Lobby '${lobbyId}' created`);
