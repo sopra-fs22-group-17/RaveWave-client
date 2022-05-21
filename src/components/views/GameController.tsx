@@ -23,8 +23,9 @@ export interface IGameControllerProps {
 }
 
 export interface IGameController {
-    gotoState(state: IGameState): void;
     answer: (question: string, answerId: string, answerT: string) => void;
+
+    gotoState(state: IGameState): void;
 }
 
 interface IGameState {

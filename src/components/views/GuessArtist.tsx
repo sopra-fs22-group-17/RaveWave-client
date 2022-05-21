@@ -1,8 +1,8 @@
-import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
+import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
-import { IGuessOption, IGuessQuestion } from "../../api/@def";
-import { IGameController } from "./GameController";
-import { SpotifyPlayer } from "./SpotifyPlayer";
+import {IGuessOption, IGuessQuestion} from "../../api/@def";
+import {IGameController} from "./GameController";
+import {SpotifyPlayer} from "./SpotifyPlayer";
 import {GameContext} from "../../contexts/GameContext";
 
 export interface IGuessArtistProps {
@@ -10,9 +10,9 @@ export interface IGuessArtistProps {
     question: IGuessQuestion;
 }
 
-export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => {
+export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
-    const { gameConfiguration, lobbyId, stomp } = context;
+    const {gameConfiguration, lobbyId, stomp} = context;
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
@@ -63,7 +63,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                                                 backgroundPosition: "center",
                                             }}
                                         >
-                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
+                                            <Stack align="center" justify="center" sx={{height: "100%"}}>
                                                 <Text
                                                     sx={{
                                                         fontSize: 30,
@@ -82,9 +82,9 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                     })}
                 </Grid>
             </Stack>
-            <Box sx={{ paddingTop: 20 }}>
+            <Box sx={{paddingTop: 20}}>
                 <div>{passedSeconds}</div>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
             </Box>
         </Container>
     );

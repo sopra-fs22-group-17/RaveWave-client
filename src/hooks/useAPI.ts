@@ -1,4 +1,4 @@
-import { RestApi } from "../api/RestApi";
+import {RestApi} from "../api/RestApi";
 
 const _api = new RestApi();
 

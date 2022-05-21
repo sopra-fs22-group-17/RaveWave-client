@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import App from "App";
-import { Theme } from "components/Theme";
+import {Theme} from "components/Theme";
 
 /**
  * This is the entry point of your React application where the root element is in the public/index.html.
@@ -10,7 +10,7 @@ import { Theme } from "components/Theme";
  */
 ReactDOM.render(
     <Theme>
-        <App />
+        <App/>
     </Theme>,
     document.getElementById("root"),
 );

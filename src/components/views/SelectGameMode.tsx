@@ -7,7 +7,6 @@ import {SONG_POOLS} from "../../api/StompApi";
 import {GameContext} from "../../contexts/GameContext";
 import {GameModeButton} from "../ui/GameModeButton";
 import {SongPoolSelector} from "../ui/SongPoolSelector";
-import {getDomain} from "../../api/getDomain";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);

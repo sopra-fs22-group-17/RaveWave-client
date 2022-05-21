@@ -1,7 +1,7 @@
-import { Box, createStyles, Image, Stack, Text, UnstyledButton } from "@mantine/core";
-import { FC } from "react";
+import {Box, createStyles, Image, Stack, Text, UnstyledButton} from "@mantine/core";
+import {FC} from "react";
 
-import { TQuestionType } from "../../api/@def";
+import {TQuestionType} from "../../api/@def";
 
 export interface IGameModeButtonProps {
     type: TQuestionType;
@@ -10,8 +10,8 @@ export interface IGameModeButtonProps {
     onSelect?: () => void;
 }
 
-export const GameModeButton: FC<IGameModeButtonProps> = ({ type, selected, iconSize = 60, onSelect }) => {
-    const { classes, cx } = useStyles({ iconSize });
+export const GameModeButton: FC<IGameModeButtonProps> = ({type, selected, iconSize = 60, onSelect}) => {
+    const {classes, cx} = useStyles({iconSize});
     const icons: Record<TQuestionType, string> = {
         "Guess the song": "/images/song.svg",
         "Guess the artist": "/images/artist.svg",
@@ -20,9 +20,9 @@ export const GameModeButton: FC<IGameModeButtonProps> = ({ type, selected, iconS
 
     return (
         <UnstyledButton>
-            <Stack align="center" className={cx(classes.root, { [classes.selected]: selected })} onClick={onSelect}>
-                <Box className={cx(classes.button, { [classes.buttonSelected]: selected })}>
-                    <Image width={iconSize} height={iconSize} src={icons[type]} />
+            <Stack align="center" className={cx(classes.root, {[classes.selected]: selected})} onClick={onSelect}>
+                <Box className={cx(classes.button, {[classes.buttonSelected]: selected})}>
+                    <Image width={iconSize} height={iconSize} src={icons[type]}/>
                 </Box>
                 <Text>{type}</Text>
             </Stack>
@@ -34,7 +34,7 @@ interface IStylesParams {
     iconSize?: number;
 }
 
-export const useStyles = createStyles((theme, { iconSize }: IStylesParams) => ({
+export const useStyles = createStyles((theme, {iconSize}: IStylesParams) => ({
     root: {
         ...theme.fn.fontStyles(),
         fontWeight: "normal",

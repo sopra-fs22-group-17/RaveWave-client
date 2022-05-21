@@ -1,14 +1,14 @@
-import { Button, Container, Group, Stack, Title } from "@mantine/core";
-import { BaseContainer } from "components/ui/BaseContainer";
-import { GameContext } from "contexts/GameContext";
-import { useContext, useEffect } from "react";
+import {Button, Container, Group, Stack, Title} from "@mantine/core";
+import {BaseContainer} from "components/ui/BaseContainer";
+import {GameContext} from "contexts/GameContext";
+import {useContext, useEffect} from "react";
 import Lottie from "react-lottie";
-import { Link, useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingPlayer = (props) => {
     const context = useContext(GameContext);
-    const { id } = useParams<any>();
+    const {id} = useParams<any>();
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -20,6 +20,7 @@ export const LandingPlayer = (props) => {
 
     useEffect(() => {
         context.setUserRole("player");
+        sessionStorage.setItem('role', "player");
         if (id) {
             context.setLobbyId(id);
         }
@@ -29,11 +30,11 @@ export const LandingPlayer = (props) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         RaveWave Player
                     </Title>
-                    <Lottie options={defaultOptions} speed={1} />
-                    <Group sx={{ paddingTop: 40 }}>
+                    <Lottie options={defaultOptions} speed={1}/>
+                    <Group sx={{paddingTop: 40}}>
                         <Button component={Link} to="/guest">
                             Guest
                         </Button>

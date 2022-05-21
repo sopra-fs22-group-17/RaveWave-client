@@ -1,7 +1,7 @@
-import {Button, Container, TextInput, PasswordInput, Stack, Title} from "@mantine/core";
+import {Button, Container, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
 
 export const Login: FC<{}> = ({}) => {
@@ -10,29 +10,35 @@ export const Login: FC<{}> = ({}) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     let redirectPath = "";
 
-    if (currentURL.includes("landinghost")) {
-        // host
-        const roleofPlayer = "host";
-        context.setUserRole(roleofPlayer);
-        sessionStorage.setItem('role', roleofPlayer);
-        redirectPath = "/connectspotify";
-    } else {
-        // player
-        const roleofPlayer = "player";
-        context.setUserRole(roleofPlayer);
-        sessionStorage.setItem('role', roleofPlayer);
-        redirectPath = "/game";
-    }
 
     async function doLogin() {
+        if (currentURL.includes("landinghost")) {
+            // host
+            const roleofPlayer = "host";
+            context.setUserRole(roleofPlayer);
+            sessionStorage.setItem('role', roleofPlayer);
+            redirectPath = "/selectgamemode";
+        } else {
+            // player
+            const roleofPlayer = "player";
+            context.setUserRole(roleofPlayer);
+            sessionStorage.setItem('role', roleofPlayer);
+            redirectPath = "/game";
+        }
+
         try {
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
             sessionStorage.setItem('name', nameofPlayer);
             await api.loginUser(username, password);
+            if (context.userRole === "player") {
+                await api.addPlayer(context.lobbyId, username);
+            }
+            history.push(redirectPath);
         } catch (error) {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -56,11 +62,10 @@ export const Login: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                        <Link to={redirectPath}>
-                            <Button onClick={doLogin} disabled={!username || !password}>
-                                Login
-                            </Button>
-                        </Link>
+                        <Button disabled={!username || !password} onClick={doLogin}>
+                            Login
+                        </Button>
+
                     </Stack>
                 </Stack>
             </Container>

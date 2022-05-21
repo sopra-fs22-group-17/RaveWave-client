@@ -1,16 +1,17 @@
-import { Button, Container, Group, Image, Stack, Text } from "@mantine/core";
+import {Button, Container, Image, Stack, Text} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
-import { FC, useContext, useEffect, useState } from "react";
-import {Link} from "react-router-dom";
-import { SpotifyURL } from "../../api/SpotifyModel";
-import { GameContext } from "../../contexts/GameContext";
-import { useQueryParam } from "../../hooks/useQuery";
+import {FC, useContext, useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
+import {SpotifyURL} from "../../api/SpotifyModel";
+import {GameContext} from "../../contexts/GameContext";
+import {useQueryParam} from "../../hooks/useQuery";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const { api } = context;
+    const {api} = context;
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
     const spotifyCodeParam = useQueryParam("code");
+    const history = useHistory();
 
     useEffect(() => {
         const handler = async () => {
@@ -33,14 +34,14 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     };
 
     const sendSpotifyCode = async () => {
-        const authCodeRequest = JSON.stringify({ code: spotifyCodeParam });
+        const authCodeRequest = JSON.stringify({code: spotifyCodeParam});
         try {
             await api.setAuthorizationCode(authCodeRequest);
-            context.info("Spotify code sent");
-        } catch {
-            context.info("Spotify code send failed");
-        } finally {
+            context.info("Spotify access granted!");
             setSpotifyAuthorized(true);
+        } catch {
+            //context.info();
+            context.error("Spotify access denied! Are you sure you are using a Spotify-Premium account?")
         }
     };
 
@@ -49,10 +50,18 @@ export const ConnectSpotify: FC<{}> = ({}) => {
         const roleofPlayer = sessionStorage.getItem('role');
         if (roleofPlayer === "host") {
             context.setUserRole("host");
+            context.setPlayerName(nameofPlayer);
+            history.push('/selectgamemode');
         } else {
             context.setUserRole("player");
+            context.setPlayerName(nameofPlayer);
+            const lobbyId = sessionStorage.getItem('lobbyId')
+            if (lobbyId) {
+                context.setLobbyId(lobbyId);
+            }
+            history.push('/game');
         }
-        context.setPlayerName(nameofPlayer);
+
     }
 
     const connectionMessage = spotifyAuthorized ? "Connected to Spotify" : "You will need Spotify premium";
@@ -62,18 +71,16 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             <Container size="sm">
                 <Stack align="center">
                     <Container size={500}>
-                        <Image src="/images/spotify-logo-white.svg" sx={{ padding: 40 }} />
+                        <Image src="/images/spotify-logo-white.svg" sx={{padding: 40}}/>
                     </Container>
                     <Text>{connectionMessage}</Text>
                     <Stack align="stretch">
                         <Button onClick={connectSpotify} disabled={spotifyAuthorized}>
                             Authorize Spotify
                         </Button>
-                        <Link to="/selectgamemode">
-                            <Button onClick={setPlayerPar} disabled={!spotifyAuthorized}>
-                                Continue
-                            </Button>
-                        </Link>
+                        <Button onClick={setPlayerPar} disabled={!spotifyAuthorized}>
+                            Continue
+                        </Button>
                     </Stack>
                 </Stack>
             </Container>

@@ -11,12 +11,11 @@ import PropTypes from "prop-types";
  * @param props
  */
 export const RaveWaverGuard = (props) => {
-    if (sessionStorage.getItem('raveWaverToken') != null) {
+    if (sessionStorage.getItem('raveWaverToken')) {
         console.log("Tokenerion is there");
         return props.children;
     }
     console.log(sessionStorage.getItem('raveWaverToken'))
-    console.log("No tokenerion there")
     return <Redirect to="/landinghost"/>;
 };
 

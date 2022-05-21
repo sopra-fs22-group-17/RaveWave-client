@@ -1,9 +1,9 @@
-import {Button, Container, TextInput, PasswordInput, Stack, Title} from "@mantine/core";
+import {Button, Container, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
-import { Link } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
-import { useHistory } from "react-router-dom";
+
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -12,30 +12,38 @@ export const Register: FC<{}> = ({}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setrePassword] = useState('');
+    const history = useHistory();
+
 
     let redirectPath = "";
 
-    if (currentURL.includes("landinghost")) {
-        // host
-        const roleofPlayer = "host";
-        context.setUserRole(roleofPlayer);
-        sessionStorage.setItem('role', roleofPlayer);
-        redirectPath = "/connectspotify";
-    } else {
-        // player
-        const roleofPlayer = "player";
-        context.setUserRole(roleofPlayer);
-        sessionStorage.setItem('role', roleofPlayer);
-        redirectPath = "/game";
-    }
 
     async function doRegister() {
+
+        if (currentURL.includes("landinghost")) {
+            // host
+            const roleofPlayer = "host";
+            context.setUserRole(roleofPlayer);
+            sessionStorage.setItem('role', roleofPlayer);
+            redirectPath = "/connectspotify";
+        } else {
+            // player
+            const roleofPlayer = "player";
+            context.setUserRole(roleofPlayer);
+            sessionStorage.setItem('role', roleofPlayer);
+            redirectPath = "/connectspotify";
+        }
+
         try {
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
             sessionStorage.setItem('name', nameofPlayer);
             await api.registerUser(username, password);
-            window.location.href = '/connectspotify'
+            if (context.userRole === "player") {
+                sessionStorage.setItem('lobbyId', context.lobbyId);
+                await api.addPlayer(context.lobbyId, username);
+            }
+            history.push(redirectPath);
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -61,10 +69,10 @@ export const Register: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Stack align="stretch">
-                            <Button onClick={doRegister}
-                                    disabled={!username || !password || !repassword || !(password === repassword)}>
-                                Register
-                            </Button>
+                        <Button onClick={doRegister}
+                                disabled={!username || !password || !repassword || !(password === repassword)}>
+                            Register
+                        </Button>
                     </Stack>
                 </Stack>
             </Container>

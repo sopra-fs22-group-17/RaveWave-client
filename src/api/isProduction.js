@@ -5,5 +5,5 @@
 * Otherwise, dev.
  */
 export const isProduction = () => {
-  return process.env.NODE_ENV === "devUrl";
+    return process.env.NODE_ENV === "devUrl";
 };

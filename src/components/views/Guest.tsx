@@ -1,14 +1,15 @@
-import { Button, Container, Stack, TextInput, Title } from "@mantine/core";
-import { FC, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import {Button, Container, Stack, TextInput, Title} from "@mantine/core";
+import {FC, useContext, useState} from "react";
+import {Link, useHistory} from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import { GameContext } from "../../contexts/GameContext";
+import {GameContext} from "../../contexts/GameContext";
 
 export const Guest: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const { api, playerName } = context;
+    const {api, playerName} = context;
+    const history = useHistory();
 
     const [username, setUsername] = useState("");
 
@@ -21,7 +22,7 @@ export const Guest: FC<{}> = ({}) => {
             sessionStorage.setItem('name', nameofPlayer);
             sessionStorage.setItem('role', roleofPlayer);
             await api.addPlayer(context.lobbyId, username);
-            window.location.href = '/game'
+            history.push('/game');
         } catch (error) {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
@@ -33,17 +34,18 @@ export const Guest: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                    <Title order={1} sx={{color: "white", padding: 20}}>
                         Guest
                     </Title>{" "}
-                    <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
+                    <TextInput value={username} placeholder="Username" label="Username"
+                               onChange={(un) => setUsername(un.currentTarget.value)}/>
                     <Stack align="stretch">
                         <Button component={Link} to="/landingplayer">
                             Back
                         </Button>
-                            <Button onClick={doGuest} disabled={!username}>
-                                Continue
-                            </Button>
+                        <Button onClick={doGuest} disabled={!username}>
+                            Continue
+                        </Button>
                     </Stack>
                 </Stack>
             </Container>

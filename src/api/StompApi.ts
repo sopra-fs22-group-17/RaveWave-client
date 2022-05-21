@@ -1,8 +1,15 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-import { IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, IStompGameConfiguration } from "./@def";
-import { defer } from "./Deferred";
+import {
+    IGameConfiguration,
+    IGameResult,
+    IGuessQuestion,
+    IMessageEvent,
+    IMessageListener,
+    IStompGameConfiguration
+} from "./@def";
+import {defer} from "./Deferred";
 import {getDomain} from "./getDomain";
 
 export interface ISongPool {
@@ -79,15 +86,6 @@ export class StompApi {
         console.log("SEND SETTINGS 2");
     }
 
-    private send(message: string, payload?: any) {
-        console.log("Stomp: " + message);
-        if (payload) {
-            this.stomp.send(message, {}, payload);
-        } else {
-            this.stomp.send(message);
-        }
-    }
-
     public startGame(lobbyId: string): void {
         this.send(`/app/lobbies/${lobbyId}/start-game`);
     }
@@ -105,14 +103,14 @@ export class StompApi {
         this.send(`/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`, JSON.stringify(answer));
     }
 
+    public isConnected(): boolean {
+        return this._connected;
+    }
+
     /*
      * ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
      * New functions (might need to be moved to a better location)
      */
-
-    public isConnected(): boolean {
-        return this._connected;
-    }
 
     public isRegistered(): boolean {
         return this._registered;
@@ -123,7 +121,8 @@ export class StompApi {
         console.log("StompApi: CONNECT IS CALLED");
         try {
             this.sock.close();
-        } catch {}
+        } catch {
+        }
 
         // const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
 
@@ -165,7 +164,12 @@ export class StompApi {
     public disconnect(reason: any): void {
         try {
             this.stomp.disconnect(() => this._handleDisconnect(reason), {});
-        } catch {}
+        } catch {
+        }
+    }
+
+    public subscribe(channel: string, callback: (data: any) => void): void {
+        this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
     }
 
     // public register(token: string) {
@@ -187,8 +191,8 @@ export class StompApi {
     //     }, 500);
     // }
 
-    public subscribe(channel: string, callback: (data: any) => void): void {
-        this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
+    public onRegister(callback: () => void) {
+        this._registerCallbacks.push(callback);
     }
 
     /*
@@ -197,10 +201,6 @@ export class StompApi {
     }
 
      */
-
-    public onRegister(callback: () => void) {
-        this._registerCallbacks.push(callback);
-    }
 
     public clearMessageSubscriptions() {
         this._messageCallbacks = {};
@@ -219,6 +219,15 @@ export class StompApi {
             this._messageCallbacks[channel] = [];
         }
         this._messageCallbacks[channel].push(callback);
+    }
+
+    private send(message: string, payload?: any) {
+        console.log("Stomp: " + message);
+        if (payload) {
+            this.stomp.send(message, {}, payload);
+        } else {
+            this.stomp.send(message);
+        }
     }
 
     private _handleError(error: any) {
@@ -248,6 +257,7 @@ export class StompApi {
     }
 
     /* change this */
+
     //listeners aufrufen (use notify)make message call notify
     private _handleMessage(info: any) {
         console.log("CALLBACK _handleMessage");
@@ -313,7 +323,7 @@ export class StompApi {
         const msg = JSON.parse(response.body);
         const channel = response.headers.destination;
         const lobbyChannel = channel.replace(/.+\/lobby\/.+\//i, "/");
-        const info = { msg, channel, lobbyChannel };
+        const info = {msg, channel, lobbyChannel};
         console.log(JSON.stringify(info, null, 4));
 
         return info;

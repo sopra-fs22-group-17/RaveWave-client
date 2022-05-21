@@ -1,7 +1,15 @@
-import { ButtonStylesParams, Global, MantineColor, MantineProvider, MantineTheme, MantineThemeColors, MantineThemeOverride } from "@mantine/core";
-import { CSSProperties } from "react";
+import {
+    ButtonStylesParams,
+    Global,
+    MantineColor,
+    MantineProvider,
+    MantineTheme,
+    MantineThemeColors,
+    MantineThemeOverride
+} from "@mantine/core";
+import {CSSProperties} from "react";
 
-import { FCC } from "./@def";
+import {FCC} from "./@def";
 
 export interface IRaveWaveTheme extends MantineTheme {
     accentFontFamily: CSSProperties["fontFamily"];
@@ -22,7 +30,7 @@ export const theme: IRaveWaveThemeOverride = {
     headings: {
         // fontFamily: settings.fontFamily,
         sizes: {
-            h1: { fontSize: "3em", lineHeight: 1.3 },
+            h1: {fontSize: "3em", lineHeight: 1.3},
         },
     },
     colors: {
@@ -53,11 +61,11 @@ const overrides = {
     }),
 };
 
-export const Theme: FCC<{}> = ({ children }) => {
+export const Theme: FCC<{}> = ({children}) => {
     return (
         <MantineProvider
             theme={theme}
-            emotionOptions={{ key: "ravewave" }}
+            emotionOptions={{key: "ravewave"}}
             styles={overrides as any}
             defaultProps={
                 {

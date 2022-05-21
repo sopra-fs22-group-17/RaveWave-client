@@ -33,10 +33,10 @@ export interface IQuestionAnswer {
 }
 
 export class RestApi {
+    _user = null;
+
     constructor() {
     }
-
-    _user = null;
 
     // @PostMapping("/ravewavers")
     async registerUser(username, password) {
@@ -49,7 +49,6 @@ export class RestApi {
             // Store the token into the local storage.
             sessionStorage.setItem("raveWaverToken", user.token);
             sessionStorage.setItem("raveWaverId", user.id);
-            console.log("This is the token: " + sessionStorage.getItem('raveWaverToken'))
             return user;
         } else if (response.status === 409) {
             throw new Error("Add user failed because username already exists");
@@ -67,8 +66,8 @@ export class RestApi {
             const user = new User(response.data);
             user.token = response.headers["authorization"];
             // Store the token into the local storage.
-            sessionStorage.setItem("token", user.token);
-            sessionStorage.setItem("playerId", user.id);
+            sessionStorage.setItem("raveWaverToken", user.token);
+            sessionStorage.setItem("raveWaverId", user.id);
             return user;
         } else if (response.status === 404) {
             throw new Error("user not found");
@@ -132,6 +131,7 @@ export class RestApi {
                 // Store the token into the local storage.
                 sessionStorage.setItem("token", user.token);
                 sessionStorage.setItem("playerId", user.id);
+
                 return user;
             } else {
                 throw new Error("Error happend when trying to add ravewaver");

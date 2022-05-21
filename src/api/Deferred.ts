@@ -1,8 +1,10 @@
 export interface IDeferred<T> {
-    resolve(value?: T): void;
-    reject(reason?: any): void;
     // notify(state?: any): void;
     promise: Promise<T>;
+
+    resolve(value?: T): void;
+
+    reject(reason?: any): void;
 }
 
 type resolveFn<T> = (value?: T | PromiseLike<T>) => void;

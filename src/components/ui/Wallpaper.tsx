@@ -1,15 +1,17 @@
-import { createStyles } from "@mantine/core";
-import { FC } from "react";
+import {createStyles} from "@mantine/core";
+import {FC} from "react";
 
-export interface IWallpaperProps {}
+export interface IWallpaperProps {
+}
 
 export const Wallpaper: FC<IWallpaperProps> = ({}) => {
-    const { classes } = useStyles({});
+    const {classes} = useStyles({});
 
     return <div className={classes.root}></div>;
 };
 
-interface IStylesParams {}
+interface IStylesParams {
+}
 
 export const useStyles = createStyles((theme, {}: IStylesParams) => ({
     root: {

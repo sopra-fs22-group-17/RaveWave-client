@@ -1,4 +1,4 @@
-import { StompApi } from "../api/StompApi";
+import {StompApi} from "../api/StompApi";
 
 const _stomp = new StompApi();
 

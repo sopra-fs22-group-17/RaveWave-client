@@ -1,16 +1,16 @@
-import { Button, Container, Stack } from "@mantine/core";
-import { FC, useContext } from "react";
-import { IGameResult } from "../../api/@def";
-import { GameContext } from "../../contexts/GameContext";
-import { GameResult } from "../ui/GameResult";
-import { IGameController } from "./GameController";
+import {Button, Container, Stack} from "@mantine/core";
+import {FC, useContext} from "react";
+import {IGameResult} from "../../api/@def";
+import {GameContext} from "../../contexts/GameContext";
+import {GameResult} from "../ui/GameResult";
+import {IGameController} from "./GameController";
 
 export interface IPostRoundProps {
     controller: IGameController;
     result: IGameResult;
 }
 
-export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
+export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
     const context = useContext(GameContext);
 
     if (!result) return null;
@@ -31,10 +31,10 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
         <Container size={500}>
             <Stack align="center">
                 <h1>{correctness}</h1>
-                <GameResult result={result} />
+                <GameResult result={result}/>
             </Stack>
             {isHost && (
-                <Stack sx={{ paddingTop: 20 }} align="center">
+                <Stack sx={{paddingTop: 20}} align="center">
                     <Button onClick={() => nextRound()}>Continue</Button>
                 </Stack>
             )}
