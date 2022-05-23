@@ -1,5 +1,6 @@
 import { Button, Container, Stack } from "@mantine/core";
 import { FC, useContext } from "react";
+
 import { IGameResult } from "../../api/@def";
 import { GameContext } from "../../contexts/GameContext";
 import { GameResult } from "../ui/GameResult";
@@ -15,8 +16,11 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
 
     if (!result) return null;
 
-    const me = result.players.find((d) => d.playerName === context.playerName);
+    console.log("PLAYERNAME: " + context.playerName);
+    const me = result.players.find((d) => d.playerName === "[RW] " + context.playerName);
+    console.log("ME: " + me);
     const list = result.players.filter((d) => d !== me);
+    console.log("LIST: " + JSON.stringify(list, null, 4));
     list.unshift(me);
     const correct = me.streak > 0;
     const correctness = correct ? "Correct!" : "Wrong!";

@@ -70,6 +70,8 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
                     console.log(message.data.question + "<3");
                 }
             } else if (message.type === "result") {
+                console.log("WE GOT A RESULT");
+                console.log(JSON.stringify(message.data, null, 4));
                 setState({ type: "result", data: message.data });
             } else if (message.type === "summary") {
                 setState({ type: "summary", data: message.data });
@@ -110,7 +112,9 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         }
         return <Box>{"Unknown question type: " + question.question}</Box>;
     } else if (state.type === "result") {
+        console.log("State type is result");
         const result = state.data as IGameResult;
+        console.log("result: " + JSON.stringify(result, null, 4));
         return <PostRound controller={ctrl} result={result} />;
     } else if (state.type === "summary") {
         const summary = state.data as IGameResult;

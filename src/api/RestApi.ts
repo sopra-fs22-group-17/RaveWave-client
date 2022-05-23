@@ -1,11 +1,11 @@
 import axios from "axios";
 
 import User from "../model/User";
-import {getDomain} from "./getDomain";
+import { getDomain } from "./getDomain";
 
 export const remote = axios.create({
     baseURL: getDomain(),
-    headers: {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
 });
 
 export interface ISongPool {
@@ -33,14 +33,13 @@ export interface IQuestionAnswer {
 }
 
 export class RestApi {
-    constructor() {
-    }
+    constructor() {}
 
     _user = null;
 
     // @PostMapping("/ravewavers")
     async registerUser(username, password) {
-        const requestBody = JSON.stringify({username, password});
+        const requestBody = JSON.stringify({ username, password });
         const response = await remote.post("/ravewavers", requestBody);
         console.log("registerUser" + JSON.stringify(response.data));
         if (response.status >= 200 && response.status < 300) {
@@ -59,7 +58,7 @@ export class RestApi {
 
     // @PostMapping("/login")
     async loginUser(username, password) {
-        const requestBody = JSON.stringify({username, password});
+        const requestBody = JSON.stringify({ username, password });
         const response = await remote.post("/ravewavers/login", requestBody);
         console.log("loginUser" + JSON.stringify(response.data));
         if (response.status >= 200 && response.status < 300) {
@@ -121,7 +120,7 @@ export class RestApi {
         if (config.headers !== null) {
             console.log(config);
             console.log("entering add RW/host to lobby");
-            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName, config});
+            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName }, config);
             console.log("addPlayer" + JSON.stringify(response.data));
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
@@ -137,7 +136,7 @@ export class RestApi {
             }
             // you are guest
         } else {
-            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName});
+            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName });
             console.log("addPlayer" + JSON.stringify(response.data));
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
