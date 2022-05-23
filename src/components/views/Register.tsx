@@ -1,4 +1,4 @@
-import {Button, Container, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
+import {Button, Container, Group, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
@@ -55,7 +55,7 @@ export const Register: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
+                    <Title order={1} sx={{color: "white", padding: 5}}>
                         Register
                     </Title>{" "}
                     <Container size={200}>
@@ -68,12 +68,12 @@ export const Register: FC<{}> = ({}) => {
                                            onChange={(rpw) => setrePassword(rpw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Stack align="stretch">
-                        <Button onClick={doRegister}
-                                disabled={!username || !password || !repassword || !(password === repassword)}>
-                            Register
-                        </Button>
-                    </Stack>
+                    <Group sx={{ paddingTop: 10 }}>
+                            <Button onClick={doRegister}
+                                    disabled={!username || !password || !repassword || (password !== repassword)} size="md">
+                                Register
+                            </Button>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

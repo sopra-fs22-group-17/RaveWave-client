@@ -9,6 +9,7 @@ import {GuessSong} from "./GuessSong";
 import {PostGame} from "./PostGame";
 import {PostRound} from "./PostRound";
 import {WaitingRoom} from "./WaitingRoom";
+import {useHistory} from "react-router-dom";
 
 //different states in the game
 export type TGameState =
@@ -41,9 +42,11 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
     // const [result, setResult] = useState<IGameResult>();
     // const [summary, setSummary] = useState<IGameResult>();
     const [connected, setConnected] = useState(false);
+    const history = useHistory();
 
     //wird einmal aufgerufen im lifecycle vom gamecontroller
     useEffect(() => {
+
         const setup = async () => {
             //const confirmation = await context.api.addPlayer(lobbyId, playerName);
             //context.setUserId(confirmation.playerId);

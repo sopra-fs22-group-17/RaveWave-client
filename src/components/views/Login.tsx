@@ -1,4 +1,4 @@
-import {Button, Container, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
+import {Button, Container, TextInput, PasswordInput, Group, Stack, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
@@ -50,7 +50,7 @@ export const Login: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
+                    <Title order={1} sx={{color: "white", padding: 5}}>
                         Login
                     </Title>{" "}
                     <Container size={200}>
@@ -61,12 +61,11 @@ export const Login: FC<{}> = ({}) => {
                                            onChange={(pw) => setPassword(pw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Stack align="stretch">
-                        <Button disabled={!username || !password} onClick={doLogin}>
-                            Login
-                        </Button>
-
-                    </Stack>
+                    <Group sx={{ paddingTop: 10 }}>
+                            <Button onClick={doLogin} disabled={!username || !password} size="md">
+                                Login
+                            </Button>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

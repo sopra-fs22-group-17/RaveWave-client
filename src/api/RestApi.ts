@@ -121,16 +121,17 @@ export class RestApi {
         if (config.headers !== null) {
             console.log(config);
             console.log("entering add RW/host to lobby");
-            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName, config});
+            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName}, config);
             console.log("addPlayer" + JSON.stringify(response.data));
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
-                console.log("log before, RW" + user.token);
+                console.log("log before, RW " + user.token);
                 user.token = response.headers["authorization"];
-                console.log("log after, RW" + user.token);
+                console.log("log after, RW " + user.token);
                 // Store the token into the local storage.
-                sessionStorage.setItem("token", user.token);
+                sessionStorage.setItem('token', user.token);
                 sessionStorage.setItem("playerId", user.id);
+                sessionStorage.setItem("name", ("[RW] " + sessionStorage.getItem('name')))
 
                 return user;
             } else {

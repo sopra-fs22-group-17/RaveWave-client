@@ -1,6 +1,7 @@
-import {Box} from "@mantine/core";
-import {FC} from "react";
-import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
+import { Box } from "@mantine/core";
+import { FC } from "react";
+import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 
 export interface ISpotifyPlayerProps {
     url: string;
@@ -27,8 +28,8 @@ export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({url, duration}) => {
                 showFilledVolume={true}
                 showDownloadProgress={false}
                 hasDefaultKeyBindings={false}
-                customProgressBarSection={[]}
-                customControlsSection={[<div>Song Name: </div>, RHAP_UI.MAIN_CONTROLS]}
+                customProgressBarSection={[ ]}
+                customControlsSection={[RHAP_UI.MAIN_CONTROLS]}
             />
         </Box>
     );

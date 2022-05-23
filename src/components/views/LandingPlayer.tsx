@@ -30,20 +30,26 @@ export const LandingPlayer = (props) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
-                        RaveWave Player
+                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                        RaveWave
                     </Title>
-                    <Lottie options={defaultOptions} speed={1}/>
-                    <Group sx={{paddingTop: 40}}>
-                        <Button component={Link} to="/guest">
-                            Guest
-                        </Button>
-                        <Button component={Link} to="/register">
-                            Register
-                        </Button>
-                        <Button component={Link} to="/login">
-                            Login
-                        </Button>
+                    <Lottie options={defaultOptions} speed={1} />
+                    <Group sx={{ paddingTop: 30 }}>
+                        <Link to="/guest">
+                            <Button size="md">
+                                Guest
+                            </Button>
+                        </Link>
+                        <Link to="/register">
+                            <Button size="md">
+                                Register
+                            </Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button size="md">
+                                Login
+                            </Button>
+                        </Link>
                     </Group>
                 </Stack>
             </Container>

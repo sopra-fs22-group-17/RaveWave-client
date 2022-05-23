@@ -26,17 +26,21 @@ export const LandingHost = (props) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
-                        RaveWave Host
+                    <Title order={1} sx={{ color: "white", padding: 20, align: "justify" }}>
+                        RaveWave
                     </Title>
-                    <Lottie options={defaultOptions} speed={1}/>
-                    <Group sx={{paddingTop: 40}}>
-                        <Button component={Link} to="/register">
-                            Register
-                        </Button>
-                        <Button component={Link} to="/login">
-                            Login
-                        </Button>
+                    <Lottie options={defaultOptions} speed={1} />
+                    <Group sx={{ paddingTop: 30 }}>
+                        <Link to="/register">
+                            <Button size="md">
+                                Register
+                            </Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button size="md">
+                                Login
+                            </Button>
+                        </Link>
                     </Group>
                 </Stack>
             </Container>
