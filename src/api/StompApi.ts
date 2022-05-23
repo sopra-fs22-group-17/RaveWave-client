@@ -248,7 +248,6 @@ export class StompApi {
     /* change this */
     //listeners aufrufen (use notify)make message call notify
     private _handleMessage(info: any) {
-        console.log(JSON.stringify(info, null, 4) + "THIS IS THE INFO");
         console.log("CALLBACK _handleMessage");
         const msg = info.msg;
         if (msg.type === "setup") {

@@ -17,7 +17,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     if (!result) return null;
 
     console.log("PLAYERNAME: " + context.playerName);
-    const me = result.players.find((d) => d.playerName === "[RW] " + context.playerName);
+    const me = result.players.find((d) => d.playerName === context.playerName);
     console.log("ME: " + me);
     const list = result.players.filter((d) => d !== me);
     console.log("LIST: " + JSON.stringify(list, null, 4));
