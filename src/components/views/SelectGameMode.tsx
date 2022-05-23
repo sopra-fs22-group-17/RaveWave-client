@@ -10,7 +10,7 @@ import {SongPoolSelector} from "../ui/SongPoolSelector";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, setGameConfiguration, userRole} = context;
+    const { gameConfiguration, setGameConfiguration, userRole } = context;
     const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
@@ -20,7 +20,6 @@ export const SelectGameMode = (props) => {
     let roundDuration = playBackDuration;
 
     useEffect(() => {
-
         async function connect() {
             const lobbyId = await context.api.createLobbyAndGetId();
             const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem('name'));
@@ -39,8 +38,8 @@ export const SelectGameMode = (props) => {
         connect();
     }, []);
 
-    const gameModes: TQuestionType[] = ["Guess the song", "Guess the artist", "Guess the lyrics"];
-    const message = connected ? "Connected to Lobby" + context.lobbyId : "Connecting...";
+    const gameModes: TQuestionType[] = ["Guess the song title", "Guess the song artist", "Guess the liked song"];
+    const message = connected ? "Connected " + context.lobbyId : "Connecting...";
     const saveConfiguration = () => {
         roundDuration = playBackDuration;
         // context.api.sendSettings(context.lobbyId, config);
@@ -73,19 +72,17 @@ export const SelectGameMode = (props) => {
                     Game configuration
                 </Title>
                 <Text>{message}</Text>
-                <Group spacing={0} sx={{paddingBottom: 50}}>
+                <Group spacing={0} sx={{ paddingBottom: 50, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {gameModes.map((mode, i) => {
-                        return <GameModeButton key={i} type={mode} selected={gameMode === mode}
-                                               onSelect={() => setGameMode(mode)}/>;
+                        return <GameModeButton key={i} type={mode} selected={gameMode === mode} onSelect={() => setGameMode(mode)} />;
                     })}
                 </Group>
             </Stack>
             <Stack>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
-                        step={2} onChange={setGameRounds}></Slider>
+                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14} step={2} onChange={setGameRounds}></Slider>
 
-                <Text sx={{paddingTop: 20}}>{`Playback duration: ${playBackDuration} seconds`}</Text>
+                <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
                 <Slider
                     min={10}
                     max={20}
@@ -96,12 +93,16 @@ export const SelectGameMode = (props) => {
                     onChange={setPlayBackDuration}
                 ></Slider>
             </Stack>
-            <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
-            <Stack align="center" sx={{paddingTop: 60}}>
+            {gameMode === "Guess the liked song" ? (
+                <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+            ) : (
+                <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+            )}
+
+            <Stack align="center" sx={{ paddingTop: 60 }}>
+                <Button onClick={() => saveConfiguration()}>Save configuration</Button>
                 <Link to="/displayqr">
-                    <Button onClick={saveConfiguration}>
-                        Invite players
-                    </Button>
+                    <Button disabled={!gameConfigurationSaved}>Invite players</Button>
                 </Link>
             </Stack>
         </Container>

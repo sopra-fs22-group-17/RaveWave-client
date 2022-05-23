@@ -21,7 +21,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setSeconds(seconds => seconds - 1);
+            setSeconds((seconds) => seconds - 1);
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -62,6 +62,9 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                                 backgroundRepeat: "no-repeat",
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center",
+                                                wordWrap: "break-word",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
                                             }}
                                         >
                                             <Stack align="center" justify="center" sx={{height: "100%"}}>

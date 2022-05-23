@@ -272,9 +272,9 @@ export class StompApi {
     private _handleQuestionMessage(payload: any) {
         const info = payload.msg;
         const data: IGuessQuestion = {
-            question: "Guess the artist",
+            question: info.question,
             previewURL: info.previewURL,
-            playDuration: 14,
+            playDuration: info.playBackDuration,
             options: info.answers,
         };
         const messageEvent: IMessageEvent = {
@@ -330,23 +330,8 @@ export class StompApi {
 
 export const SONG_POOLS: ISongPool[] = [
     {
-        id: "SWITZERLAND",
-        label: "Swiss",
-        color: "#8C67AB",
-    },
-    {
-        id: "HIPHOP",
-        label: "Hip-Hop",
-        color: "#487D95",
-    },
-    {
-        id: "MOOD",
-        label: "Mood",
-        color: "#1F3264",
-    },
-    {
-        id: "WORKOUT",
-        label: "Workout",
+        id: "RAVEWAVESPECIAL",
+        label: "Creator Special",
         color: "#E8125C",
     },
     {
@@ -354,27 +339,67 @@ export const SONG_POOLS: ISongPool[] = [
         label: "Party",
         color: "#BB5D19",
     },
+
     {
-        id: "METAL",
-        label: "Metal",
-        color: "#777777",
+        id: "HIPHOP",
+        label: "Hip-Hop",
+        color: "#487D95",
     },
     {
-        id: "SOUL",
-        label: "Soul",
+        id: "TECHNO",
+        label: "Techno",
         color: "#8C67AB",
     },
     {
-        id: "JAZZ",
-        label: "Jazz",
+        id: "ROCK",
+        label: "Rock",
+        color: "#777777",
+    },
+    {
+        id: "LATIN",
+        label: "Latin",
         color: "#26856A",
+    },
+
+    {
+        id: "SWITZERLAND",
+        label: "Charts",
+        color: "#8C67AB",
+    },
+    {
+        id: "80S",
+        label: "80s Hits",
+        color: "#1F3264",
+    },
+    {
+        id: "90S",
+        label: "90s Hits",
+        color: "#1F3264",
+    },
+    {
+        id: "00S",
+        label: "2000s Hits",
+        color: "#1F3264",
+    },
+];
+
+export const LIKED_SONG_POOLS: ISongPool[] = [
+    {
+        id: "USERSTOPTRACKS",
+        label: "User's Top Tracks",
+        color: "#E8125C",
+    },
+    {
+        id: "USERSSAVEDTRACKS",
+        label: "User's Saved Tracks",
+        color: "#BB5D19",
     },
 ];
 
 const GAME_MODES = {
-    "Guess the song": "SONGGAME",
-    "Guess the artist": "ARTISTGAME",
-    "Guess the lyrics": "LYRICSGAME",
+    "Guess the song title": "SONGTITLEGAME",
+    "Guess the song artist": "ARTISTGAME",
+    "Guess the liked song": "LIKEDSONGGAME",
 };
 
 const NUMBER_STRING_ARRAY = [

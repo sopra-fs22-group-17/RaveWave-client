@@ -21,7 +21,7 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
                     <UnstyledButton
                         key={i}
                         className={cx(classes.button, selected && classes.buttonSelected)}
-                        sx={{backgroundColor: item.color}}
+                        sx={{ backgroundColor: item.color, wordWrap: "break-word", overflow: "hidden", textOverflow: "ellipsis" }}
                         onClick={() => onSelect(item.id)}
                     >
                         <Text className={cx(classes.label)}>{item.label}</Text>
