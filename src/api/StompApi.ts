@@ -86,15 +86,6 @@ export class StompApi {
         console.log("SEND SETTINGS 2");
     }
 
-    private send(message: string, payload?: any) {
-        console.log("Stomp: " + message);
-        if (payload) {
-            this.stomp.send(message, {}, payload);
-        } else {
-            this.stomp.send(message);
-        }
-    }
-
     public startGame(lobbyId: string): void {
         this.send(`/app/lobbies/${lobbyId}/start-game`);
     }
@@ -168,7 +159,12 @@ export class StompApi {
     public disconnect(reason: any): void {
         try {
             this.stomp.disconnect(() => this._handleDisconnect(reason), {});
-        } catch {}
+        } catch {
+        }
+    }
+
+    public subscribe(channel: string, callback: (data: any) => void): void {
+        this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
     }
 
     // public register(token: string) {
@@ -190,8 +186,8 @@ export class StompApi {
     //     }, 500);
     // }
 
-    public subscribe(channel: string, callback: (data: any) => void): void {
-        this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
+    public onRegister(callback: () => void) {
+        this._registerCallbacks.push(callback);
     }
 
     /*
@@ -200,10 +196,6 @@ export class StompApi {
     }
 
      */
-
-    public onRegister(callback: () => void) {
-        this._registerCallbacks.push(callback);
-    }
 
     public clearMessageSubscriptions() {
         this._messageCallbacks = {};
@@ -222,6 +214,15 @@ export class StompApi {
             this._messageCallbacks[channel] = [];
         }
         this._messageCallbacks[channel].push(callback);
+    }
+
+    private send(message: string, payload?: any) {
+        console.log("Stomp: " + message);
+        if (payload) {
+            this.stomp.send(message, {}, payload);
+        } else {
+            this.stomp.send(message);
+        }
     }
 
     private _handleError(error: any) {
@@ -251,6 +252,7 @@ export class StompApi {
     }
 
     /* change this */
+
     //listeners aufrufen (use notify)make message call notify
     private _handleMessage(info: any) {
         console.log("CALLBACK _handleMessage");

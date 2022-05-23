@@ -3,14 +3,14 @@ import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {IGameConfiguration, TQuestionType} from "../../api/@def";
-import {SONG_POOLS} from "../../api/StompApi";
+import {LIKED_SONG_POOLS, SONG_POOLS} from "../../api/StompApi";
 import {GameContext} from "../../contexts/GameContext";
 import {GameModeButton} from "../ui/GameModeButton";
 import {SongPoolSelector} from "../ui/SongPoolSelector";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
-    const { gameConfiguration, setGameConfiguration, userRole } = context;
+    const {gameConfiguration, setGameConfiguration, userRole} = context;
     const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
@@ -24,9 +24,9 @@ export const SelectGameMode = (props) => {
             const lobbyId = await context.api.createLobbyAndGetId();
             const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem('name'));
             context.setLobbyId(lobbyId);
-            if(sessionStorage.getItem('role') === "host"){
+            if (sessionStorage.getItem('role') === "host") {
                 context.setUserRole("host");
-            }else{
+            } else {
                 context.setUserRole("player");
             }
             context.setPlayerName(sessionStorage.getItem('name'));
@@ -68,19 +68,22 @@ export const SelectGameMode = (props) => {
     return (
         <Container size={500}>
             <Stack align="center">
-                <Title order={2} sx={{ color: "white", paddingTop: 20 }}>
+                <Title order={2} sx={{color: "white", paddingTop: 20}}>
                     Game configuration
                 </Title>
                 <Text>{message}</Text>
-                <Group spacing={0} sx={{ paddingBottom: 50, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <Group spacing={0}
+                       sx={{paddingBottom: 50, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
                     {gameModes.map((mode, i) => {
-                        return <GameModeButton key={i} type={mode} selected={gameMode === mode} onSelect={() => setGameMode(mode)} />;
+                        return <GameModeButton key={i} type={mode} selected={gameMode === mode}
+                                               onSelect={() => setGameMode(mode)}/>;
                     })}
                 </Group>
             </Stack>
             <Stack>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14} step={2} onChange={setGameRounds}></Slider>
+                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
+                        step={2} onChange={setGameRounds}></Slider>
 
                 <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
                 <Slider
@@ -94,12 +97,12 @@ export const SelectGameMode = (props) => {
                 ></Slider>
             </Stack>
             {gameMode === "Guess the liked song" ? (
-                <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+                <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
             ) : (
-                <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
+                <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
             )}
 
-            <Stack align="center" sx={{ paddingTop: 60 }}>
+            <Stack align="center" sx={{paddingTop: 60}}>
                 <Button onClick={() => saveConfiguration()}>Save configuration</Button>
                 <Link to="/displayqr">
                     <Button disabled={!gameConfigurationSaved}>Invite players</Button>

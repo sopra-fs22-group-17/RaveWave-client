@@ -13,7 +13,7 @@ export interface IGuessSongProps {
 
 export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     const context = useContext(GameContext);
-    const { gameConfiguration, lobbyId, stomp } = context;
+    const {gameConfiguration, lobbyId, stomp} = context;
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
