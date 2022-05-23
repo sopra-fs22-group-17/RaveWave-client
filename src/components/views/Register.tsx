@@ -68,7 +68,7 @@ export const Register: FC<{}> = ({}) => {
                                            onChange={(rpw) => setrePassword(rpw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Group sx={{paddingTop: 10}}>
+                    <Group sx={{ paddingTop: 10 }}>
                         <Button onClick={doRegister}
                                 disabled={!username || !password || !repassword || (password !== repassword)} size="md">
                             Register

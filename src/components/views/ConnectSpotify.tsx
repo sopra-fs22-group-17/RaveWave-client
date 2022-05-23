@@ -1,4 +1,4 @@
-import {Button, Container, Image, Stack, Text} from "@mantine/core";
+import {Button, Container, Group, Image, Stack, Text, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
@@ -73,15 +73,15 @@ export const ConnectSpotify: FC<{}> = ({}) => {
                     <Container size={500}>
                         <Image src="/images/spotify-logo-white.svg" sx={{padding: 40}}/>
                     </Container>
-                    <Text>{connectionMessage}</Text>
-                    <Stack align="stretch">
-                        <Button onClick={connectSpotify} disabled={spotifyAuthorized}>
+                    <Title order={4}>{connectionMessage}</Title>
+                    <Group align="center" sx={{ paddingTop: 10 }}>
+                        <Button onClick={connectSpotify} disabled={spotifyAuthorized} size="md">
                             Authorize Spotify
                         </Button>
-                        <Button onClick={setPlayerPar} disabled={!spotifyAuthorized}>
+                        <Button onClick={setPlayerPar} disabled={!spotifyAuthorized} size="md">
                             Continue
                         </Button>
-                    </Stack>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

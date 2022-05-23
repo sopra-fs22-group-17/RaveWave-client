@@ -39,7 +39,7 @@ export const SelectGameMode = (props) => {
     }, []);
 
     const gameModes: TQuestionType[] = ["Guess the song title", "Guess the song artist", "Guess the liked song"];
-    const message = connected ? "Connected " + context.lobbyId : "Connecting...";
+    const message = connected ? "Connected to Lobby" + context.lobbyId : "Connecting...";
     const saveConfiguration = () => {
         roundDuration = playBackDuration;
         // context.api.sendSettings(context.lobbyId, config);
@@ -85,7 +85,7 @@ export const SelectGameMode = (props) => {
                 <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
                         step={2} onChange={setGameRounds}></Slider>
 
-                <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
+                <Text sx={{paddingTop: 20}}>{`Playback duration: ${playBackDuration} seconds`}</Text>
                 <Slider
                     min={10}
                     max={20}
@@ -103,9 +103,10 @@ export const SelectGameMode = (props) => {
             )}
 
             <Stack align="center" sx={{paddingTop: 60}}>
-                <Button onClick={() => saveConfiguration()}>Save configuration</Button>
                 <Link to="/displayqr">
-                    <Button disabled={!gameConfigurationSaved}>Invite players</Button>
+                    <Button onClick={saveConfiguration}>
+                    Invite players
+                </Button>
                 </Link>
             </Stack>
         </Container>

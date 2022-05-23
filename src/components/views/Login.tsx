@@ -61,7 +61,7 @@ export const Login: FC<{}> = ({}) => {
                                            onChange={(pw) => setPassword(pw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Group sx={{paddingTop: 10}}>
+                    <Group sx={{ paddingTop: 10 }}>
                         <Button onClick={doLogin} disabled={!username || !password} size="md">
                             Login
                         </Button>
