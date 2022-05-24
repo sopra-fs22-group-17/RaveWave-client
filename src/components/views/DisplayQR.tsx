@@ -5,6 +5,7 @@ import {FC, useContext} from "react";
 import {Link} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
 import {IGameController} from "./GameController";
+import {IMessageEvent} from "../../api/@def";
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -12,12 +13,19 @@ export interface IDisplayQRProps {
 
 export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
     const context = useContext(GameContext);
-    const {lobbyId} = context;
+    const {lobbyId, stomp} = context;
     const startAction = () => {
     };
 
     const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
     console.log("Game URL: " + url);
+    const connected =  context.stomp.connect(lobbyId);
+    const listener = (message: IMessageEvent) => {
+        if(message.type === "playerJoin"){
+            context.info("Player " + message.data.name + " joined the lobby");
+        }
+    };
+    stomp.join(listener);
 
     return (
         <BaseContainer>

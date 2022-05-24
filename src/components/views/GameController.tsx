@@ -55,10 +55,13 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
             const connected = await context.stomp.connect(lobbyId);
             context.info(`Player '${playerName}' connected.`);
 
+
             console.log(userRole);
 
             if (userRole === "host") {
-                stomp.sendSettings(lobbyId, gameConfiguration);
+                stomp.sendSettings(lobbyId, gameConfiguration)
+
+
             }
             setConnected(true);
         };
@@ -76,6 +79,8 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
                 setState({type: "result", data: message.data});
             } else if (message.type === "summary") {
                 setState({type: "summary", data: message.data});
+            } else if(message.type === "playerJoin"){
+                context.info("Player " + message.data.name + " joined the lobby");
             }
         };
         stomp.join(listener);

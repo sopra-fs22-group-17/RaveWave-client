@@ -68,6 +68,10 @@ export interface IMessageEvent {
     data: any;
 }
 
+export interface IPlayerJoin {
+    name: string
+}
+
 export interface IMessageListener {
     (event: IMessageEvent): void;
 }
