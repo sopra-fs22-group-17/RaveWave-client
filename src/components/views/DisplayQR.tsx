@@ -1,10 +1,12 @@
-import {Button, Center, Container, LoadingOverlay, Stack, Text, Title} from "@mantine/core";
+import {Button, Center, Container, LoadingOverlay, Stack, Text, Title, Group, ActionIcon} from "@mantine/core";
+import { useClipboard } from '@mantine/hooks';
 import BaseContainer from "components/ui/BaseContainer";
 import {QRCodeCanvas} from "qrcode.react";
 import {FC, useContext, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
 import {IGameController} from "./GameController";
+import { Copy, Check } from 'tabler-icons-react';
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -16,6 +18,8 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
     const history = useHistory();
 
     const [visible, setVisible] = useState(false);
+
+    const clipboard = useClipboard({ timeout: 1000 });
 
     async function start() {
         setVisible(true);
@@ -30,8 +34,8 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
             <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
-                        Join RaveWave
+                    <Title order={1} sx={{color: "white", paddingBottom: 15}}>
+                        Join game
                     </Title>{" "}
                     <Stack align="stretch">
                         <Center className="displayqr column-item">
@@ -39,9 +43,14 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
                         </Center>
                         <Text>{url}</Text>
                     </Stack>
+                    <Group sx={{ paddingTop: 10 }}>
+                        <ActionIcon onClick={() => clipboard.copy(url)}>
+                            {clipboard.copied ? <Check/> : <Copy/>}
+                        </ActionIcon>
                     <Button onClick={start}>
                         Start Game
                     </Button>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>
