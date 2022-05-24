@@ -131,7 +131,13 @@ export class RestApi {
                 // Store the token into the local storage.
                 sessionStorage.setItem('token', user.token);
                 sessionStorage.setItem("playerId", user.id);
-                sessionStorage.setItem("name", ("[RW] " + sessionStorage.getItem('name')))
+
+                const name = sessionStorage.getItem('name');
+
+                if(!(name.includes("[RW]"))){
+                    sessionStorage.setItem("name", ("[RW] " + name));
+                }
+
 
                 return user;
             } else {
