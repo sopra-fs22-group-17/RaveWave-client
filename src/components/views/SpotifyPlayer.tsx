@@ -1,6 +1,7 @@
 import { Box } from "@mantine/core";
 import { FC } from "react";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+
 import "react-h5-audio-player/lib/styles.css";
 
 export interface ISpotifyPlayerProps {
