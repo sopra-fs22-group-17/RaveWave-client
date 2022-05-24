@@ -1,4 +1,4 @@
-import {Box, createStyles, Text, UnstyledButton} from "@mantine/core";
+import {Box, createStyles, Text, UnstyledButton, Group} from "@mantine/core";
 import {FC} from "react";
 
 import {ISongPool} from "../../api/StompApi";
@@ -10,11 +10,11 @@ export interface ISongPoolSelectorProps {
 }
 
 export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, onSelect}) => {
-    const buttonSize = 100;
+    const buttonSize = 95;
     const {classes, cx} = useStyles({buttonSize});
 
     return (
-        <Box className={cx(classes.root)}>
+        <Group className={cx(classes.root)}>
             {items.map((item, i) => {
                 const selected = item.id === selection;
                 return (
@@ -22,7 +22,6 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
                         key={i}
                         className={cx(classes.button, selected && classes.buttonSelected)}
                         sx={{
-                            backgroundColor: item.color,
                             wordWrap: "break-word",
                             overflow: "hidden",
                             textOverflow: "ellipsis"
@@ -33,7 +32,7 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
                     </UnstyledButton>
                 );
             })}
-        </Box>
+        </Group>
     );
 };
 
@@ -53,14 +52,17 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         width: buttonSize,
         height: buttonSize,
         borderRadius: 10,
-        padding: "10px 0 0 10px",
+        background: "radial-gradient(at right bottom, rgb(63 29 126) 50%, rgb(172 2 208) 50%)",
+        backgroundAttachment: "fixed",
+        //transform: "rotate(30deg)",
+        padding: "7px 7px 7px 7px",
         "&:hover": {
-            opacity: 0.8,
+            opacity: 1,
         },
         border: "1px solid transparent",
     },
     buttonSelected: {
-        border: "1px solid white",
+        border: "3px solid white",
     },
     label: {
         fontSize: 20,

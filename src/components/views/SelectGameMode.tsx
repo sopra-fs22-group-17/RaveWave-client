@@ -85,7 +85,7 @@ export const SelectGameMode = (props) => {
                 <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
                         step={2} onChange={setGameRounds}></Slider>
 
-                <Text sx={{paddingTop: 20}}>{`Playback duration: ${playBackDuration} seconds`}</Text>
+                <Text sx={{paddingTop: 25}}>{`Playback duration: ${playBackDuration} seconds`}</Text>
                 <Slider
                     min={10}
                     max={20}
