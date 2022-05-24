@@ -1,7 +1,7 @@
-import {Box, createStyles, Text, UnstyledButton} from "@mantine/core";
-import {FC} from "react";
+import { Box, createStyles, Text, UnstyledButton } from "@mantine/core";
+import { FC } from "react";
 
-import {ISongPool} from "../../api/StompApi";
+import { ISongPool } from "../../api/StompApi";
 
 export interface ISongPoolSelectorProps {
     items: ISongPool[];
@@ -9,9 +9,9 @@ export interface ISongPoolSelectorProps {
     onSelect?: (selection: string) => void;
 }
 
-export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, onSelect}) => {
+export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({ items, selection, onSelect }) => {
     const buttonSize = 100;
-    const {classes, cx} = useStyles({buttonSize});
+    const { classes, cx } = useStyles({ buttonSize });
 
     return (
         <Box className={cx(classes.root)}>
@@ -25,7 +25,10 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
                             backgroundColor: item.color,
                             wordWrap: "break-word",
                             overflow: "hidden",
-                            textOverflow: "ellipsis"
+                            textOverflow: "ellipsis",
+                            boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                            transition: "transform 130ms ease-out",
+                            zIndex: 1,
                         }}
                         onClick={() => onSelect(item.id)}
                     >
@@ -41,7 +44,7 @@ interface IStylesParams {
     buttonSize?: number;
 }
 
-export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
+export const useStyles = createStyles((theme, { buttonSize }: IStylesParams) => ({
     root: {
         ...theme.fn.fontStyles(),
         display: "flex",
@@ -53,11 +56,13 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         width: buttonSize,
         height: buttonSize,
         borderRadius: 10,
-        padding: "10px 0 0 10px",
         "&:hover": {
-            opacity: 0.8,
+            transform: "translateY(-2px) scale(0.985)",
+            opacity: 0.85,
+            zIndex: 0,
         },
         border: "1px solid transparent",
+        textAlign: "center",
     },
     buttonSelected: {
         border: "1px solid white",
