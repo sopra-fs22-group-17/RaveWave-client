@@ -1,18 +1,19 @@
-import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
-import {IGuessOption, IGuessQuestion} from "../../api/@def";
-import {IGameController} from "./GameController";
-import {SpotifyPlayer} from "./SpotifyPlayer";
-import {GameContext} from "../../contexts/GameContext";
+import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
+import { FC, useContext, useEffect, useState } from "react";
+
+import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
+import { IGameController } from "./GameController";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 
 export interface IGuessArtistProps {
     controller: IGameController;
     question: IGuessQuestion;
 }
 
-export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
+export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, lobbyId, stomp} = context;
+    const { gameConfiguration, lobbyId, stomp } = context;
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
@@ -41,8 +42,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         <Container size={500}>
             <Stack align="center">
                 <h1>Guess the Artist</h1>
-                <h2>{passedSeconds} seconds left!</h2><SpotifyPlayer url={question.previewURL}
-                                                                     duration={question.playDuration || 20}/>
+                <h2>{passedSeconds} seconds left!</h2>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
                 <Grid gutter={40} justify="center">
                     {question.options.map((option, i) => {
                         return (
@@ -54,7 +55,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                                 backgroundImage: `url(${option.picture})`,
                                                 opacity: answered ? 0.5 : 1,
                                                 cursor: answered ? "default" : "pointer",
-                                                border: "1px solid white",
                                             }}
                                             sx={{
                                                 width: imageSize,
@@ -66,9 +66,11 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                                 wordWrap: "break-word",
                                                 overflow: "hidden",
                                                 textOverflow: "ellipsis",
+                                                boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                                              
                                             }}
                                         >
-                                            <Stack align="center" justify="center" sx={{height: "100%"}}>
+                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
                                                 <Text
                                                     sx={{
                                                         fontSize: 30,

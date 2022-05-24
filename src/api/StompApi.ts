@@ -293,8 +293,11 @@ export class StompApi {
         const info = payload.msg;
 
         const data: IGameResult = {
+            spotifyLink: info.spotifyLink,
+            coverUrl: info.coverUrl,
             artist: info.artist,
             songTitle: info.songTitle,
+            correctAnswer: info.correctAnswer,
             players: info.players,
             gameOver: info.gameOver,
         };
@@ -384,19 +387,29 @@ export const SONG_POOLS: ISongPool[] = [
         color: "#8C67AB",
     },
     {
-        id: "80S",
+        id: "EIGHTIES",
         label: "80s Hits",
         color: "#1F3264",
     },
     {
-        id: "90S",
+        id: "NINETIES",
         label: "90s Hits",
         color: "#1F3264",
     },
     {
-        id: "00S",
+        id: "NOUGHTIES",
         label: "2000s Hits",
         color: "#1F3264",
+    },
+    {
+        id: "USERSTOPTRACKS",
+        label: "User's Top Tracks",
+        color: "#E8125C",
+    },
+    {
+        id: "USERSSAVEDTRACKS",
+        label: "User's Saved Tracks",
+        color: "#BB5D19",
     },
 ];
 

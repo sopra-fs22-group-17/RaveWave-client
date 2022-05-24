@@ -52,8 +52,11 @@ export interface IPlayerInfo {
 
 //post game and post round
 export interface IGameResult {
+    coverUrl: string;
+    spotifyLink: string;
     artist: string;
     songTitle: string;
+    correctAnswer: string;
     players: IPlayerInfo[];
     gameOver: boolean;
 }

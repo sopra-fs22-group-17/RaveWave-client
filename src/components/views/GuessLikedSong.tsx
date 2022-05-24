@@ -1,19 +1,19 @@
-import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
+import { Box, Center, Container, Grid, Stack, Text, UnstyledButton } from "@mantine/core";
+import { FC, useContext, useEffect, useState } from "react";
 
-import {IGuessOption, IGuessQuestion} from "../../api/@def";
-import {IGameController} from "./GameController";
-import {SpotifyPlayer} from "./SpotifyPlayer";
-import {GameContext} from "../../contexts/GameContext";
+import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
+import { IGameController } from "./GameController";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 
 export interface IGuessLikedSongProps {
     controller: IGameController;
     question: IGuessQuestion;
 }
 
-export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question}) => {
+export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, lobbyId, stomp} = context;
+    const { gameConfiguration, lobbyId, stomp } = context;
     const imageSize = 200;
     const [answered, setAnswered] = useState(false);
 
@@ -64,14 +64,19 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
                                                 wordWrap: "break-word",
                                                 overflow: "hidden",
                                                 textOverflow: "ellipsis",
+                                                boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
                                             }}
                                         >
-                                            <Stack align="center" justify="center" sx={{height: "100%"}}>
-                                                <Text sx={{
-                                                    fontSize: 30,
-                                                    fontWeight: 700,
-                                                    textShadow: "1px 2px #00000063"
-                                                }}>{option.answer}</Text>
+                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
+                                                <Text
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        fontWeight: 700,
+                                                        textShadow: "1px 2px #00000063",
+                                                    }}
+                                                >
+                                                    {option.answer}
+                                                </Text>
                                             </Stack>
                                         </Box>
                                     </UnstyledButton>
@@ -81,7 +86,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
                     })}
                 </Grid>
 
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
             </Stack>
         </Container>
     );

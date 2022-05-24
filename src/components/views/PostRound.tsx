@@ -1,16 +1,17 @@
-import {Button, Container, Stack} from "@mantine/core";
-import {FC, useContext} from "react";
-import {IGameResult} from "../../api/@def";
-import {GameContext} from "../../contexts/GameContext";
-import {GameResult} from "../ui/GameResult";
-import {IGameController} from "./GameController";
+import { Anchor, Box, Button, Container, Image, Stack } from "@mantine/core";
+import { FC, useContext } from "react";
+
+import { IGameResult } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
+import { GameResult } from "../ui/GameResult";
+import { IGameController } from "./GameController";
 
 export interface IPostRoundProps {
     controller: IGameController;
     result: IGameResult;
 }
 
-export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
+export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     const context = useContext(GameContext);
 
     if (!result) return null;
@@ -31,10 +32,34 @@ export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
         <Container size={500}>
             <Stack align="center">
                 <h1>{correctness}</h1>
-                <GameResult result={result}/>
+                {result.correctAnswer === undefined ? <div>correctAnswer undefined</div> : <div>{"The correct answer is " + result.correctAnswer}</div>}
+                <GameResult result={result} />
+
+                <Box
+                    sx={{
+                        color: "white",
+                        textAlign: "center",
+                        backgroundColor: "#00000040",
+                        borderRadius: "16px",
+                        padding: "20px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}
+                >
+                    <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
+                    <div>
+                        {result.songTitle}
+                        {" by "}
+                        {result.artist}
+                    </div>
+                    <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer">
+                        Open Song in Spotify
+                    </Anchor>
+                </Box>
             </Stack>
             {isHost && (
-                <Stack sx={{paddingTop: 20}} align="center">
+                <Stack sx={{ paddingTop: 20 }} align="center">
                     <Button onClick={() => nextRound()}>Continue</Button>
                 </Stack>
             )}
