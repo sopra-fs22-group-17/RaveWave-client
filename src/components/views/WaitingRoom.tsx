@@ -1,7 +1,7 @@
-import {Box, Container, Stack, Text, Title} from "@mantine/core";
+import {Box, Container, LoadingOverlay, Stack, Text, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {GameContext} from "contexts/GameContext";
-import {FC, useContext, useEffect} from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import GridLoader from "react-spinners/GridLoader";
 import {IGameController} from "./GameController";
 
@@ -13,11 +13,14 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({controller}) => {
     const context = useContext(GameContext);
     const {userRole, lobbyId, stomp} = context;
 
+    const [visible, setVisible] = useState(false);
+
     const startGame = () => {
         context.stomp.startGame(context.lobbyId);
     };
     useEffect(() => {
         if (userRole === "host") {
+            setVisible(true);
             context.info("Starting game...");
             //            setTimeout(() => {
             stomp.startGame(lobbyId);
@@ -28,6 +31,7 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({controller}) => {
 
     return (
         <BaseContainer>
+            <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>

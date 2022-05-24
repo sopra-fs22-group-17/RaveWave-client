@@ -1,5 +1,5 @@
-import {Button, Container, Stack} from "@mantine/core";
-import {FC, useContext} from "react";
+import {Button, Container, LoadingOverlay, Stack} from "@mantine/core";
+import {FC, useContext, useState} from "react";
 import {IGameResult} from "../../api/@def";
 import {GameContext} from "../../contexts/GameContext";
 import {GameResult} from "../ui/GameResult";
@@ -12,6 +12,7 @@ export interface IPostRoundProps {
 
 export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
     const context = useContext(GameContext);
+    const [visible, setVisible] = useState(false);
 
     if (!result) return null;
 
@@ -22,6 +23,7 @@ export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
     const correctness = correct ? "Correct!" : "Wrong!";
 
     const nextRound = () => {
+        setVisible(true);
         context.stomp.nextRound(context.lobbyId);
     };
 
@@ -29,6 +31,7 @@ export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
 
     return (
         <Container size={500}>
+            <LoadingOverlay visible={visible} />
             <Stack align="center">
                 <h1>{correctness}</h1>
                 <GameResult result={result}/>

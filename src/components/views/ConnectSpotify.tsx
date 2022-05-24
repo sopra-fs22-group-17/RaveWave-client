@@ -1,4 +1,4 @@
-import {Button, Container, Group, Image, Stack, Text, Title} from "@mantine/core";
+import {Button, Container, Group, Image, Stack, Text, Title, LoadingOverlay} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
@@ -13,6 +13,8 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     const spotifyCodeParam = useQueryParam("code");
     const history = useHistory();
 
+    const [visible, setVisible] = useState(false);
+
     useEffect(() => {
         const handler = async () => {
             if (spotifyCodeParam) {
@@ -24,28 +26,34 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
     const connectSpotify = async () => {
         try {
+            setVisible(true);
             const response = await api.getAuthorizationCodeUri();
             const spotifyLink = new SpotifyURL(response.data);
             context.info("Redirecting " + (spotifyLink.redirectionURL.substring(0, 30) + "..."));
             window.location.href = spotifyLink.redirectionURL;
         } catch (error) {
             context.error(error.toString());
+            setVisible(false);
         }
     };
 
     const sendSpotifyCode = async () => {
         const authCodeRequest = JSON.stringify({code: spotifyCodeParam});
         try {
+            setVisible(true);
             await api.setAuthorizationCode(authCodeRequest);
             context.info("Spotify access granted!");
             setSpotifyAuthorized(true);
+            setVisible(false);
         } catch {
             //context.info();
             context.error("Spotify access denied! Are you sure you are using a Spotify-Premium account?")
+            setVisible(false);
         }
     };
 
     const setPlayerPar = async () => {
+        setVisible(true);
         const nameofPlayer = sessionStorage.getItem('name');
         const roleofPlayer = sessionStorage.getItem('role');
         if (roleofPlayer === "host") {
@@ -68,6 +76,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
     return (
         <BaseContainer>
+            <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
                     <Container size={500}>

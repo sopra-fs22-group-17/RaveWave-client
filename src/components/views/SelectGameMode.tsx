@@ -1,4 +1,4 @@
-import {Button, Container, Group, Slider, Stack, Text, Title} from "@mantine/core";
+import {Button, Container, Group, LoadingOverlay, Slider, Stack, Text, Title} from "@mantine/core";
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -18,6 +18,8 @@ export const SelectGameMode = (props) => {
     const [songPool, setSongPool] = useState(gameConfiguration.songPool);
     const [playBackDuration, setPlayBackDuration] = useState(gameConfiguration.playBackDuration);
     let roundDuration = playBackDuration;
+
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         async function connect() {
@@ -41,6 +43,7 @@ export const SelectGameMode = (props) => {
     const gameModes: TQuestionType[] = ["Guess the song title", "Guess the song artist", "Guess the liked song"];
     const message = connected ? "Connected to Lobby" + context.lobbyId : "Connecting...";
     const saveConfiguration = () => {
+        setVisible(true);
         roundDuration = playBackDuration;
         // context.api.sendSettings(context.lobbyId, config);
         const config: IGameConfiguration = {
@@ -67,6 +70,7 @@ export const SelectGameMode = (props) => {
 
     return (
         <Container size={500}>
+            <LoadingOverlay visible={visible} />
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">
                     <Title order={2} sx={{color: "white", paddingTop: 10}}>

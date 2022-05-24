@@ -1,4 +1,4 @@
-import {Button, Container, Group, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
+import {Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
 import BaseContainer from "components/ui/BaseContainer";
 import {FC, useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
@@ -14,24 +14,27 @@ export const Register: FC<{}> = ({}) => {
     const [repassword, setrePassword] = useState('');
     const history = useHistory();
 
+    const [visible, setVisible] = useState(false);
 
     let redirectPath = "";
-
+    let backPath = "";
 
     async function doRegister() {
-
+        setVisible(true);
         if (currentURL.includes("landinghost")) {
             // host
             const roleofPlayer = "host";
             context.setUserRole(roleofPlayer);
             sessionStorage.setItem('role', roleofPlayer);
             redirectPath = "/connectspotify";
+            backPath = "/landinghost";
         } else {
             // player
             const roleofPlayer = "player";
             context.setUserRole(roleofPlayer);
             sessionStorage.setItem('role', roleofPlayer);
             redirectPath = "/connectspotify";
+            backPath = "/landingplayer";
         }
 
         try {
@@ -51,8 +54,14 @@ export const Register: FC<{}> = ({}) => {
         }
     }
 
+    async function doBack() {
+        setVisible(true);
+        history.push(backPath);
+    }
+
     return (
         <BaseContainer>
+            <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 5}}>
@@ -69,6 +78,9 @@ export const Register: FC<{}> = ({}) => {
                         </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
+                        <Button onClick={doBack} size="md">
+                            Back
+                        </Button>
                         <Button onClick={doRegister}
                                 disabled={!username || !password || !repassword || (password !== repassword)} size="md">
                             Register

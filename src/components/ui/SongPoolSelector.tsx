@@ -53,7 +53,7 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         height: buttonSize,
         borderRadius: 10,
         //background: "linear-gradient(127deg, rgb(63 29 126) 57%, rgb(172 2 208) 43%)",
-        background: "linear-gradient(127deg, rgb(195 20 233) 0%, rgb(63 29 126) 105%)",
+        background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(63 29 126) 100%)",
         backgroundAttachment: "fixed",
         //transform: "rotate(30deg)",
         padding: "7px 7px 7px 7px",
