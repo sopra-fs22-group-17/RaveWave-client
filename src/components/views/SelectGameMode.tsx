@@ -67,26 +67,29 @@ export const SelectGameMode = (props) => {
 
     return (
         <Container size={500}>
-            <Stack align="center">
-                <Title order={2} sx={{color: "white", paddingTop: 20}}>
-                    Game configuration
-                </Title>
-                <Text>{message}</Text>
+            <Stack align="center" spacing={25}>
+                <Stack spacing={7} align="center">
+                    <Title order={2} sx={{color: "white", paddingTop: 10}}>
+                        Game configuration
+                    </Title>
+                    <Text>{message}</Text>
+                </Stack>
                 <Group spacing={0}
-                       sx={{paddingBottom: 50, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
+                       sx={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
                     {gameModes.map((mode, i) => {
                         return <GameModeButton key={i} type={mode} selected={gameMode === mode}
                                                onSelect={() => setGameMode(mode)}/>;
                     })}
                 </Group>
-            </Stack>
-            <Stack>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
+            </Stack>
+                <Slider size={"lg"} min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
                         step={2} onChange={setGameRounds}></Slider>
-
-                <Text sx={{paddingTop: 25}}>{`Playback duration: ${playBackDuration} seconds`}</Text>
+            <Stack sx={{paddingTop: 25}} align="center">
+                <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
+            </Stack>
                 <Slider
+                    size={"lg"}
                     min={10}
                     max={20}
                     label={(value) => value.toFixed(0)}
@@ -95,18 +98,18 @@ export const SelectGameMode = (props) => {
                     step={2}
                     onChange={setPlayBackDuration}
                 ></Slider>
-            </Stack>
+
             {gameMode === "Guess the liked song" ? (
                 <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
             ) : (
                 <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
             )}
 
-            <Stack align="center" sx={{paddingTop: 60}}>
+            <Stack align="center" sx={{paddingTop: 30, paddingBottom: 15}}>
                 <Link to="/displayqr">
                     <Button onClick={saveConfiguration}>
-                    Invite players
-                </Button>
+                        Invite players
+                    </Button>
                 </Link>
             </Stack>
         </Container>
