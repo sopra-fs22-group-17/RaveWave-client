@@ -19,10 +19,11 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         alignItems: "center",
         flexWrap: "nowrap",
         gap: 12,
+        minWidth: "350px",
     };
 
     return (
-        <Grid gutter={40} justify="center">
+        <Grid gutter={40} justify="center" sx={{ display: "flex", flexDirection: "row" }}>
             {list.map((player, i) => {
                 return (
                     <Grid.Col key={i} span={12}>

@@ -282,6 +282,8 @@ export class StompApi {
         const info = payload.msg;
 
         const data: IGameResult = {
+            spotifyLink: info.spotifyLink,
+            coverUrl: info.coverUrl,
             artist: info.artist,
             songTitle: info.songTitle,
             correctAnswer: info.correctAnswer,

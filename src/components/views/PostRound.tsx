@@ -1,4 +1,4 @@
-import { Button, Container, Stack } from "@mantine/core";
+import { Anchor, Box, Button, Container, Image, Stack } from "@mantine/core";
 import { FC, useContext } from "react";
 
 import { IGameResult } from "../../api/@def";
@@ -34,6 +34,29 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                 <h1>{correctness}</h1>
                 {result.correctAnswer === undefined ? <div>correctAnswer undefined</div> : <div>{"The correct answer is " + result.correctAnswer}</div>}
                 <GameResult result={result} />
+
+                <Box
+                    sx={{
+                        color: "white",
+                        textAlign: "center",
+                        backgroundColor: "#00000040",
+                        borderRadius: "16px",
+                        padding: "20px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}
+                >
+                    <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
+                    <div>
+                        {result.songTitle}
+                        {" by "}
+                        {result.artist}
+                    </div>
+                    <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer">
+                        Open Song in Spotify
+                    </Anchor>
+                </Box>
             </Stack>
             {isHost && (
                 <Stack sx={{ paddingTop: 20 }} align="center">
