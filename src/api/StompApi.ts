@@ -374,6 +374,16 @@ export const SONG_POOLS: ISongPool[] = [
         label: "2000s Hits",
         color: "#1F3264",
     },
+    {
+        id: "USERSTOPTRACKS",
+        label: "User's Top Tracks",
+        color: "#E8125C",
+    },
+    {
+        id: "USERSSAVEDTRACKS",
+        label: "User's Saved Tracks",
+        color: "#BB5D19",
+    },
 ];
 
 export const LIKED_SONG_POOLS: ISongPool[] = [
