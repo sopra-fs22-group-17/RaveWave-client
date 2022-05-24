@@ -134,7 +134,7 @@ export class RestApi {
 
                 const name = sessionStorage.getItem('name');
 
-                if(!(name.includes("[RW]"))){
+                if (!(name.includes("[RW]"))) {
                     sessionStorage.setItem("name", ("[RW] " + name));
                 }
 

@@ -34,7 +34,7 @@ export const LandingPlayer = (props) => {
                         RaveWave
                     </Title>
                     <Lottie options={defaultOptions} speed={1}/>
-                    <Group sx={{ paddingTop: 30 }}>
+                    <Group sx={{paddingTop: 30}}>
                         <Link to="/guest">
                             <Button size="md">
                                 Guest

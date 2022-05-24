@@ -19,9 +19,9 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
 
     const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
     console.log("Game URL: " + url);
-    const connected =  context.stomp.connect(lobbyId);
+    const connected = context.stomp.connect(lobbyId);
     const listener = (message: IMessageEvent) => {
-        if(message.type === "playerJoin"){
+        if (message.type === "playerJoin") {
             context.info("Player " + message.data.name + " joined the lobby");
         }
     };

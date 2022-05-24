@@ -1,14 +1,14 @@
-import { Button, Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
-import { FC, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import {Button, Container, Group, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
+import {FC, useContext, useState} from "react";
+import {useHistory} from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import { GameContext } from "../../contexts/GameContext";
+import {GameContext} from "../../contexts/GameContext";
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const { api, userRole, currentURL } = context;
+    const {api, userRole, currentURL} = context;
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -53,13 +53,15 @@ export const Register: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 5 }}>
+                    <Title order={1} sx={{color: "white", padding: 5}}>
                         Register
                     </Title>{" "}
                     <Container size={200}>
                         <Stack spacing="lg">
-                            <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
-                            <PasswordInput value={password} placeholder="Password" label="Password" onChange={(pw) => setPassword(pw.currentTarget.value)} />
+                            <TextInput value={username} placeholder="Username" label="Username"
+                                       onChange={(un) => setUsername(un.currentTarget.value)}/>
+                            <PasswordInput value={password} placeholder="Password" label="Password"
+                                           onChange={(pw) => setPassword(pw.currentTarget.value)}/>
                             <PasswordInput
                                 value={repassword}
                                 placeholder="Password"
@@ -68,8 +70,12 @@ export const Register: FC<{}> = ({}) => {
                             />
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 10, boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px" }}>
-                        <Button onClick={doRegister} disabled={!username || !password || !repassword || password !== repassword} size="md">
+                    <Group sx={{
+                        paddingTop: 10,
+                        boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px"
+                    }}>
+                        <Button onClick={doRegister}
+                                disabled={!username || !password || !repassword || password !== repassword} size="md">
                             Register
                         </Button>
                     </Group>

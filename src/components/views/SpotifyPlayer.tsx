@@ -1,6 +1,6 @@
-import { Box } from "@mantine/core";
-import { FC } from "react";
-import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+import {Box} from "@mantine/core";
+import {FC} from "react";
+import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
 
 import "react-h5-audio-player/lib/styles.css";
 
@@ -16,7 +16,7 @@ const styles = {
     },
 } as const;
 
-export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url, duration }) => {
+export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({url, duration}) => {
     return (
         <Box>
             <AudioPlayer

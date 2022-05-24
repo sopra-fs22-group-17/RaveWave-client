@@ -79,7 +79,7 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
                 setState({type: "result", data: message.data});
             } else if (message.type === "summary") {
                 setState({type: "summary", data: message.data});
-            } else if(message.type === "playerJoin"){
+            } else if (message.type === "playerJoin") {
                 context.info("Player " + message.data.name + " joined the lobby");
             }
         };

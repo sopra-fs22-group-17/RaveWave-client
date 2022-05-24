@@ -6,7 +6,8 @@ import {
     IGameResult,
     IGuessQuestion,
     IMessageEvent,
-    IMessageListener, IPlayerJoin,
+    IMessageListener,
+    IPlayerJoin,
     IStompGameConfiguration
 } from "./@def";
 import {defer} from "./Deferred";
@@ -263,7 +264,7 @@ export class StompApi {
             this._handleQuestionMessage(info);
         } else if (msg.type === "result") {
             this._handleResultMessage(info);
-        } else if (msg.type ==="playerJoin"){
+        } else if (msg.type === "playerJoin") {
             this._handlePlayerJoinMessage(info);
         }
     }
@@ -309,7 +310,7 @@ export class StompApi {
         this.notify(messageEvent);
     }
 
-    private _handlePlayerJoinMessage(payload: any){
+    private _handlePlayerJoinMessage(payload: any) {
         const info = payload.msg;
         const data: IPlayerJoin = {
             name: info.name,

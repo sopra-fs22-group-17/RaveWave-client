@@ -1,14 +1,14 @@
-import { Button, Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
-import { FC, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import {Button, Container, Group, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
+import {FC, useContext, useState} from "react";
+import {useHistory} from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import { GameContext } from "../../contexts/GameContext";
+import {GameContext} from "../../contexts/GameContext";
 
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const { api, userRole, playerName, currentURL } = context;
+    const {api, userRole, playerName, currentURL} = context;
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -51,16 +51,18 @@ export const Login: FC<{}> = ({}) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 5 }}>
+                    <Title order={1} sx={{color: "white", padding: 5}}>
                         Login
                     </Title>{" "}
                     <Container size={200}>
                         <Stack spacing="lg">
-                            <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
-                            <PasswordInput value={password} placeholder="Password" label="Password" onChange={(pw) => setPassword(pw.currentTarget.value)} />
+                            <TextInput value={username} placeholder="Username" label="Username"
+                                       onChange={(un) => setUsername(un.currentTarget.value)}/>
+                            <PasswordInput value={password} placeholder="Password" label="Password"
+                                           onChange={(pw) => setPassword(pw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 10 }}>
+                    <Group sx={{paddingTop: 10}}>
                         <Button onClick={doLogin} disabled={!username || !password} size="md">
                             Login
                         </Button>
