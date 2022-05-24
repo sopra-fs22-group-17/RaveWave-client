@@ -54,6 +54,7 @@ export interface IPlayerInfo {
 export interface IGameResult {
     artist: string;
     songTitle: string;
+    correctAnswer: string;
     players: IPlayerInfo[];
     gameOver: boolean;
 }

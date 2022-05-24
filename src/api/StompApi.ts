@@ -284,6 +284,7 @@ export class StompApi {
         const data: IGameResult = {
             artist: info.artist,
             songTitle: info.songTitle,
+            correctAnswer: info.correctAnswer,
             players: info.players,
             gameOver: info.gameOver,
         };
