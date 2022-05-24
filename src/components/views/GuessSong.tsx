@@ -64,7 +64,15 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
                                                 wordWrap: "break-word",
                                                 overflow: "hidden",
                                                 textOverflow: "ellipsis",
+                                                textAlign: "center",
                                                 boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                                                transition: "transform 130ms ease-out",
+                                                zIndex: 1,
+                                                "&:hover": {
+                                                    transform: "translateY(-2px) scale(0.985)",
+                                                    opacity: 0.85,
+                                                    zIndex: 0,
+                                                },
                                             }}
                                         >
                                             <Stack align="center" justify="center" sx={{ height: "100%" }}>
@@ -72,7 +80,7 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
                                                     sx={{
                                                         fontSize: 30,
                                                         fontWeight: 700,
-                                                        textShadow: "1px 2px #00000063",
+                                                        textShadow: "2px 2px 2px #000000C3",
                                                     }}
                                                 >
                                                     {option.answer}

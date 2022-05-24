@@ -19,14 +19,14 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         alignItems: "center",
         flexWrap: "nowrap",
         gap: 12,
-        minWidth: "350px",
+        width: "100%",
     };
 
     return (
-        <Grid gutter={40} justify="center" sx={{ display: "flex", flexDirection: "row" }}>
+        <Grid gutter={40} justify="center" sx={{ width: "100%" }}>
             {list.map((player, i) => {
                 return (
-                    <Grid.Col key={i} span={12}>
+                    <Grid.Col key={i} span={12} sx={{ padding: "20px 0px" }}>
                         <Box sx={wrapperStyle}>
                             <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
                             <Box sx={{ paddingLeft: 10, fontSize: 24, fontWeight: 700, flex: 1 }}>{player.playerName}</Box>
