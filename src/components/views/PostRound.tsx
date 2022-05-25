@@ -55,7 +55,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                     <Stack spacing={0}>
                         <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
                         <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer" sx={{ paddingTop: "10px", textAlign: "left" }}>
-                            Open Song in Spotify
+                            Open in Spotify
                         </Anchor>
                     </Stack>
                     <Stack spacing={0}>
