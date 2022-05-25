@@ -12,10 +12,16 @@ export interface IGuessLikedSongProps {
     question: IGuessQuestion;
 }
 
+let imageSize = 200;
+
 export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question}) => {
     const context = useContext(GameContext);
     const {gameConfiguration, lobbyId, stomp} = context;
-    const imageSize = Math.floor((window.innerWidth - 60)/2);
+    let windowSize = window.innerWidth;
+
+    if (windowSize <= 900) {
+        imageSize = Math.floor((window.innerWidth - 60)/2);
+    }
     const [answered, setAnswered] = useState(false);
 
     const timeToAnswer = gameConfiguration.playBackDuration;

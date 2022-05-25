@@ -11,12 +11,13 @@ export interface IGuessArtistProps {
     question: IGuessQuestion;
 }
 
-let windowSize = window.innerWidth;
-let imageSize = 350;
+let imageSize = 200;
 
 export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
     const {gameConfiguration, lobbyId, stomp} = context;
+
+    let windowSize = window.innerWidth;
 
     if (windowSize <= 900) {
         imageSize = Math.floor((window.innerWidth - 60)/2);
