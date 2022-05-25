@@ -80,7 +80,7 @@ export const SelectGameMode = (props) => {
             </Stack>
             <Stack>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
-                <Slider min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14} step={2} onChange={setGameRounds}></Slider>
+                <Slider min={3} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={8} step={1} onChange={setGameRounds}></Slider>
 
                 <Text sx={{ paddingTop: 20 }}>{`Playback duration: ${playBackDuration} seconds`}</Text>
                 <Slider
@@ -107,4 +107,3 @@ export const SelectGameMode = (props) => {
         </Container>
     );
 };
-
