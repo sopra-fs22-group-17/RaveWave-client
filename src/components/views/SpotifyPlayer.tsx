@@ -32,7 +32,7 @@ export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({url, duration}) => {
                 hasDefaultKeyBindings={false}
                 customProgressBarSection={[]}
                 customControlsSection={[RHAP_UI.MAIN_CONTROLS]}
-                customIcons={{play: BsPlayCircle, pause: BsPauseCircle}}
+                //customIcons={{play: BsPlayCircle, pause: BsPauseCircle}}
             />
         </Box>
     );
