@@ -44,7 +44,7 @@ export const useStyles = createStyles((theme, {iconSize}: IStylesParams) => ({
         fontWeight: "normal",
         padding: 10,
         borderRadius: 10,
-        minWidth: 109,
+        minWidth: 104,
         "&:hover": {
             background: "#ffffff11",
         },

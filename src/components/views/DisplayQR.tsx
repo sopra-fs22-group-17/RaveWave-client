@@ -19,7 +19,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
 
     const [visible, setVisible] = useState(false);
 
-    const clipboard = useClipboard({ timeout: 1000 });
+    const clipboard = useClipboard({ timeout: 1250 });
 
     async function start() {
         setVisible(true);
@@ -41,16 +41,16 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
                         <Center className="displayqr column-item">
                             <QRCodeCanvas value={url} size={250}/>
                         </Center>
-                        <Text>{url}</Text>
                     </Stack>
-                    <Group sx={{ paddingTop: 10 }}>
+                    <Group align="center">
+                        <Text>{url}</Text>
                         <ActionIcon onClick={() => clipboard.copy(url)}>
-                            {clipboard.copied ? <Check/> : <Copy/>}
+                            {clipboard.copied ? <Check size={19}/> : <Copy size={19}/>}
                         </ActionIcon>
+                    </Group>
                     <Button onClick={start}>
                         Start Game
                     </Button>
-                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

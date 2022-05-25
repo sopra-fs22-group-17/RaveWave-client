@@ -10,7 +10,7 @@ export interface ISongPoolSelectorProps {
 }
 
 export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, onSelect}) => {
-    const buttonSize = 95;
+    const buttonSize = 90;
     const {classes, cx} = useStyles({buttonSize});
 
     return (
@@ -53,7 +53,7 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         height: buttonSize,
         borderRadius: 10,
         //background: "linear-gradient(127deg, rgb(63 29 126) 57%, rgb(172 2 208) 43%)",
-        background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(63 29 126) 100%)",
+        background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(72, 37, 158) 65%)",
         backgroundAttachment: "fixed",
         //transform: "rotate(30deg)",
         padding: "7px 7px 7px 7px",

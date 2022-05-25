@@ -51,6 +51,7 @@ export const Register: FC<{}> = ({}) => {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
             alert("Something went wrong while registering the user! See the console for details.");
+            setVisible(false);
         }
     }
 

@@ -1,9 +1,10 @@
-import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
+import {Box, Title, Container, SimpleGrid, Stack, Text, UnstyledButton} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
 import {IGuessOption, IGuessQuestion} from "../../api/@def";
 import {IGameController} from "./GameController";
 import {SpotifyPlayer} from "./SpotifyPlayer";
 import {GameContext} from "../../contexts/GameContext";
+import BaseContainer from "components/ui/BaseContainer";
 
 export interface IGuessArtistProps {
     controller: IGameController;
@@ -13,7 +14,8 @@ export interface IGuessArtistProps {
 export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
     const {gameConfiguration, lobbyId, stomp} = context;
-    const imageSize = 200;
+    const imageSize = Math.floor((window.innerWidth - 60)/2);
+    console.log(imageSize);
     const [answered, setAnswered] = useState(false);
 
     const timeToAnswer = gameConfiguration.playBackDuration;
@@ -38,16 +40,14 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     }
 
     return (
-        <Container size={500}>
+        <BaseContainer>
             <Stack align="center">
-                <h1>Guess the Artist</h1>
-                <h2>{passedSeconds} seconds left!</h2><SpotifyPlayer url={question.previewURL}
-                                                                     duration={question.playDuration || 20}/>
-                <Grid gutter={40} justify="center">
+                <Title>Guess the Artist</Title>
+                <Title>{passedSeconds} seconds left!</Title>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
                         return (
-                            <Grid.Col key={i} span={6}>
-                                <Center>
                                     <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                         <Box
                                             style={{
@@ -81,12 +81,10 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                             </Stack>
                                         </Box>
                                     </UnstyledButton>
-                                </Center>
-                            </Grid.Col>
                         );
                     })}
-                </Grid>
+                </SimpleGrid>
             </Stack>
-        </Container>
+        </BaseContainer>
     );
 };

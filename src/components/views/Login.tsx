@@ -48,6 +48,7 @@ export const Login: FC<{}> = ({}) => {
             console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
             alert("Something went wrong while loggin in the user! See the console for details.");
+            setVisible(false);
         }
     }
 

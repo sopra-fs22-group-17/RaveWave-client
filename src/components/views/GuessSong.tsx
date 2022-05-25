@@ -1,10 +1,11 @@
-import {Box, Center, Container, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
+import {Box, Center, Container, SimpleGrid, Stack, Text, Title, UnstyledButton} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
 
 import {IGuessOption, IGuessQuestion} from "../../api/@def";
 import {IGameController} from "./GameController";
 import {SpotifyPlayer} from "./SpotifyPlayer";
 import {GameContext} from "../../contexts/GameContext";
+import BaseContainer from "../ui/BaseContainer";
 
 export interface IGuessSongProps {
     controller: IGameController;
@@ -14,7 +15,7 @@ export interface IGuessSongProps {
 export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     const context = useContext(GameContext);
     const {gameConfiguration, lobbyId, stomp} = context;
-    const imageSize = 200;
+    const imageSize = 150;
     const [answered, setAnswered] = useState(false);
 
     const timeToAnswer = gameConfiguration.playBackDuration;
@@ -39,50 +40,46 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     }
 
     return (
-        <Container size={500}>
+        <BaseContainer>
             <Stack align="center">
-                <h1>Guess the Song Title</h1>
-                <Grid gutter={40} justify="center">
+                <Title order={2} sx={{paddingTop: 10}}>Guess the Artist</Title>
+                <Title order={2} sx={{color: "white"}}>{passedSeconds} seconds left!</Title>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
                         return (
-                            <Grid.Col key={i} span={6}>
-                                <Center>
-                                    <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
-                                        <Box
-                                            style={{
-                                                backgroundImage: `url(${option.picture})`,
-                                                opacity: answered ? 0.5 : 1,
-                                                cursor: answered ? "default" : "pointer",
-                                            }}
-                                            sx={{
-                                                width: imageSize,
-                                                height: imageSize,
-                                                borderRadius: 10,
-                                                backgroundRepeat: "no-repeat",
-                                                backgroundSize: "cover",
-                                                backgroundPosition: "center",
-                                                wordWrap: "break-word",
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                            }}
-                                        >
-                                            <Stack align="center" justify="center" sx={{height: "100%"}}>
-                                                <Text sx={{
-                                                    fontSize: 30,
-                                                    fontWeight: 700,
-                                                    textShadow: "1px 2px #00000063"
-                                                }}>{option.answer}</Text>
-                                            </Stack>
-                                        </Box>
-                                    </UnstyledButton>
-                                </Center>
-                            </Grid.Col>
+                            <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
+                                <Box
+                                    style={{
+                                        backgroundImage: `url(${option.picture})`,
+                                        opacity: answered ? 0.5 : 1,
+                                        cursor: answered ? "default" : "pointer",
+                                    }}
+                                    sx={{
+                                        width: imageSize,
+                                        height: imageSize,
+                                        borderRadius: 10,
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        wordWrap: "break-word",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                    }}
+                                >
+                                    <Stack align="center" justify="center" sx={{height: "100%"}}>
+                                        <Text sx={{
+                                            fontSize: 30,
+                                            fontWeight: 700,
+                                            textShadow: "1px 2px #00000063"
+                                        }}>{option.answer}</Text>
+                                    </Stack>
+                                </Box>
+                            </UnstyledButton>
                         );
                     })}
-                </Grid>
-
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                </SimpleGrid>
             </Stack>
-        </Container>
+        </BaseContainer>
     );
 };
