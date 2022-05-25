@@ -42,6 +42,9 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
         <Container size={500}>
             <Stack align="center">
                 <h1>Guess the Liked Song</h1>
+                <Text weight={700}>
+                    Round {question.currentRound} of {question.totalRounds}
+                </Text>
                 <Grid gutter={40} justify="center">
                     {question.options.map((option, i) => {
                         return (
