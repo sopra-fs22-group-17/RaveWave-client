@@ -8,7 +8,6 @@ import HttpsRedirect from 'react-https-redirect'
 
 
 const App = () => {
-    var sslRedirect = require('heroku-ssl-redirect');
 
 
     return (
