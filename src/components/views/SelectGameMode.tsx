@@ -10,7 +10,7 @@ import {SongPoolSelector} from "../ui/SongPoolSelector";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, setGameConfiguration, userRole} = context;
+    const {gameConfiguration, userRole} = context;
     const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
@@ -57,7 +57,6 @@ export const SelectGameMode = (props) => {
             songPool: "SWITZERLAND",
             gameRounds: "2",
         };
-
         context.setGameConfiguration(config);
         setGameConfigurationSaved(true);
         context.info("Game configuration successfully saved.");

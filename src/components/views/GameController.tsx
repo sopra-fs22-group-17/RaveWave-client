@@ -1,7 +1,7 @@
 import {Box, Title} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
 
-import {IGameResult, IGuessQuestion, IMessageEvent, TUserRole} from "../../api/@def";
+import {IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, TUserRole} from "../../api/@def";
 import {GameContext} from "../../contexts/GameContext";
 import {GuessArtist} from "./GuessArtist";
 import {GuessSong} from "./GuessSong";
@@ -60,8 +60,6 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
 
             if (userRole === "host") {
                 stomp.sendSettings(lobbyId, gameConfiguration)
-
-
             }
             setConnected(true);
         };
@@ -81,6 +79,16 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
                 setState({type: "summary", data: message.data});
             } else if (message.type === "playerJoin") {
                 context.info("Player " + message.data.name + " joined the lobby");
+            } else if (message.type === "setup") {
+                // context.api.sendSettings(context.lobbyId, config);
+                const config: IGameConfiguration = {
+                    gameMode: message.data.gameMode,
+                    gameRounds: message.data.gameRounds,
+                    playBackDuration: message.data.playBackDuration,
+                    songPool: message.data.songPool,
+                    roundDuration: message.data.roundDuration,
+                };
+                context.setGameConfiguration(config);
             }
         };
         stomp.join(listener);
