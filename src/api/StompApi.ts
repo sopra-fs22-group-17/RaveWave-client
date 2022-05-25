@@ -266,6 +266,8 @@ export class StompApi {
         const info = payload.msg;
         const data: IGuessQuestion = {
             question: info.question,
+            currentRound: info.currentRound,
+            totalRounds: info.totalRounds,
             previewURL: info.previewURL,
             playDuration: info.playBackDuration,
             options: info.answers,

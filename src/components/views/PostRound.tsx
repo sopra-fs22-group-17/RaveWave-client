@@ -37,39 +37,41 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                         The correct answer is <b> {result.correctAnswer}</b>
                     </Text>
                 )}
-                <GameResult result={result} />
+                <Stack align="center" sx={{ display: "flex", flexDirection: "column" }}>
+                    <GameResult result={result} />
 
-                <SimpleGrid
-                    cols={2}
-                    sx={{
-                        justify: "center",
-                        align: "center",
-                        color: "white",
-                        textAlign: "center",
-                        backgroundColor: "#00000040",
-                        borderRadius: "16px",
-                        padding: "20px",
-                        alignItems: "center",
-                    }}
-                >
-                    <Stack spacing={0}>
-                        <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
-                        <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer" sx={{ paddingTop: "10px", textAlign: "left" }}>
-                            Open in Spotify
-                        </Anchor>
-                    </Stack>
-                    <Stack spacing={0}>
-                        <Text weight={700}>{result.songTitle}</Text>
-                        <Text>{" by "}</Text>
-                        <Text weight={700}>{result.artist}</Text>
-                    </Stack>
-                </SimpleGrid>
-            </Stack>
-            {isHost && (
-                <Stack sx={{ paddingTop: 20 }} align="center">
-                    <Button onClick={() => nextRound()}>Continue</Button>
+                    <SimpleGrid
+                        cols={2}
+                        sx={{
+                            justify: "center",
+                            align: "center",
+                            color: "white",
+                            textAlign: "center",
+                            backgroundColor: "#00000040",
+                            borderRadius: "16px",
+                            padding: "20px",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Stack spacing={0}>
+                            <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
+                            <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer" sx={{ paddingTop: "10px", textAlign: "left" }}>
+                                Open in Spotify
+                            </Anchor>
+                        </Stack>
+                        <Stack spacing={0}>
+                            <Text weight={700}>{result.songTitle}</Text>
+                            <Text>{" by "}</Text>
+                            <Text weight={700}>{result.artist}</Text>
+                        </Stack>
+                    </SimpleGrid>
                 </Stack>
-            )}
+                {isHost && (
+                    <Stack sx={{ paddingTop: 20 }} align="center">
+                        <Button onClick={() => nextRound()}>Continue</Button>
+                    </Stack>
+                )}
+            </Stack>
         </Container>
     );
 };
