@@ -33,7 +33,6 @@ export const DebugView: FC<{}> = ({}): any => {
         };
         if (spotifyCodeParam) {
             if (!spotifyAuthorized) {
-                context.info(`Sending spotify code '${spotifyCodeParam}'.`);
                 console.log("Sending spotify code");
                 sendSpotifyCode();
             } else {
@@ -47,14 +46,12 @@ export const DebugView: FC<{}> = ({}): any => {
         const lobbyId = await api.createLobbyAndGetId();
         console.log(JSON.stringify(lobbyId, null, 4));
         context.setLobbyId(lobbyId);
-        context.info(`Lobby '${lobbyId}' created`);
     };
 
     const addPlayer = async () => {
         console.log(">>> addPlayer");
         const response = await api.addPlayer(lobbyId, playerName);
         setPlayer(response);
-        context.info(`Player '${playerName}' registered.`);
         console.log("Response:\n" + JSON.stringify(response, null, 4));
     };
 
@@ -62,7 +59,6 @@ export const DebugView: FC<{}> = ({}): any => {
         console.log(">>> connect");
         console.log("CONNECT 1");
         const response = await context.stomp.connect(lobbyId);
-        context.info(`Connected`);
         console.log("Response:\n" + JSON.stringify(response, null, 4));
     };
 

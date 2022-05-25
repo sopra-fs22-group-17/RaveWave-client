@@ -38,7 +38,6 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             setVisible(true);
             const response = await api.getAuthorizationCodeUri();
             const spotifyLink = new SpotifyURL(response.data);
-            context.info("Redirecting " + (spotifyLink.redirectionURL.substring(0, 30) + "..."));
             window.location.href = spotifyLink.redirectionURL;
         } catch (error) {
             context.error(error.toString());

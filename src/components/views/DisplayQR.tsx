@@ -2,12 +2,13 @@ import {Button, Center, Container, LoadingOverlay, Stack, Text, Title, Group, Ac
 import { useClipboard } from '@mantine/hooks';
 import BaseContainer from "components/ui/BaseContainer";
 import {QRCodeCanvas} from "qrcode.react";
-import {FC, useContext, useState} from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
-import {IGameController} from "./GameController";
+import {GameController, IGameController} from "./GameController";
 import { Copy, Check } from 'tabler-icons-react';
 import {IMessageEvent} from "../../api/@def";
+import _ from 'lodash';
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -27,18 +28,22 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
         history.push('/game');
     }
 
+        useEffect( ()=> {
+            const connected = context.stomp.connect(lobbyId);
+
+    })
+
+
+
     const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
+
     console.log("Game URL: " + url);
-    const connected = context.stomp.connect(lobbyId);
-    const listener = (message: IMessageEvent) => {
-        if (message.type === "playerJoin") {
-            context.info("Player " + message.data.name + " joined the lobby");
-        }
-    };
-    stomp.join(listener);
+
 
     return (
+
         <BaseContainer>
+            <GameController role={context.userRole}/>
             <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
@@ -62,5 +67,6 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
                 </Stack>
             </Container>
         </BaseContainer>
+
     );
 };

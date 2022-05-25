@@ -53,7 +53,6 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
             //context.info(`Player '${playerName}' registered.`);
 
             const connected = await context.stomp.connect(lobbyId);
-            context.info(`Player '${playerName}' connected.`);
 
 
             console.log(userRole);
@@ -79,6 +78,7 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
                 setState({type: "summary", data: message.data});
             } else if (message.type === "playerJoin") {
                 context.info("Player " + message.data.name + " joined the lobby");
+                console.log("i am at the wrong placeeee")
             } else if (message.type === "setup") {
                 // context.api.sendSettings(context.lobbyId, config);
                 const config: IGameConfiguration = {

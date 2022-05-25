@@ -21,10 +21,8 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({controller}) => {
     useEffect(() => {
         if (userRole === "host") {
             setVisible(true);
-            context.info("Starting game...");
             //            setTimeout(() => {
             stomp.startGame(lobbyId);
-            context.info("Game started");
             //          }, 1000);
         }
     }, []);
