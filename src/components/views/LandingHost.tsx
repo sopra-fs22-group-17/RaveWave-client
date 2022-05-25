@@ -1,7 +1,7 @@
 import {Button, Container, Group, LoadingOverlay, Stack, Title} from "@mantine/core";
 import {BaseContainer} from "components/ui/BaseContainer";
 import {GameContext} from "contexts/GameContext";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import Lottie from "react-lottie";
 import {Link, useHistory} from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
