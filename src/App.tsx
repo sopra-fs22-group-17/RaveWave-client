@@ -4,14 +4,20 @@ import AppRouter from "components/routing/routers/AppRouter";
 import {Wallpaper} from "components/ui/Wallpaper";
 
 import {GameProvider} from "./contexts/GameContext";
+import HttpsRedirect from 'react-https-redirect'
+
 
 const App = () => {
+    var sslRedirect = require('heroku-ssl-redirect');
+
 
     return (
         <NotificationsProvider>
             <GameProvider>
+                <HttpsRedirect>
                 <Wallpaper/>
                 <AppRouter/>
+                </HttpsRedirect>
             </GameProvider>
         </NotificationsProvider>
     );

@@ -28,6 +28,7 @@
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-h5-audio-player": "^3.8.4",
+        "react-https-redirect": "^1.1.0",
         "react-icons": "^4.3.1",
         "react-lottie": "^1.2.3",
         "react-router-dom": "^5.3.1",
