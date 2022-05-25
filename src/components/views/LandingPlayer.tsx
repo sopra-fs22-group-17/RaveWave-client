@@ -1,9 +1,9 @@
-import {Button, Container, Group, Stack, Title} from "@mantine/core";
+import {Button, Container, Group, LoadingOverlay, Stack, Title} from "@mantine/core";
 import {BaseContainer} from "components/ui/BaseContainer";
 import {GameContext} from "contexts/GameContext";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import Lottie from "react-lottie";
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingPlayer = (props) => {
@@ -18,6 +18,9 @@ export const LandingPlayer = (props) => {
         },
     };
 
+    const history = useHistory();
+    const [visible, setVisible] = useState(false);
+
     useEffect(() => {
         context.setUserRole("player");
         sessionStorage.setItem('role', "player");
@@ -26,8 +29,24 @@ export const LandingPlayer = (props) => {
         }
     }, [id]);
 
+    async function willGuest() {
+        setVisible(true);
+        history.push('/guest');
+    }
+
+    async function willRegister() {
+        setVisible(true);
+        history.push('/register');
+    }
+
+    async function willLogin() {
+        setVisible(true);
+        history.push('/login');
+    }
+
     return (
         <BaseContainer>
+            <LoadingOverlay visible={visible}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>
@@ -35,21 +54,19 @@ export const LandingPlayer = (props) => {
                     </Title>
                     <Lottie options={defaultOptions} speed={1}/>
                     <Group sx={{paddingTop: 30}}>
-                        <Link to="/guest">
-                            <Button size="md">
-                                Guest
-                            </Button>
-                        </Link>
-                        <Link to="/register">
-                            <Button size="md">
-                                Register
-                            </Button>
-                        </Link>
-                        <Link to="/login">
-                            <Button size="md">
-                                Login
-                            </Button>
-                        </Link>
+
+                        <Button onClick={willGuest} size="md">
+                            Guest
+                        </Button>
+
+                        <Button onClick={willRegister} size="md">
+                            Register
+                        </Button>
+
+                        <Button onClick={willLogin} size="md">
+                            Login
+                        </Button>
+
                     </Group>
                 </Stack>
             </Container>

@@ -1,4 +1,4 @@
-import {Box, createStyles, Text, UnstyledButton} from "@mantine/core";
+import {Box, createStyles, Text, UnstyledButton, Group} from "@mantine/core";
 import {FC} from "react";
 
 import {ISongPool} from "../../api/StompApi";
@@ -10,11 +10,11 @@ export interface ISongPoolSelectorProps {
 }
 
 export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, onSelect}) => {
-    const buttonSize = 100;
+    const buttonSize = 90;
     const {classes, cx} = useStyles({buttonSize});
 
     return (
-        <Box className={cx(classes.root)}>
+        <Group className={cx(classes.root)}>
             {items.map((item, i) => {
                 const selected = item.id === selection;
                 return (
@@ -22,7 +22,6 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
                         key={i}
                         className={cx(classes.button, selected && classes.buttonSelected)}
                         sx={{
-                            backgroundColor: item.color,
                             wordWrap: "break-word",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -36,7 +35,7 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
                     </UnstyledButton>
                 );
             })}
-        </Box>
+        </Group>
     );
 };
 
@@ -49,13 +48,18 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         ...theme.fn.fontStyles(),
         display: "flex",
         flexWrap: "wrap",
-        padding: "60px 0 0 0",
+        padding: "50px 0 0 0",
         gap: 20,
     },
     button: {
         width: buttonSize,
         height: buttonSize,
         borderRadius: 10,
+        //background: "linear-gradient(127deg, rgb(63 29 126) 57%, rgb(172 2 208) 43%)",
+        background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(72, 37, 158) 65%)",
+        backgroundAttachment: "fixed",
+        //transform: "rotate(30deg)",
+        padding: "7px 7px 7px 7px",
         "&:hover": {
             transform: "translateY(-2px) scale(0.985)",
             opacity: 0.85,
@@ -65,7 +69,7 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         textAlign: "center",
     },
     buttonSelected: {
-        border: "1px solid white",
+        border: "3px solid white",
     },
     label: {
         fontSize: 20,

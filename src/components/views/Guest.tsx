@@ -1,4 +1,4 @@
-import {Button, Container, Stack, TextInput, Title} from "@mantine/core";
+import {Button, Container, LoadingOverlay, Group, Stack, TextInput, Title} from "@mantine/core";
 import {FC, useContext, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 
@@ -11,10 +11,12 @@ export const Guest: FC<{}> = ({}) => {
     const {api, playerName} = context;
     const history = useHistory();
 
+    const [visible, setVisible] = useState(false);
     const [username, setUsername] = useState("");
 
     async function doGuest() {
         try {
+            setVisible(true);
             const nameofPlayer = username;
             const roleofPlayer = "player";
             context.setPlayerName(nameofPlayer);
@@ -27,11 +29,18 @@ export const Guest: FC<{}> = ({}) => {
             console.error(`Something went wrong while guest the user: \n${api.handleError(error)}`);
             console.error("Details:", error);
             alert("Something went wrong while registering the user! See the console for details.");
+            setVisible(false);
         }
+    }
+
+    async function doBack() {
+        setVisible(true);
+        history.push('/landingplayer');
     }
 
     return (
         <BaseContainer>
+            <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>
@@ -39,14 +48,14 @@ export const Guest: FC<{}> = ({}) => {
                     </Title>{" "}
                     <TextInput value={username} placeholder="Username" label="Username"
                                onChange={(un) => setUsername(un.currentTarget.value)}/>
-                    <Stack align="stretch">
-                        <Button component={Link} to="/landingplayer">
+                    <Group sx={{ paddingTop: 10 }}>
+                        <Button onClick={doBack}>
                             Back
                         </Button>
                         <Button onClick={doGuest} disabled={!username}>
                             Continue
                         </Button>
-                    </Stack>
+                    </Group>
                 </Stack>
             </Container>
         </BaseContainer>

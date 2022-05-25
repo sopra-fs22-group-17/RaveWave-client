@@ -11,7 +11,7 @@ export interface IGameModeButtonProps {
 }
 
 
-export const GameModeButton: FC<IGameModeButtonProps> = ({type, selected, iconSize = 30, onSelect}) => {
+export const GameModeButton: FC<IGameModeButtonProps> = ({type, selected, iconSize = 40, onSelect}) => {
     const {classes, cx} = useStyles({iconSize});
     const icons: Record<TQuestionType, string> = {
         "Guess the song title": "/images/song.svg",
@@ -25,7 +25,10 @@ export const GameModeButton: FC<IGameModeButtonProps> = ({type, selected, iconSi
                 <Box className={cx(classes.button, {[classes.buttonSelected]: selected})}>
                     <Image width={iconSize} height={iconSize} src={icons[type]}/>
                 </Box>
-                <Text>{type}</Text>
+                <Stack spacing={0}>
+                    <Text>{type.substring(0, 9)}</Text>
+                    <Text>{type.substring(10)}</Text>
+                </Stack>
             </Stack>
         </UnstyledButton>
     );
@@ -41,7 +44,7 @@ export const useStyles = createStyles((theme, {iconSize}: IStylesParams) => ({
         fontWeight: "normal",
         padding: 10,
         borderRadius: 10,
-        minWidth: 150,
+        minWidth: 104,
         "&:hover": {
             background: "#ffffff11",
         },

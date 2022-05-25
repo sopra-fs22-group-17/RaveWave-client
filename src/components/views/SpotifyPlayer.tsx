@@ -1,8 +1,8 @@
 import {Box} from "@mantine/core";
 import {FC} from "react";
 import AudioPlayer, {RHAP_UI} from "react-h5-audio-player";
-
 import "react-h5-audio-player/lib/styles.css";
+import { BsPlayCircle, BsPauseCircle } from 'react-icons/Bs';
 
 export interface ISpotifyPlayerProps {
     url: string;
@@ -11,12 +11,14 @@ export interface ISpotifyPlayerProps {
 
 const styles = {
     container: {
-        backgroundColor: "transparent",
-        boxShadow: "none",
+        padding: 0,
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
     },
 } as const;
 
 export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({url, duration}) => {
+
     return (
         <Box>
             <AudioPlayer
@@ -30,6 +32,7 @@ export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({url, duration}) => {
                 hasDefaultKeyBindings={false}
                 customProgressBarSection={[]}
                 customControlsSection={[RHAP_UI.MAIN_CONTROLS]}
+                //customIcons={{play: BsPlayCircle, pause: BsPauseCircle}}
             />
         </Box>
     );
