@@ -11,10 +11,17 @@ export interface IGuessArtistProps {
     question: IGuessQuestion;
 }
 
+let windowSize = window.innerWidth;
+let imageSize = 350;
+
 export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
     const {gameConfiguration, lobbyId, stomp} = context;
-    const imageSize = Math.floor((window.innerWidth - 60)/2);
+
+    if (windowSize <= 900) {
+        imageSize = Math.floor((window.innerWidth - 60)/2);
+    }
+
     console.log(imageSize);
     const [answered, setAnswered] = useState(false);
 
@@ -42,8 +49,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     return (
         <BaseContainer>
             <Stack align="center">
-                <Title>Guess the Artist</Title>
-                <Title>{passedSeconds} seconds left!</Title>
+                <Title order={2} sx={{paddingTop: 10}}>Guess the Artist</Title>
+                <Title order={2} sx={{color: "white"}}>{passedSeconds} seconds left!</Title>
                 <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {

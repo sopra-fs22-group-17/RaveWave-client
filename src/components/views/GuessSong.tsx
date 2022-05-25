@@ -42,7 +42,7 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     return (
         <BaseContainer>
             <Stack align="center">
-                <Title order={2} sx={{paddingTop: 10}}>Guess the Artist</Title>
+                <Title order={2} sx={{paddingTop: 10}}>Guess the Song</Title>
                 <Title order={2} sx={{color: "white"}}>{passedSeconds} seconds left!</Title>
                 <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
                 <SimpleGrid cols={2}>

@@ -55,10 +55,9 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         width: buttonSize,
         height: buttonSize,
         borderRadius: 10,
-        //background: "linear-gradient(127deg, rgb(63 29 126) 57%, rgb(172 2 208) 43%)",
-        background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(72, 37, 158) 65%)",
+        background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(72, 37, 158) 80%)",
         backgroundAttachment: "fixed",
-        //transform: "rotate(30deg)",
+        //transform: "rotate(1deg)",
         padding: "7px 7px 7px 7px",
         "&:hover": {
             transform: "translateY(-2px) scale(0.985)",

@@ -1,4 +1,4 @@
-import {Box, Center, Container, SimpleGrid, Stack, Text, UnstyledButton} from "@mantine/core";
+import {Box, Center, Container, SimpleGrid, Stack, Text, Title, UnstyledButton} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
 
 import {IGuessOption, IGuessQuestion} from "../../api/@def";
@@ -42,8 +42,8 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
     return (
         <BaseContainer>
             <Stack align="center">
-                <h1>Guess the Liked Song</h1>
-                <h2>{passedSeconds} seconds left!</h2>
+                <Title order={2} sx={{paddingTop: 10}}>Guess who listens to this Song</Title>
+                <Title order={2} sx={{color: "white"}}>{passedSeconds} seconds left!</Title>
                 <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {

@@ -8,17 +8,9 @@ import {useQueryParam} from "../../hooks/useQuery";
 import hrefString from "./RWLogo";
 
 const customLoader = (
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50px" height="50px"
-         viewBox="0 0 50 50" enable-background="new 0 0 50 50">
-        <image id="image0" width="50" height="50" x="0" y="0" href={hrefString}/>
-        <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="0 50 50"
-            to="360 50 50"
-            dur="0.5s"
-            repeatCount="indefinite"
-        />
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="54" height="54"
+         viewBox="0 0 38 38">
+        <image id="image0" width="54" height="54" x="0" y="0" href={hrefString}/>
     </svg>
 );
 

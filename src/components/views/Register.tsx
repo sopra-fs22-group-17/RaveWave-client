@@ -79,7 +79,7 @@ export const Register: FC<{}> = ({}) => {
                                            onChange={(rpw) => setrePassword(rpw.currentTarget.value)}/>
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 10, boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px" }}>
+                    <Group sx={{ paddingTop: 10}}>
                         <Button onClick={doBack} size="md">
                             Back
                         </Button>
