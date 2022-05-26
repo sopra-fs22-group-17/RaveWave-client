@@ -18,7 +18,9 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     if (!result) return null;
 
     console.log("RESULT" + JSON.stringify(result, null, 4));
+
     const me = result.players.find((d) => d.playerName === context.playerName);
+    
     const correct = me.streak > 0;
     const correctness = correct ? "Correct!" : "Wrong!";
 

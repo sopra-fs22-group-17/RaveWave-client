@@ -43,6 +43,8 @@ export const Login: FC<{}> = ({}) => {
             await api.loginUser(username, password);
             if (context.userRole === "player") {
                 await api.addPlayer(context.lobbyId, username);
+                sessionStorage.setItem("name", ("[RW] " + username));
+                context.setPlayerName(sessionStorage.getItem('name'));
             }
             history.push(redirectPath);
         } catch (error) {
