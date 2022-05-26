@@ -11,7 +11,8 @@ export interface IGuessArtistProps {
     question: IGuessQuestion;
 }
 
-let imageSize = 200;
+let imageSize = 225;
+let RingSectors = [];
 
 export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
@@ -19,6 +20,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
+
+    const valueAdd = Math.floor(100 / totalNrRounds);
 
     let windowSize = window.innerWidth;
 
@@ -38,6 +41,9 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
         }, 1000);
+
+        JsonConstructorForRounds();
+
         return () => clearInterval(interval);
     }, []);
 
@@ -52,76 +58,107 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         console.log("endround was called");
     }
 
+    function JsonConstructorForRounds() {
+        for (let i = 0; i < currentRound; i++) {
+            RingSectors.push({value: valueAdd, color: 'green'});
+        }
+    }
+
+    console.log(RingSectors);
+
     return (
         <BaseContainer>
-            <Stack align="center">
-                <Grid justify="center" align="center" sx={{paddingTop: 10}}>
-                    <Title order={2}>Guess the Artist</Title>
-                    <RingProgress
-                        size={90}
-                        thickness={7}
-                        roundCaps
-                        label={
-                            <Text>
-                                Round {currentRound} of {totalNrRounds}
-                            </Text>
-                        }
-                        sections={[
-                            { value: 15, color: 'grape' },
-                        ]}
-                    />
-                </Grid>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+            <Stack align="center" sx={{paddingTop: 10}}>
+                <Title order={2}>Guess the Artist</Title>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
                         return (
                             <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
-                                <Box
-                                    style={{
-                                        backgroundImage: `url(${option.picture})`,
-                                        opacity: answered ? 0.5 : 1,
-                                        cursor: answered ? "default" : "pointer",
-                                    }}
-                                    sx={{
-                                        width: imageSize,
-                                        height: imageSize,
-                                        borderRadius: 10,
-                                        backgroundRepeat: "no-repeat",
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "center",
-                                        wordWrap: "break-word",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        textAlign: "center",
-                                        boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
-                                        transition: "transform 130ms ease-out",
-                                        zIndex: 1,
-                                        "&:hover": {
-                                            transform: "translateY(-2px) scale(0.985)",
-                                            opacity: 0.85,
-                                            zIndex: 0,
-                                        },
-                                    }}
-                                >
-                                    <Stack align="center" justify="center" sx={{height: "100%"}}>
-                                        <Text
-                                            sx={{
-                                                fontSize: 30,
-                                                fontWeight: 700,
-                                                textShadow: "2px 2px 2px #000000C3",
-                                            }}
-                                        >
-                                            {option.answer}
-                                        </Text>
-                                    </Stack>
+                                <Box sx={{
+                                    wordWrap: "break-word",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                }}>
+                                    <Box
+                                        style={{
+                                            backgroundImage: `url(${option.picture})`,
+                                            opacity: answered ? 0.5 : 0.5,
+                                            cursor: answered ? "default" : "pointer",
+                                        }}
+                                        sx={{
+                                            width: imageSize,
+                                            height: imageSize,
+                                            borderRadius: 10,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                            wordWrap: "break-word",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            textAlign: "center",
+                                            boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                                            transition: "transform 130ms ease-out",
+                                            zIndex: 1,
+                                            "&:hover": {
+                                                transform: "translateY(-2px) scale(0.985)",
+                                                opacity: 0.85,
+                                                zIndex: 0,
+                                            },
+                                        }}
+                                    >
                                 </Box>
-                            </UnstyledButton>
-                        );
+                                <Stack align="center" justify="center" sx={{height: "100%"}}>
+                                    <Text
+                                        sx={{
+                                            fontSize: 30,
+                                            fontWeight: 700,
+                                            textShadow: "2px 2px 2px #000000C3",
+                                        }}
+                                    >
+                                        {option.answer}
+                                    </Text>
+                                </Stack>
+                            </Box>
+
+                    </UnstyledButton>
+                    )
+                        ;
                     })}
                 </SimpleGrid>
-            <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 10}}>
-                <Progress value={progressVal} size="md"/>
-            </Stack>
+                <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 15}}>
+                    <Progress value={progressVal} size="md"/>
+                </Stack>
+                <SimpleGrid sx={{paddingTop: 10}} cols={2}>
+                    <Stack spacing={0} align={"center"}>
+                        <RingProgress
+                            size={60}
+                            thickness={3}
+                            roundCaps
+                            label={
+                                <Text align="center">
+                                    {currentRound}/{totalNrRounds}
+                                </Text>
+                            }
+                            sections={RingSectors}
+                        />
+                        <Text>Round</Text>
+                    </Stack>
+                    <Stack spacing={0} align={"center"}>
+                        <RingProgress
+                            size={60}
+                            thickness={3}
+                            roundCaps
+                            label={
+                                <Text align="center">
+                                    {currentRound}/{totalNrRounds}
+                                </Text>
+                            }
+                            sections={RingSectors}
+                        />
+                        <Text>Answered</Text>
+                    </Stack>
+                </SimpleGrid>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
             </Stack>
         </BaseContainer>
     );
