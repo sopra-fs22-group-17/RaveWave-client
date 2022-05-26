@@ -42,6 +42,7 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
     // const [result, setResult] = useState<IGameResult>();
     // const [summary, setSummary] = useState<IGameResult>();
     const [connected, setConnected] = useState(false);
+    const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false)
     const history = useHistory();
 
     //wird einmal aufgerufen im lifecycle vom gamecontroller
@@ -78,7 +79,8 @@ export const GameController: FC<IGameControllerProps> = ({role}): any => {
                 setState({type: "summary", data: message.data});
             } else if (message.type === "playerJoin") {
                 context.info("Player " + message.data.name + " joined the lobby");
-                console.log("i am at the wrong placeeee")
+                setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked)
+                console.log("GAMECONT: liked songs game mode unlocked:" + message.data.likedGameModeUnlocked)
             } else if (message.type === "setup") {
                 // context.api.sendSettings(context.lobbyId, config);
                 const config: IGameConfiguration = {

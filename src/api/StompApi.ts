@@ -316,6 +316,7 @@ export class StompApi {
         const info = payload.msg;
         const data: IPlayerJoin = {
             name: info.name,
+            likedGameModeUnlocked: info.likedGameModeUnlocked,
         };
         const messageEvent: IMessageEvent = {
             channel: info.channel,

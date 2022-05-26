@@ -26,6 +26,7 @@ export const SelectGameMode = (props) => {
             const lobbyId = await context.api.createLobbyAndGetId();
             const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem("name"));
             context.setLobbyId(lobbyId);
+            sessionStorage.setItem('lobbyId', lobbyId);
             if (sessionStorage.getItem("role") === "host") {
                 context.setUserRole("host");
             } else {
