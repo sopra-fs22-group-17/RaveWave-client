@@ -29,7 +29,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         imageSize = Math.floor((window.innerWidth - 60) / 2);
     }
 
-    console.log(imageSize);
     const [answered, setAnswered] = useState(false);
 
     const timeToAnswer = gameConfiguration.playBackDuration;
@@ -64,8 +63,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         }
     }
 
-    console.log(RingSectors);
-
     return (
         <BaseContainer>
             <Stack align="center" sx={{paddingTop: 10}}>
@@ -74,56 +71,47 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                     {question.options.map((option, i) => {
                         return (
                             <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
-                                <Box sx={{
-                                    wordWrap: "break-word",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                }}>
-                                    <Box
-                                        style={{
-                                            backgroundImage: `url(${option.picture})`,
-                                            opacity: answered ? 0.5 : 0.5,
-                                            cursor: answered ? "default" : "pointer",
-                                        }}
-                                        sx={{
-                                            width: imageSize,
-                                            height: imageSize,
-                                            borderRadius: 10,
-                                            backgroundRepeat: "no-repeat",
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "center",
-                                            wordWrap: "break-word",
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            textAlign: "center",
-                                            boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
-                                            transition: "transform 130ms ease-out",
-                                            zIndex: 1,
-                                            "&:hover": {
-                                                transform: "translateY(-2px) scale(0.985)",
-                                                opacity: 0.85,
-                                                zIndex: 0,
-                                            },
-                                        }}
-                                    >
+                                <Box
+                                    style={{
+                                        backgroundImage: `url(${option.picture})`,
+                                        opacity: answered ? 0.5 : 1,
+                                        cursor: answered ? "default" : "pointer",
+                                    }}
+                                    sx={{
+                                        width: imageSize,
+                                        height: imageSize,
+                                        borderRadius: 10,
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        wordWrap: "break-word",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        textAlign: "center",
+                                        boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                                        transition: "transform 130ms ease-out",
+                                        zIndex: 1,
+                                        "&:hover": {
+                                            transform: "translateY(-2px) scale(0.985)",
+                                            opacity: 0.85,
+                                            zIndex: 0,
+                                        },
+                                    }}
+                                >
+                                    <Stack align="center" justify="center" sx={{height: "100%"}}>
+                                        <Text
+                                            sx={{
+                                                fontSize: 30,
+                                                fontWeight: 700,
+                                                textShadow: "2px 2px 2px #000000C3",
+                                            }}
+                                        >
+                                            {option.answer}
+                                        </Text>
+                                    </Stack>
                                 </Box>
-                                <Stack align="center" justify="center" sx={{height: "100%"}}>
-                                    <Text
-                                        sx={{
-                                            fontSize: 30,
-                                            fontWeight: 700,
-                                            textShadow: "2px 2px 2px #000000C3",
-                                        }}
-                                    >
-                                        {option.answer}
-                                    </Text>
-                                </Stack>
-                            </Box>
-
                     </UnstyledButton>
-                    )
-                        ;
-                    })}
+                    );})}
                 </SimpleGrid>
                 <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 15}}>
                     <Progress value={progressVal} size="md"/>

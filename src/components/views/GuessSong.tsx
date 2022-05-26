@@ -1,4 +1,15 @@
-import {Box, Center, Container, SimpleGrid, Stack, Text, Title, UnstyledButton} from "@mantine/core";
+import {
+    Box,
+    Center,
+    Container,
+    Progress,
+    RingProgress,
+    SimpleGrid,
+    Stack,
+    Text,
+    Title,
+    UnstyledButton
+} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
 
 import {IGuessOption, IGuessQuestion} from "../../api/@def";
@@ -12,11 +23,18 @@ export interface IGuessSongProps {
     question: IGuessQuestion;
 }
 
-let imageSize = 200;
+let imageSize = 225;
+let RingSectors = [];
 
 export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     const context = useContext(GameContext);
     const {gameConfiguration, lobbyId, stomp} = context;
+
+    let totalNrRounds = question.totalRounds;
+    let currentRound = question.currentRound;
+
+    const valueAdd = Math.floor(100 / totalNrRounds);
+
     let windowSize = window.innerWidth;
 
     if (windowSize <= 900) {
@@ -27,10 +45,15 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     const timeToAnswer = gameConfiguration.playBackDuration;
     const [passedSeconds, setSeconds] = useState(timeToAnswer);
 
+    const progressVal = Math.floor((100 / timeToAnswer) * (timeToAnswer - passedSeconds));
+
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
         }, 1000);
+
+        JsonConstructorForRounds();
+
         return () => clearInterval(interval);
     }, []);
 
@@ -45,13 +68,16 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
         console.log("endround was called");
     }
 
+    function JsonConstructorForRounds() {
+        for (let i = 0; i < currentRound; i++) {
+            RingSectors.push({value: valueAdd, color: 'green'});
+        }
+    }
+
     return (
         <BaseContainer>
             <Stack align="center">
-                <h1>Guess the Song Title</h1>
-                <Text weight={700}>
-                    Round {question.currentRound} of {question.totalRounds}
-                </Text>
+                <Title order={2}>Guess the Artist</Title>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
                         return (
@@ -96,9 +122,42 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
                                             </Stack>
                                         </Box>
                                     </UnstyledButton>
-                        );
-                    })}
+                        );})}
                 </SimpleGrid>
+                <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 15}}>
+                    <Progress value={progressVal} size="md"/>
+                </Stack>
+                <SimpleGrid sx={{paddingTop: 10}} cols={2}>
+                    <Stack spacing={0} align={"center"}>
+                        <RingProgress
+                            size={60}
+                            thickness={3}
+                            roundCaps
+                            label={
+                                <Text align="center">
+                                    {currentRound}/{totalNrRounds}
+                                </Text>
+                            }
+                            sections={RingSectors}
+                        />
+                        <Text>Round</Text>
+                    </Stack>
+                    <Stack spacing={0} align={"center"}>
+                        <RingProgress
+                            size={60}
+                            thickness={3}
+                            roundCaps
+                            label={
+                                <Text align="center">
+                                    {currentRound}/{totalNrRounds}
+                                </Text>
+                            }
+                            sections={RingSectors}
+                        />
+                        <Text>Answered</Text>
+                    </Stack>
+                </SimpleGrid>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
             </Stack>
         </BaseContainer>
     );
