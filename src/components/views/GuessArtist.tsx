@@ -1,4 +1,4 @@
-import {Box, Title, Container, SimpleGrid, Stack, Text, UnstyledButton} from "@mantine/core";
+import {Box, Title, Progress, SimpleGrid, Stack, Text, UnstyledButton} from "@mantine/core";
 import {FC, useContext, useEffect, useState} from "react";
 import {IGuessOption, IGuessQuestion} from "../../api/@def";
 import {IGameController} from "./GameController";
@@ -29,6 +29,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const timeToAnswer = gameConfiguration.playBackDuration;
     const [passedSeconds, setSeconds] = useState(timeToAnswer);
 
+    const progressVal = Math.floor((100/timeToAnswer)*(timeToAnswer - passedSeconds));
+
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
@@ -49,9 +51,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     return (
         <BaseContainer>
-            <Stack align="center">
+            <Stack align="center" sx={{paddingBottom: 30}}>
                 <Title order={2} sx={{paddingTop: 10}}>Guess the Artist</Title>
-                <Title order={2} sx={{color: "white"}}>{passedSeconds} seconds left!</Title>
                 <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
@@ -94,6 +95,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                     })}
                 </SimpleGrid>
             </Stack>
+            <Progress value={progressVal} size="md"/>
         </BaseContainer>
     );
 };
