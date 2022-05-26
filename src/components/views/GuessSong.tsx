@@ -48,41 +48,54 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
     return (
         <BaseContainer>
             <Stack align="center">
-                <Title order={2} sx={{paddingTop: 10}}>Guess the Song</Title>
-                <Title order={2} sx={{color: "white"}}>{passedSeconds} seconds left!</Title>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                <h1>Guess the Song Title</h1>
+                <Text weight={700}>
+                    Round {question.currentRound} of {question.totalRounds}
+                </Text>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
                         return (
-                            <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
-                                <Box
-                                    style={{
-                                        backgroundImage: `url(${option.picture})`,
-                                        opacity: answered ? 0.5 : 1,
-                                        cursor: answered ? "default" : "pointer",
-                                    }}
-                                    sx={{
-                                        width: imageSize,
-                                        height: imageSize,
-                                        borderRadius: 10,
-                                        backgroundRepeat: "no-repeat",
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "center",
-                                        wordWrap: "break-word",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
-                                    }}
-                                >
-                                    <Stack align="center" justify="center" sx={{height: "100%"}}>
-                                        <Text sx={{
-                                            fontSize: 30,
-                                            fontWeight: 700,
-                                            textShadow: "1px 2px #00000063"
-                                        }}>{option.answer}</Text>
-                                    </Stack>
-                                </Box>
-                            </UnstyledButton>
+                                    <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
+                                        <Box
+                                            style={{
+                                                backgroundImage: `url(${option.picture})`,
+                                                opacity: answered ? 0.5 : 1,
+                                                cursor: answered ? "default" : "pointer",
+                                            }}
+                                            sx={{
+                                                width: imageSize,
+                                                height: imageSize,
+                                                borderRadius: 10,
+                                                backgroundRepeat: "no-repeat",
+                                                backgroundSize: "cover",
+                                                backgroundPosition: "center",
+                                                wordWrap: "break-word",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                textAlign: "center",
+                                                boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                                                transition: "transform 130ms ease-out",
+                                                zIndex: 1,
+                                                "&:hover": {
+                                                    transform: "translateY(-2px) scale(0.985)",
+                                                    opacity: 0.85,
+                                                    zIndex: 0,
+                                                },
+                                            }}
+                                        >
+                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
+                                                <Text
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        fontWeight: 700,
+                                                        textShadow: "2px 2px 2px #000000C3",
+                                                    }}
+                                                >
+                                                    {option.answer}
+                                                </Text>
+                                            </Stack>
+                                        </Box>
+                                    </UnstyledButton>
                         );
                     })}
                 </SimpleGrid>

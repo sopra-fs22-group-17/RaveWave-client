@@ -5,14 +5,13 @@ import {useHistory} from "react-router-dom";
 
 import {GameContext} from "../../contexts/GameContext";
 
-
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const {api, userRole, currentURL} = context;
+    const { api, userRole, currentURL } = context;
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [repassword, setrePassword] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [repassword, setrePassword] = useState("");
     const history = useHistory();
 
     const [visible, setVisible] = useState(false);
@@ -66,7 +65,7 @@ export const Register: FC<{}> = ({}) => {
             <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 5}}>
+                    <Title order={1} sx={{ color: "white", padding: 5 }}>
                         Register
                     </Title>{" "}
                     <Container size={200}>

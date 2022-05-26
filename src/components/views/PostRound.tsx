@@ -1,4 +1,4 @@
-import {Anchor, Box, Button, Container, Image, Stack, LoadingOverlay} from "@mantine/core";
+import {Anchor, SimpleGrid, Button, Container, Image, Text, Stack, LoadingOverlay} from "@mantine/core";
 import {FC, useContext, useState} from "react";
 
 import {IGameResult} from "../../api/@def";
@@ -11,15 +11,14 @@ export interface IPostRoundProps {
     result: IGameResult;
 }
 
-export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
+export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     const context = useContext(GameContext);
     const [visible, setVisible] = useState(false);
 
     if (!result) return null;
 
+    console.log("RESULT" + JSON.stringify(result, null, 4));
     const me = result.players.find((d) => d.playerName === context.playerName);
-    const list = result.players.filter((d) => d !== me);
-    list.unshift(me);
     const correct = me.streak > 0;
     const correctness = correct ? "Correct!" : "Wrong!";
 
@@ -35,38 +34,48 @@ export const PostRound: FC<IPostRoundProps> = ({controller, result}) => {
             <LoadingOverlay visible={visible} />
             <Stack align="center">
                 <h1>{correctness}</h1>
-                {result.correctAnswer === undefined ? <div>correctAnswer undefined</div> :
-                    <div>{"The correct answer is " + result.correctAnswer}</div>}
-                <GameResult result={result}/>
+                {result.correctAnswer === undefined ? (
+                    <Text>correctAnswer undefined</Text>
+                ) : (
+                    <Text>
+                        The correct answer is <b> {result.correctAnswer}</b>
+                    </Text>
+                )}
+                <Stack align="center" sx={{ display: "flex", flexDirection: "column" }}>
+                    <GameResult result={result} />
 
-                <Box
-                    sx={{
-                        color: "white",
-                        textAlign: "center",
-                        backgroundColor: "#00000040",
-                        borderRadius: "16px",
-                        padding: "20px",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                    }}
-                >
-                    <Image width="100px" height="100px" radius="lg" src={result.coverUrl}/>
-                    <div>
-                        {result.songTitle}
-                        {" by "}
-                        {result.artist}
-                    </div>
-                    <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer">
-                        Open Song in Spotify
-                    </Anchor>
-                </Box>
-            </Stack>
-            {isHost && (
-                <Stack sx={{paddingTop: 20}} align="center">
-                    <Button onClick={() => nextRound()}>Continue</Button>
+                    <SimpleGrid
+                        cols={2}
+                        sx={{
+                            justify: "center",
+                            align: "center",
+                            color: "white",
+                            textAlign: "center",
+                            backgroundColor: "#00000040",
+                            borderRadius: "16px",
+                            padding: "20px",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Stack spacing={0}>
+                            <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
+                            <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer" sx={{ paddingTop: "10px", textAlign: "left" }}>
+                                Open in Spotify
+                            </Anchor>
+                        </Stack>
+                        <Stack spacing={0}>
+                            <Text weight={700}>{result.songTitle}</Text>
+                            <Text>{" by "}</Text>
+                            <Text weight={700}>{result.artist}</Text>
+                        </Stack>
+                    </SimpleGrid>
                 </Stack>
-            )}
+                {isHost && (
+                    <Stack sx={{ paddingTop: 20 }} align="center">
+                        <Button onClick={() => nextRound()}>Continue</Button>
+                    </Stack>
+                )}
+            </Stack>
         </Container>
     );
 };

@@ -16,7 +16,7 @@ export interface IDisplayQRProps {
 
 export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
     const context = useContext(GameContext);
-    const {lobbyId, stomp} = context;
+    const {lobbyId} = context;
     const history = useHistory();
 
     const [visible, setVisible] = useState(false);
@@ -36,23 +36,20 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
 
 
     const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
-
     console.log("Game URL: " + url);
 
-
     return (
-
         <BaseContainer>
             <GameController role={context.userRole}/>
             <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", paddingBottom: 15}}>
-                        Join game
+                    <Title order={1} sx={{ color: "white", padding: 20 }}>
+                        Join Game
                     </Title>{" "}
                     <Stack align="stretch">
-                        <Center className="displayqr column-item">
-                            <QRCodeCanvas value={url} size={250}/>
+                        <Center className="displayqr column-item" sx={{ backgroundColor: "white", padding: "10px", borderRadius: "10px" }}>
+                            <QRCodeCanvas value={url} size={250} />
                         </Center>
                     </Stack>
                     <Group align="center">
@@ -67,6 +64,5 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
                 </Stack>
             </Container>
         </BaseContainer>
-
     );
 };

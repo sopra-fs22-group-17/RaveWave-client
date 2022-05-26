@@ -24,16 +24,17 @@ export const SelectGameMode = (props) => {
     useEffect(() => {
         async function connect() {
             const lobbyId = await context.api.createLobbyAndGetId();
-            const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem('name'));
+            const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem("name"));
             context.setLobbyId(lobbyId);
-            if (sessionStorage.getItem('role') === "host") {
+            if (sessionStorage.getItem("role") === "host") {
                 context.setUserRole("host");
             } else {
                 context.setUserRole("player");
             }
-            context.setPlayerName(sessionStorage.getItem('name'));
+            context.setPlayerName(sessionStorage.getItem("name"));
 
             setConnected(true);
+            context.info(`Lobby '${lobbyId}' created`);
         }
 
         connect();
@@ -62,6 +63,7 @@ export const SelectGameMode = (props) => {
 
         context.setGameConfiguration(config);
         setGameConfigurationSaved(true);
+        context.info("Game configuration successfully saved.");
         console.log(gameConfiguration);
         console.log("FROM CONFIG" + JSON.stringify(config));
     };
@@ -85,8 +87,8 @@ export const SelectGameMode = (props) => {
                 </Group>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
             </Stack>
-                <Slider size={"lg"} min={10} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={14}
-                        step={2} onChange={setGameRounds}></Slider>
+                <Slider size={"lg"} min={3} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={8}
+                        step={1} onChange={setGameRounds}></Slider>
             <Stack sx={{paddingTop: 25}} align="center">
                 <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
             </Stack>
@@ -96,24 +98,23 @@ export const SelectGameMode = (props) => {
                     max={20}
                     label={(value) => value.toFixed(0)}
                     value={playBackDuration}
-                    defaultValue={14}
+                    defaultValue={16}
                     step={2}
                     onChange={setPlayBackDuration}
                 ></Slider>
 
             {gameMode === "Guess the liked song" ? (
-                <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
+                <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool} />
             ) : (
-                <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool}/>
+                <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
             )}
 
             <Stack align="center" sx={{paddingTop: 30, paddingBottom: 15}}>
                 <Link to="/displayqr">
-                    <Button onClick={saveConfiguration}>
-                        Invite players
-                    </Button>
+                    <Button onClick={saveConfiguration}>Invite players</Button>
                 </Link>
             </Stack>
         </Container>
     );
 };
+
