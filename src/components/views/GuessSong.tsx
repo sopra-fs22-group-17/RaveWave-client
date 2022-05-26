@@ -109,7 +109,7 @@ export const GuessSong: FC<IGuessSongProps> = ({controller, question}) => {
                                                 },
                                             }}
                                         >
-                                            <Stack align="center" justify="center" sx={{ height: "100%" }}>
+                                            <Stack align="center" justify="center" sx={{ height: "100%" }} style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
                                                 <Text
                                                     sx={{
                                                         fontSize: 30,

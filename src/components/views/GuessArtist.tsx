@@ -5,6 +5,7 @@ import {IGameController} from "./GameController";
 import {SpotifyPlayer} from "./SpotifyPlayer";
 import {GameContext} from "../../contexts/GameContext";
 import BaseContainer from "components/ui/BaseContainer";
+import blurImageUrl from 'blur-image-url';
 
 export interface IGuessArtistProps {
     controller: IGameController;
@@ -62,6 +63,15 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
             RingSectors.push({value: valueAdd, color: 'green'});
         }
     }
+    const image = (backgroundImageUrl) => {
+        var img = new Image();
+        img.src = `url(${backgroundImageUrl.picture})`;
+        img.blur();
+        return img
+
+    }
+
+
 
     return (
         <BaseContainer>
@@ -98,7 +108,9 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                         },
                                     }}
                                 >
-                                    <Stack align="center" justify="center" sx={{height: "100%"}}>
+                                    <Text>
+                                    </Text>
+                                    <Stack align="center" justify="center" sx={{height: "100%"}} style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
                                         <Text
                                             sx={{
                                                 fontSize: 30,
