@@ -1,14 +1,19 @@
-import {Button, Container, Group, LoadingOverlay, Stack, Title} from "@mantine/core";
-import {BaseContainer} from "components/ui/BaseContainer";
-import {GameContext} from "contexts/GameContext";
-import {useContext, useEffect, useState} from "react";
+import { Button, Container, Group, LoadingOverlay, Stack, Title } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
-import {Link, useHistory, useParams} from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+
+import { BaseContainer } from "components/ui/BaseContainer";
+import { GameContext } from "contexts/GameContext";
+
 import animationData from "./lotties/RaveWaveAnimation.json";
 
 export const LandingPlayer = (props) => {
     const context = useContext(GameContext);
-    const {id} = useParams<any>();
+    const { id } = useParams<any>();
+    const history = useHistory();
+    const [visible, setVisible] = useState(false);
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -18,12 +23,9 @@ export const LandingPlayer = (props) => {
         },
     };
 
-    const history = useHistory();
-    const [visible, setVisible] = useState(false);
-
     useEffect(() => {
         context.setUserRole("player");
-        sessionStorage.setItem('role', "player");
+        sessionStorage.setItem("role", "player");
         if (id) {
             context.setLobbyId(id);
         }
@@ -31,30 +33,29 @@ export const LandingPlayer = (props) => {
 
     async function willGuest() {
         setVisible(true);
-        history.push('/guest');
+        history.push("/guest");
     }
 
     async function willRegister() {
         setVisible(true);
-        history.push('/register');
+        history.push("/register");
     }
 
     async function willLogin() {
         setVisible(true);
-        history.push('/login');
+        history.push("/login");
     }
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible}/>
+            <LoadingOverlay visible={visible} />
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 20}}>
+                    <Title order={1} sx={{ color: "white", padding: 20 }}>
                         RaveWave
                     </Title>
-                    <Lottie options={defaultOptions} speed={1}/>
-                    <Group sx={{paddingTop: 30}}>
-
+                    <Lottie options={defaultOptions} speed={1} />
+                    <Group sx={{ paddingTop: 30 }}>
                         <Button onClick={willGuest} size="md">
                             Guest
                         </Button>
@@ -66,7 +67,6 @@ export const LandingPlayer = (props) => {
                         <Button onClick={willLogin} size="md">
                             Login
                         </Button>
-
                     </Group>
                 </Stack>
             </Container>

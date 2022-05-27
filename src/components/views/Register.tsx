@@ -1,9 +1,10 @@
-import {Button, Container, Group, PasswordInput, LoadingOverlay, Stack, TextInput, Title} from "@mantine/core";
-import BaseContainer from "components/ui/BaseContainer";
-import {FC, useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
+import { Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { FC, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import {GameContext} from "../../contexts/GameContext";
+import BaseContainer from "components/ui/BaseContainer";
+
+import { GameContext } from "../../contexts/GameContext";
 
 export const Register: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -19,31 +20,24 @@ export const Register: FC<{}> = ({}) => {
     let redirectPath = "";
     let backPath = "";
 
+    if (userRole === "host") {
+        redirectPath = "/connectspotify";
+        backPath = "/landinghost";
+    } else {
+        redirectPath = "/game";
+        backPath = "/landingplayer";
+    }
+
     async function doRegister() {
         setVisible(true);
-        if (currentURL.includes("landinghost")) {
-            // host
-            const roleofPlayer = "host";
-            context.setUserRole(roleofPlayer);
-            sessionStorage.setItem('role', roleofPlayer);
-            redirectPath = "/connectspotify";
-            backPath = "/landinghost";
-        } else {
-            // player
-            const roleofPlayer = "player";
-            context.setUserRole(roleofPlayer);
-            sessionStorage.setItem('role', roleofPlayer);
-            redirectPath = "/connectspotify";
-            backPath = "/landingplayer";
-        }
 
         try {
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
-            sessionStorage.setItem('name', nameofPlayer);
+            sessionStorage.setItem("name", nameofPlayer);
             await api.registerUser(username, password);
             if (context.userRole === "player") {
-                sessionStorage.setItem('lobbyId', context.lobbyId);
+                sessionStorage.setItem("lobbyId", context.lobbyId);
                 await api.addPlayer(context.lobbyId, username);
             }
             history.push(redirectPath);
@@ -70,20 +64,21 @@ export const Register: FC<{}> = ({}) => {
                     </Title>{" "}
                     <Container size={200}>
                         <Stack spacing="lg">
-                            <TextInput value={username} placeholder="Username" label="Username"
-                                       onChange={(un) => setUsername(un.currentTarget.value)}/>
-                            <PasswordInput value={password} placeholder="Password" label="Password"
-                                           onChange={(pw) => setPassword(pw.currentTarget.value)}/>
-                            <PasswordInput value={repassword} placeholder="Password" label="Password"
-                                           onChange={(rpw) => setrePassword(rpw.currentTarget.value)}/>
+                            <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
+                            <PasswordInput value={password} placeholder="Password" label="Password" onChange={(pw) => setPassword(pw.currentTarget.value)} />
+                            <PasswordInput
+                                value={repassword}
+                                placeholder="Password"
+                                label="Password"
+                                onChange={(rpw) => setrePassword(rpw.currentTarget.value)}
+                            />
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 10}}>
+                    <Group sx={{ paddingTop: 10 }}>
                         <Button onClick={doBack} size="md">
                             Back
                         </Button>
-                        <Button onClick={doRegister}
-                                disabled={!username || !password || !repassword || (password !== repassword)} size="md">
+                        <Button onClick={doRegister} disabled={!username || !password || !repassword || password !== repassword} size="md">
                             Register
                         </Button>
                     </Group>
