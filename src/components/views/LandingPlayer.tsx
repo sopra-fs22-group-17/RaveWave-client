@@ -5,6 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import Lottie from "react-lottie";
 import {Link, useHistory, useParams} from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
+import customLoader from "./RWLogo";
 
 export const LandingPlayer = (props) => {
     const context = useContext(GameContext);
@@ -46,7 +47,7 @@ export const LandingPlayer = (props) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible}/>
+            <LoadingOverlay visible={visible} loader={customLoader}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>

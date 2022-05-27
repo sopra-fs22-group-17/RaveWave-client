@@ -7,6 +7,7 @@ import {LIKED_SONG_POOLS, SONG_POOLS} from "../../api/StompApi";
 import {GameContext} from "../../contexts/GameContext";
 import {GameModeButton} from "../ui/GameModeButton";
 import {SongPoolSelector} from "../ui/SongPoolSelector";
+import customLoader from "./RWLogo";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
@@ -70,7 +71,7 @@ export const SelectGameMode = (props) => {
 
     return (
         <Container size={500}>
-            <LoadingOverlay visible={visible} />
+            <LoadingOverlay visible={visible} loader={customLoader}/>
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">
                     <Title order={2} sx={{color: "white", paddingTop: 10}}>

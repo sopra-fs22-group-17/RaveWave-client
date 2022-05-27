@@ -5,15 +5,7 @@ import {useHistory} from "react-router-dom";
 import {SpotifyURL} from "../../api/SpotifyModel";
 import {GameContext} from "../../contexts/GameContext";
 import {useQueryParam} from "../../hooks/useQuery";
-import hrefString from "./RWLogo";
-
-const customLoader = (
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="54" height="54"
-         viewBox="0 0 38 38">
-        <image id="image0" width="54" height="54" x="0" y="0" href={hrefString}/>
-    </svg>
-);
-
+import customLoader from "./RWLogo";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
     const context = useContext(GameContext);

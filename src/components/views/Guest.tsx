@@ -1,10 +1,11 @@
 import {Button, Container, LoadingOverlay, Group, Stack, TextInput, Title} from "@mantine/core";
 import {FC, useContext, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 import BaseContainer from "components/ui/BaseContainer";
 
 import {GameContext} from "../../contexts/GameContext";
+import customLoader from "./RWLogo";
 
 export const Guest: FC<{}> = ({}) => {
     const context = useContext(GameContext);
@@ -40,7 +41,7 @@ export const Guest: FC<{}> = ({}) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} />
+            <LoadingOverlay visible={visible} loader={customLoader}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>

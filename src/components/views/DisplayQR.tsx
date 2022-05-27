@@ -7,8 +7,7 @@ import {Link, useHistory} from "react-router-dom";
 import {GameContext} from "../../contexts/GameContext";
 import {GameController, IGameController} from "./GameController";
 import { Copy, Check } from 'tabler-icons-react';
-import {IMessageEvent} from "../../api/@def";
-import _ from 'lodash';
+import customLoader from "./RWLogo";
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -41,7 +40,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
     return (
         <BaseContainer>
             <GameController role={context.userRole}/>
-            <LoadingOverlay visible={visible} />
+            <LoadingOverlay visible={visible} loader={customLoader}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{ color: "white", padding: 20 }}>

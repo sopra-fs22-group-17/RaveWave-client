@@ -4,6 +4,7 @@ import {GameContext} from "contexts/GameContext";
 import {FC, useContext, useEffect, useState} from "react";
 import GridLoader from "react-spinners/GridLoader";
 import {IGameController} from "./GameController";
+import customLoader from "./RWLogo";
 
 export interface IWaitingRoomProps {
     controller: IGameController;
@@ -29,7 +30,7 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({controller}) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} />
+            <LoadingOverlay visible={visible} loader={customLoader}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>

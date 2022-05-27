@@ -5,6 +5,7 @@ import {IGameResult} from "../../api/@def";
 import {GameContext} from "../../contexts/GameContext";
 import {GameResult} from "../ui/GameResult";
 import {IGameController} from "./GameController";
+import customLoader from "./RWLogo";
 
 export interface IPostRoundProps {
     controller: IGameController;
@@ -33,7 +34,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
 
     return (
         <Container size={500}>
-            <LoadingOverlay visible={visible} />
+            <LoadingOverlay visible={visible} loader={customLoader}/>
             <Stack align="center">
                 <h1>{correctness}</h1>
                 {result.correctAnswer === undefined ? (
