@@ -9,7 +9,10 @@ import customLoader from "./RWLogo";
 
 export const LandingPlayer = (props) => {
     const context = useContext(GameContext);
-    const {id} = useParams<any>();
+    const { id } = useParams<any>();
+    const history = useHistory();
+    const [visible, setVisible] = useState(false);
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -19,9 +22,6 @@ export const LandingPlayer = (props) => {
         },
     };
 
-    const history = useHistory();
-    const [visible, setVisible] = useState(false);
-
     useEffect(() => {
         context.setUserRole("player");
         sessionStorage.setItem('role', "player");
@@ -29,6 +29,12 @@ export const LandingPlayer = (props) => {
             context.setLobbyId(id);
         }
     }, [id]);
+
+    context.setUserRole("player");
+    sessionStorage.setItem("role", "player");
+    if (id) {
+        context.setLobbyId(id);
+    }
 
     async function willGuest() {
         setVisible(true);

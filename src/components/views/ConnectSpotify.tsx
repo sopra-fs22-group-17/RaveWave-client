@@ -47,7 +47,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             setVisible(false);
         } catch {
             //context.info();
-            context.error("Spotify access denied! Are you sure you are using a Spotify-Premium account?")
+            context.error("Spotify access denied! Are you sure you are using a Spotify-Premium account?");
             setVisible(false);
         }
     };
@@ -69,18 +69,17 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             }
             history.push('/game');
         }
-
-    }
+    };
 
     const connectionMessage = spotifyAuthorized ? "Connected to Spotify" : "You will need Spotify premium";
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={customLoader} />
             <Container size="sm">
                 <Stack align="center">
                     <Container size={500}>
-                        <Image src="/images/spotify-logo-white.svg" sx={{padding: 40}}/>
+                        <Image src="/images/spotify-logo-white.svg" sx={{ padding: 40 }} />
                     </Container>
                     <Title order={4}>{connectionMessage}</Title>
                     <Group align="center" sx={{ paddingTop: 10 }}>

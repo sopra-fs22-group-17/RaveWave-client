@@ -20,23 +20,17 @@ export const Register: FC<{}> = ({}) => {
     let redirectPath = "";
     let backPath = "";
 
+    console.log("THIS IS USER ROLE " + userRole);
+    if (userRole === "host") {
+        redirectPath = "/connectspotify";
+        backPath = "/landinghost";
+    } else {
+        redirectPath = "/connectspotify";
+        backPath = "/landingplayer";
+    }
+
     async function doRegister() {
         setVisible(true);
-        if (currentURL.includes("landinghost")) {
-            // host
-            const roleofPlayer = "host";
-            context.setUserRole(roleofPlayer);
-            sessionStorage.setItem('role', roleofPlayer);
-            redirectPath = "/connectspotify";
-            backPath = "/landinghost";
-        } else {
-            // player
-            const roleofPlayer = "player";
-            context.setUserRole(roleofPlayer);
-            sessionStorage.setItem('role', roleofPlayer);
-            redirectPath = "/connectspotify";
-            backPath = "/landingplayer";
-        }
 
         try {
             const nameofPlayer = username;

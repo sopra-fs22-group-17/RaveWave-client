@@ -19,23 +19,17 @@ export const Login: FC<{}> = ({}) => {
     let redirectPath = "";
     let backPath = "";
 
+    console.log("THIS IS USER ROLE " + userRole);
+    if (userRole === "host") {
+        redirectPath = "/connectspotify";
+        backPath = "/landinghost";
+    } else {
+        redirectPath = "/connectspotify";
+        backPath = "/landingplayer";
+    }
+
     async function doLogin() {
         setVisible(true);
-        if (currentURL.includes("landinghost")) {
-            // host
-            const roleofPlayer = "host";
-            context.setUserRole(roleofPlayer);
-            sessionStorage.setItem('role', roleofPlayer);
-            redirectPath = "/selectgamemode";
-            backPath = "/landinghost";
-        } else {
-            // player
-            const roleofPlayer = "player";
-            context.setUserRole(roleofPlayer);
-            sessionStorage.setItem('role', roleofPlayer);
-            redirectPath = "/game";
-            backPath = "/landingplayer";
-        }
 
         try {
             const nameofPlayer = username;

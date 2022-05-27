@@ -1,22 +1,11 @@
-import {
-    Box,
-    Center,
-    Container,
-    Progress,
-    RingProgress,
-    SimpleGrid,
-    Stack,
-    Text,
-    Title,
-    UnstyledButton
-} from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
+import { Box, Progress, RingProgress, SimpleGrid, Stack, Text, Title, UnstyledButton } from "@mantine/core";
+import { FC, useContext, useEffect, useState } from "react";
 
-import {IGuessOption, IGuessQuestion} from "../../api/@def";
-import {IGameController} from "./GameController";
-import {SpotifyPlayer} from "./SpotifyPlayer";
-import {GameContext} from "../../contexts/GameContext";
+import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
 import BaseContainer from "../ui/BaseContainer";
+import { IGameController } from "./GameController";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 
 export interface IGuessLikedSongProps {
     controller: IGameController;

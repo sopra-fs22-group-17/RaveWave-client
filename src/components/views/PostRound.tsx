@@ -19,9 +19,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     if (!result) return null;
 
     console.log("RESULT" + JSON.stringify(result, null, 4));
-
     const me = result.players.find((d) => d.playerName === context.playerName);
-    
     const correct = me.streak > 0;
     const correctness = correct ? "Correct!" : "Wrong!";
 
@@ -75,7 +73,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                 </Stack>
                 {isHost && (
                     <Stack sx={{ paddingTop: 20 }} align="center">
-                        <Button onClick={() => nextRound()}>Continue</Button>
+                        {result.gameOver === false ? <Button onClick={() => nextRound()}>Continue</Button> : <div></div>}
                     </Stack>
                 )}
             </Stack>

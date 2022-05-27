@@ -1,10 +1,10 @@
-import {Box, Button, Container, Stack} from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
+import { Box, Button, Container, Stack } from "@mantine/core";
+import { FC, useContext, useEffect, useState } from "react";
 
-import {SpotifyURL} from "../../api/SpotifyModel";
-import {GameContext} from "../../contexts/GameContext";
-import {useQueryParam} from "../../hooks/useQuery";
-import {SpotifyPlayer} from "./SpotifyPlayer";
+import { SpotifyURL } from "../../api/SpotifyModel";
+import { GameContext } from "../../contexts/GameContext";
+import { useQueryParam } from "../../hooks/useQuery";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 
 /**
  * Used to debug the server API behaviors
@@ -16,7 +16,7 @@ export const DebugView: FC<{}> = ({}): any => {
     const spotifyCodeParam = useQueryParam("code");
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
 
-    const {lobbyId, playerName, gameConfiguration, api, stomp} = context;
+    const { lobbyId, playerName, gameConfiguration, api, stomp } = context;
 
     useEffect(() => {
         context.setPlayerName("Sheena");
@@ -24,7 +24,7 @@ export const DebugView: FC<{}> = ({}): any => {
 
     useEffect(() => {
         const sendSpotifyCode = async () => {
-            const authCodeRequest = JSON.stringify({code: spotifyCodeParam});
+            const authCodeRequest = JSON.stringify({ code: spotifyCodeParam });
             console.log(authCodeRequest);
             await api.setAuthorizationCode(authCodeRequest);
             console.info("Spotify code sent");
@@ -110,7 +110,7 @@ export const DebugView: FC<{}> = ({}): any => {
     };
 
     return (
-        <Container size={300} sx={{padding: 20}}>
+        <Container size={300} sx={{ padding: 20 }}>
             <Stack>
                 <Box>Connected: {"" + connected}</Box>
                 <Box>LobbyId: {lobbyId}</Box>

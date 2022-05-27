@@ -1,5 +1,5 @@
-import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 /**
  * routeProtectors interfaces can tell the router whether or not it should allow navigation to a requested route.
@@ -11,12 +11,12 @@ import PropTypes from "prop-types";
  * @param props
  */
 export const RaveWaverGuard = (props) => {
-    if (sessionStorage.getItem('raveWaverToken')) {
+    if (sessionStorage.getItem("raveWaverToken")) {
         console.log("Tokenerion is there");
         return props.children;
     }
-    console.log(sessionStorage.getItem('raveWaverToken'))
-    return <Redirect to="/landinghost"/>;
+    console.log(sessionStorage.getItem("raveWaverToken"));
+    return <Redirect to="/landinghost" />;
 };
 
 RaveWaverGuard.propTypes = {
