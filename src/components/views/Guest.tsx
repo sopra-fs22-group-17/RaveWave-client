@@ -36,7 +36,9 @@ export const Guest: FC<{}> = ({}) => {
 
     async function doBack() {
         setVisible(true);
-        history.push('/landingplayer');
+        const lobbyID = context.lobbyId;
+        context.setLobbyId(lobbyID);
+        history.push("/landingplayer/" + lobbyID.toString());
     }
 
     return (

@@ -26,7 +26,9 @@ export const Register: FC<{}> = ({}) => {
         backPath = "/landinghost";
     } else {
         redirectPath = "/connectspotify";
-        backPath = "/landingplayer";
+        const lobbyID = context.lobbyId;
+        backPath = "/landingplayer/" + lobbyID.toString();
+        context.setLobbyId(lobbyID);
     }
 
     async function doRegister() {

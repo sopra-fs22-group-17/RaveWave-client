@@ -56,6 +56,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                             borderRadius: "16px",
                             padding: "20px",
                             alignItems: "center",
+                            width: "100%"
                         }}
                     >
                         <Stack spacing={0}>
