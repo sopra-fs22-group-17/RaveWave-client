@@ -9,6 +9,8 @@ import {GameController, IGameController} from "./GameController";
 import { Copy, Check } from 'tabler-icons-react';
 import customLoader from "./RWLogo";
 import {IMessageEvent} from "../../api/@def";
+import {SongPoolSelector} from "../ui/SongPoolSelector";
+import {LIKED_SONG_POOLS, SONG_POOLS} from "../../api/StompApi";
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -81,6 +83,11 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
                             {clipboard.copied ? <Check size={19}/> : <Copy size={19}/>}
                         </ActionIcon>
                     </Group>
+                    {!likedSongsGameUnlocked ? (
+                        <Text>You need at least 4 players !!</Text>
+                    ) : (
+                        <Text></Text>
+                    )}
                     <Button onClick={start} disabled={!likedSongsGameUnlocked}>
                         Start Game
                     </Button>

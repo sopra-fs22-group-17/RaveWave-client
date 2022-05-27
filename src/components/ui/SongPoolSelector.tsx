@@ -61,10 +61,9 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         padding: "7px 7px 7px 7px",
         "&:hover": {
             transform: "translateY(-2px) scale(0.985)",
-            opacity: 0.85,
-            zIndex: 0,
+            //opacity: 0.85,
+            //zIndex: 0,
         },
-        border: "1px solid transparent",
         textAlign: "center",
     },
     buttonSelected: {
@@ -73,5 +72,8 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
     label: {
         fontSize: 20,
         fontWeight: "bold",
+        wordWrap: "break-word",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
     },
 }));
