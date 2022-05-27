@@ -8,6 +8,7 @@ import {GameContext} from "../../contexts/GameContext";
 import {GameController, IGameController} from "./GameController";
 import { Copy, Check } from 'tabler-icons-react';
 import customLoader from "./RWLogo";
+import {IMessageEvent} from "../../api/@def";
 
 export interface IDisplayQRProps {
     controller: IGameController;
