@@ -15,12 +15,18 @@ export const LandingHost = (props) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        context.setUserRole("player");
+        context.setUserRole("host");
         sessionStorage.setItem("role", "host");
         if (id) {
             context.setLobbyId(id);
         }
     }, [id]);
+
+    context.setUserRole("host");
+    sessionStorage.setItem("role", "host");
+    if (id) {
+        context.setLobbyId(id);
+    }
 
     const defaultOptions = {
         loop: true,

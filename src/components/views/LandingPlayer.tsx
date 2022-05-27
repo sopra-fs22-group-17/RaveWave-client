@@ -31,6 +31,12 @@ export const LandingPlayer = (props) => {
         }
     }, [id]);
 
+    context.setUserRole("player");
+    sessionStorage.setItem("role", "player");
+    if (id) {
+        context.setLobbyId(id);
+    }
+
     async function willGuest() {
         setVisible(true);
         history.push("/guest");
