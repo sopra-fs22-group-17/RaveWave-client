@@ -22,8 +22,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
 
-    const valueAdd = Math.floor(100 / totalNrRounds);
-
     let windowSize = window.innerWidth;
 
     if (windowSize <= 900) {
@@ -40,6 +38,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
+            console.log(RingSectors);
         }, 1000);
 
         JsonConstructorForRounds();
@@ -59,6 +58,10 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     }
 
     function JsonConstructorForRounds() {
+        RingSectors = [];
+
+        const valueAdd = Math.floor(100 / totalNrRounds);
+
         for (let i = 0; i < currentRound; i++) {
             RingSectors.push({value: valueAdd, color: 'green'});
         }
@@ -70,8 +73,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         return img
 
     }
-
-
 
     return (
         <BaseContainer>

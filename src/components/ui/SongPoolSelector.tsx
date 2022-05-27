@@ -70,7 +70,6 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         border: "3px solid white",
     },
     label: {
-        fontSize: 20,
         fontWeight: "bold",
         wordWrap: "break-word",
         overflow: "hidden",
