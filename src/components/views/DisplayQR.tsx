@@ -15,10 +15,19 @@ export interface IDisplayQRProps {
 
 export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
     const context = useContext(GameContext);
-    const {lobbyId} = context;
+    const {stomp, lobbyId,gameConfiguration} = context;
     const history = useHistory();
 
+    context.setLobbyId(sessionStorage.getItem('lobbyId'));
+    context.setPlayerName(sessionStorage.getItem('name'));
+    if(sessionStorage.getItem('role') == "host"){
+        context.setUserRole("host");
+    }else{
+        context.setUserRole("player");
+    }
+
     const [visible, setVisible] = useState(false);
+    const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false)
 
     const clipboard = useClipboard({ timeout: 1250 });
 
@@ -26,12 +35,26 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
         setVisible(true);
         history.push('/game');
     }
-
         useEffect( ()=> {
-            const connected = context.stomp.connect(lobbyId);
+            if (gameConfiguration.gameMode === "Guess the song artist" || gameConfiguration.gameMode === "Guess the song title") {
+                setLikedSongsGameUnlocked(true)
+            }
+            const setup = async () => {
+                const connected = await context.stomp.connect(lobbyId);
+                stomp.sendSettings(lobbyId, gameConfiguration)
+            }
+                const listener = (message: IMessageEvent) => {
+                    if (message.type === "playerJoin") {
+                        setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked)
+                        console.log("DISPLAYQR: liked songs game mode unlocked:" + message.data.likedGameModeUnlocked)
+                    }
+                }
+
+                stomp.join(listener);
+                setup();
+                return () => stomp.leave(listener);
 
     })
-
 
 
     const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
@@ -57,7 +80,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({controller}) => {
                             {clipboard.copied ? <Check size={19}/> : <Copy size={19}/>}
                         </ActionIcon>
                     </Group>
-                    <Button onClick={start}>
+                    <Button onClick={start} disabled={!likedSongsGameUnlocked}>
                         Start Game
                     </Button>
                 </Stack>
