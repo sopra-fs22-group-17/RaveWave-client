@@ -1,11 +1,12 @@
-import {Box, Title, Progress, RingProgress, SimpleGrid, Grid, Stack, Text, UnstyledButton} from "@mantine/core";
-import {FC, useContext, useEffect, useState} from "react";
-import {IGuessOption, IGuessQuestion} from "../../api/@def";
-import {IGameController} from "./GameController";
-import {SpotifyPlayer} from "./SpotifyPlayer";
-import {GameContext} from "../../contexts/GameContext";
+import { Box, Progress, RingProgress, SimpleGrid, Stack, Text, Title, UnstyledButton } from "@mantine/core";
+import { FC, useContext, useEffect, useState } from "react";
+
 import BaseContainer from "components/ui/BaseContainer";
-import blurImageUrl from 'blur-image-url';
+
+import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
+import { IGameController } from "./GameController";
+import { SpotifyPlayer } from "./SpotifyPlayer";
 
 export interface IGuessArtistProps {
     controller: IGameController;
@@ -15,9 +16,9 @@ export interface IGuessArtistProps {
 let imageSize = 225;
 let RingSectors = [];
 
-export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
+export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, lobbyId, stomp} = context;
+    const { gameConfiguration, lobbyId, stomp } = context;
 
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
@@ -60,22 +61,19 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     function JsonConstructorForRounds() {
         for (let i = 0; i < currentRound; i++) {
-            RingSectors.push({value: valueAdd, color: 'green'});
+            RingSectors.push({ value: valueAdd, color: "green" });
         }
     }
     const image = (backgroundImageUrl) => {
         var img = new Image();
         img.src = `url(${backgroundImageUrl.picture})`;
         img.blur();
-        return img
-
-    }
-
-
+        return img;
+    };
 
     return (
         <BaseContainer>
-            <Stack align="center" sx={{paddingTop: 10}}>
+            <Stack align="center" sx={{ paddingTop: 10 }}>
                 <Title order={2}>Guess the Artist</Title>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
@@ -108,9 +106,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                         },
                                     }}
                                 >
-                                    <Text>
-                                    </Text>
-                                    <Stack align="center" justify="center" sx={{height: "100%"}} style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
+                                    <Text></Text>
+                                    <Stack align="center" justify="center" sx={{ height: "100%" }} style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
                                         <Text
                                             sx={{
                                                 fontSize: 30,
@@ -122,13 +119,14 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                         </Text>
                                     </Stack>
                                 </Box>
-                    </UnstyledButton>
-                    );})}
+                            </UnstyledButton>
+                        );
+                    })}
                 </SimpleGrid>
-                <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 15}}>
-                    <Progress value={progressVal} size="md"/>
+                <Stack sx={{ width: imageSize * 2 + 15, paddingTop: 15 }}>
+                    <Progress value={progressVal} size="md" />
                 </Stack>
-                <SimpleGrid sx={{paddingTop: 10}} cols={2}>
+                <SimpleGrid sx={{ paddingTop: 10 }} cols={2}>
                     <Stack spacing={0} align={"center"}>
                         <RingProgress
                             size={60}
@@ -158,7 +156,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                         <Text>Answered</Text>
                     </Stack>
                 </SimpleGrid>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
             </Stack>
         </BaseContainer>
     );

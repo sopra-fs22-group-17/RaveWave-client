@@ -74,8 +74,8 @@ export interface IMessageEvent {
 }
 
 export interface IPlayerJoin {
-    name: string
-    likedGameModeUnlocked: boolean
+    name: string;
+    likedGameModeUnlocked: boolean;
 }
 
 export interface IMessageListener {
