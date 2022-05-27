@@ -1,10 +1,10 @@
-import {Anchor, SimpleGrid, Button, Container, Image, Text, Stack, LoadingOverlay} from "@mantine/core";
-import {FC, useContext, useState} from "react";
+import { Anchor, Button, Container, Image, LoadingOverlay, SimpleGrid, Stack, Text } from "@mantine/core";
+import { FC, useContext, useState } from "react";
 
-import {IGameResult} from "../../api/@def";
-import {GameContext} from "../../contexts/GameContext";
-import {GameResult} from "../ui/GameResult";
-import {IGameController} from "./GameController";
+import { IGameResult } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
+import { GameResult } from "../ui/GameResult";
+import { IGameController } from "./GameController";
 
 export interface IPostRoundProps {
     controller: IGameController;
@@ -72,7 +72,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                 </Stack>
                 {isHost && (
                     <Stack sx={{ paddingTop: 20 }} align="center">
-                        <Button onClick={() => nextRound()}>Continue</Button>
+                        {result.gameOver === false ? <Button onClick={() => nextRound()}>Continue</Button> : <div></div>}
                     </Stack>
                 )}
             </Stack>
