@@ -41,7 +41,7 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
     };
 
     return (
-        <Grid gutter={40} justify="center" sx={{ width: "100%" }}>
+        <Grid gutter={40} justify="center" sx={{ width: "100%", paddingBottom: "20px" }}>
             {list.map((player, i) => {
                 return (
                     <Grid.Col key={i} span={12} sx={{ padding: "5px 0px", display: "flex" }}>
@@ -68,32 +68,3 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         </Grid>
     );
 };
-
-//     return (
-//         <Grid gutter={40} justify="space-between" sx={{ width: "100%" }}>
-//             {list.map((player, i) => {
-//                 return (
-//                     <Grid.Col key={i} span={10} sx={{ padding: "10px 0px" }}>
-//                         {player.streak > 0 ? (
-//                             <SimpleGrid cols={5} sx={wrapperStyleCorrect}>
-//                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-//                                 <Box sx={{ paddingLeft: 10, fontSize: 24, fontWeight: 700, flex: 1 }}>{player.playerName}</Box>
-//                                 <Image src="/images/flame.png" height="25px"></Image>
-//                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
-//                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
-//                             </SimpleGrid>
-//                         ) : (
-//                             <SimpleGrid cols={5} sx={wrapperStyleWrong}>
-//                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-//                                 <Box sx={{ paddingLeft: 10, fontSize: 24, fontWeight: 700, flex: 1 }}>{player.playerName}</Box>
-//                                 <Image src="/images/flame.png" height="25px"></Image>
-//                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
-//                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
-//                             </SimpleGrid>
-//                         )}
-//                     </Grid.Col>
-//                 );
-//             })}
-//         </Grid>
-//     );
-// };
