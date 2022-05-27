@@ -21,10 +21,10 @@ export const Login: FC<{}> = ({}) => {
 
     console.log("THIS IS USER ROLE " + userRole);
     if (userRole === "host") {
-        redirectPath = "/connectspotify";
+        redirectPath = "/selectgamemode";
         backPath = "/landinghost";
     } else {
-        redirectPath = "/connectspotify";
+        redirectPath = "/game";
         const lobbyID = context.lobbyId;
         backPath = "/landingplayer/" + lobbyID.toString();
         context.setLobbyId(lobbyID);
