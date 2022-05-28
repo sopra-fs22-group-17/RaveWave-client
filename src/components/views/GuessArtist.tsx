@@ -16,14 +16,12 @@ export interface IGuessArtistProps {
 let imageSize = 225;
 let RingSectors = [];
 
-export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => {
+export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
-    const { gameConfiguration, lobbyId, stomp } = context;
+    const {gameConfiguration, lobbyId, stomp} = context;
 
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
-
-    const valueAdd = Math.floor(100 / totalNrRounds);
 
     let windowSize = window.innerWidth;
 
@@ -41,6 +39,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
+            console.log(RingSectors);
         }, 1000);
 
         JsonConstructorForRounds();
@@ -60,8 +59,12 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
     }
 
     function JsonConstructorForRounds() {
+        RingSectors = [];
+
+        const valueAdd = Math.floor(100 / totalNrRounds);
+
         for (let i = 0; i < currentRound; i++) {
-            RingSectors.push({ value: valueAdd, color: "green" });
+            RingSectors.push({value: valueAdd, color: 'green'});
         }
     }
     const image = (backgroundImageUrl) => {
@@ -73,7 +76,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
 
     return (
         <BaseContainer>
-            <Stack align="center" sx={{ paddingTop: 10 }}>
+            <Stack align="center" sx={{paddingTop: 10}}>
                 <Title order={2}>Guess the Artist</Title>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
@@ -106,8 +109,9 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                                         },
                                     }}
                                 >
-                                    <Text></Text>
-                                    <Stack align="center" justify="center" sx={{ height: "100%" }} style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+                                    <Text>
+                                    </Text>
+                                    <Stack align="center" justify="center" sx={{height: "100%"}} style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
                                         <Text
                                             sx={{
                                                 fontSize: 30,
@@ -119,14 +123,13 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                                         </Text>
                                     </Stack>
                                 </Box>
-                            </UnstyledButton>
-                        );
-                    })}
+                    </UnstyledButton>
+                    );})}
                 </SimpleGrid>
-                <Stack sx={{ width: imageSize * 2 + 15, paddingTop: 15 }}>
-                    <Progress value={progressVal} size="md" />
+                <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 15}}>
+                    <Progress value={progressVal} size="md"/>
                 </Stack>
-                <SimpleGrid sx={{ paddingTop: 10 }} cols={2}>
+                <SimpleGrid sx={{paddingTop: 10}} cols={2}>
                     <Stack spacing={0} align={"center"}>
                         <RingProgress
                             size={60}
@@ -156,7 +159,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
                         <Text>Answered</Text>
                     </Stack>
                 </SimpleGrid>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
             </Stack>
         </BaseContainer>
     );
