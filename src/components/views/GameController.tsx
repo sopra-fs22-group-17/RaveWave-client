@@ -42,19 +42,17 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     // const [result, setResult] = useState<IGameResult>();
     // const [summary, setSummary] = useState<IGameResult>();
     const [connected, setConnected] = useState(false);
-    const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false)
+    const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false);
     const history = useHistory();
 
     //wird einmal aufgerufen im lifecycle vom gamecontroller
     useEffect(() => {
-
         const setup = async () => {
             //const confirmation = await context.api.addPlayer(lobbyId, playerName);
             //context.setUserId(confirmation.playerId);
             //context.info(`Player '${playerName}' registered.`);
 
             const connected = await context.stomp.connect(lobbyId);
-
 
             console.log(userRole);
 
@@ -83,9 +81,9 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             } else if (message.type === "summary") {
                 setState({ type: "summary", data: message.data });
             } else if (message.type === "playerJoin") {
-                context.info("Player " + message.data.name + " joined the lobby");
-                setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked)
-                console.log("GAMECONT: liked songs game mode unlocked:" + message.data.likedGameModeUnlocked)
+                context.info("Player " + message.data.name + " joined the Lobby");
+                setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked);
+                console.log("GAMECONT: liked songs game mode unlocked:" + message.data.likedGameModeUnlocked);
             } else if (message.type === "setup") {
                 // context.api.sendSettings(context.lobbyId, config);
                 const config: IGameConfiguration = {

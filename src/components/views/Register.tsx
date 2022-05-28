@@ -1,9 +1,11 @@
-import {Button, Container, Group, PasswordInput, LoadingOverlay, Stack, TextInput, Title} from "@mantine/core";
-import BaseContainer from "components/ui/BaseContainer";
-import {FC, useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
+import { Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
+import { FC, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import {GameContext} from "../../contexts/GameContext";
+import BaseContainer from "components/ui/BaseContainer";
+
+import { GameContext } from "../../contexts/GameContext";
 import customLoader from "./RWLogo";
 
 export const Register: FC<{}> = ({}) => {
@@ -37,17 +39,17 @@ export const Register: FC<{}> = ({}) => {
         try {
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
-            sessionStorage.setItem('name', nameofPlayer);
+            sessionStorage.setItem("name", nameofPlayer);
             await api.registerUser(username, password);
+            showNotification({ message: "Registration was successful. Welcome RaveWaver " + nameofPlayer + "." });
             if (context.userRole === "player") {
-                sessionStorage.setItem('lobbyId', context.lobbyId);
+                sessionStorage.setItem("lobbyId", context.lobbyId);
                 await api.addPlayer(context.lobbyId, username);
+                showNotification({ message: "Registration was successful. Welcome RaveWaver " + nameofPlayer + "." });
             }
             history.push(redirectPath);
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong while registering the user! See the console for details.");
             setVisible(false);
         }
     }
@@ -59,7 +61,7 @@ export const Register: FC<{}> = ({}) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={customLoader} />
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{ color: "white", padding: 5 }}>
@@ -67,20 +69,21 @@ export const Register: FC<{}> = ({}) => {
                     </Title>{" "}
                     <Container size={200}>
                         <Stack spacing="lg">
-                            <TextInput value={username} placeholder="Username" label="Username"
-                                       onChange={(un) => setUsername(un.currentTarget.value)}/>
-                            <PasswordInput value={password} placeholder="Password" label="Password"
-                                           onChange={(pw) => setPassword(pw.currentTarget.value)}/>
-                            <PasswordInput value={repassword} placeholder="Password" label="Password"
-                                           onChange={(rpw) => setrePassword(rpw.currentTarget.value)}/>
+                            <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
+                            <PasswordInput value={password} placeholder="Password" label="Password" onChange={(pw) => setPassword(pw.currentTarget.value)} />
+                            <PasswordInput
+                                value={repassword}
+                                placeholder="Password"
+                                label="Password"
+                                onChange={(rpw) => setrePassword(rpw.currentTarget.value)}
+                            />
                         </Stack>
                     </Container>
-                    <Group sx={{ paddingTop: 10}}>
+                    <Group sx={{ paddingTop: 10 }}>
                         <Button onClick={doBack} size="md">
                             Back
                         </Button>
-                        <Button onClick={doRegister}
-                                disabled={!username || !password || !repassword || (password !== repassword)} size="md">
+                        <Button onClick={doRegister} disabled={!username || !password || !repassword || password !== repassword} size="md">
                             Register
                         </Button>
                     </Group>

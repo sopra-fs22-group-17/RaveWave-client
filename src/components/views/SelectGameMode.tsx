@@ -1,17 +1,17 @@
-import {Button, Container, Group, LoadingOverlay, Slider, Stack, Text, Title} from "@mantine/core";
-import {useContext, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import { Button, Container, Group, LoadingOverlay, Slider, Stack, Text, Title } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import {IGameConfiguration, TQuestionType} from "../../api/@def";
-import {LIKED_SONG_POOLS, SONG_POOLS} from "../../api/StompApi";
-import {GameContext} from "../../contexts/GameContext";
-import {GameModeButton} from "../ui/GameModeButton";
-import {SongPoolSelector} from "../ui/SongPoolSelector";
+import { IGameConfiguration, TQuestionType } from "../../api/@def";
+import { LIKED_SONG_POOLS, SONG_POOLS } from "../../api/StompApi";
+import { GameContext } from "../../contexts/GameContext";
+import { GameModeButton } from "../ui/GameModeButton";
+import { SongPoolSelector } from "../ui/SongPoolSelector";
 import customLoader from "./RWLogo";
 
 export const SelectGameMode = (props) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, userRole} = context;
+    const { gameConfiguration, userRole } = context;
     const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
@@ -27,7 +27,7 @@ export const SelectGameMode = (props) => {
             const lobbyId = await context.api.createLobbyAndGetId();
             const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem("name"));
             context.setLobbyId(lobbyId);
-            sessionStorage.setItem('lobbyId', lobbyId);
+            sessionStorage.setItem("lobbyId", lobbyId);
             if (sessionStorage.getItem("role") === "host") {
                 context.setUserRole("host");
             } else {
@@ -36,7 +36,7 @@ export const SelectGameMode = (props) => {
             context.setPlayerName(sessionStorage.getItem("name"));
 
             setConnected(true);
-            context.info(`Lobby '${lobbyId}' created`);
+            //context.info(`Lobby '${lobbyId}' created`);
         }
 
         connect();
@@ -65,45 +65,51 @@ export const SelectGameMode = (props) => {
 
         context.setGameConfiguration(config);
         setGameConfigurationSaved(true);
-        context.info("Game configuration successfully saved.");
-        console.log(gameConfiguration);
+        //context.info("Game configuration successfully saved.");
+        //console.log(gameConfiguration);
         console.log("FROM CONFIG" + JSON.stringify(config));
     };
 
     return (
         <Container size={500}>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={customLoader} />
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">
-                    <Title order={2} sx={{color: "white", paddingTop: 10}}>
+                    <Title order={2} sx={{ color: "white", paddingTop: 10 }}>
                         Game configuration
                     </Title>
                     <Text>{message}</Text>
                 </Stack>
-                <Group spacing={0}
-                       sx={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
+                <Group spacing={0} sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {gameModes.map((mode, i) => {
-                        return <GameModeButton key={i} type={mode} selected={gameMode === mode}
-                                               onSelect={() => setGameMode(mode)}/>;
+                        return <GameModeButton key={i} type={mode} selected={gameMode === mode} onSelect={() => setGameMode(mode)} />;
                     })}
                 </Group>
                 <Text>{`Number of rounds: ${gameRounds}`}</Text>
             </Stack>
-                <Slider size={"lg"} min={3} max={20} label={(value) => value.toFixed(0)} value={gameRounds} defaultValue={8}
-                        step={1} onChange={setGameRounds}></Slider>
-            <Stack sx={{paddingTop: 25}} align="center">
+            <Slider
+                size={"lg"}
+                min={3}
+                max={20}
+                label={(value) => value.toFixed(0)}
+                value={gameRounds}
+                defaultValue={8}
+                step={1}
+                onChange={setGameRounds}
+            ></Slider>
+            <Stack sx={{ paddingTop: 25 }} align="center">
                 <Text>{`Playback duration: ${playBackDuration} seconds`}</Text>
             </Stack>
-                <Slider
-                    size={"lg"}
-                    min={10}
-                    max={20}
-                    label={(value) => value.toFixed(0)}
-                    value={playBackDuration}
-                    defaultValue={16}
-                    step={2}
-                    onChange={setPlayBackDuration}
-                ></Slider>
+            <Slider
+                size={"lg"}
+                min={10}
+                max={20}
+                label={(value) => value.toFixed(0)}
+                value={playBackDuration}
+                defaultValue={16}
+                step={2}
+                onChange={setPlayBackDuration}
+            ></Slider>
 
             {gameMode === "Guess the liked song" ? (
                 <SongPoolSelector items={LIKED_SONG_POOLS} selection={songPool} onSelect={setSongPool} />
@@ -111,7 +117,7 @@ export const SelectGameMode = (props) => {
                 <SongPoolSelector items={SONG_POOLS} selection={songPool} onSelect={setSongPool} />
             )}
 
-            <Stack align="center" sx={{paddingTop: 30, paddingBottom: 15}}>
+            <Stack align="center" sx={{ paddingTop: 30, paddingBottom: 15 }}>
                 <Link to="/displayqr">
                     <Button onClick={saveConfiguration}>Invite players</Button>
                 </Link>
@@ -119,4 +125,3 @@ export const SelectGameMode = (props) => {
         </Container>
     );
 };
-

@@ -62,9 +62,9 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
     const error = (message: string) => {
         console.error(message);
         showNotification({
-            title: "Error",
             color: "red",
             message,
+            autoClose: 3000,
         });
     };
 
