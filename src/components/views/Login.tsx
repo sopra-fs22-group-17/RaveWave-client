@@ -21,7 +21,6 @@ export const Login: FC<{}> = ({}) => {
     let redirectPath = "";
     let backPath = "";
 
-    console.log("THIS IS USER ROLE " + userRole);
     if (userRole === "host") {
         redirectPath = "/selectgamemode";
         backPath = "/landinghost";

@@ -13,13 +13,11 @@ export interface IPostRoundProps {
 }
 
 export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
-    console.log("THIS IS RESULT RECEIVED IN POSTROUND " + JSON.stringify(result, null, 4));
     const context = useContext(GameContext);
     const [visible, setVisible] = useState(false);
 
     if (!result) return null;
 
-    console.log("RESULT" + JSON.stringify(result, null, 4));
     const me = result.players.find((d) => d.playerName === context.playerName);
     const correct = me.streak > 0;
     const correctness = correct ? "Correct!" : "Wrong!";

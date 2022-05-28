@@ -22,7 +22,6 @@ export const Register: FC<{}> = ({}) => {
     let redirectPath = "";
     let backPath = "";
 
-    console.log("THIS IS USER ROLE " + userRole);
     if (userRole === "host") {
         redirectPath = "/connectspotify";
         backPath = "/landinghost";

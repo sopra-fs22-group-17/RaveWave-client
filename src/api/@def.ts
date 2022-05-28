@@ -1,8 +1,7 @@
-export type TUserRole = "host" | "player"; //still necessary?
+export type TUserRole = "host" | "player";
 
 export type TQuestionType = "Guess the song title" | "Guess the song artist" | "Guess the liked song";
 
-//game configuration
 export interface IGameConfiguration {
     roundDuration: number;
     playBackDuration: number;
@@ -30,18 +29,16 @@ export interface IGuessQuestion {
     currentRound: number;
     totalRounds: number;
     previewURL: string;
-    playDuration?: number; //in seconds
+    playDuration?: number;
     options: IGuessOption[];
 }
 
-//game answer
 export interface IGameAnswer {
     playerGuess: string;
     responseTime: string;
     token: string;
 }
 
-//post game and post round
 export interface IPlayerInfo {
     playerId: string;
     playerName: string;
@@ -52,7 +49,6 @@ export interface IPlayerInfo {
     profilePicture: string;
 }
 
-//post game and post round
 export interface IGameResult {
     coverUrl: string;
     spotifyLink: string;

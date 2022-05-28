@@ -11,13 +11,7 @@ import { PostGame } from "./PostGame";
 import { PostRound } from "./PostRound";
 import { WaitingRoom } from "./WaitingRoom";
 
-//different states in the game
-export type TGameState =
-    // host
-    // | "configure"
-    // | "invite" // QR code
-    // all
-    "waiting" | "question" | "result" | "summary";
+export type TGameState = "waiting" | "question" | "result" | "summary";
 
 export interface IGameControllerProps {
     role: TUserRole;
@@ -38,23 +32,14 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const context = useContext(GameContext);
     const { stomp, lobbyId, playerName, gameConfiguration, userRole } = context;
     const [state, setState] = useState<IGameState>({ type: role === "player" ? "waiting" : "waiting" });
-    // const [question, setQuestion] = useState<IGuessQuestion>();
-    // const [result, setResult] = useState<IGameResult>();
-    // const [summary, setSummary] = useState<IGameResult>();
+
     const [connected, setConnected] = useState(false);
     const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false);
     const history = useHistory();
 
-    //wird einmal aufgerufen im lifecycle vom gamecontroller
     useEffect(() => {
         const setup = async () => {
-            //const confirmation = await context.api.addPlayer(lobbyId, playerName);
-            //context.setUserId(confirmation.playerId);
-            //context.info(`Player '${playerName}' registered.`);
-
             const connected = await context.stomp.connect(lobbyId);
-
-            console.log(userRole);
 
             if (userRole === "host") {
                 stomp.sendSettings(lobbyId, gameConfiguration);
@@ -83,9 +68,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             } else if (message.type === "playerJoin") {
                 context.info("Player " + message.data.name + " joined the Lobby");
                 setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked);
-                console.log("GAMECONT: liked songs game mode unlocked:" + message.data.likedGameModeUnlocked);
             } else if (message.type === "setup") {
-                // context.api.sendSettings(context.lobbyId, config);
                 const config: IGameConfiguration = {
                     gameMode: message.data.gameMode,
                     gameRounds: message.data.gameRounds,
@@ -98,13 +81,11 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         };
         stomp.join(listener);
         setup();
-        return () => stomp.leave(listener); //wer de funktion aufruft veranlasst unds zu leave
+        return () => stomp.leave(listener);
     }, []);
 
     const ctrl: IGameController = {
-        gotoState: (newState: IGameState) => {
-            // setState(newState);
-        },
+        gotoState: (newState: IGameState) => {},
 
         answer: (question: string, answerId: string, answerT: string) => {
             const token = sessionStorage.getItem("token");
@@ -129,7 +110,6 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
         }
         return <Box>{"Unknown question type: " + question.question}</Box>;
     } else if (state.type === "result") {
-        console.log("State type is result");
         const result = state.data as IGameResult;
         return <PostRound controller={ctrl} result={result} />;
     } else if (state.type === "summary") {

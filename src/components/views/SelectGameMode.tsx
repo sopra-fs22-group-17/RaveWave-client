@@ -36,7 +36,6 @@ export const SelectGameMode = (props) => {
             context.setPlayerName(sessionStorage.getItem("name"));
 
             setConnected(true);
-            //context.info(`Lobby '${lobbyId}' created`);
         }
 
         connect();
@@ -47,7 +46,6 @@ export const SelectGameMode = (props) => {
     const saveConfiguration = () => {
         setVisible(true);
         roundDuration = playBackDuration;
-        // context.api.sendSettings(context.lobbyId, config);
         const config: IGameConfiguration = {
             gameMode,
             gameRounds,
@@ -65,9 +63,6 @@ export const SelectGameMode = (props) => {
 
         context.setGameConfiguration(config);
         setGameConfigurationSaved(true);
-        //context.info("Game configuration successfully saved.");
-        //console.log(gameConfiguration);
-        console.log("FROM CONFIG" + JSON.stringify(config));
     };
 
     return (

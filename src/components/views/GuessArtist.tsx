@@ -56,7 +56,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({ controller, question }) => 
 
     if (passedSeconds <= 0) {
         stomp.endRound(lobbyId);
-        console.log("endround was called");
     }
 
     function JsonConstructorForRounds() {

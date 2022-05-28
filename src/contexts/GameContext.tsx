@@ -33,7 +33,6 @@ export interface IGameProviderProps {}
 
 export const GameContext = createContext<IGameContext>(null);
 
-//?
 export const GAME_CONFIGURATION: IGameConfiguration = {
     roundDuration: 8,
     gameMode: "Guess the song title",
@@ -53,7 +52,6 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
     const [currentURL, setCurrentURL] = useState<string>();
 
     const info = (message: string) => {
-        console.log(message);
         showNotification({
             title: "Info",
             message,
@@ -88,7 +86,6 @@ export const GameProvider: FCC<IGameProviderProps> = ({ children }) => {
     };
 
     useEffect(() => {
-        console.log("   " + window.location);
         setCurrentURL(window.location.toString());
     }, []);
 

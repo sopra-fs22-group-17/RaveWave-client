@@ -49,7 +49,6 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
         const listener = (message: IMessageEvent) => {
             if (message.type === "playerJoin") {
                 setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked);
-                console.log("DISPLAYQR: liked songs game mode unlocked:" + message.data.likedGameModeUnlocked);
             }
         };
 
@@ -59,7 +58,6 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
     });
 
     const url = `${window.location.origin}/landingplayer/${lobbyId || "1"}`;
-    console.log("Game URL: " + url);
 
     return (
         <BaseContainer>

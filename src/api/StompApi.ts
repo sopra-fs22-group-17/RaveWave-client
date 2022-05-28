@@ -14,7 +14,6 @@ export interface ISongPool {
 export interface IPlayerConfirmation {
     playerId: string;
     token: string;
-    //
     id: string;
     lobbyId: number;
     playerName: string;
@@ -57,7 +56,6 @@ export class StompApi {
     }
 
     public sendSettings(lobbyId: string, gameConfiguration?: IGameConfiguration): void {
-        console.log("SEND SETTINGS 1");
         const stompGameConfiguration: IStompGameConfiguration = {
             roundDuration: NUMBER_STRING_ARRAY[gameConfiguration.roundDuration],
             playBackDuration: NUMBER_STRING_ARRAY[gameConfiguration.playBackDuration],
@@ -66,9 +64,7 @@ export class StompApi {
             songPool: gameConfiguration.songPool,
         };
 
-        console.log(JSON.stringify(stompGameConfiguration, null, 4));
         this.stomp.send(`/app/lobbies/${lobbyId}/setup`, {}, JSON.stringify(stompGameConfiguration));
-        console.log("SEND SETTINGS 2");
     }
 
     public startGame(lobbyId: string): void {
@@ -85,7 +81,6 @@ export class StompApi {
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
         const playerIdLocal = sessionStorage.getItem("playerId");
-        console.log("ANSWER IN SAVANSWER " + JSON.stringify(answer), null, 4);
         this.send(`/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`, JSON.stringify(answer));
     }
 
@@ -99,41 +94,28 @@ export class StompApi {
 
     public async connect(lobbyId: string): Promise<void> {
         const deferred = defer<void>();
-        console.log("StompApi: CONNECT IS CALLED");
         try {
             this.sock.close();
         } catch {}
 
-        // const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
-
-        //this.sock = new SockJS(`http://localhost:8080/ws`); // local
-        this.sock = new SockJS(getDomain() + `/ws`); // remote
-        // this.sock = new SockJS(`http://sopra-fs22-group17-server.herokuapp.com/ws`); // remote
-        // const endpoint = getEndpoint();
-        // this.sock = new SockJS(endpoint);
+        this.sock = new SockJS(getDomain() + `/ws`);
 
         this.stomp = Stomp.over(this.sock);
         this.stomp.debug = this._debug;
         this.stomp.connect(
             {},
             () => {
-                console.log("CONNECT SUCCESS");
                 this._connected = true;
-                // this.subscribe(`/topic/lobbies/${lobbyId}`, (r) => this._handleMessage(r));
                 this.subscribe(`/topic/lobbies/${lobbyId}`, (r) => this._handleMessage(r));
 
                 deferred.resolve();
-                //this.sendSettings(lobbyId);
-                //this.startGame(lobbyId);
             },
             () => {
-                console.log("CONNECT FAILED");
                 deferred.reject();
             },
         );
 
         this.sock.onclose = (r) => {
-            console.log("Socket closed!", r);
             this._handleDisconnect("Socket closed.");
         };
         this.sock.onerror = (e) => this._handleError(e);
@@ -175,7 +157,6 @@ export class StompApi {
     }
 
     private send(message: string, payload?: any) {
-        console.log("Stomp: " + message);
         if (payload) {
             this.stomp.send(message, {}, payload);
         } else {
@@ -200,16 +181,11 @@ export class StompApi {
 
         this.stomp.subscribe("/");
         for (let callback of this._registerCallbacks) {
-            console.log(response);
             callback(response);
         }
     }
 
-    /* change this */
-
-    //listeners aufrufen (use notify)make message call notify
     private _handleMessage(info: any) {
-        console.log("CALLBACK _handleMessage");
         const msg = info.msg;
         if (msg.type === "setup") {
             this._handleSetupMessage(info);
@@ -222,10 +198,7 @@ export class StompApi {
         }
     }
 
-    private _handleSetupMessage(info: any) {
-        // create event
-        // call notify
-    }
+    private _handleSetupMessage(info: any) {}
 
     private _handleQuestionMessage(payload: any) {
         const info = payload.msg;
@@ -294,13 +267,11 @@ export class StompApi {
         const channel = response.headers.destination;
         const lobbyChannel = channel.replace(/.+\/lobby\/.+\//i, "/");
         const info = { msg, channel, lobbyChannel };
-        console.log(JSON.stringify(info, null, 4));
 
         return info;
     }
 
     private _debug(message: string) {
-        // only output debug messages if we're not in the production environment
         console.log("Debug: " + message);
     }
 }
