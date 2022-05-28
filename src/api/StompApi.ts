@@ -1,9 +1,17 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-import { IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, IPlayerJoin, IStompGameConfiguration } from "./@def";
-import { defer } from "./Deferred";
-import { getDomain } from "./getDomain";
+import {
+    IGameConfiguration,
+    IGameResult,
+    IGuessQuestion,
+    IMessageEvent,
+    IMessageListener,
+    IPlayerJoin,
+    IStompGameConfiguration
+} from "./@def";
+import {defer} from "./Deferred";
+import {getDomain} from "./getDomain";
 
 export interface ISongPool {
     id: string;
@@ -102,7 +110,8 @@ export class StompApi {
         console.log("StompApi: CONNECT IS CALLED");
         try {
             this.sock.close();
-        } catch {}
+        } catch {
+        }
 
         // const lobbyId = await this.createLobbyAndGetId(); // regular http request to create and get new lobby id
 
@@ -144,7 +153,8 @@ export class StompApi {
     public disconnect(reason: any): void {
         try {
             this.stomp.disconnect(() => this._handleDisconnect(reason), {});
-        } catch {}
+        } catch {
+        }
     }
 
     public subscribe(channel: string, callback: (data: any) => void): void {
@@ -293,7 +303,7 @@ export class StompApi {
         const msg = JSON.parse(response.body);
         const channel = response.headers.destination;
         const lobbyChannel = channel.replace(/.+\/lobby\/.+\//i, "/");
-        const info = { msg, channel, lobbyChannel };
+        const info = {msg, channel, lobbyChannel};
         console.log(JSON.stringify(info, null, 4));
 
         return info;
