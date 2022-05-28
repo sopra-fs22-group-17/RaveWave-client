@@ -1,11 +1,12 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 
 import User from "../model/User";
-import {getDomain} from "./getDomain";
+import { getDomain } from "./getDomain";
 
 export const remote = axios.create({
     baseURL: getDomain(),
-    headers: {"Content-Type": "application/json"},
+    headers: { "Content-Type": "application/json" },
 });
 
 export interface ISongPool {
@@ -17,7 +18,6 @@ export interface ISongPool {
 export interface IPlayerConfirmation {
     playerId: string;
     token: string;
-    //
     id: string;
     lobbyId: number;
     playerName: string;
@@ -35,18 +35,15 @@ export interface IQuestionAnswer {
 export class RestApi {
     _user = null;
 
-    constructor() {
-    }
+    constructor() {}
 
     // @PostMapping("/ravewavers")
     async registerUser(username, password) {
-        const requestBody = JSON.stringify({username, password});
+        const requestBody = JSON.stringify({ username, password });
         const response = await remote.post("/ravewavers", requestBody);
-        console.log("registerUser" + JSON.stringify(response.data));
         if (response.status >= 200 && response.status < 300) {
             const user = new User(response.data);
             user.token = response.headers["authorization"];
-            // Store the token into the local storage.
             sessionStorage.setItem("raveWaverToken", user.token);
             sessionStorage.setItem("raveWaverId", user.id);
             return user;
@@ -59,13 +56,11 @@ export class RestApi {
 
     // @PostMapping("/login")
     async loginUser(username, password) {
-        const requestBody = JSON.stringify({username, password});
+        const requestBody = JSON.stringify({ username, password });
         const response = await remote.post("/ravewavers/login", requestBody);
-        console.log("loginUser" + JSON.stringify(response.data));
         if (response.status >= 200 && response.status < 300) {
             const user = new User(response.data);
             user.token = response.headers["authorization"];
-            // Store the token into the local storage.
             sessionStorage.setItem("raveWaverToken", user.token);
             sessionStorage.setItem("raveWaverId", user.id);
             return user;
@@ -80,9 +75,7 @@ export class RestApi {
 
     // @PutMapping("/ravewavers/{raverId}")
     async updateUser(raverId) {
-        // what to pass ??
-        // make new raveWaver here
-        const requestBody = raverId; // send raveWaver as request body
+        const requestBody = raverId;
         const response = await remote.put(`/ravewavers/${raverId}`, requestBody);
         if (response.status >= 200 && response.status < 300) {
             return response.data;
@@ -99,7 +92,6 @@ export class RestApi {
 
     public async createLobbyAndGetId(): Promise<string> {
         const response = await remote.post(`/lobbies`);
-        console.log("create lobby and get ID: " + JSON.stringify(response.data));
         if (response.status >= 200 && response.status < 300) {
             return response.data.lobbyId;
         } else if (response.status === 404) {
@@ -117,42 +109,29 @@ export class RestApi {
                 Authorization: sessionStorage.getItem("raveWaverToken"),
             },
         };
-        // you are RW
         if (config.headers !== null) {
-            console.log(config);
-            console.log("entering add RW/host to lobby");
-            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName}, config);
-            console.log("addPlayer" + JSON.stringify(response.data));
+            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName }, config);
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
-                console.log("log before, RW" + user.token);
                 user.token = response.headers["authorization"];
-                console.log("log after, RW " + user.token);
-                // Store the token into the local storage.
-                sessionStorage.setItem('token', user.token);
+                sessionStorage.setItem("token", user.token);
                 sessionStorage.setItem("playerId", user.id);
 
-                const name = sessionStorage.getItem('name');
+                const name = sessionStorage.getItem("name");
 
-                if (!(name.includes("[RW]"))) {
-                    sessionStorage.setItem("name", ("[RW] " + name));
+                if (!name.includes("[RW]")) {
+                    sessionStorage.setItem("name", "[RW] " + name);
                 }
-
 
                 return user;
             } else {
                 throw new Error("Error happend when trying to add ravewaver");
             }
-            // you are guest
         } else {
-            const response = await remote.post(`/lobbies/${lobbyId}`, {playerName: playerName});
-            console.log("addPlayer" + JSON.stringify(response.data));
+            const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName });
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
-                console.log("log before, player" + user.token);
                 user.token = response.headers["authorization"];
-                console.log("log after, player" + user.token);
-                // Store the token into the local storage.
                 sessionStorage.setItem("token", user.token);
                 sessionStorage.setItem("playerId", user.id);
                 return user;
@@ -162,10 +141,9 @@ export class RestApi {
         }
     }
 
-    // @GetMapping(value = "/Spotify/authorizationCodeUri")
+    //@GetMapping(value = "/Spotify/authorizationCodeUri")
     async getAuthorizationCodeUri() {
-        const response = await remote.get("/Spotify/authorizationCodeUri"); // remote.get
-        console.log("getAuthCodeURI" + JSON.stringify(response.data));
+        const response = await remote.get("/Spotify/authorizationCodeUri");
         const URL = response;
         if (response.status >= 200 && response.status < 300) {
             return URL;
@@ -181,7 +159,6 @@ export class RestApi {
             },
         };
         const response = await remote.post("/Spotify/authorizationCode", code, config);
-        console.log("setAuthCode" + JSON.stringify(response.data));
         if (response.status >= 200 && response.status < 300) {
             return response;
         } else {
@@ -191,8 +168,6 @@ export class RestApi {
 
     handleError = (error) => {
         const response = error.response;
-
-        // catch 4xx and 5xx status codes
         if (response && !!`${response.status}`.match(/^[4|5]\d{2}$/)) {
             let info = `\nrequest to: ${response.request.responseURL}`;
 
@@ -200,19 +175,18 @@ export class RestApi {
                 info += `\nstatus code: ${response.data.status}`;
                 info += `\nerror: ${response.data.error}`;
                 info += `\nerror message: ${response.data.message}`;
+                showNotification({ message: "" + response.data.message, color: "red", autoClose: 3000 });
             } else {
                 info += `\nstatus code: ${response.status}`;
                 info += `\nerror message:\n${response.data}`;
             }
 
-            console.log("The request was made and answered but was unsuccessful.", error.response);
             return info;
         } else {
             if (error.message.match(/Network Error/)) {
                 alert("The server cannot be reached.\nDid you start it?");
             }
 
-            console.log("Something else happened.", error);
             return error.message;
         }
     };

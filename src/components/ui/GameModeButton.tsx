@@ -57,7 +57,6 @@ export const useStyles = createStyles((theme, { iconSize }: IStylesParams) => ({
         borderRadius: iconSize,
         border: "1px solid transparent",
         "&:hover": {
-            // background: theme.colors[theme.primaryColor][6],
             background: "#ffffffaa",
             border: "1px solid white",
         },

@@ -8,19 +8,15 @@ export interface IRaveWaveTheme extends MantineTheme {
     accentColor: keyof MantineThemeColors;
 }
 
-export const settings = {
-    // fontFamily: "IBM Plex Sans",
-};
+export const settings = {};
 
 export interface IRaveWaveThemeOverride extends MantineThemeOverride {
     accentColor: MantineColor;
 }
 
 export const theme: IRaveWaveThemeOverride = {
-    colorScheme: "dark", // light | dark;
-    // fontFamily: settings.fontFamily,
+    colorScheme: "dark",
     headings: {
-        // fontFamily: settings.fontFamily,
         sizes: {
             h1: { fontSize: "3em", lineHeight: 1.3 },
         },
@@ -37,7 +33,6 @@ export const theme: IRaveWaveThemeOverride = {
 const overrides = {
     Button: (theme: MantineTheme, params: ButtonStylesParams) => ({
         root: {
-            //[`&:not(.${getRef("loading")}):disabled`]: {
             "&:not(.mantine-Button-loading):disabled": {
                 cursor: "default",
                 backgroundColor: "gray",
@@ -55,20 +50,7 @@ const overrides = {
 
 export const Theme: FCC<{}> = ({ children }) => {
     return (
-        <MantineProvider
-            theme={theme}
-            emotionOptions={{ key: "ravewave" }}
-            styles={overrides as any}
-            defaultProps={
-                {
-                    // Divider: {
-                    //     label: "RaveWave Divider",
-                    //     labelPosition: "centererd",
-                    //     variant: "dotted",
-                    // },
-                }
-            }
-        >
+        <MantineProvider theme={theme} emotionOptions={{ key: "ravewave" }} styles={overrides as any} defaultProps={{}}>
             <Global
                 styles={(theme) => {
                     return {

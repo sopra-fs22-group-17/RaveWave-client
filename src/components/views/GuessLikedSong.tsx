@@ -15,9 +15,9 @@ export interface IGuessLikedSongProps {
 let imageSize = 225;
 let RingSectors = [];
 
-export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question}) => {
+export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
-    const {gameConfiguration, lobbyId, stomp} = context;
+    const { gameConfiguration, lobbyId, stomp } = context;
     let windowSize = window.innerWidth;
 
     let totalNrRounds = question.totalRounds;
@@ -26,7 +26,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
     const valueAdd = Math.floor(100 / totalNrRounds);
 
     if (windowSize <= 900) {
-        imageSize = Math.floor((window.innerWidth - 60)/2);
+        imageSize = Math.floor((window.innerWidth - 60) / 2);
     }
     const [answered, setAnswered] = useState(false);
 
@@ -53,12 +53,11 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
 
     if (passedSeconds <= 0 && context.userRole === "host") {
         stomp.endRound(lobbyId);
-        console.log("endround was called");
     }
 
     function JsonConstructorForRounds() {
         for (let i = 0; i < currentRound; i++) {
-            RingSectors.push({value: valueAdd, color: 'green'});
+            RingSectors.push({ value: valueAdd, color: "green" });
         }
     }
 
@@ -69,34 +68,35 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
                         return (
-                                    <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
-                                        <Box
-                                            style={{
-                                                backgroundImage: `url(${option.picture})`,
-                                                opacity: answered ? 0.5 : 1,
-                                                cursor: answered ? "default" : "pointer",
-                                            }}
-                                            sx={{
-                                                width: imageSize,
-                                                height: imageSize,
-                                                borderRadius: 10,
-                                                backgroundRepeat: "no-repeat",
-                                                backgroundSize: "cover",
-                                                backgroundPosition: "center",
-                                                wordWrap: "break-word",
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                                textAlign: "center",
-                                                boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
-                                                transition: "transform 130ms ease-out",
-                                                zIndex: 1,
-                                                "&:hover": {
-                                                    transform: "translateY(-2px) scale(0.985)",
-                                                    opacity: 0.85,
-                                                    zIndex: 0,
-                                                },
-                                            }}
-                                        >
+                            <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
+                                <Box
+                                    style={{
+                                        backgroundImage: `url(${option.picture})`,
+                                        opacity: answered ? 0.5 : 1,
+                                        cursor: answered ? "default" : "pointer",
+                                    }}
+                                    sx={{
+                                        width: imageSize,
+                                        height: imageSize,
+                                        borderRadius: 10,
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        wordWrap: "break-word",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        textAlign: "center",
+                                        boxShadow: "rgba(0, 0, 0, 0.3) 15px 34px 53px, rgba(0, 0, 0, 0.22) 15px 30px 27px",
+                                        transition: "transform 130ms ease-out",
+                                        zIndex: 1,
+                                        "&:hover": {
+                                            transform: "translateY(-2px) scale(0.985)",
+                                            opacity: 0.85,
+                                            zIndex: 0,
+                                        },
+                                    }}
+                                >
+
                                             <Stack align="center" justify="center" sx={{ height: "100%" }} style={{backgroundColor: "rgba(0,0,0,0.6)"}}>
                                                 <Text lineClamp={3}
                                                     sx={{
@@ -112,11 +112,12 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
                                         </Box>
                                     </UnstyledButton>
                         );})}
+
                 </SimpleGrid>
-                <Stack sx={{width: (imageSize * 2 + 15), paddingTop: 15}}>
-                    <Progress value={progressVal} size="md"/>
+                <Stack sx={{ width: imageSize * 2 + 15, paddingTop: 15 }}>
+                    <Progress value={progressVal} size="md" />
                 </Stack>
-                <SimpleGrid sx={{paddingTop: 10}} cols={2}>
+                <SimpleGrid sx={{ paddingTop: 10 }} cols={2}>
                     <Stack spacing={0} align={"center"}>
                         <RingProgress
                             size={60}
@@ -146,7 +147,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({controller, question})
                         <Text>Answered</Text>
                     </Stack>
                 </SimpleGrid>
-                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20}/>
+                <SpotifyPlayer url={question.previewURL} duration={question.playDuration || 20} />
             </Stack>
         </BaseContainer>
     );

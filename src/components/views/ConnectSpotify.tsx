@@ -1,15 +1,17 @@
-import {Button, Container, Group, Image, Stack, Text, Title, LoadingOverlay, DEFAULT_THEME} from "@mantine/core";
+import { Button, Container, Group, Image, LoadingOverlay, Stack, Title } from "@mantine/core";
+import { FC, useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import BaseContainer from "components/ui/BaseContainer";
-import {FC, useContext, useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
-import {SpotifyURL} from "../../api/SpotifyModel";
-import {GameContext} from "../../contexts/GameContext";
-import {useQueryParam} from "../../hooks/useQuery";
+
+import { SpotifyURL } from "../../api/SpotifyModel";
+import { GameContext } from "../../contexts/GameContext";
+import { useQueryParam } from "../../hooks/useQuery";
 import customLoader from "./RWLogo";
 
 export const ConnectSpotify: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const {api} = context;
+    const { api } = context;
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);
     const spotifyCodeParam = useQueryParam("code");
     const history = useHistory();
@@ -38,15 +40,13 @@ export const ConnectSpotify: FC<{}> = ({}) => {
     };
 
     const sendSpotifyCode = async () => {
-        const authCodeRequest = JSON.stringify({code: spotifyCodeParam});
+        const authCodeRequest = JSON.stringify({ code: spotifyCodeParam });
         try {
             setVisible(true);
             await api.setAuthorizationCode(authCodeRequest);
-            context.info("Spotify access granted!");
             setSpotifyAuthorized(true);
             setVisible(false);
         } catch {
-            //context.info();
             context.error("Spotify access denied! Are you sure you are using a Spotify-Premium account?");
             setVisible(false);
         }
@@ -54,20 +54,20 @@ export const ConnectSpotify: FC<{}> = ({}) => {
 
     const setPlayerPar = async () => {
         setVisible(true);
-        const nameofPlayer = sessionStorage.getItem('name');
-        const roleofPlayer = sessionStorage.getItem('role');
+        const nameofPlayer = sessionStorage.getItem("name");
+        const roleofPlayer = sessionStorage.getItem("role");
         if (roleofPlayer === "host") {
             context.setUserRole("host");
             context.setPlayerName(nameofPlayer);
-            history.push('/selectgamemode');
+            history.push("/selectgamemode");
         } else {
             context.setUserRole("player");
             context.setPlayerName(nameofPlayer);
-            const lobbyId = sessionStorage.getItem('lobbyId')
+            const lobbyId = sessionStorage.getItem("lobbyId");
             if (lobbyId) {
                 context.setLobbyId(lobbyId);
             }
-            history.push('/game');
+            history.push("/game");
         }
     };
 
@@ -94,5 +94,4 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             </Container>
         </BaseContainer>
     );
-
 };

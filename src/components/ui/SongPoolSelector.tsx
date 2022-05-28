@@ -1,7 +1,7 @@
-import {Box, createStyles, Text, UnstyledButton, Group} from "@mantine/core";
-import {FC} from "react";
+import { createStyles, Group, Text, UnstyledButton } from "@mantine/core";
+import { FC } from "react";
 
-import {ISongPool} from "../../api/StompApi";
+import { ISongPool } from "../../api/StompApi";
 
 export interface ISongPoolSelectorProps {
     items: ISongPool[];
@@ -9,9 +9,9 @@ export interface ISongPoolSelectorProps {
     onSelect?: (selection: string) => void;
 }
 
-export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, onSelect}) => {
+export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({ items, selection, onSelect }) => {
     const buttonSize = 90;
-    const {classes, cx} = useStyles({buttonSize});
+    const { classes, cx } = useStyles({ buttonSize });
 
     return (
         <Group position="center" className={cx(classes.root)}>
@@ -43,7 +43,7 @@ interface IStylesParams {
     buttonSize?: number;
 }
 
-export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
+export const useStyles = createStyles((theme, { buttonSize }: IStylesParams) => ({
     root: {
         ...theme.fn.fontStyles(),
         display: "flex",
@@ -57,7 +57,6 @@ export const useStyles = createStyles((theme, {buttonSize}: IStylesParams) => ({
         borderRadius: 10,
         background: "linear-gradient(127deg, rgb(215 40 253) 0%, rgb(72, 37, 158) 80%)",
         backgroundAttachment: "fixed",
-        //transform: "rotate(1deg)",
         padding: "7px 7px 7px 7px",
         "&:hover": {
             transform: "translateY(-2px) scale(0.985)",

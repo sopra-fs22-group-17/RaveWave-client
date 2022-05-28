@@ -1,17 +1,19 @@
-import {Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
-import BaseContainer from "components/ui/BaseContainer";
-import {FC, useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
+import { Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
+import { FC, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import {GameContext} from "../../contexts/GameContext";
+import BaseContainer from "components/ui/BaseContainer";
+
+import { GameContext } from "../../contexts/GameContext";
 import customLoader from "./RWLogo";
 
 export const Login: FC<{}> = ({}) => {
     const context = useContext(GameContext);
-    const {api, userRole, playerName, currentURL} = context;
+    const { api, userRole, playerName, currentURL } = context;
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const history = useHistory();
 
     const [visible, setVisible] = useState(false);
@@ -19,7 +21,6 @@ export const Login: FC<{}> = ({}) => {
     let redirectPath = "";
     let backPath = "";
 
-    console.log("THIS IS USER ROLE " + userRole);
     if (userRole === "host") {
         redirectPath = "/selectgamemode";
         backPath = "/landinghost";
@@ -36,41 +37,38 @@ export const Login: FC<{}> = ({}) => {
         try {
             const nameofPlayer = username;
             context.setPlayerName(nameofPlayer);
-            sessionStorage.setItem('name', nameofPlayer);
+            sessionStorage.setItem("name", nameofPlayer);
             await api.loginUser(username, password);
+            showNotification({ message: "Login was successful. Welcome back RaveWaver " + nameofPlayer + ".", autoClose: 3000 });
             if (context.userRole === "player") {
                 await api.addPlayer(context.lobbyId, username);
-                sessionStorage.setItem("name", ("[RW] " + username));
-                context.setPlayerName(sessionStorage.getItem('name'));
+                sessionStorage.setItem("name", "[RW] " + username);
+                context.setPlayerName(sessionStorage.getItem("name"));
+                showNotification({ message: "Login was successful. Welcome back RaveWaver " + nameofPlayer + ".", autoClose: 3000 });
             }
             history.push(redirectPath);
         } catch (error) {
-            console.error(`Something went wrong while loggin in the user: \n${api.handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong while loggin in the user! See the console for details.");
+            console.error(`Something went wrong while logging in the user: \n${api.handleError(error)}`);
             setVisible(false);
         }
     }
 
     async function doBack() {
-        setVisible(true);
         history.push(backPath);
     }
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={customLoader} />
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{color: "white", padding: 5}}>
+                    <Title order={1} sx={{ color: "white", padding: 5 }}>
                         Login
                     </Title>{" "}
                     <Container size={200}>
                         <Stack spacing="lg">
-                            <TextInput value={username} placeholder="Username" label="Username"
-                                       onChange={(un) => setUsername(un.currentTarget.value)}/>
-                            <PasswordInput value={password} placeholder="Password" label="Password"
-                                           onChange={(pw) => setPassword(pw.currentTarget.value)}/>
+                            <TextInput value={username} placeholder="Username" label="Username" onChange={(un) => setUsername(un.currentTarget.value)} />
+                            <PasswordInput value={password} placeholder="Password" label="Password" onChange={(pw) => setPassword(pw.currentTarget.value)} />
                         </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
