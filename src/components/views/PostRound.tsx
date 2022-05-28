@@ -1,10 +1,10 @@
-import {Anchor, SimpleGrid, Button, Container, Image, Text, Stack, LoadingOverlay} from "@mantine/core";
-import {FC, useContext, useState} from "react";
+import { Anchor, Button, Container, Image, LoadingOverlay, SimpleGrid, Stack, Text } from "@mantine/core";
+import { FC, useContext, useState } from "react";
 
-import {IGameResult} from "../../api/@def";
-import {GameContext} from "../../contexts/GameContext";
-import {GameResult} from "../ui/GameResult";
-import {IGameController} from "./GameController";
+import { IGameResult } from "../../api/@def";
+import { GameContext } from "../../contexts/GameContext";
+import { GameResult } from "../ui/GameResult";
+import { IGameController } from "./GameController";
 import customLoader from "./RWLogo";
 
 export interface IPostRoundProps {
@@ -32,13 +32,13 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
 
     return (
         <Container size={500}>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={customLoader} />
             <Stack align="center">
                 <h1>{correctness}</h1>
                 {result.correctAnswer === undefined ? (
                     <Text>correctAnswer undefined</Text>
                 ) : (
-                    <Text>
+                    <Text sx={{ paddingBottom: "20px" }}>
                         The correct answer is <b> {result.correctAnswer}</b>
                     </Text>
                 )}
@@ -56,12 +56,13 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                             borderRadius: "16px",
                             padding: "20px",
                             alignItems: "center",
-                            width: "100%"
+                            width: "100%",
+                            paddingTop: "20px",
                         }}
                     >
                         <Stack spacing={0}>
                             <Image width="100px" height="100px" radius="lg" src={result.coverUrl} />
-                            <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer" sx={{ paddingTop: "10px", textAlign: "left" }}>
+                            <Anchor href={result.spotifyLink} target="_blank" rel="noopener noreferrer" sx={{ textAlign: "left" }}>
                                 Open in Spotify
                             </Anchor>
                         </Stack>
