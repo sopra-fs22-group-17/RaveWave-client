@@ -65,7 +65,7 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
 
     return (
         <BaseContainer>
-            <Stack align="center">
+            <Stack align="center" sx={{paddingTop: 10}}>
                 <Title order={2}>Guess the Song</Title>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
@@ -98,12 +98,13 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
                                         },
                                     }}
                                 >
-                                    <Stack align="center" justify="center" sx={{ height: "100%" }} style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
-                                        <Text
+                                    <Stack align="center" justify="center" sx={{ height: "100%" }} style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+                                        <Text lineClamp={3}
                                             sx={{
                                                 fontSize: 30,
                                                 fontWeight: 700,
                                                 textShadow: "2px 2px 2px #000000C3",
+                                                padding: 6,
                                             }}
                                         >
                                             {option.answer}

@@ -111,12 +111,13 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                 >
                                     <Text>
                                     </Text>
-                                    <Stack align="center" justify="center" sx={{height: "100%"}} style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
-                                        <Text
+                                    <Stack align="center" justify="center" sx={{height: "100%"}} style={{backgroundColor: "rgba(0,0,0,0.6)"}}>
+                                        <Text lineClamp={3}
                                             sx={{
                                                 fontSize: 30,
                                                 fontWeight: 700,
                                                 textShadow: "2px 2px 2px #000000C3",
+                                                padding: 6,
                                             }}
                                         >
                                             {option.answer}

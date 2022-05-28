@@ -71,7 +71,7 @@ export const SelectGameMode = (props) => {
     };
 
     return (
-        <Container size={500}>
+        <Container size={460}>
             <LoadingOverlay visible={visible} loader={customLoader}/>
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">

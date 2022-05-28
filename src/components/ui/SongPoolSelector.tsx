@@ -14,7 +14,7 @@ export const SongPoolSelector: FC<ISongPoolSelectorProps> = ({items, selection, 
     const {classes, cx} = useStyles({buttonSize});
 
     return (
-        <Group className={cx(classes.root)}>
+        <Group position="center" className={cx(classes.root)}>
             {items.map((item, i) => {
                 const selected = item.id === selection;
                 return (
