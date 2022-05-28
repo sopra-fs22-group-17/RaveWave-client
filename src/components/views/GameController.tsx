@@ -1,4 +1,5 @@
 import { Box, Title } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { FC, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -66,7 +67,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             } else if (message.type === "summary") {
                 setState({ type: "summary", data: message.data });
             } else if (message.type === "playerJoin") {
-                context.info("Player " + message.data.name + " joined the Lobby");
+                showNotification({ message: "Player " + message.data.name + " joined the Lobby.", autoClose: 3000 });
                 setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked);
             } else if (message.type === "setup") {
                 const config: IGameConfiguration = {

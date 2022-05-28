@@ -1,4 +1,4 @@
-import {isProduction} from "./isProduction";
+import { isProduction } from "./isProduction";
 
 export function getDomain(): string {
     // const prodUrl = "http://localhost:8080";
