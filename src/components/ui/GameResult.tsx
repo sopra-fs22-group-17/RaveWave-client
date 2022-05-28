@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, Image, Sx } from "@mantine/core";
+import { Avatar, Box, Grid, Image, Text, Sx } from "@mantine/core";
 import { FC } from "react";
 
 import { IGameResult } from "../../api/@def";
@@ -50,7 +50,9 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
                         {player.streak > 0 ? (
                             <Box sx={wrapperStyleCorrect}>
                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-                                <Box sx={{ paddingLeft: 10, fontSize: 24, fontWeight: 700, flex: 1 }}>{player.playerName}</Box>
+                                <Box sx={{ paddingLeft: 5, flex: 1 }}>
+                                    <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: 100}} lineClamp={1}>{player.playerName}</Text>
+                                </Box>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
                                 <Image src="/images/flame.png" height="25px"></Image>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
@@ -58,7 +60,9 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
                         ) : (
                             <Box sx={wrapperStyleWrong}>
                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-                                <Box sx={{ paddingLeft: 10, fontSize: 24, fontWeight: 700, flex: 1 }}>{player.playerName}</Box>
+                                <Box sx={{ paddingLeft: 5, flex: 1 }}>
+                                    <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: 100}} lineClamp={1}>{player.playerName}</Text>
+                                </Box>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
                                 <Image src="/images/flame.png" height="25px"></Image>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>

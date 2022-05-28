@@ -63,7 +63,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
 
     return (
         <BaseContainer>
-            <Stack align="center">
+            <Stack align="center" sx={{paddingTop: 10}}>
                 <Title order={2}>Guess the Liked Song</Title>
                 <SimpleGrid cols={2}>
                     {question.options.map((option, i) => {
@@ -96,21 +96,23 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
                                         },
                                     }}
                                 >
-                                    <Stack align="center" justify="center" sx={{ height: "100%" }} style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
-                                        <Text
-                                            sx={{
-                                                fontSize: 30,
-                                                fontWeight: 700,
-                                                textShadow: "2px 2px 2px #000000C3",
-                                            }}
-                                        >
-                                            {option.answer}
-                                        </Text>
-                                    </Stack>
-                                </Box>
-                            </UnstyledButton>
-                        );
-                    })}
+
+                                            <Stack align="center" justify="center" sx={{ height: "100%" }} style={{backgroundColor: "rgba(0,0,0,0.6)"}}>
+                                                <Text lineClamp={3}
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        fontWeight: 700,
+                                                        textShadow: "2px 2px 2px #000000C3",
+                                                        padding: 6,
+                                                    }}
+                                                >
+                                                    {option.answer}
+                                                </Text>
+                                            </Stack>
+                                        </Box>
+                                    </UnstyledButton>
+                        );})}
+
                 </SimpleGrid>
                 <Stack sx={{ width: imageSize * 2 + 15, paddingTop: 15 }}>
                     <Progress value={progressVal} size="md" />

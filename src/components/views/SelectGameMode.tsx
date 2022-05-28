@@ -66,8 +66,10 @@ export const SelectGameMode = (props) => {
     };
 
     return (
-        <Container size={500}>
-            <LoadingOverlay visible={visible} loader={customLoader} />
+
+        <Container size={460}>
+            <LoadingOverlay visible={visible} loader={customLoader}/>
+
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">
                     <Title order={2} sx={{ color: "white", paddingTop: 10 }}>
