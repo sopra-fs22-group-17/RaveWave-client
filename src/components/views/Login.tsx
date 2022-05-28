@@ -39,13 +39,12 @@ export const Login: FC<{}> = ({}) => {
             context.setPlayerName(nameofPlayer);
             sessionStorage.setItem("name", nameofPlayer);
             await api.loginUser(username, password);
-            showNotification({ message: "Login was successful. Welcome back RaveWaver " + nameofPlayer + ".", autoClose: 3000 });
             if (context.userRole === "player") {
                 await api.addPlayer(context.lobbyId, username);
                 sessionStorage.setItem("name", "[RW] " + username);
                 context.setPlayerName(sessionStorage.getItem("name"));
-                showNotification({ message: "Login was successful. Welcome back RaveWaver " + nameofPlayer + ".", autoClose: 3000 });
             }
+            showNotification({ message: "Login was successful. Welcome back RaveWaver " + nameofPlayer + ".", autoClose: 3000 });
             history.push(redirectPath);
         } catch (error) {
             console.error(`Something went wrong while logging in the user: \n${api.handleError(error)}`);

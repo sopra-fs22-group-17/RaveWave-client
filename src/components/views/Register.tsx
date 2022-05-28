@@ -40,12 +40,11 @@ export const Register: FC<{}> = ({}) => {
             context.setPlayerName(nameofPlayer);
             sessionStorage.setItem("name", nameofPlayer);
             await api.registerUser(username, password);
-            showNotification({ message: "Registration was successful. Welcome RaveWaver " + nameofPlayer + "." });
             if (context.userRole === "player") {
                 sessionStorage.setItem("lobbyId", context.lobbyId);
                 await api.addPlayer(context.lobbyId, username);
-                showNotification({ message: "Registration was successful. Welcome RaveWaver " + nameofPlayer + "." });
             }
+            showNotification({ message: "Registration was successful. Welcome RaveWaver " + nameofPlayer + "." });
             history.push(redirectPath);
         } catch (error) {
             console.error(`Something went wrong while registering the user: \n${api.handleError(error)}`);
