@@ -13,6 +13,7 @@ export interface IPostRoundProps {
 }
 
 export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
+    console.log("THIS IS RESULT RECEIVED IN POSTROUND " + JSON.stringify(result, null, 4));
     const context = useContext(GameContext);
     const [visible, setVisible] = useState(false);
 
@@ -33,7 +34,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     return (
         <Container size={500}>
             <LoadingOverlay visible={visible} loader={customLoader} />
-            <Stack align="center">
+            <Stack align="center" sx={{ width: "427.4px" }}>
                 <h1>{correctness}</h1>
                 {result.correctAnswer === undefined ? (
                     <Text>correctAnswer undefined</Text>
@@ -42,7 +43,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                         The correct answer is <b> {result.correctAnswer}</b>
                     </Text>
                 )}
-                <Stack align="center" sx={{ display: "flex", flexDirection: "column" }}>
+                <Stack align="center" sx={{ display: "flex", flexDirection: "column", minWidth: "427.4px" }}>
                     <GameResult result={result} />
 
                     <SimpleGrid

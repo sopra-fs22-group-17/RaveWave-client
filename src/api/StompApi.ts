@@ -57,14 +57,6 @@ export class StompApi {
     }
 
     public sendSettings(lobbyId: string, gameConfiguration?: IGameConfiguration): void {
-        // const mockupSettings = {
-        //     gameMode: "ARTISTGAME",
-        //     roundDuration: "FOURTEEN",
-        //     playBackDuration: "FOURTEEN",
-        //     songPool: "SWITZERLAND",
-        //     gameRounds: "12",
-        // };
-
         console.log("SEND SETTINGS 1");
         const stompGameConfiguration: IStompGameConfiguration = {
             roundDuration: NUMBER_STRING_ARRAY[gameConfiguration.roundDuration],
@@ -93,6 +85,7 @@ export class StompApi {
 
     public saveAnswer(lobbyId: string, answer: IQuestionAnswer): void {
         const playerIdLocal = sessionStorage.getItem("playerId");
+        console.log("ANSWER IN SAVANSWER " + JSON.stringify(answer), null, 4);
         this.send(`/app/lobbies/${lobbyId}/player/${playerIdLocal}/save-answer`, JSON.stringify(answer));
     }
 
@@ -158,35 +151,9 @@ export class StompApi {
         this.stomp.subscribe(channel, (r) => callback(this._stripResponse(r)));
     }
 
-    // public register(token: string) {
-    //     this.send("/app/register", { token: token });
-    // }
-
-    // public reconnect(token: string) {
-    //     // remove disconnect callbacks so we don't
-    //     // trigger anything while reconnecting
-
-    //     const callbacks = this._disconnectCallbacks.slice();
-    //     this._disconnectCallbacks = [];
-
-    //     this.disconnect("Reconnecting");
-
-    //     setTimeout(() => {
-    //         this._disconnectCallbacks = callbacks;
-    //         this.connectAndRegister(token);
-    //     }, 500);
-    // }
-
     public onRegister(callback: () => void) {
         this._registerCallbacks.push(callback);
     }
-
-    /*
-    sendToLobby(channel, body) {
-        this.send(`/app/lobby/${sessionManager.lobbyId}${channel}`, body);
-    }
-
-     */
 
     public clearMessageSubscriptions() {
         this._messageCallbacks = {};
@@ -230,10 +197,6 @@ export class StompApi {
 
     private _handleRegister(response: any) {
         this._registered = true;
-        //sessionManager.lobbyId = response.lobbyId;
-
-        //this.stomp.subscribe(`/user/queue/lobby/${response.lobbyId}/*`, r => this._handleMessage(r));
-        //this.stomp.subscribe(`/user/queue/lobby/${response.lobbyId}/*/*`, r => this._handleMessage(r));
 
         this.stomp.subscribe("/");
         for (let callback of this._registerCallbacks) {

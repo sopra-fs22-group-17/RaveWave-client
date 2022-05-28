@@ -24,6 +24,7 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         flexWrap: "nowrap",
         gap: 12,
         width: "100%",
+        maxHeight: "100px",
     };
 
     const wrapperStyleWrong: Sx = {
@@ -38,13 +39,14 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         flexWrap: "nowrap",
         gap: 12,
         width: "100%",
+        maxHeight: "100px",
     };
 
     return (
         <Grid gutter={40} justify="center" sx={{ width: "100%", paddingBottom: "20px" }}>
             {list.map((player, i) => {
                 return (
-                    <Grid.Col key={i} span={12} sx={{ padding: "5px 0px", display: "flex" }}>
+                    <Grid.Col key={i} span={12} sx={{ padding: "5px 0px", display: "flex", maxHeight: "100px" }}>
                         {player.streak > 0 ? (
                             <Box sx={wrapperStyleCorrect}>
                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
