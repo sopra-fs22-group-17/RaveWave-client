@@ -53,7 +53,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         controller.answer(question as any, String(selection.answerId), String(timeToAnswer - passedSeconds));
     };
 
-    if (passedSeconds <= 0) {
+    if (passedSeconds <= 0 && context.userRole === "host") {
         stomp.endRound(lobbyId);
         console.log("endround was called");
     }
