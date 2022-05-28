@@ -34,7 +34,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
     return (
         <Container size={500}>
             <LoadingOverlay visible={visible} loader={customLoader} />
-            <Stack align="center" sx={{ width: "427.4px" }}>
+            <Stack align="center" justify="center" sx={{ minWidth: "300px", justify: "center" }}>
                 <h1>{correctness}</h1>
                 {result.correctAnswer === undefined ? (
                     <Text>correctAnswer undefined</Text>
@@ -43,7 +43,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                         The correct answer is <b> {result.correctAnswer}</b>
                     </Text>
                 )}
-                <Stack align="center" sx={{ display: "flex", flexDirection: "column", minWidth: "427.4px" }}>
+                <Stack align="center" sx={{ display: "flex", flexDirection: "column" }}>
                     <GameResult result={result} />
 
                     <SimpleGrid
