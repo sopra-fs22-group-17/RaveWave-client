@@ -163,7 +163,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                 <SimpleGrid sx={{paddingTop: 10}} cols={2}>
                     <Stack spacing={0} align={"center"}>
                         <RingProgress
-                            size={60}
+                            size={65}
                             thickness={3}
                             roundCaps
                             label={
@@ -177,7 +177,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                     </Stack>
                     <Stack spacing={0} align={"center"}>
                         <RingProgress
-                            size={60}
+                            size={65}
                             thickness={3}
                             roundCaps
                             label={

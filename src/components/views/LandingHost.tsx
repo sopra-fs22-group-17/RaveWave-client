@@ -9,8 +9,6 @@ import { GameContext } from "contexts/GameContext";
 import animationData from "./lotties/RaveWaveAnimation.json";
 import RWLogo from "./RWLogo";
 
-import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
-
 export const LandingHost = () => {
     const context = useContext(GameContext);
     const { id } = useParams<any>();
@@ -52,7 +50,6 @@ export const LandingHost = () => {
 
     return (
         <BaseContainer>
-            <AddToHomeScreen />
             <LoadingOverlay visible={visible} loader={RWLogo}/>
             <Container size="sm">
                 <Stack align="center">
