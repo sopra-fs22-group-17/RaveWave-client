@@ -9,11 +9,44 @@ export interface IGameResultProps {
 }
 
 let textWidth = 80;
+let minWidth = 0;
 
 export const GameResult: FC<IGameResultProps> = ({result, GameScreen}) => {
     if (!result) return null;
 
     const list = result.players;
+
+    let windowSize = window.innerWidth;
+
+    if (windowSize >= 375) {
+        textWidth = 100;
+        minWidth = 365;
+    }
+
+    if (windowSize >= 390) {
+        textWidth = 115;
+        minWidth = 380;
+    }
+
+    if (windowSize >= 412) {
+        textWidth = 140;
+        minWidth = 400;
+    }
+
+    if (windowSize >= 500) {
+        textWidth = 200;
+        minWidth = 490;
+    }
+
+    if (windowSize >= 600) {
+        textWidth = 300;
+        minWidth = 590;
+    }
+
+    if (windowSize >= 700) {
+        textWidth = 400;
+        minWidth = 690;
+    }
 
     const wrapperStyleCorrect: Sx = {
         borderRadius: 40,
@@ -28,6 +61,7 @@ export const GameResult: FC<IGameResultProps> = ({result, GameScreen}) => {
         gap: 12,
         width: "100%",
         maxHeight: "100px",
+        mindWidth: minWidth,
     };
 
     const wrapperStyleWrong: Sx = {
@@ -43,6 +77,7 @@ export const GameResult: FC<IGameResultProps> = ({result, GameScreen}) => {
         gap: 12,
         width: "100%",
         maxHeight: "100px",
+        mindWidth: minWidth,
     };
 
     const wrapperStyleEnd: Sx = {
@@ -55,33 +90,8 @@ export const GameResult: FC<IGameResultProps> = ({result, GameScreen}) => {
         gap: 12,
         width: "100%",
         maxHeight: "100px",
+        mindWidth: minWidth,
     };
-
-    let windowSize = window.innerWidth;
-
-    if (windowSize >= 375) {
-        textWidth = 100;
-    }
-
-    if (windowSize >= 390) {
-        textWidth = 115;
-    }
-
-    if (windowSize >= 412) {
-        textWidth = 140;
-    }
-
-    if (windowSize >= 500) {
-        textWidth = 200;
-    }
-
-    if (windowSize >= 600) {
-        textWidth = 300;
-    }
-
-    if (windowSize >= 700) {
-        textWidth = 400;
-    }
 
     if (GameScreen === "PostGame") {
         return (
