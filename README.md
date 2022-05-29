@@ -48,13 +48,13 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
   Your app is ready to be deployed!
 
 ## Illustrations
-<h1 align="center">
+<h3 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/a.png" alt="RaveWave" width="200"></a>
   <br>
   Landinghost - As a host you can log in or register.
   <br>
-</h1>
+</h3>
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/b.png" alt="RaveWave" width="200"></a>
