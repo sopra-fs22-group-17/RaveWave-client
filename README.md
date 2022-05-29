@@ -59,7 +59,7 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/b.png" alt="RaveWave" width="200"></a>
   <br>
-  RaveWave-Client
+  <p>RaveWave-Client</p>
   <br>
 </h1>
 <h1 align="center">
