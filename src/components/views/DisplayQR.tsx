@@ -10,7 +10,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import { IMessageEvent } from "../../api/@def";
 import { GameContext } from "../../contexts/GameContext";
 import { GameController, IGameController } from "./GameController";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
 export interface IDisplayQRProps {
     controller: IGameController;
@@ -62,7 +62,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
     return (
         <BaseContainer>
             <GameController role={context.userRole} />
-            <LoadingOverlay visible={visible} loader={customLoader} />
+            <LoadingOverlay visible={visible} loader={RWLogo} />
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{ color: "white", padding: 20 }}>

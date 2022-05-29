@@ -1,4 +1,4 @@
-import { Button, Container, Stack } from "@mantine/core";
+import {Button, Container, LoadingOverlay, Stack} from "@mantine/core";
 import { FC, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -7,17 +7,17 @@ import { GameContext } from "../../contexts/GameContext";
 import { GameResult } from "../ui/GameResult";
 import Podium from "../ui/Podium";
 import { IGameController } from "./GameController";
+import RWLogo from "./RWLogo";
 
 export interface IPostGameProps {
     controller: IGameController;
     result: IGameResult;
 }
 
-export const PostGame: FC<IPostGameProps> = ({ controller, result }) => {
+export const PostGame: FC<IPostGameProps> = ({ result }) => {
     const history = useHistory();
 
     const [visible, setVisible] = useState(false);
-    const context = useContext(GameContext);
     if (!result) return null;
 
     const podiumData = result.players.map((player, position) => ({ ...player, position }));
@@ -28,6 +28,7 @@ export const PostGame: FC<IPostGameProps> = ({ controller, result }) => {
     }
     return (
         <Container size={500}>
+            <LoadingOverlay visible={visible} loader={RWLogo} />
             <Stack align="center">
                 <h1>Final Results</h1>
                 <Podium players={podiumData} />

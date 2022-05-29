@@ -7,7 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import { SpotifyURL } from "../../api/SpotifyModel";
 import { GameContext } from "../../contexts/GameContext";
 import { useQueryParam } from "../../hooks/useQuery";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
 export const ConnectSpotify: FC<{}> = () => {
     const context = useContext(GameContext);
@@ -81,7 +81,7 @@ export const ConnectSpotify: FC<{}> = () => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader} />
+            <LoadingOverlay visible={visible} loader={RWLogo} />
             <Container size="sm">
                 <Stack align="center">
                     <Container size={500}>

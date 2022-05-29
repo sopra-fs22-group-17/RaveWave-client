@@ -3,11 +3,11 @@ import {BaseContainer} from "components/ui/BaseContainer";
 import {GameContext} from "contexts/GameContext";
 import {useContext, useEffect, useState} from "react";
 import Lottie from "react-lottie";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import animationData from "./lotties/RaveWaveAnimation.json";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
-export const LandingPlayer = (props) => {
+export const LandingPlayer = () => {
     const context = useContext(GameContext);
     const { id } = useParams<any>();
     const history = useHistory();
@@ -53,7 +53,7 @@ export const LandingPlayer = (props) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={RWLogo}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>

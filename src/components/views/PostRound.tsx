@@ -6,14 +6,14 @@ import { GameContext } from "../../contexts/GameContext";
 import BaseContainer from "../ui/BaseContainer";
 import { GameResult } from "../ui/GameResult";
 import { IGameController } from "./GameController";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
 export interface IPostRoundProps {
     controller: IGameController;
     result: IGameResult;
 }
 
-export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
+export const PostRound: FC<IPostRoundProps> = ({ result }) => {
     const context = useContext(GameContext);
     const [visible, setVisible] = useState(false);
 
@@ -30,11 +30,9 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
 
     const isHost = context.userRole === "host";
 
-    //TODO: make bold correct answer!!!
-
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader} />
+            <LoadingOverlay visible={visible} loader={RWLogo} />
             <Stack align="center" justify="center">
                 <h1>{correctness}</h1>
                 {result.correctAnswer === undefined ? (

@@ -5,11 +5,11 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "components/ui/BaseContainer";
 
 import {GameContext} from "../../contexts/GameContext";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
 export const Guest: FC<{}> = () => {
     const context = useContext(GameContext);
-    const {api, playerName} = context;
+    const {api} = context;
     const history = useHistory();
 
     const [visible, setVisible] = useState(false);
@@ -44,7 +44,7 @@ export const Guest: FC<{}> = () => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={RWLogo}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{color: "white", padding: 20}}>

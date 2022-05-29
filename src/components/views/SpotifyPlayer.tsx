@@ -25,7 +25,7 @@ export const samplePlay = (
     </svg>
 );
 
-export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url, duration }) => {
+export const SpotifyPlayer: FC<ISpotifyPlayerProps> = ({ url }) => {
     return (
         <Box>
             <AudioPlayer

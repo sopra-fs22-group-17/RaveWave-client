@@ -7,12 +7,11 @@ import { LIKED_SONG_POOLS, SONG_POOLS } from "../../api/StompApi";
 import { GameContext } from "../../contexts/GameContext";
 import { GameModeButton } from "../ui/GameModeButton";
 import { SongPoolSelector } from "../ui/SongPoolSelector";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
-export const SelectGameMode = (props) => {
+export const SelectGameMode = () => {
     const context = useContext(GameContext);
-    const { gameConfiguration, userRole } = context;
-    const [gameConfigurationSaved, setGameConfigurationSaved] = useState(false);
+    const { gameConfiguration } = context;
     const [connected, setConnected] = useState(false);
     const [gameMode, setGameMode] = useState(gameConfiguration.gameMode);
     const [gameRounds, setGameRounds] = useState(gameConfiguration.gameRounds);
@@ -25,7 +24,7 @@ export const SelectGameMode = (props) => {
     useEffect(() => {
         async function connect() {
             const lobbyId = await context.api.createLobbyAndGetId();
-            const addHosttoLobby = await context.api.addPlayer(lobbyId, sessionStorage.getItem("name"));
+            await context.api.addPlayer(lobbyId, sessionStorage.getItem("name"));
             context.setLobbyId(lobbyId);
             sessionStorage.setItem("lobbyId", lobbyId);
             if (sessionStorage.getItem("role") === "host") {
@@ -53,21 +52,13 @@ export const SelectGameMode = (props) => {
             songPool,
             roundDuration,
         };
-        const gameConfiguration: any = {
-            gameMode: "ARTISTGAME",
-            roundDuration: "SIXTEEN",
-            playBackDuration: "SIXTEEN",
-            songPool: "SWITZERLAND",
-            gameRounds: "2",
-        };
 
         context.setGameConfiguration(config);
-        setGameConfigurationSaved(true);
     };
 
     return (
         <Container size={460}>
-            <LoadingOverlay visible={visible} loader={customLoader} />
+            <LoadingOverlay visible={visible} loader={RWLogo} />
 
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">

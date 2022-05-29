@@ -6,21 +6,18 @@ import BaseContainer from "components/ui/BaseContainer";
 import { GameContext } from "contexts/GameContext";
 
 import { IGameController } from "./GameController";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
 export interface IWaitingRoomProps {
     controller: IGameController;
 }
 
-export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
+export const WaitingRoom: FC<IWaitingRoomProps> = () => {
     const context = useContext(GameContext);
     const { userRole, lobbyId, stomp } = context;
 
     const [visible, setVisible] = useState(false);
 
-    const startGame = () => {
-        context.stomp.startGame(context.lobbyId);
-    };
     useEffect(() => {
         if (userRole === "host") {
             setVisible(true);
@@ -30,7 +27,7 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader} />
+            <LoadingOverlay visible={visible} loader={RWLogo} />
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{ color: "white", padding: 20 }}>

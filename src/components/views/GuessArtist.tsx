@@ -91,19 +91,12 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     JsonConstructorForAnswers();
 
-    const image = (backgroundImageUrl) => {
-        var img = new Image();
-        img.src = `url(${backgroundImageUrl.picture})`;
-        img.blur();
-        return img;
-    };
-
     return (
         <BaseContainer>
             <Stack align="center" sx={{paddingTop: 10}}>
                 <Title order={2}>Guess the Artist</Title>
                 <SimpleGrid cols={2}>
-                    {question.options.map((option, i) => {
+                    {question.options.map((option) => {
                         return (
                             <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                 <Box

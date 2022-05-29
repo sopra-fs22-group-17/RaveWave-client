@@ -7,9 +7,9 @@ import { BaseContainer } from "components/ui/BaseContainer";
 import { GameContext } from "contexts/GameContext";
 
 import animationData from "./lotties/RaveWaveAnimation.json";
-import customLoader from "./RWLogo";
+import RWLogo from "./RWLogo";
 
-export const LandingHost = (props) => {
+export const LandingHost = () => {
     const context = useContext(GameContext);
     const { id } = useParams<any>();
     const history = useHistory();
@@ -50,7 +50,7 @@ export const LandingHost = (props) => {
 
     return (
         <BaseContainer>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={RWLogo}/>
             <Container size="sm">
                 <Stack align="center">
                     <Title order={1} sx={{ color: "white", padding: 20, align: "justify" }}>

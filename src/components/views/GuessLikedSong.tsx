@@ -83,7 +83,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
             <Stack align="center" sx={{paddingTop: 10}}>
                 <Title order={2}>Guess the Liked Song</Title>
                 <SimpleGrid cols={2}>
-                    {question.options.map((option, i) => {
+                    {question.options.map((option) => {
                         return (
                             <UnstyledButton disabled={answered} onClick={() => sendAnswer(option)}>
                                 <Box
