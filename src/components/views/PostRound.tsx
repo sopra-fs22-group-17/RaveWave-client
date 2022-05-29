@@ -1,4 +1,4 @@
-import {Anchor, Button, Container, Image, LoadingOverlay, SimpleGrid, Stack, Text} from "@mantine/core";
+import {Anchor, Button, Group, Image, LoadingOverlay, SimpleGrid, Stack, Text} from "@mantine/core";
 import {FC, useContext, useState} from "react";
 
 import {IGameResult} from "../../api/@def";
@@ -43,9 +43,12 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                 {result.correctAnswer === undefined ? (
                     <Text lineClamp={1} align="center">correctAnswer undefined</Text>
                 ) : (
-                    <Text lineClamp={1} align="center">
-                        The correct answer is {result.correctAnswer}
-                    </Text>
+                    <Group spacing={5}>
+                        <Text lineClamp={1} align="center">
+                            The correct answer is
+                        </Text>
+                        <Text lineClamp={1} align="center" weight={700}>{result.correctAnswer}.</Text>
+                    </Group>
                 )}
 
                 <Stack align="center" sx={{paddingTop: 20, display: "flex", flexDirection: "column"}}>

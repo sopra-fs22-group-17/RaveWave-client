@@ -175,7 +175,7 @@ export class RestApi {
                 info += `\nstatus code: ${response.data.status}`;
                 info += `\nerror: ${response.data.error}`;
                 info += `\nerror message: ${response.data.message}`;
-                showNotification({ message: "" + response.data.message, color: "red", autoClose: 3000 });
+                showNotification({ message: response.data.message + ".", color: "red", autoClose: 3000 });
             } else {
                 info += `\nstatus code: ${response.status}`;
                 info += `\nerror message:\n${response.data}`;
