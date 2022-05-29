@@ -52,42 +52,42 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/a.png" alt="RaveWave" width="200"></a>
   <br>
-  RaveWave-Client
+  Landinghost - As a host you can log in or register.
   <br>
 </h1>
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/b.png" alt="RaveWave" width="200"></a>
   <br>
-  <p>RaveWave-Client</p>
+  Selectgamemode - This is where the host can adjust game parameters.
   <br>
 </h1>
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/c.png" alt="RaveWave" width="200"></a>
   <br>
-  RaveWave-Client
+  DisplayQR - The host displays a QR-code which other players can scan in order to join the lobby. 
   <br>
 </h1>
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/d.png.png" alt="RaveWave" width="200"></a>
   <br>
-  RaveWave-Client
+  EndRound - A leaderboard is shown after each round.
   <br>
 </h1>
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/e.png" alt="RaveWave" width="200"></a>
   <br>
-  RaveWave-Client
+  EndRound - A leaderboard is shown after each round.
   <br>
 </h1>
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/f.png" alt="RaveWave" width="200"></a>
   <br>
-  RaveWave-Client
+  EndGame - A final leaderboard is shown after all game rounds are played.
   <br>
 </h1>
 
