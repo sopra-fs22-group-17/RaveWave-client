@@ -78,11 +78,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
                         <ActionIcon onClick={() => clipboard.copy(url)}>{clipboard.copied ? <Check size={19} /> : <Copy size={19} />}</ActionIcon>
                         {!likedSongsGameUnlocked ? <Text>This Game Mode requires 4 Players with a RaveWaver Account.</Text> : <div></div>}
                     </Group>
-                    {!likedSongsGameUnlocked ? (
-                        <Text>You need at least 4 players !!</Text>
-                    ) : (
-                        <Text></Text>
-                    )}
+                    {!likedSongsGameUnlocked ? <Text>You need at least 4 players !!</Text> : <Text></Text>}
                     <Button onClick={start} disabled={!likedSongsGameUnlocked}>
                         Start Game
                     </Button>

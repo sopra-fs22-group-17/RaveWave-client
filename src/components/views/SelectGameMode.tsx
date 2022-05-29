@@ -42,7 +42,7 @@ export const SelectGameMode = (props) => {
     }, []);
 
     const gameModes: TQuestionType[] = ["Guess the song title", "Guess the song artist", "Guess the liked song"];
-    const message = connected ? "Connected to Lobby" + context.lobbyId : "Connecting...";
+    const message = connected ? "Connected to Lobby " + context.lobbyId + "." : "Connecting...";
     const saveConfiguration = () => {
         setVisible(true);
         roundDuration = playBackDuration;
@@ -66,9 +66,8 @@ export const SelectGameMode = (props) => {
     };
 
     return (
-
         <Container size={460}>
-            <LoadingOverlay visible={visible} loader={customLoader}/>
+            <LoadingOverlay visible={visible} loader={customLoader} />
 
             <Stack align="center" spacing={25}>
                 <Stack spacing={7} align="center">
