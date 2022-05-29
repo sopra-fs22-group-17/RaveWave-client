@@ -147,7 +147,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
                                                         padding: 6,
                                                     }}
                                                 >
-                                                    {option.answer}
+                                                    {option.answer.substring(5, option.answer.length)}
                                                 </Text>
                                             </Stack>
                                         </Box>
