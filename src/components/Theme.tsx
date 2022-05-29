@@ -1,4 +1,4 @@
-import { ButtonStylesParams, Global, MantineColor, MantineProvider, MantineTheme, MantineThemeColors, MantineThemeOverride } from "@mantine/core";
+import { Global, MantineColor, MantineProvider, MantineTheme, MantineThemeColors, MantineThemeOverride } from "@mantine/core";
 import { CSSProperties } from "react";
 
 import { FCC } from "./@def";
@@ -14,7 +14,7 @@ export interface IRaveWaveThemeOverride extends MantineThemeOverride {
     accentColor: MantineColor;
 }
 
-export const theme: IRaveWaveThemeOverride = {
+export const ourTheme: IRaveWaveThemeOverride = {
     colorScheme: "dark",
     headings: {
         sizes: {
@@ -50,7 +50,7 @@ const overrides = {
 
 export const Theme: FCC<{}> = ({ children }) => {
     return (
-        <MantineProvider theme={theme} emotionOptions={{ key: "ravewave" }} styles={overrides as any} defaultProps={{}}>
+        <MantineProvider theme={ourTheme} emotionOptions={{ key: "ravewave" }} styles={overrides as any} defaultProps={{}}>
             <Global
                 styles={(theme) => {
                     return {

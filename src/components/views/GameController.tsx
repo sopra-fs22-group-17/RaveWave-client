@@ -20,8 +20,6 @@ export interface IGameControllerProps {
 
 export interface IGameController {
     answer: (question: string, answerId: string, answerT: string) => void;
-
-    gotoState(state: IGameState): void;
 }
 
 interface IGameState {
@@ -69,6 +67,7 @@ export const GameController: FC<IGameControllerProps> = (): any => {
             } else if (message.type === "playerJoin") {
                 showNotification({ message: message.data.name + " joined the Lobby.", autoClose: 3000 });
                 setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked);
+                console.log(likedSongsGameUnlocked);
             } else if (message.type === "setup") {
                 const config: IGameConfiguration = {
                     gameMode: message.data.gameMode,
@@ -86,7 +85,6 @@ export const GameController: FC<IGameControllerProps> = (): any => {
     }, []);
 
     const ctrl: IGameController = {
-        gotoState: (newState: IGameState) => {},
 
         answer: (question: string, answerId: string, answerT: string) => {
             const token = sessionStorage.getItem("token");
@@ -125,6 +123,6 @@ export interface IGameViewProps {
     controller: IGameController;
 }
 
-const ErrorView: FC<IGameViewProps> = ({ controller }) => {
+const ErrorView: FC<IGameViewProps> = () => {
     return <Title>OOOpppps</Title>;
 };
