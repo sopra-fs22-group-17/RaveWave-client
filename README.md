@@ -86,9 +86,9 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
 <h1 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/f.png" alt="RaveWave" width="200"></a>
-  <br>
+  <a>
   EndGame - A final leaderboard is shown after all game rounds are played.
-  <br>
+  </a>
 </h1>
 
 ## Roadmap
