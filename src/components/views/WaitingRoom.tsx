@@ -36,8 +36,7 @@ export const WaitingRoom: FC<IWaitingRoomProps> = ({ controller }) => {
                     <Title order={1} sx={{ color: "white", padding: 20 }}>
                         Waiting Room
                     </Title>
-                    <Text>{context.userRole}</Text>
-                    <Text>{context.lobbyId}</Text>
+                    <Text>Connected to Lobby {context.lobbyId}.</Text>
                     <GridLoader color="white" size={30} margin={4} />
                     <Stack align="stretch" sx={{ paddingTop: 40 }}>
                         <Box>Waiting for the host to start the game.</Box>
