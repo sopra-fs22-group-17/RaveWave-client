@@ -35,8 +35,6 @@ export interface IQuestionAnswer {
 export class RestApi {
     _user = null;
 
-    constructor() {}
-
     // @PostMapping("/ravewavers")
     async registerUser(username, password) {
         const requestBody = JSON.stringify({ username, password });

@@ -31,7 +31,7 @@ export const theme: IRaveWaveThemeOverride = {
 };
 
 const overrides = {
-    Button: (theme: MantineTheme, params: ButtonStylesParams) => ({
+    Button: () => ({
         root: {
             "&:not(.mantine-Button-loading):disabled": {
                 cursor: "default",
@@ -39,7 +39,7 @@ const overrides = {
             },
         },
     }),
-    ActionIcon: (theme: MantineTheme, params: ButtonStylesParams) => ({
+    ActionIcon: () => ({
         root: {
             "&:disabled": {
                 cursor: "default",

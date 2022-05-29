@@ -29,18 +29,18 @@ interface IGameState {
     data?: IGuessQuestion | IGameResult;
 }
 
-export const GameController: FC<IGameControllerProps> = ({ role }): any => {
+export const GameController: FC<IGameControllerProps> = (): any => {
     const context = useContext(GameContext);
-    const { stomp, lobbyId, playerName, gameConfiguration, userRole } = context;
+    const { stomp, lobbyId, gameConfiguration, userRole } = context;
     const [state, setState] = useState<IGameState>({ type: "waiting"});
 
     const [connected, setConnected] = useState(false);
     const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false);
-    const history = useHistory();
+    useHistory();
 
     useEffect(() => {
         const setup = async () => {
-            const connected = await context.stomp.connect(lobbyId);
+            await context.stomp.connect(lobbyId);
 
             if (userRole === "host") {
                 stomp.sendSettings(lobbyId, gameConfiguration);

@@ -127,7 +127,7 @@ export class StompApi {
             },
         );
 
-        this.sock.onclose = (r) => {
+        this.sock.onclose = () => {
             this._handleDisconnect("Socket closed.");
         };
         this.sock.onerror = (e) => this._handleError(e);
@@ -200,9 +200,7 @@ export class StompApi {
 
     private _handleMessage(info: any) {
         const msg = info.msg;
-        if (msg.type === "setup") {
-            this._handleSetupMessage(info);
-        } else if (msg.type === "question") {
+        if (msg.type === "question") {
             this._handleQuestionMessage(info);
         } else if (msg.type === "result") {
             this._handleResultMessage(info);
@@ -226,8 +224,6 @@ export class StompApi {
         };
         this.notify(messageEvent);
     }
-
-    private _handleSetupMessage(info: any) {}
 
     private _handleQuestionMessage(payload: any) {
         const info = payload.msg;
@@ -315,9 +311,7 @@ export class StompApi {
         const msg = JSON.parse(response.body);
         const channel = response.headers.destination;
         const lobbyChannel = channel.replace(/.+\/lobby\/.+\//i, "/");
-        const info = { msg, channel, lobbyChannel };
-
-        return info;
+        return { msg, channel, lobbyChannel };
     }
 
     private _debug(message: string) {

@@ -10,7 +10,7 @@ export const Wallpaper: FC<IWallpaperProps> = () => {
     return <div className={classes.root}></div>;
 };
 
-export const useStyles = createStyles((theme) => ({
+export const useStyles = createStyles(() => ({
     root: {
         position: "fixed",
         width: "100%",

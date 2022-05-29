@@ -16,7 +16,7 @@ export interface IDisplayQRProps {
     controller: IGameController;
 }
 
-export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
+export const DisplayQR: FC<IDisplayQRProps> = () => {
     const context = useContext(GameContext);
     const { stomp, lobbyId, gameConfiguration } = context;
     const history = useHistory();
@@ -43,7 +43,7 @@ export const DisplayQR: FC<IDisplayQRProps> = ({ controller }) => {
             setLikedSongsGameUnlocked(true);
         }
         const setup = async () => {
-            const connected = await context.stomp.connect(lobbyId);
+            await context.stomp.connect(lobbyId);
             stomp.sendSettings(lobbyId, gameConfiguration);
         };
         const listener = (message: IMessageEvent) => {

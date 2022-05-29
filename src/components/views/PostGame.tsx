@@ -1,9 +1,7 @@
 import {Button, Container, LoadingOverlay, Stack} from "@mantine/core";
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import { IGameResult } from "../../api/@def";
-import { GameContext } from "../../contexts/GameContext";
 import { GameResult } from "../ui/GameResult";
 import Podium from "../ui/Podium";
 import { IGameController } from "./GameController";
