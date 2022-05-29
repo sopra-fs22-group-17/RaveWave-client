@@ -1,9 +1,18 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-import { IGameConfiguration, IGameResult, IGuessQuestion, IMessageEvent, IMessageListener, IPlayerJoin, IStompGameConfiguration } from "./@def";
-import { defer } from "./Deferred";
-import { getDomain } from "./getDomain";
+import {
+    IAnswerCount,
+    IGameConfiguration,
+    IGameResult,
+    IGuessQuestion,
+    IMessageEvent,
+    IMessageListener,
+    IPlayerJoin,
+    IStompGameConfiguration
+} from "./@def";
+import {defer} from "./Deferred";
+import {getDomain} from "./getDomain";
 
 export interface ISongPool {
     id: string;
@@ -96,7 +105,8 @@ export class StompApi {
         const deferred = defer<void>();
         try {
             this.sock.close();
-        } catch {}
+        } catch {
+        }
 
         this.sock = new SockJS(getDomain() + `/ws`);
 
@@ -128,7 +138,8 @@ export class StompApi {
     public disconnect(reason: any): void {
         try {
             this.stomp.disconnect(() => this._handleDisconnect(reason), {});
-        } catch {}
+        } catch {
+        }
     }
 
     public subscribe(channel: string, callback: (data: any) => void): void {
@@ -197,7 +208,23 @@ export class StompApi {
             this._handleResultMessage(info);
         } else if (msg.type === "playerJoin") {
             this._handlePlayerJoinMessage(info);
+        } else if (msg.type === "answerCount") {
+            this._handleAnswerCountMessage(info);
         }
+    }
+
+    private _handleAnswerCountMessage(payload: any) {
+        const info = payload.msg;
+        const data: IAnswerCount = {
+            currentAnswers: info.currentAnswers,
+            expectedAnswers: info.expectedAnswers,
+        };
+        const messageEvent: IMessageEvent = {
+            channel: info.channel,
+            type: "answerCount",
+            data,
+        };
+        this.notify(messageEvent);
     }
 
     private _handleSetupMessage(info: any) {}

@@ -3,7 +3,7 @@ import { FC, useContext, useEffect, useState } from "react";
 
 import BaseContainer from "components/ui/BaseContainer";
 
-import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import {IGuessOption, IGuessQuestion, IMessageEvent} from "../../api/@def";
 import { GameContext } from "../../contexts/GameContext";
 import { IGameController } from "./GameController";
 import { SpotifyPlayer } from "./SpotifyPlayer";
@@ -16,6 +16,7 @@ export interface IGuessArtistProps {
 let imageSize = 225;
 let RingSectorsRounds = [];
 let RingSectorsAnswers = [];
+let currentAnswers = 0;
 
 export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
@@ -24,7 +25,6 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
 
-    let currentAnswers = question.currentAnswers;
     let expectedAnswers = question.expectedAnswers;
 
     let windowSize = window.innerWidth;
@@ -40,18 +40,26 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     const progressVal = Math.floor((100 / timeToAnswer) * (timeToAnswer - passedSeconds));
 
+    const listener = (message: IMessageEvent) => {
+        if (message.type === "answerCount") {
+            currentAnswers = message.data.currentAnswers;
+        }
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
         }, 1000);
 
+        stomp.join(listener);
+
         JsonConstructorForRounds();
-        JsonConstructorForAnswers();
 
         return () => clearInterval(interval);
     }, []);
 
     if (!question) return null;
+
     const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
         controller.answer(question as any, String(selection.answerId), String(timeToAnswer - passedSeconds));
@@ -80,6 +88,8 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
             RingSectorsAnswers.push({value: valueAdd, color: 'green'});
         }
     }
+
+    JsonConstructorForAnswers();
 
     const image = (backgroundImageUrl) => {
         var img = new Image();
