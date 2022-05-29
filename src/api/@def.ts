@@ -76,6 +76,11 @@ export interface IPlayerJoin {
     likedGameModeUnlocked: boolean;
 }
 
+export interface  IAnswerCount {
+    currentAnswers: number;
+    expectedAnswers: number;
+}
+
 export interface IMessageListener {
     (event: IMessageEvent): void;
 }

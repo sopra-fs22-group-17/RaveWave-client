@@ -32,7 +32,7 @@ interface IGameState {
 export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const context = useContext(GameContext);
     const { stomp, lobbyId, playerName, gameConfiguration, userRole } = context;
-    const [state, setState] = useState<IGameState>({ type: role === "player" ? "waiting" : "waiting" });
+    const [state, setState] = useState<IGameState>({ type: "waiting"});
 
     const [connected, setConnected] = useState(false);
     const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false);
@@ -67,7 +67,7 @@ export const GameController: FC<IGameControllerProps> = ({ role }): any => {
             } else if (message.type === "summary") {
                 setState({ type: "summary", data: message.data });
             } else if (message.type === "playerJoin") {
-                showNotification({ message: "Player " + message.data.name + " joined the Lobby.", autoClose: 3000 });
+                showNotification({ message: message.data.name + " joined the Lobby.", autoClose: 3000 });
                 setLikedSongsGameUnlocked(message.data.likedGameModeUnlocked);
             } else if (message.type === "setup") {
                 const config: IGameConfiguration = {

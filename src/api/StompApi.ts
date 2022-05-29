@@ -254,16 +254,34 @@ export class StompApi {
 
     private _handlePlayerJoinMessage(payload: any) {
         const info = payload.msg;
-        const data: IPlayerJoin = {
+        const preData: IPlayerJoin = {
             name: info.name,
             likedGameModeUnlocked: info.likedGameModeUnlocked,
         };
-        const messageEvent: IMessageEvent = {
-            channel: info.channel,
-            type: "playerJoin",
-            data,
-        };
-        this.notify(messageEvent);
+
+        if (preData.name.includes("[RW]")) {
+            const data: IPlayerJoin = {
+                name: info.name.substring(5, preData.name.length),
+                likedGameModeUnlocked: info.likedGameModeUnlocked,
+            };
+            const messageEvent: IMessageEvent = {
+                channel: info.channel,
+                type: "playerJoin",
+                data,
+            };
+            this.notify(messageEvent);
+        } else {
+            const data: IPlayerJoin = {
+                name: info.name,
+                likedGameModeUnlocked: info.likedGameModeUnlocked,
+            };
+            const messageEvent: IMessageEvent = {
+                channel: info.channel,
+                type: "playerJoin",
+                data,
+            };
+            this.notify(messageEvent);
+        }
     }
 
     private notify(event: IMessageEvent) {

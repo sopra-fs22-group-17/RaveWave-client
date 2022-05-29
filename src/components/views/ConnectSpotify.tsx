@@ -9,7 +9,7 @@ import { GameContext } from "../../contexts/GameContext";
 import { useQueryParam } from "../../hooks/useQuery";
 import customLoader from "./RWLogo";
 
-export const ConnectSpotify: FC<{}> = ({}) => {
+export const ConnectSpotify: FC<{}> = () => {
     const context = useContext(GameContext);
     const { api } = context;
     const [spotifyAuthorized, setSpotifyAuthorized] = useState(false);

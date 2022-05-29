@@ -5,11 +5,12 @@ import { IGameResult } from "../../api/@def";
 
 export interface IGameResultProps {
     result: IGameResult;
+    GameScreen: string;
 }
 
 let textWidth = 80;
 
-export const GameResult: FC<IGameResultProps> = ({ result }) => {
+export const GameResult: FC<IGameResultProps> = ({ result , GameScreen}) => {
     if (!result) return null;
 
     const list = result.players;
@@ -36,6 +37,17 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         borderStyle: "solid",
         borderColor: "red",
         borderWidth: "thick",
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "nowrap",
+        gap: 12,
+        width: "100%",
+        maxHeight: "100px",
+    };
+
+    const wrapperStyleEnd: Sx = {
+        padding: 10,
+        backgroundColor: "#ffffff55",
         display: "flex",
         alignItems: "center",
         flexWrap: "nowrap",

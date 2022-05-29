@@ -8,7 +8,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import { GameContext } from "../../contexts/GameContext";
 import customLoader from "./RWLogo";
 
-export const Register: FC<{}> = ({}) => {
+export const Register: FC<{}> = () => {
     const context = useContext(GameContext);
     const { api, userRole, currentURL } = context;
 
