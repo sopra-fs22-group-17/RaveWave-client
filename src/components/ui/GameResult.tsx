@@ -7,6 +7,8 @@ export interface IGameResultProps {
     result: IGameResult;
 }
 
+let textWidth = 80;
+
 export const GameResult: FC<IGameResultProps> = ({ result }) => {
     if (!result) return null;
 
@@ -42,6 +44,32 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
         maxHeight: "100px",
     };
 
+    let windowSize = window.innerWidth;
+
+    if (windowSize >= 375) {
+        textWidth = 100;
+    }
+
+    if (windowSize >= 390) {
+        textWidth = 115;
+    }
+
+    if (windowSize >= 412) {
+        textWidth = 140;
+    }
+
+    if (windowSize >= 500) {
+        textWidth = 200;
+    }
+
+    if (windowSize >= 600) {
+        textWidth = 300;
+    }
+
+    if (windowSize >= 700) {
+        textWidth = 400;
+    }
+
     return (
         <Grid gutter={40} justify="center" sx={{ width: "100%", paddingBottom: "20px" }}>
             {list.map((player, i) => {
@@ -51,20 +79,28 @@ export const GameResult: FC<IGameResultProps> = ({ result }) => {
                             <Box sx={wrapperStyleCorrect}>
                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
                                 <Box sx={{ paddingLeft: 5, flex: 1 }}>
-                                    <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: 100}} lineClamp={1}>{player.playerName}</Text>
+                                    {player.playerName.includes("[RW]") ? (
+                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
+                                    ) : (
+                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName}</Text>
+                                    )}
                                 </Box>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
-                                <Image src="/images/flame.png" height="25px"></Image>
+                                <Image src="/images/flame.png" height="25px" width="15px"></Image>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
                             </Box>
                         ) : (
                             <Box sx={wrapperStyleWrong}>
                                 <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
                                 <Box sx={{ paddingLeft: 5, flex: 1 }}>
-                                    <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: 100}} lineClamp={1}>{player.playerName}</Text>
+                                    {player.playerName.includes("[RW]") ? (
+                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
+                                    ) : (
+                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName}</Text>
+                                    )}
                                 </Box>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
-                                <Image src="/images/flame.png" height="25px"></Image>
+                                <Image src="/images/flame.png" height="25px" width="15px"></Image>
                                 <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
                             </Box>
                         )}
