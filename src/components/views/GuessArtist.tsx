@@ -27,6 +27,10 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     let expectedAnswers = question.expectedAnswers;
 
+    if (expectedAnswers === currentAnswers) {
+        currentAnswers = 0;
+    }
+
     let windowSize = window.innerWidth;
 
     if (windowSize <= 900) {
@@ -46,20 +50,29 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
         }
     };
 
+    const clearStuff = (interval) => {
+        RingSectorsAnswers = [];
+        currentAnswers = 0;
+        RingSectorsRounds = [];
+
+        clearInterval(interval)
+    }
+
     useEffect(() => {
+        JsonConstructorForRounds();
+
+        currentAnswers = 0;
+
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
         }, 1000);
 
         stomp.join(listener);
 
-        JsonConstructorForRounds();
-
-        return () => clearInterval(interval);
+        return () => clearStuff(interval);
     }, []);
 
     if (!question) return null;
-
     const sendAnswer = (selection: IGuessOption) => {
         setAnswered(true);
         controller.answer(question as any, String(selection.answerId), String(timeToAnswer - passedSeconds));

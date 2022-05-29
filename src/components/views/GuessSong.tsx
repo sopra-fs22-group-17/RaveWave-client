@@ -1,7 +1,7 @@
 import { Box, Progress, RingProgress, SimpleGrid, Stack, Text, Title, UnstyledButton } from "@mantine/core";
 import { FC, useContext, useEffect, useState } from "react";
 
-import { IGuessOption, IGuessQuestion } from "../../api/@def";
+import {IGuessOption, IGuessQuestion, IMessageEvent} from "../../api/@def";
 import { GameContext } from "../../contexts/GameContext";
 import BaseContainer from "../ui/BaseContainer";
 import { IGameController } from "./GameController";
@@ -15,6 +15,7 @@ export interface IGuessSongProps {
 let imageSize = 225;
 let RingSectorsRounds = [];
 let RingSectorsAnswers = [];
+let currentAnswers = 0;
 
 export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
@@ -23,8 +24,11 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
 
-    let currentAnswers = question.currentAnswers;
     let expectedAnswers = question.expectedAnswers;
+
+    if (expectedAnswers === currentAnswers) {
+        currentAnswers = 0;
+    }
 
     let windowSize = window.innerWidth;
 
@@ -38,15 +42,32 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
 
     const progressVal = Math.floor((100 / timeToAnswer) * (timeToAnswer - passedSeconds));
 
+    const listener = (message: IMessageEvent) => {
+        if (message.type === "answerCount") {
+            currentAnswers = message.data.currentAnswers;
+        }
+    };
+
+    const clearStuff = (interval) => {
+        RingSectorsAnswers = [];
+        currentAnswers = 0;
+        RingSectorsRounds = [];
+
+        clearInterval(interval)
+    }
+
     useEffect(() => {
+        JsonConstructorForRounds();
+
+        currentAnswers = 0;
+
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
         }, 1000);
 
-        JsonConstructorForRounds();
-        JsonConstructorForAnswers();
+        stomp.join(listener);
 
-        return () => clearInterval(interval);
+        return () => clearStuff(interval);
     }, []);
 
     if (!question) return null;
@@ -78,6 +99,8 @@ export const GuessSong: FC<IGuessSongProps> = ({ controller, question }) => {
             RingSectorsAnswers.push({value: valueAdd, color: 'green'});
         }
     }
+
+    JsonConstructorForAnswers();
 
     return (
         <BaseContainer>
