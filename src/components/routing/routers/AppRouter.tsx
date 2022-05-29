@@ -12,6 +12,7 @@ import { SelectGameMode } from "../../views/SelectGameMode";
 import { LoginGuard } from "../routeProtectors/LoginGuard";
 import { PlayerGuard } from "../routeProtectors/PlayerGuard";
 import { RaveWaverGuard } from "../routeProtectors/RaveWaverGuard";
+import {SpotifyGuard} from "../routeProtectors/SpotifyGuard";
 
 const AppRouter = () => {
     return (
@@ -64,7 +65,9 @@ const AppRouter = () => {
 
                 <Route exact path="/selectgamemode">
                     <RaveWaverGuard>
-                        <SelectGameMode />
+                        <SpotifyGuard>
+                            <SelectGameMode />
+                        </SpotifyGuard>
                     </RaveWaverGuard>
                 </Route>
 

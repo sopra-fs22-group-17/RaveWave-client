@@ -34,6 +34,7 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             const spotifyLink = new SpotifyURL(response.data);
             window.location.href = spotifyLink.redirectionURL;
         } catch (error) {
+
             context.error(error.toString());
             setVisible(false);
         }
@@ -46,7 +47,9 @@ export const ConnectSpotify: FC<{}> = ({}) => {
             await api.setAuthorizationCode(authCodeRequest);
             setSpotifyAuthorized(true);
             setVisible(false);
+            sessionStorage.setItem("spotifyAccess", "granted")
         } catch {
+            sessionStorage.clear();
             context.error("Spotify access denied! Are you sure you are using a Spotify-Premium account?");
             setVisible(false);
         }
