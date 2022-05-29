@@ -216,6 +216,8 @@ export class StompApi {
             question: info.question,
             currentRound: info.currentRound,
             totalRounds: info.totalRounds,
+            currentAnswers: info.currentAnswers,
+            expectedAnswers: info.expectedAnswers,
             previewURL: info.previewURL,
             playDuration: info.playBackDuration,
             options: info.answers,

@@ -28,6 +28,8 @@ export interface IGuessQuestion {
     question: TQuestionType;
     currentRound: number;
     totalRounds: number;
+    currentAnswers: number;
+    expectedAnswers: number;
     previewURL: string;
     playDuration?: number;
     options: IGuessOption[];

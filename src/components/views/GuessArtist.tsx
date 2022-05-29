@@ -14,7 +14,8 @@ export interface IGuessArtistProps {
 }
 
 let imageSize = 225;
-let RingSectors = [];
+let RingSectorsRounds = [];
+let RingSectorsAnswers = [];
 
 export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     const context = useContext(GameContext);
@@ -22,6 +23,9 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
 
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
+
+    let currentAnswers = question.currentAnswers;
+    let expectedAnswers = question.expectedAnswers;
 
     let windowSize = window.innerWidth;
 
@@ -39,10 +43,10 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     useEffect(() => {
         const interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
-            console.log(RingSectors);
         }, 1000);
 
         JsonConstructorForRounds();
+        JsonConstructorForAnswers();
 
         return () => clearInterval(interval);
     }, []);
@@ -58,14 +62,25 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
     }
 
     function JsonConstructorForRounds() {
-        RingSectors = [];
+        RingSectorsRounds = [];
 
-        const valueAdd = Math.floor(100 / totalNrRounds);
+        const valueAdd = 100 / totalNrRounds;
 
         for (let i = 0; i < currentRound; i++) {
-            RingSectors.push({value: valueAdd, color: 'green'});
+            RingSectorsRounds.push({value: valueAdd, color: 'green'});
         }
     }
+
+    function JsonConstructorForAnswers() {
+        RingSectorsAnswers = [];
+
+        const valueAdd = 100 / expectedAnswers;
+
+        for (let i = 0; i < currentAnswers; i++) {
+            RingSectorsAnswers.push({value: valueAdd, color: 'green'});
+        }
+    }
+
     const image = (backgroundImageUrl) => {
         var img = new Image();
         img.src = `url(${backgroundImageUrl.picture})`;
@@ -140,7 +155,7 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                                     {currentRound}/{totalNrRounds}
                                 </Text>
                             }
-                            sections={RingSectors}
+                            sections={RingSectorsRounds}
                         />
                         <Text>Round</Text>
                     </Stack>
@@ -151,10 +166,10 @@ export const GuessArtist: FC<IGuessArtistProps> = ({controller, question}) => {
                             roundCaps
                             label={
                                 <Text align="center">
-                                    {currentRound}/{totalNrRounds}
+                                    {currentAnswers}/{expectedAnswers}
                                 </Text>
                             }
-                            sections={RingSectors}
+                            sections={RingSectorsAnswers}
                         />
                         <Text>Answered</Text>
                     </Stack>

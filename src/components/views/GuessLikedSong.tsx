@@ -13,7 +13,8 @@ export interface IGuessLikedSongProps {
 }
 
 let imageSize = 225;
-let RingSectors = [];
+let RingSectorsRounds = [];
+let RingSectorsAnswers = [];
 
 export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question }) => {
     const context = useContext(GameContext);
@@ -23,7 +24,8 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
     let totalNrRounds = question.totalRounds;
     let currentRound = question.currentRound;
 
-    const valueAdd = Math.floor(100 / totalNrRounds);
+    let currentAnswers = question.currentAnswers;
+    let expectedAnswers = question.expectedAnswers;
 
     if (windowSize <= 900) {
         imageSize = Math.floor((window.innerWidth - 60) / 2);
@@ -41,6 +43,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
         }, 1000);
 
         JsonConstructorForRounds();
+        JsonConstructorForAnswers();
 
         return () => clearInterval(interval);
     }, []);
@@ -56,8 +59,22 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
     }
 
     function JsonConstructorForRounds() {
+        RingSectorsRounds = [];
+
+        const valueAdd = 100 / totalNrRounds;
+
         for (let i = 0; i < currentRound; i++) {
-            RingSectors.push({ value: valueAdd, color: "green" });
+            RingSectorsRounds.push({value: valueAdd, color: 'green'});
+        }
+    }
+
+    function JsonConstructorForAnswers() {
+        RingSectorsAnswers = [];
+
+        const valueAdd = 100 / expectedAnswers;
+
+        for (let i = 0; i < currentAnswers; i++) {
+            RingSectorsAnswers.push({value: valueAdd, color: 'green'});
         }
     }
 
@@ -117,7 +134,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
                 <Stack sx={{ width: imageSize * 2 + 15, paddingTop: 15 }}>
                     <Progress value={progressVal} size="md" />
                 </Stack>
-                <SimpleGrid sx={{ paddingTop: 10 }} cols={2}>
+                <SimpleGrid sx={{paddingTop: 10}} cols={2}>
                     <Stack spacing={0} align={"center"}>
                         <RingProgress
                             size={60}
@@ -128,7 +145,7 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
                                     {currentRound}/{totalNrRounds}
                                 </Text>
                             }
-                            sections={RingSectors}
+                            sections={RingSectorsRounds}
                         />
                         <Text>Round</Text>
                     </Stack>
@@ -139,10 +156,10 @@ export const GuessLikedSong: FC<IGuessLikedSongProps> = ({ controller, question 
                             roundCaps
                             label={
                                 <Text align="center">
-                                    {currentRound}/{totalNrRounds}
+                                    {currentAnswers}/{expectedAnswers}
                                 </Text>
                             }
-                            sections={RingSectors}
+                            sections={RingSectorsAnswers}
                         />
                         <Text>Answered</Text>
                     </Stack>
