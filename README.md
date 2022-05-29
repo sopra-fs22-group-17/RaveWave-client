@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/ReadMeRaveWaveLogoDurchsichtig.png" alt="RaveWave" width="200"></a>
+  <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/RaveWaveLogoDurchsichtig.png" alt="RaveWave" width="200"></a>
   <br>
   RaveWave-Client
   <br>
