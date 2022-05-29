@@ -1,7 +1,7 @@
-import { Avatar, Box, Grid, Image, Text, Sx } from "@mantine/core";
-import { FC } from "react";
+import {Avatar, Box, Grid, Image, Text, Sx} from "@mantine/core";
+import {FC} from "react";
 
-import { IGameResult } from "../../api/@def";
+import {IGameResult} from "../../api/@def";
 
 export interface IGameResultProps {
     result: IGameResult;
@@ -10,7 +10,7 @@ export interface IGameResultProps {
 
 let textWidth = 80;
 
-export const GameResult: FC<IGameResultProps> = ({ result , GameScreen}) => {
+export const GameResult: FC<IGameResultProps> = ({result, GameScreen}) => {
     if (!result) return null;
 
     const list = result.players;
@@ -85,22 +85,24 @@ export const GameResult: FC<IGameResultProps> = ({ result , GameScreen}) => {
 
     if (GameScreen === "PostGame") {
         return (
-            <Grid gutter={40} justify="center" sx={{ width: "100%", paddingBottom: "20px" }}>
+            <Grid gutter={40} justify="center" sx={{width: "100%", paddingBottom: "20px"}}>
                 {list.map((player, i) => {
                     return (
-                        <Grid.Col key={i} span={12} sx={{ padding: "5px 0px", display: "flex", maxHeight: "100px" }}>
+                        <Grid.Col key={i} span={12} sx={{padding: "5px 0px", display: "flex", maxHeight: "100px"}}>
                             <Box sx={wrapperStyleEnd}>
-                                <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-                                <Box sx={{ paddingLeft: 5, flex: 1 }}>
+                                <Avatar radius="xl" src={player.profilePicture} alt="it's me"/>
+                                <Box sx={{paddingLeft: 5, flex: 1}}>
                                     {player.playerName.includes("[RW]") ? (
-                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
+                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}}
+                                              lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
                                     ) : (
-                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName}</Text>
+                                        <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}}
+                                              lineClamp={1}>{player.playerName}</Text>
                                     )}
                                 </Box>
-                                <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
+                                <Box sx={{fontSize: 20, fontWeight: 700, paddingRight: 20}}>{player.totalScore}</Box>
                                 <Image src="/images/flame.png" height="25px" width="15px"></Image>
-                                <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
+                                <Box sx={{fontSize: 20, fontWeight: 700, paddingRight: 20}}>{player.streak}</Box>
                             </Box>
                         </Grid.Col>
                     );
@@ -109,41 +111,85 @@ export const GameResult: FC<IGameResultProps> = ({ result , GameScreen}) => {
         );
     } else {
         return (
-            <Grid gutter={40} justify="center" sx={{ width: "100%", paddingBottom: "20px" }}>
+            <Grid gutter={40} justify="center" sx={{width: "100%", paddingBottom: "20px"}}>
                 {list.map((player, i) => {
-                    return (
-                        <Grid.Col key={i} span={12} sx={{ padding: "5px 0px", display: "flex", maxHeight: "100px" }}>
-                            {player.streak > 0 ? (
-                                <Box sx={wrapperStyleCorrect}>
-                                    <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-                                    <Box sx={{ paddingLeft: 5, flex: 1 }}>
-                                        {player.playerName.includes("[RW]") ? (
-                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
-                                        ) : (
-                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName}</Text>
-                                        )}
+                    if (player.playerName.includes("[RW]")) {
+                        return (
+                            <Grid.Col key={i} span={12} sx={{padding: "5px 0px", display: "flex", maxHeight: "100px"}}>
+                                {player.streak > 0 ? (
+                                    <Box sx={wrapperStyleCorrect}>
+                                        <Avatar radius="xl" src={player.profilePicture} alt="it's me"/>
+                                        <Box sx={{paddingLeft: 5, flex: 1}}>
+                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}}
+                                                  lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
+                                        </Box>
+                                        <Box sx={{
+                                            fontSize: 20,
+                                            fontWeight: 700,
+                                            paddingRight: 20
+                                        }}>{player.totalScore}</Box>
+                                        <Image src="/images/flame.png" height="25px" width="15px"></Image>
+                                        <Box
+                                            sx={{fontSize: 20, fontWeight: 700, paddingRight: 20}}>{player.streak}</Box>
                                     </Box>
-                                    <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
-                                    <Image src="/images/flame.png" height="25px" width="15px"></Image>
-                                    <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
-                                </Box>
-                            ) : (
-                                <Box sx={wrapperStyleWrong}>
-                                    <Avatar radius="xl" src={player.profilePicture} alt="it's me" />
-                                    <Box sx={{ paddingLeft: 5, flex: 1 }}>
-                                        {player.playerName.includes("[RW]") ? (
-                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
-                                        ) : (
-                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}} lineClamp={1}>{player.playerName}</Text>
-                                        )}
+                                ) : (
+                                    <Box sx={wrapperStyleWrong}>
+                                        <Avatar radius="xl" src={player.profilePicture} alt="it's me"/>
+                                        <Box sx={{paddingLeft: 5, flex: 1}}>
+                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}}
+                                                  lineClamp={1}>{player.playerName.substring(5, player.playerName.length)}</Text>
+                                        </Box>
+                                        <Box sx={{
+                                            fontSize: 20,
+                                            fontWeight: 700,
+                                            paddingRight: 20
+                                        }}>{player.totalScore}</Box>
+                                        <Image src="/images/flame.png" height="25px" width="15px"></Image>
+                                        <Box
+                                            sx={{fontSize: 20, fontWeight: 700, paddingRight: 20}}>{player.streak}</Box>
                                     </Box>
-                                    <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.totalScore}</Box>
-                                    <Image src="/images/flame.png" height="25px" width="15px"></Image>
-                                    <Box sx={{ fontSize: 20, fontWeight: 700, paddingRight: 20 }}>{player.streak}</Box>
-                                </Box>
-                            )}
-                        </Grid.Col>
-                    );
+                                )}
+                            </Grid.Col>
+                        );
+                    } else {
+                        return (
+                            <Grid.Col key={i} span={12} sx={{padding: "5px 0px", display: "flex", maxHeight: "100px"}}>
+                                {player.streak > 0 ? (
+                                    <Box sx={wrapperStyleCorrect}>
+                                        <Avatar radius="xl" src={player.profilePicture} alt="it's me"/>
+                                        <Box sx={{paddingLeft: 5, flex: 1}}>
+                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}}
+                                                  lineClamp={1}>{player.playerName}</Text>
+                                        </Box>
+                                        <Box sx={{
+                                            fontSize: 20,
+                                            fontWeight: 700,
+                                            paddingRight: 20
+                                        }}>{player.totalScore}</Box>
+                                        <Image src="/images/flame.png" height="25px" width="15px"></Image>
+                                        <Box
+                                            sx={{fontSize: 20, fontWeight: 700, paddingRight: 20}}>{player.streak}</Box>
+                                    </Box>
+                                ) : (
+                                    <Box sx={wrapperStyleWrong}>
+                                        <Avatar radius="xl" src={player.profilePicture} alt="it's me"/>
+                                        <Box sx={{paddingLeft: 5, flex: 1}}>
+                                            <Text sx={{fontSize: 24, fontWeight: 700, maxWidth: textWidth}}
+                                                  lineClamp={1}>{player.playerName}</Text>
+                                        </Box>
+                                        <Box sx={{
+                                            fontSize: 20,
+                                            fontWeight: 700,
+                                            paddingRight: 20
+                                        }}>{player.totalScore}</Box>
+                                        <Image src="/images/flame.png" height="25px" width="15px"></Image>
+                                        <Box
+                                            sx={{fontSize: 20, fontWeight: 700, paddingRight: 20}}>{player.streak}</Box>
+                                    </Box>
+                                )}
+                            </Grid.Col>
+                        );
+                    }
                 })}
             </Grid>
         );
