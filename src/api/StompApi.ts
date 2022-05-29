@@ -110,6 +110,8 @@ export class StompApi {
         this.sock = new SockJS(getDomain() + `/ws`);
 
         this.stomp = Stomp.over(this.sock);
+        this.stomp.reconnect_delay = 5000;
+
         this.stomp.debug = this._debug;
         this.stomp.connect(
             {},
