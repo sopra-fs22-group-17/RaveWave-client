@@ -32,7 +32,7 @@ interface IGameState {
 export const GameController: FC<IGameControllerProps> = ({ role }): any => {
     const context = useContext(GameContext);
     const { stomp, lobbyId, playerName, gameConfiguration, userRole } = context;
-    const [state, setState] = useState<IGameState>({ type: role === "player" ? "waiting" : "waiting" });
+    const [state, setState] = useState<IGameState>({ type: "waiting"});
 
     const [connected, setConnected] = useState(false);
     const [likedSongsGameUnlocked, setLikedSongsGameUnlocked] = useState(false);

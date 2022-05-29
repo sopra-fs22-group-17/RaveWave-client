@@ -31,7 +31,7 @@ export const PostGame: FC<IPostGameProps> = ({ controller, result }) => {
             <Stack align="center">
                 <h1>Final Results</h1>
                 <Podium players={podiumData} />
-                <GameResult result={result} />
+                <GameResult result={result} GameScreen={"PostGame"} />
                 {sessionStorage.getItem("role") === "host" ? <Button onClick={() => playAgain()}>Play again</Button> : <div></div>}
             </Stack>
         </Container>

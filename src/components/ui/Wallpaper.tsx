@@ -4,16 +4,13 @@ import {FC} from "react";
 export interface IWallpaperProps {
 }
 
-export const Wallpaper: FC<IWallpaperProps> = ({}) => {
-    const {classes} = useStyles({});
+export const Wallpaper: FC<IWallpaperProps> = () => {
+    const {classes} = useStyles();
 
     return <div className={classes.root}></div>;
 };
 
-interface IStylesParams {
-}
-
-export const useStyles = createStyles((theme, {}: IStylesParams) => ({
+export const useStyles = createStyles((theme) => ({
     root: {
         position: "fixed",
         width: "100%",

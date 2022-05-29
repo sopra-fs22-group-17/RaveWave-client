@@ -52,7 +52,7 @@ export const PostRound: FC<IPostRoundProps> = ({ controller, result }) => {
                 )}
 
                 <Stack align="center" sx={{paddingTop: 20, display: "flex", flexDirection: "column"}}>
-                    <GameResult result={result}/>
+                    <GameResult result={result} GameScreen={"PostRound"}/>
                     <SimpleGrid
                         cols={2}
                         sx={{
