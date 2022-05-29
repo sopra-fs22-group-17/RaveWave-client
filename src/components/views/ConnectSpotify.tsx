@@ -24,6 +24,8 @@ export const ConnectSpotify: FC<{}> = () => {
                 await sendSpotifyCode();
             }
         };
+        context.setPlayerName(sessionStorage.getItem('name'));
+        context.setLobbyId(sessionStorage.getItem('lobbyId'));
         handler();
     }, []);
 
@@ -70,6 +72,7 @@ export const ConnectSpotify: FC<{}> = () => {
             if (lobbyId) {
                 context.setLobbyId(lobbyId);
             }
+            await api.addPlayer(context.lobbyId, context.playerName);
             history.push("/game");
         }
     };

@@ -39,9 +39,11 @@ export const Login: FC<{}> = () => {
             context.setPlayerName(nameofPlayer);
             sessionStorage.setItem("name", nameofPlayer);
             await api.loginUser(username, password);
+            sessionStorage.setItem("spotifyAccess", "granted");
             if (context.userRole === "player") {
                 await api.addPlayer(context.lobbyId, username);
                 sessionStorage.setItem("name", "[RW] " + username);
+                sessionStorage.setItem("lobbyId", context.lobbyId);
                 context.setPlayerName(sessionStorage.getItem("name"));
             }
             showNotification({ message: "Login was successful. Welcome back RaveWaver " + nameofPlayer + ".", autoClose: 3000 });

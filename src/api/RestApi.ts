@@ -109,7 +109,7 @@ export class RestApi {
                 Authorization: sessionStorage.getItem("raveWaverToken"),
             },
         };
-        if (config.headers !== null) {
+        if (config.headers.Authorization !== null) {
             const response = await remote.post(`/lobbies/${lobbyId}`, { playerName: playerName }, config);
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data;
@@ -118,7 +118,6 @@ export class RestApi {
                 sessionStorage.setItem("playerId", user.id);
 
                 const name = sessionStorage.getItem("name");
-
                 if (!name.includes("[RW]")) {
                     sessionStorage.setItem("name", "[RW] " + name);
                 }

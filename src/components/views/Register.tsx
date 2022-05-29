@@ -42,7 +42,6 @@ export const Register: FC<{}> = () => {
             await api.registerUser(username, password);
             if (context.userRole === "player") {
                 sessionStorage.setItem("lobbyId", context.lobbyId);
-                await api.addPlayer(context.lobbyId, username);
             }
             showNotification({ message: "Registration was successful. Welcome RaveWaver " + nameofPlayer + "." });
             history.push(redirectPath);

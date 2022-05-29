@@ -24,6 +24,7 @@ export const Guest: FC<{}> = () => {
             context.setUserRole(roleofPlayer);
             sessionStorage.setItem('name', nameofPlayer);
             sessionStorage.setItem('role', roleofPlayer);
+            sessionStorage.setItem('lobbyId', context.lobbyId);
             await api.addPlayer(context.lobbyId, username);
             history.push('/game');
         } catch (error) {
