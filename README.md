@@ -71,7 +71,7 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
 </h1>
 <h1 align="center">
   <br>
-  <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/d.png.png" alt="RaveWave" width="200"></a>
+  <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/d.png" alt="RaveWave" width="200"></a>
   <br>
   EndRound - A leaderboard is shown after each round.
   <br>
