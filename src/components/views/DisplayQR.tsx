@@ -23,7 +23,7 @@ export const DisplayQR: FC<IDisplayQRProps> = () => {
 
     context.setLobbyId(sessionStorage.getItem("lobbyId"));
     context.setPlayerName(sessionStorage.getItem("name"));
-    if (sessionStorage.getItem("role") == "host") {
+    if (sessionStorage.getItem("role") === "host") {
         context.setUserRole("host");
     } else {
         context.setUserRole("player");
@@ -70,7 +70,7 @@ export const DisplayQR: FC<IDisplayQRProps> = () => {
                     </Title>{" "}
                     <Stack align="stretch">
                         <Center className="displayqr column-item" sx={{ backgroundColor: "white", padding: "10px", borderRadius: "10px" }}>
-                            <QRCodeCanvas value={url} size={250} />
+                            <QRCodeCanvas value={url} size={250} fgColor={"black"} bgColor={"white"} includeMargin={false} />
                         </Center>
                     </Stack>
                     <Group align="center" sx={{ justifyContent: "center" }}>

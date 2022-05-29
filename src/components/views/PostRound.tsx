@@ -40,7 +40,7 @@ export const PostRound: FC<IPostRoundProps> = ({ result }) => {
                         correctAnswer undefined
                     </Text>
                 ) : (
-                    <Group spacing={5}>
+                    <Group spacing={5} position="center">
                         <Text lineClamp={1} align="center">
                             The correct answer is
                         </Text>
