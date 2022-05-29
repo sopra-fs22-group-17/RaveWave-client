@@ -55,41 +55,41 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
   Landinghost - As a host you can log in or register.
   <br>
 </h3>
-<h1 align="center">
+<h3 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/b.png" alt="RaveWave" width="200"></a>
   <br>
   Selectgamemode - This is where the host can adjust game parameters.
   <br>
-</h1>
-<h1 align="center">
+</h3>
+<h3 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/c.png" alt="RaveWave" width="200"></a>
   <br>
   DisplayQR - The host displays a QR-code which other players can scan in order to join the lobby. 
   <br>
-</h1>
-<h1 align="center">
+</h3>
+<h3 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/d.png" alt="RaveWave" width="200"></a>
   <br>
   EndRound - A leaderboard is shown after each round.
   <br>
-</h1>
-<h1 align="center">
+</h3>
+<h3 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/e.png" alt="RaveWave" width="200"></a>
   <br>
   EndRound - A leaderboard is shown after each round.
   <br>
-</h1>
-<h1 align="center">
+</h3>
+<h3 align="center">
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/f.png" alt="RaveWave" width="200"></a>
   <br>
   EndGame - A final leaderboard is shown after all game rounds are played.
   </br>
-</h1>
+</h3>
 
 ## Roadmap
 
