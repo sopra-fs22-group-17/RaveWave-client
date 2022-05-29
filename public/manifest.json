@@ -6,13 +6,18 @@
             "src": "/images/RaveWaveLogo.png",
             "type": "image/png",
             "sizes": "1024x1024"
+        },
+        {
+            "src": "/images/RaveWaveLogoSmall.png",
+            "type": "image/png",
+            "sizes": "512x512"
         }
     ],
-    "start_url": "/",
-    "background_color": "#401C7F",
-    "display": "standalone",
+    "start_url": "/landinghost",
     "scope": "/",
+    "background_color": "#401C7F",
+    "display": "fullscreen",
     "theme_color": "#401C7F",
 
-    "description": ""
+    "description": "RaveWave!"
 }
