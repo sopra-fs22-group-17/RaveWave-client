@@ -73,7 +73,7 @@ The [GameController](https://github.com/sopra-fs22-group-17/RaveWave-client/blob
   <br>
   <a href="https://github.com/soprafs22-group17"><img src="/ReadMePics/d.png" alt="RaveWave" width="200"></a>
   <br>
-  EndRound - A leaderboard is shown after each round.
+  Guess the song - The players can give give their guesses.
   <br>
 </h3>
 <h3 align="center">
