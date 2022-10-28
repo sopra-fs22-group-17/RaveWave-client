@@ -4,8 +4,6 @@ on:
   push:
     branches: 
       - master
-    tags:
-      - 'v*.*.*'
   pull_request:
     types: [ opened, synchronize, reopened ]
 
@@ -58,6 +56,6 @@ jobs:
     # login with .netrc file
     - run: heroku login    
       
-    # deploy code
-    - run: heroku git:remote -a $HEROKU_APP_NAME 
-    - run: git push heroku HEAD:refs/heads/master
+    # deploy code -> commented out because we don't use heroku anymore
+    # - run: heroku git:remote -a $HEROKU_APP_NAME 
+    # - run: git push heroku HEAD:refs/heads/master
