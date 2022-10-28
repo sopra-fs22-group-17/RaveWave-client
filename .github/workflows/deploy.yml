@@ -35,9 +35,9 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.dockerhub_password }}
       run : docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker.io
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{github.ref_name}}
+      run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{github.sha}}
     - name: Publish dockerimage to docker hub
-      run: docker push ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{github.ref_name}}
+      run: docker push ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{github.sha}}
     - name: Build Docker image with latest tag
       run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:latest
     - name: Publish dockerimage to docker hub
