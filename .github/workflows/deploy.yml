@@ -25,6 +25,21 @@ jobs:
     # uncomment for assignment 2-4
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
+      
+    # docker stuff
+    - name: Docker login
+      env:
+        DOCKER_USERNAME: ${{ secrets.dockerhub_username }}
+        DOCKER_PASSWORD: ${{ secrets.dockerhub_password }}
+      run : docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker.io
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{steps.vars.outputs.tag}}
+    - name: Publish dockerimage to docker hub
+      run: docker push ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{steps.vars.outputs.tag}}
+    - name: Build Docker image with latest tag
+      run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:latest
+    - name: Publish dockerimage to docker hub
+      run: docker push ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:latest
     
     # create .netrc file for heroku authentication
     # https://devcenter.heroku.com/articles/authentication
@@ -44,18 +59,3 @@ jobs:
     # deploy code
     - run: heroku git:remote -a $HEROKU_APP_NAME 
     - run: git push heroku HEAD:refs/heads/master
-
-    # docker stuff
-    - name: Docker login
-      env:
-        DOCKER_USERNAME: ${{ secrets.dockerhub_username }}
-        DOCKER_PASSWORD: ${{ secrets.dockerhub_password }}
-      run : docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" docker.io
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{steps.vars.outputs.tag}}
-    - name: Publish dockerimage to docker hub
-      run: docker push ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{steps.vars.outputs.tag}}
-    - name: Build Docker image with latest tag
-      run: docker build . --file Dockerfile --tag ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:latest
-    - name: Publish dockerimage to docker hub
-      run: docker push ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:latest
