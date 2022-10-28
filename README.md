@@ -11,7 +11,7 @@
 ## Introduction
 
 By combining Kahoot with Spotify, RaveWave creates a competitive and fun music guessing game to play among friends. This is the
-repository of the back-end part of our implementation, you'll find the front-end part [here](https://github.com/sopra-fs22-group-17/RaveWave-client).
+repository of the front-end part of our implementation, you'll find the back-end part [here](https://github.com/sopra-fs22-group-17/RaveWave-server).
 
 ## Technologies
 
