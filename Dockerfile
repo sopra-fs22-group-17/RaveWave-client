@@ -1,7 +1,7 @@
-FROM node:lts
-WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
-COPY ./ ./
-RUN npm i --force
-CMD ["npm", "run", "start"]
+FROM node:18.12.0
+ENV NODE_ENV=production
+COPY ["package.json", "package-lock.json*", "./"]
+RUN npm install --production
+RUN npm audit fix
+COPY . .
+CMD [ "npm", "run", "build" ]
