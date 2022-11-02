@@ -21,10 +21,6 @@ jobs:
     steps:
     # checkout repository code
     - uses: actions/checkout@v2
-   
-    # uncomment for assignment 2-4
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
       
     # docker stuff
     - name: Set up QEMU
@@ -43,6 +39,10 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{secrets.dockerhub_username}}/${{secrets.repo_name}}:${{github.sha}},${{secrets.dockerhub_username}}/${{secrets.repo_name}}:latest
+    
+    # uncomment for assignment 2-4
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
     
     # create .netrc file for heroku authentication
     # https://devcenter.heroku.com/articles/authentication
