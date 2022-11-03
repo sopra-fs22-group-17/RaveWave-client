@@ -1,8 +1,6 @@
-FROM node:14.21.0
+FROM node:16.14.0
 ENV NODE_ENV=production
 COPY ["package.json", "package-lock.json*", "./"]
-RUN npm i react-scripts \
-    && npm install --production \
-    && npm audit fix
+RUN npm install --production --force
 COPY . .
 CMD [ "npm", "run", "build" ]
