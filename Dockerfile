@@ -6,7 +6,7 @@ COPY . .
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
 # fix vulneability
-RUN npm audit fix
+# RUN npm audit fix
 # Build the app
 RUN npm run build
 # Set the env to "production"
