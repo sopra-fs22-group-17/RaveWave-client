@@ -16,9 +16,10 @@ ENV NODE_ENV production
 USER node
 # Set the working directory to /app inside the container
 WORKDIR /app
+RUN mkdir build
 # copy node modules and app
 COPY --chown=node:node --from=build /app/node_modules /app/node_modules
-COPY --chown=node:node --from=build /app/build .
+COPY --chown=node:node --from=build /app/build build
 # Expose the port on which the app will be running (3000 is the default that `serve` uses)
 EXPOSE 3000
 # start app
