@@ -1,8 +1,8 @@
 import { isProduction } from "./isProduction";
 
 export function getDomain(): string {
-    const devUrl = "https://rwbe.app.runonflux.io/";
-    const prodUrl = "http://localhost:8080";
+    const prodUrl = "https://rwbe.app.runonflux.io/";
+    const devUrl = "http://localhost:3000";
 
     return isProduction() ? prodUrl : devUrl;
 }
