@@ -60,5 +60,5 @@ jobs:
     - run: heroku login    
       
     # deploy code -> commented out because we don't use heroku anymore
-    # - run: heroku git:remote -a $HEROKU_APP_NAME 
-    # - run: git push heroku HEAD:refs/heads/master
+    - run: heroku git:remote -a $HEROKU_APP_NAME 
+    - run: git push heroku HEAD:refs/heads/master
