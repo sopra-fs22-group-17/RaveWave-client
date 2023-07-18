@@ -113,4 +113,4 @@ educational and challenging semester, and we are very thankful for this experien
 
 ## License
 
-GNU GPLv3
+Apache-2.0 license
